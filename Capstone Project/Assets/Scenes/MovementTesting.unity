@@ -187,7 +187,7 @@ GameObject:
   - 4: {fileID: 470470851}
   - 114: {fileID: 470470850}
   m_Layer: 0
-  m_Name: InputManager
+  m_Name: ControllerProcessor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -204,16 +204,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6bf4488cab779244eb77964dd895334e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  character: {fileID: 1988574239}
-  inputs:
-  - axisName: Horizontal
+  _player: {fileID: 1988574239}
+  _inputs:
+  - _axisName: Horizontal
     _button: 0
-    offValue: 0
-    condition: 0
-  - axisName: Horizontal
+    _offValue: 0
+    _condition: 0
+  - _axisName: Horizontal
     _button: 1
-    offValue: 0
-    condition: 1
+    _offValue: 0
+    _condition: 1
 --- !u!4 &470470851
 Transform:
   m_ObjectHideFlags: 0
@@ -402,8 +402,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9520bfa54f89949bff03e184b875e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputButtons: 0000000001000000
-  _xVelocity: 50
+  _xVelocity: 75
 --- !u!114 &1988574238
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -415,7 +414,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b7c33537a83c904ebdb951aceb474ad, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputButtons: 0000000001000000
 --- !u!114 &1988574239
 MonoBehaviour:
   m_ObjectHideFlags: 0

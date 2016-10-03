@@ -1,19 +1,31 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Walking : AbstractAction {
+public class Walking : AbstractPlayerActions {
 
     [SerializeField]
     private float _xVelocity = 50.0f;
 
-	
-	// Update is called once per frame
-	void Update () {
+    private void OnEnable() {
+        ControllableObject.OnButton += OnButton;
+        ControllableObject.OnButtonUp += OnButtonUp;
+    }
 
-        if (_controller.GetButtonPressed(inputButtons[0]) ||
-            _controller.GetButtonPressed(inputButtons[1])) {
+    private void OnDisable() {
+        ControllableObject.OnButton -= OnButton;
+        ControllableObject.OnButtonUp -= OnButtonUp;
+    }
 
+    private void OnButton(Buttons button) {
+        if (button == Buttons.MoveRight || button == Buttons.MoveLeft) {
             _body2d.velocity = new Vector2(_xVelocity * (float)_controller.Direction, _body2d.velocity.y);
+        }
+    }
+
+    private void OnButtonUp(Buttons button) {
+
+        if (button == Buttons.MoveRight || button == Buttons.MoveLeft) {
+            _body2d.velocity = new Vector2(0, _body2d.velocity.y);
         }
     }
 }
