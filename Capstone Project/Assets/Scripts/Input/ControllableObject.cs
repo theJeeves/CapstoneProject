@@ -65,17 +65,23 @@ public class ControllableObject : MonoBehaviour {
         // When the input has ceased
         if (buttonStates[button].IsPressed && !isPressed) {
             buttonStates[button].PressTime = 0.0f;
-            OnButtonUp(button);
+            if (OnButtonUp != null) {
+                OnButtonUp(button);
+            }
         }
         else if (buttonStates[button].IsPressed && isPressed) {
 
             // When the input has initially begun
             if (buttonStates[button].PressTime == 0.0f) {
-                OnButtonDown(button);
+                if (OnButtonDown != null) {
+                    OnButtonDown(button);
+                }
             }
             // When the input is continuous
             if (buttonStates[button].PressTime >= 0.0f) {
-                OnButton(button);
+                if (OnButton != null) {
+                    OnButton(button);
+                }
             }
             buttonStates[button].PressTime += Time.deltaTime;
         }
