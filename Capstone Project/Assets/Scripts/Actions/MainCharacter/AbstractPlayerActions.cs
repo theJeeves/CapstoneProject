@@ -13,4 +13,15 @@ public abstract class AbstractPlayerActions : MonoBehaviour {
         _body2d = GetComponent<Rigidbody2D>();
         _collisionState = GetComponent<PlayerCollisionState>();
 	}
+
+    protected virtual void OnEnable() {
+        ControllableObject.OnButtonDown += OnButtonDown;
+    }
+
+    protected virtual void OnDisable() {
+        ControllableObject.OnButtonDown -= OnButtonDown;
+    }
+
+    protected virtual void OnButtonDown(Buttons button) {
+    }
 }

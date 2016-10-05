@@ -6,12 +6,12 @@ public class PlayerWalking : AbstractPlayerActions {
     [SerializeField]
     private float _xVelocity = 50.0f;
 
-    private void OnEnable() {
+    protected override void OnEnable() {
         ControllableObject.OnButton += OnButton;
         ControllableObject.OnButtonUp += OnButtonUp;
     }
 
-    private void OnDisable() {
+    protected override void OnDisable() {
         ControllableObject.OnButton -= OnButton;
         ControllableObject.OnButtonUp -= OnButtonUp;
     }

@@ -7,15 +7,16 @@ public class GunTest : AbstractPlayerActions {
     private float _blowBack;
 
 
-	private void OnEnable() {
-        ControllableObject.OnButton += OnButtonDown;
+	protected override void OnEnable() {
+        ControllableObject.OnButton += OnButton;
     }
 
-    private void OnDisable() {
-        ControllableObject.OnButton -= OnButtonDown;
+    protected override void OnDisable() {
+        ControllableObject.OnButton -= OnButton;
     }
 
-    private void OnButtonDown(Buttons button) {
+    private void OnButton(Buttons button) {
+
         if (button == Buttons.Shoot && !_collisionState.OnSolidGround) {
             _body2d.velocity = new Vector2(_body2d.velocity.x, _blowBack);
         }

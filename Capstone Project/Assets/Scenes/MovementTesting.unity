@@ -287,11 +287,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1988574239}
   _inputs:
-  - _axisName: Horizontal
+  - _axisName: DS4_LS_X_Axis
     _button: 0
     _offValue: 0
     _condition: 0
-  - _axisName: Horizontal
+  - _axisName: DS4_LS_X_Axis
     _button: 1
     _offValue: 0
     _condition: 1
@@ -788,15 +788,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _headLayer:
     serializedVersion: 2
-    m_Bits: 4294967262
+    m_Bits: 0
+  _headPosition: {x: 0, y: 2}
+  _headColiision: 0
   _solidGroundLayer:
     serializedVersion: 2
     m_Bits: 256
-  _headPoint: {x: 0, y: 1.5}
-  _feetPoint: {x: 0, y: -8.53}
-  _radius: 3
-  _headColiision: 0
+  _feetPosition: {x: 0, y: -8.5}
   _onSolidGround: 0
+  _radius: 3
 --- !u!114 &1988574246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -808,7 +808,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf2f8c2daa5c4a41983ac3e6d8d547c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blowBack: 9.81
+  _blowBack: 9.79
 --- !u!114 &1988574247
 MonoBehaviour:
   m_ObjectHideFlags: 0
