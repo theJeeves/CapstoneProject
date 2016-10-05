@@ -1,10 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class AbstractAction : MonoBehaviour {
-
-    [SerializeField]
-    protected Buttons[] inputButtons;
+public abstract class AbstractPlayerActions : MonoBehaviour {
 
     protected ControllableObject _controller;
     protected Rigidbody2D _body2d;
