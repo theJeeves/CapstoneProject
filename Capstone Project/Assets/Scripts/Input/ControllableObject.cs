@@ -49,6 +49,17 @@ public class ControllableObject : MonoBehaviour {
         set { _facingDirection = value; }
     }
 
+    //private AimingDirections _aimDirection;
+    //public AimingDirections AimDirection {
+    //    get { return _aimDirection; }
+    //    set { _aimDirection = value; }
+    //}
+
+    public bool _up;
+    public bool _down;
+    public bool _right;
+    public bool _left;
+
     // Other Action scripts will used this dictionary to query a button's state.
     private Dictionary<Buttons, ButtonState> buttonStates = new Dictionary<Buttons, ButtonState>();
 

@@ -299,13 +299,29 @@ MonoBehaviour:
     _button: 2
     _offValue: 0
     _condition: 0
-  - _axisName: Fire1
+  - _axisName: R2
     _button: 3
-    _offValue: 0
+    _offValue: -1
     _condition: 0
   - _axisName: Fire2
     _button: 4
     _offValue: 0
+    _condition: 0
+  - _axisName: RS_X_Axis
+    _button: 8
+    _offValue: 0.4
+    _condition: 0
+  - _axisName: RS_X_Axis
+    _button: 7
+    _offValue: -0.4
+    _condition: 1
+  - _axisName: RS_Y_Axis
+    _button: 5
+    _offValue: -0.4
+    _condition: 1
+  - _axisName: RS_Y_Axis
+    _button: 6
+    _offValue: 0.4
     _condition: 0
 --- !u!4 &470470851
 Transform:
@@ -643,6 +659,7 @@ GameObject:
   - 114: {fileID: 1988574244}
   - 114: {fileID: 1988574246}
   - 114: {fileID: 1988574247}
+  - 114: {fileID: 1988574248}
   m_Layer: 0
   m_Name: TempPlayer
   m_TagString: Player
@@ -685,6 +702,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _facingDirection: 1
+  _up: 0
+  _down: 0
+  _right: 0
+  _left: 0
 --- !u!50 &1988574240
 Rigidbody2D:
   serializedVersion: 2
@@ -808,7 +829,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf2f8c2daa5c4a41983ac3e6d8d547c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _blowBack: 9.79
+  _blowBack: 150
 --- !u!114 &1988574247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -821,6 +842,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blowBack: 150
+--- !u!114 &1988574248
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1988574236}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e74db917e7c9ec3429c488f399be7140, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &2034555272
 GameObject:
   m_ObjectHideFlags: 0

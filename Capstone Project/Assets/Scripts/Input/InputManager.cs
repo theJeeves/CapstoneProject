@@ -14,7 +14,11 @@ public enum Buttons {
     MoveLeft,
     Jump,
     Shoot,
-    Shoot2
+    Shoot2,
+    AimUp,
+    AimDown,
+    AimLeft,
+    AimRight
 }
 
 // This enum is used to determine if our code should start reading input from the player.
@@ -53,8 +57,14 @@ public class InputAxisState {
 
             switch (_condition) {
                 case Condition.GreaterThanOffValue:
+                    //if (_axisName == "R2" && isPressed > _offValue) {
+                    //    Debug.Log("value = " + isPressed);
+                    //}
                     return isPressed > _offValue;
                 case Condition.LessThanOffValue:
+                    //if (_axisName == "R2" && isPressed < _offValue) {
+                    //    Debug.Log("value = " + isPressed);
+                    //}
                     return isPressed < _offValue;
                 default:
                     break;
