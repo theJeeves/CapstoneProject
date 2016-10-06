@@ -49,6 +49,17 @@ public class ControllableObject : MonoBehaviour {
         set { _facingDirection = value; }
     }
 
+    //private AimingDirections _aimDirection;
+    //public AimingDirections AimDirection {
+    //    get { return _aimDirection; }
+    //    set { _aimDirection = value; }
+    //}
+
+    public bool _up;
+    public bool _down;
+    public bool _right;
+    public bool _left;
+
     // Other Action scripts will used this dictionary to query a button's state.
     private Dictionary<Buttons, ButtonState> buttonStates = new Dictionary<Buttons, ButtonState>();
 
@@ -65,17 +76,23 @@ public class ControllableObject : MonoBehaviour {
         // When the input has ceased
         if (buttonStates[button].IsPressed && !isPressed) {
             buttonStates[button].PressTime = 0.0f;
-            OnButtonUp(button);
+            if (OnButtonUp != null) {
+                OnButtonUp(button);
+            }
         }
         else if (buttonStates[button].IsPressed && isPressed) {
 
             // When the input has initially begun
             if (buttonStates[button].PressTime == 0.0f) {
-                OnButtonDown(button);
+                if (OnButtonDown != null) {
+                    OnButtonDown(button);
+                }
             }
             // When the input is continuous
             if (buttonStates[button].PressTime >= 0.0f) {
-                OnButton(button);
+                if (OnButton != null) {
+                    OnButton(button);
+                }
             }
             buttonStates[button].PressTime += Time.deltaTime;
         }
