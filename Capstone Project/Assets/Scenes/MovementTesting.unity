@@ -287,17 +287,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _player: {fileID: 1988574239}
   _inputs:
-  - _axisName: DS4_LS_X_Axis
+  - _axisName: LS_X_Axis
     _button: 0
     _offValue: 0
     _condition: 0
-  - _axisName: DS4_LS_X_Axis
+  - _axisName: LS_X_Axis
     _button: 1
     _offValue: 0
     _condition: 1
-  - _axisName: Jump
+  - _axisName: L2
     _button: 2
-    _offValue: 0
+    _offValue: -1
     _condition: 0
   - _axisName: R2
     _button: 3
@@ -658,7 +658,6 @@ GameObject:
   - 114: {fileID: 1988574237}
   - 114: {fileID: 1988574244}
   - 114: {fileID: 1988574246}
-  - 114: {fileID: 1988574247}
   - 114: {fileID: 1988574248}
   m_Layer: 0
   m_Name: TempPlayer
@@ -830,18 +829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _blowBack: 150
---- !u!114 &1988574247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1988574236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a2376176fdf79a4dbf0ddce1062a41c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _blowBack: 150
+  _XYRatio: 0.75
 --- !u!114 &1988574248
 MonoBehaviour:
   m_ObjectHideFlags: 0
