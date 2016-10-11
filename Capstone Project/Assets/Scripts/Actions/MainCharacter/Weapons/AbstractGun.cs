@@ -8,8 +8,14 @@ public abstract class AbstractGun : AbstractPlayerActions {
     [SerializeField]
     protected float _XYRatio;
 
-    protected float _xBlowBack;
-    protected float _yBlowBack;
+    protected float _xBlowBack = 0.0f;
+    protected float _yBlowBack = 0.0f;
+
+    protected override void Awake() {
+        _controller = GetComponentInParent<ControllableObject>();
+        _body2d = GetComponentInParent<Rigidbody2D>();
+        _collisionState = GetComponentInParent<PlayerCollisionState>();
+    }
 
     protected override void OnButtonDown(Buttons button) {
 
@@ -17,19 +23,19 @@ public abstract class AbstractGun : AbstractPlayerActions {
         _yBlowBack = _body2d.velocity.y;
 
         if (_controller.AimDirection.Down) {
-            _xBlowBack = _controller.AimDirection.Right ? _blowBack * -1.0f : _body2d.velocity.x;
-            _xBlowBack = _controller.AimDirection.Left ? _blowBack : _xBlowBack;
-            _yBlowBack = _controller.AimDirection.Right ? _blowBack * _XYRatio : _blowBack;
-            _yBlowBack = _controller.AimDirection.Left ? _blowBack * _XYRatio : _yBlowBack;
+            _yBlowBack = _blowBack;
+
+            if (_controller.AimDirection.Right || _controller.AimDirection.Left) {
+                _xBlowBack = _controller.AimDirection.Left ? _blowBack : - (_blowBack);
+                _xBlowBack *= _XYRatio;
+            }
         }
 
         else if (_controller.AimDirection.Right) {
             _xBlowBack = _blowBack * -1.0f;
-            _yBlowBack = _body2d.velocity.y;
         }
         else if (_controller.AimDirection.Left) {
             _xBlowBack = _blowBack;
-            _yBlowBack = _body2d.velocity.y;
         }
 
         _body2d.velocity = new Vector2(_xBlowBack, _yBlowBack);

@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Aiming : AbstractPlayerActions {
+public class SetAimingDirection : AbstractPlayerActions {
 
     protected override void OnEnable() {
         ControllableObject.OnButton += OnButton;
@@ -29,19 +29,6 @@ public class Aiming : AbstractPlayerActions {
                 _controller.AimDirection.Down = true;
                 break;
         }
-
-        //if (button == Buttons.AimRight) {
-        //    _controller.AimDirection.Right = true;
-        //}
-        //else if (button == Buttons.AimLeft) {
-        //    _controller.AimDirection.Left = true;
-        //}
-        //else if (button == Buttons.AimUp) {
-        //    _controller.AimDirection.Up = true;
-        //}
-        //else if (button == Buttons.AimDown) {
-        //    _controller.AimDirection.Down = true;
-        //}
     }
 
     private void OnButtonUp(Buttons button) {
@@ -61,18 +48,5 @@ public class Aiming : AbstractPlayerActions {
                 _controller.AimDirection.Down = false;
                 break;
         }
-
-        //if (button == Buttons.AimRight) {
-        //    _controller.AimDirection.Right = false;
-        //}
-        //else if (button == Buttons.AimLeft) {
-        //    _controller.AimDirection.Left = false;
-        //}
-        //else if (button == Buttons.AimUp) {
-        //    _controller.AimDirection.Up = false;
-        //}
-        //else if (button == Buttons.AimDown) {
-        //    _controller.AimDirection.Down = false;
-        //}
     }
 }

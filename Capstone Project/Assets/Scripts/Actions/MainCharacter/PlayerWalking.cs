@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerWalking : AbstractPlayerActions {
 
     [SerializeField]
-    private float _xVelocity = 50.0f;
+    private float _xVelocity = 75.0f;
 
     protected override void OnEnable() {
         ControllableObject.OnButton += OnButton;
@@ -17,6 +17,7 @@ public class PlayerWalking : AbstractPlayerActions {
     }
 
     private void OnButton(Buttons button) {
+
         if ((button == Buttons.MoveRight || button == Buttons.MoveLeft) && _collisionState.OnSolidGround) {
             _body2d.velocity = new Vector2(_xVelocity * (float)_controller.Direction, _body2d.velocity.y);
         }
