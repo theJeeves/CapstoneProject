@@ -12,6 +12,13 @@ using System.Collections;
 public enum Buttons {
     MoveRight,
     MoveLeft,
+    Jump,
+    Shoot,
+    Shoot2,
+    AimUp,
+    AimDown,
+    AimLeft,
+    AimRight
 }
 
 // This enum is used to determine if our code should start reading input from the player.
