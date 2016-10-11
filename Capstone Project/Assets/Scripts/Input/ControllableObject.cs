@@ -31,6 +31,36 @@ public class ButtonState {
     }
 }
 
+
+// This class allows for action scripts to determine which direction the player is aiming.
+// Primarily used for guns and traversal.
+public class AimDirection {
+
+    private bool _up;
+    public bool Up {
+        get { return _up; }
+        set { _up = value; }
+    }
+
+    private bool _down;
+    public bool Down {
+        get { return _down; }
+        set { _down = value; }
+    }
+
+    private bool _right;
+    public bool Right {
+        get { return _right; }
+        set { _right = value; }
+    }
+
+    private bool _left;
+    public bool Left {
+        get { return _left; }
+        set { _left = value; }
+    }
+}
+
 public class ControllableObject : MonoBehaviour {
 
     // Events are like broadcasting a message. Other scripts which are looking for specific events
@@ -41,27 +71,23 @@ public class ControllableObject : MonoBehaviour {
     public static event ControllableObjectEvent OnButtonDown;
     public static event ControllableObjectEvent OnButtonUp;
 
+
+    // Class variables
     [SerializeField]
     private Facing _facingDirection = Facing.Right;
-
     public Facing Direction {
         get { return _facingDirection; }
         set { _facingDirection = value; }
     }
 
-    //private AimingDirections _aimDirection;
-    //public AimingDirections AimDirection {
-    //    get { return _aimDirection; }
-    //    set { _aimDirection = value; }
-    //}
-
-    public bool _up;
-    public bool _down;
-    public bool _right;
-    public bool _left;
+    private AimDirection _aimDirection = new AimDirection();
+    public AimDirection AimDirection {
+        get { return _aimDirection; }
+    }
 
     // Other Action scripts will used this dictionary to query a button's state.
     private Dictionary<Buttons, ButtonState> buttonStates = new Dictionary<Buttons, ButtonState>();
+
 
     // Updated each of the Dictionary's Buttons and their State. Depending on whether the button has initially
     // been pressed, is being held down, or has just been release, this function will call the 

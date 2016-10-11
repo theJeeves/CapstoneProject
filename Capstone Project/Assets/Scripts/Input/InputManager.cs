@@ -57,14 +57,8 @@ public class InputAxisState {
 
             switch (_condition) {
                 case Condition.GreaterThanOffValue:
-                    //if (_axisName == "R2" && isPressed > _offValue) {
-                    //    Debug.Log("value = " + isPressed);
-                    //}
                     return isPressed > _offValue;
                 case Condition.LessThanOffValue:
-                    //if (_axisName == "R2" && isPressed < _offValue) {
-                    //    Debug.Log("value = " + isPressed);
-                    //}
                     return isPressed < _offValue;
                 default:
                     break;

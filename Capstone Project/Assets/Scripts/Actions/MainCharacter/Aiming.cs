@@ -14,32 +14,65 @@ public class Aiming : AbstractPlayerActions {
     }
 
     private void OnButton(Buttons button) {
-        if (button == Buttons.AimRight) {
-            _controller._right = true;
+        switch (button) {
+
+            case Buttons.AimRight:
+                _controller.AimDirection.Right = true;
+                break;
+            case Buttons.AimLeft:
+                _controller.AimDirection.Left = true;
+                break;
+            case Buttons.AimUp:
+                _controller.AimDirection.Up = true;
+                break;
+            case Buttons.AimDown:
+                _controller.AimDirection.Down = true;
+                break;
         }
-        else if (button == Buttons.AimLeft) {
-            _controller._left = true;
-        }
-        else if (button == Buttons.AimUp) {
-            _controller._up = true;
-        }
-        else if (button == Buttons.AimDown) {
-            _controller._down = true;
-        }
+
+        //if (button == Buttons.AimRight) {
+        //    _controller.AimDirection.Right = true;
+        //}
+        //else if (button == Buttons.AimLeft) {
+        //    _controller.AimDirection.Left = true;
+        //}
+        //else if (button == Buttons.AimUp) {
+        //    _controller.AimDirection.Up = true;
+        //}
+        //else if (button == Buttons.AimDown) {
+        //    _controller.AimDirection.Down = true;
+        //}
     }
 
     private void OnButtonUp(Buttons button) {
-        if (button == Buttons.AimRight) {
-            _controller._right = false;
+
+        switch (button) {
+
+            case Buttons.AimRight:
+                _controller.AimDirection.Right = false;
+                break;
+            case Buttons.AimLeft:
+                _controller.AimDirection.Left = false;
+                break;
+            case Buttons.AimUp:
+                _controller.AimDirection.Up = false;
+                break;
+            case Buttons.AimDown:
+                _controller.AimDirection.Down = false;
+                break;
         }
-        else if (button == Buttons.AimLeft) {
-            _controller._left = false;
-        }
-        else if (button == Buttons.AimUp) {
-            _controller._up = false;
-        }
-        else if (button == Buttons.AimDown) {
-            _controller._down = false;
-        }
+
+        //if (button == Buttons.AimRight) {
+        //    _controller.AimDirection.Right = false;
+        //}
+        //else if (button == Buttons.AimLeft) {
+        //    _controller.AimDirection.Left = false;
+        //}
+        //else if (button == Buttons.AimUp) {
+        //    _controller.AimDirection.Up = false;
+        //}
+        //else if (button == Buttons.AimDown) {
+        //    _controller.AimDirection.Down = false;
+        //}
     }
 }
