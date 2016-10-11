@@ -3,15 +3,7 @@ using System.Collections;
 
 public class FacingDirection : AbstractPlayerActions {
 
-    private void OnEnable() {
-        ControllableObject.OnButtonDown += OnButtonDown;
-    }
-
-    private void OnDisable() {
-        ControllableObject.OnButtonDown -= OnButtonDown;
-    }
-
-    private void OnButtonDown(Buttons button) {
+    protected override void OnButtonDown(Buttons button) {
 
         switch (button) {
             case Buttons.MoveRight:

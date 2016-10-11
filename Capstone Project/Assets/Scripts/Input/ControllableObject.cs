@@ -31,6 +31,36 @@ public class ButtonState {
     }
 }
 
+
+// This class allows for action scripts to determine which direction the player is aiming.
+// Primarily used for guns and traversal.
+public class AimDirection {
+
+    private bool _up;
+    public bool Up {
+        get { return _up; }
+        set { _up = value; }
+    }
+
+    private bool _down;
+    public bool Down {
+        get { return _down; }
+        set { _down = value; }
+    }
+
+    private bool _right;
+    public bool Right {
+        get { return _right; }
+        set { _right = value; }
+    }
+
+    private bool _left;
+    public bool Left {
+        get { return _left; }
+        set { _left = value; }
+    }
+}
+
 public class ControllableObject : MonoBehaviour {
 
     // Events are like broadcasting a message. Other scripts which are looking for specific events
@@ -41,16 +71,23 @@ public class ControllableObject : MonoBehaviour {
     public static event ControllableObjectEvent OnButtonDown;
     public static event ControllableObjectEvent OnButtonUp;
 
+
+    // Class variables
     [SerializeField]
     private Facing _facingDirection = Facing.Right;
-
     public Facing Direction {
         get { return _facingDirection; }
         set { _facingDirection = value; }
     }
 
+    private AimDirection _aimDirection = new AimDirection();
+    public AimDirection AimDirection {
+        get { return _aimDirection; }
+    }
+
     // Other Action scripts will used this dictionary to query a button's state.
     private Dictionary<Buttons, ButtonState> buttonStates = new Dictionary<Buttons, ButtonState>();
+
 
     // Updated each of the Dictionary's Buttons and their State. Depending on whether the button has initially
     // been pressed, is being held down, or has just been release, this function will call the 
@@ -65,17 +102,23 @@ public class ControllableObject : MonoBehaviour {
         // When the input has ceased
         if (buttonStates[button].IsPressed && !isPressed) {
             buttonStates[button].PressTime = 0.0f;
-            OnButtonUp(button);
+            if (OnButtonUp != null) {
+                OnButtonUp(button);
+            }
         }
         else if (buttonStates[button].IsPressed && isPressed) {
 
             // When the input has initially begun
             if (buttonStates[button].PressTime == 0.0f) {
-                OnButtonDown(button);
+                if (OnButtonDown != null) {
+                    OnButtonDown(button);
+                }
             }
             // When the input is continuous
             if (buttonStates[button].PressTime >= 0.0f) {
-                OnButton(button);
+                if (OnButton != null) {
+                    OnButton(button);
+                }
             }
             buttonStates[button].PressTime += Time.deltaTime;
         }
