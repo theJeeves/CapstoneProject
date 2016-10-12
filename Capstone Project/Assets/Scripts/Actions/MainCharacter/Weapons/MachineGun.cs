@@ -21,13 +21,26 @@ public class MachineGun : AbstractGun {
             _yBlowBack = _body2d.velocity.y;
 
             if (_controller.AimDirection.Down) {
-                _yBlowBack = _blowBack;
-
-                if (_controller.AimDirection.Right && _xBlowBack >= _blowBack * -(_xMultiplier)) {
-                    _xBlowBack -= _blowBack;
+                if (_yBlowBack <= _blowBack  && _body2d.velocity.y < 0)
+                {
+                    Debug.Log(_yBlowBack);
+                    float multiplier = _yBlowBack > 0 ? _body2d.velocity.y / _yBlowBack : 1;
+                    _yBlowBack += _blowBack * multiplier;
                 }
-                else if (_controller.AimDirection.Left && _xBlowBack <= _blowBack * (_xMultiplier)) {
-                    _xBlowBack += _blowBack;
+
+                if (_controller.AimDirection.Right) {
+                    if (_xBlowBack >= _blowBack * -_xMultiplier)
+                    {
+                        _xBlowBack -= _blowBack;
+                    }
+                    _yBlowBack *= 0.1f;
+                }
+                else if (_controller.AimDirection.Left) {
+                    if (_xBlowBack <= _blowBack * _xMultiplier)
+                    {
+                        _xBlowBack += _blowBack;
+                    }
+                    _yBlowBack *= 0.1f;
                 }
                 else if (_body2d.velocity.x > 0) {
 
