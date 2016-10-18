@@ -77,7 +77,7 @@ public class InputManager : MonoBehaviour {
     private InputAxisState[] _inputs;               // An array of all the inputs which can be used by the player
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
 
         foreach (InputAxisState input in _inputs) {
 
