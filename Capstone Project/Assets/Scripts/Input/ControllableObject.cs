@@ -127,15 +127,23 @@ public class ControllableObject : MonoBehaviour {
         buttonStates[button].IsPressed = isPressed;
     }
 
-    // NOTE: DON'T KNOW IF WE STILL NEED THIS FUNCTION
+
+    public bool GetButtonPress(Buttons button) {
+        if (buttonStates.ContainsKey(button)) {
+            return buttonStates[button].IsPressed;
+        }
+        else {
+            return false;
+        }
+    }
 
     //// Return the time the button has been pressed.
-    //public float GetButtonPressTime(Buttons button) {
-    //    if (buttonStates.ContainsKey(button)) {
-    //        return buttonStates[button].PressTime;
-    //    }
-    //    else {
-    //        return 0.0f;
-    //    }
-    //}
+    public float GetButtonPressTime(Buttons button) {
+        if (buttonStates.ContainsKey(button)) {
+            return buttonStates[button].PressTime;
+        }
+        else {
+            return 0.0f;
+        }
+    }
 }
