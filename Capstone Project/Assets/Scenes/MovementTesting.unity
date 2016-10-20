@@ -104,6 +104,7 @@ GameObject:
   - 114: {fileID: 352497370}
   - 114: {fileID: 352497369}
   - 114: {fileID: 352497371}
+  - 114: {fileID: 352497372}
   m_Layer: 0
   m_Name: GUN
   m_TagString: Untagged
@@ -179,15 +180,14 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 352497364}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7a2376176fdf79a4dbf0ddce1062a41c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _version: 2
-  _recoil: 9.8
-  _doubleTapTime: 0
-  _xMultiplier: 0
+  _recoil: 9
+  _initalYVelocity: 50
+  _xMultiplier: 11.11
 --- !u!114 &352497370
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -199,9 +199,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf2f8c2daa5c4a41983ac3e6d8d547c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _version: 2
   _recoil: 200
-  _doubleTapTime: 0.5
+  _clipSize: 3
+  _numOfRounds: 3
+  _coolDownTime: 1.25
 --- !u!114 &352497371
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +212,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 28660183f6824c84f8b42d2ce209e9f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &352497372
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 352497364}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fe9315f03f68744eb9922f8489877b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &457206350
@@ -375,7 +387,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 469019411}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -11.8, y: 73, z: 0}
+  m_LocalPosition: {x: -25, y: 70, z: 0}
   m_LocalScale: {x: 32.199646, y: 6.020579, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -418,17 +430,9 @@ MonoBehaviour:
     _button: 1
     _offValue: 0
     _condition: 1
-  - _axisName: X
-    _button: 2
-    _offValue: 0
-    _condition: 0
   - _axisName: R2
     _button: 3
     _offValue: -1
-    _condition: 0
-  - _axisName: Fire2
-    _button: 4
-    _offValue: 0
     _condition: 0
   - _axisName: RS_X_Axis
     _button: 8
@@ -445,6 +449,10 @@ MonoBehaviour:
   - _axisName: RS_Y_Axis
     _button: 6
     _offValue: 0.4
+    _condition: 0
+  - _axisName: R1
+    _button: 4
+    _offValue: 0
     _condition: 0
 --- !u!4 &470470851
 Transform:
@@ -534,7 +542,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 939940044}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 44.7, y: 72, z: 0}
+  m_LocalPosition: {x: 31, y: 69, z: 0}
   m_LocalScale: {x: 32.199646, y: 6.020579, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -1124,9 +1132,8 @@ GameObject:
   - 114: {fileID: 1988574245}
   - 114: {fileID: 1988574238}
   - 114: {fileID: 1988574237}
-  - 114: {fileID: 1988574244}
   - 114: {fileID: 1988574248}
-  - 114: {fileID: 1988574247}
+  - 114: {fileID: 1988574244}
   m_Layer: 0
   m_Name: TempPlayer
   m_TagString: Player
@@ -1256,10 +1263,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 1988574236}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 525807b9c6c2e1b49b44d3ed2f1ba8b7, type: 3}
+  m_Script: {fileID: 11500000, guid: 466063d85cc2dde408d4b9d0cdecc481, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _jumpSpeed: 150
 --- !u!114 &1988574245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1282,18 +1288,6 @@ MonoBehaviour:
   _feetPosition: {x: 0, y: -8.5}
   _onSolidGround: 0
   _radius: 3
---- !u!114 &1988574247
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1988574236}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 073031dae643dbc4ab992abe59b4ac39, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _movementSpeed: 10
 --- !u!114 &1988574248
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1380,7 +1374,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2034555272}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 85.7, y: 45, z: 0}
+  m_LocalPosition: {x: 96, y: 45, z: 0}
   m_LocalScale: {x: 32.199646, y: 6.020579, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []

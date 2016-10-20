@@ -14,7 +14,7 @@ public enum Buttons {
     MoveLeft,
     Jump,
     Shoot,
-    Shoot2,
+    WeaponSwap,
     AimUp,
     AimDown,
     AimLeft,
@@ -77,7 +77,7 @@ public class InputManager : MonoBehaviour {
     private InputAxisState[] _inputs;               // An array of all the inputs which can be used by the player
 
     // Update is called once per frame
-    void FixedUpdate() {
+    void Update() {
 
         foreach (InputAxisState input in _inputs) {
 

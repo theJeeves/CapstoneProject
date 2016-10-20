@@ -4,7 +4,6 @@ using System.Collections;
 public class AimWeapon : MonoBehaviour {
 
     private ControllableObject _controller;
-    private int angle = 0;
 
 	// Use this for initialization
 	private void Awake () {
