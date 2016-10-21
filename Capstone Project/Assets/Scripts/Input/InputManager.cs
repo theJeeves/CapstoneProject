@@ -14,7 +14,7 @@ public enum Buttons {
     MoveLeft,
     Jump,
     Shoot,
-    Shoot2,
+    WeaponSwap,
     AimUp,
     AimDown,
     AimLeft,
