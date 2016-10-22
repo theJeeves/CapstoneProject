@@ -9,6 +9,9 @@ public abstract class AbstractGun : AbstractPlayerActions {
     protected float _addVel = 0.35f;
     protected float _setVel = 0.6f;
 
+    protected float _xVel;
+    protected float _yVel;
+
     protected override void Awake() {
         _controller = GetComponentInParent<ControllableObject>();
         _body2d = GetComponentInParent<Rigidbody2D>();
@@ -23,7 +26,14 @@ public abstract class AbstractGun : AbstractPlayerActions {
         base.OnDisable();
     }
 
+    protected void SetVeloctiy(float xVel, float yVel) {
+        _body2d.velocity = new Vector2(xVel, yVel);
+    }
+
     protected override void OnButtonDown(Buttons button) {
+
+        _xVel = 0.0f;
+        _yVel = 0.0f;
 
         //AIMING DOWN
         if (_controller.AimDirection.Down) {
@@ -36,12 +46,16 @@ public abstract class AbstractGun : AbstractPlayerActions {
 
                     // MOVING LEFT
                     if (_body2d.velocity.x < 0) {
-                        _body2d.velocity = new Vector2(_recoil * -_addVel + _body2d.velocity.x, _recoil * _setVel);
+                        _xVel = _recoil * -_addVel + _body2d.velocity.x;
+                        _yVel = _recoil * _setVel;
+                        //_body2d.velocity = new Vector2(_recoil * -_addVel + _body2d.velocity.x, _recoil * _setVel);
                     }
 
                     //MOVING RIGHT OR STANDING STILL
                     else if (_body2d.velocity.x >= 0) {
-                        _body2d.velocity = new Vector2(_recoil * -_setVel, _recoil * _setVel);
+                        _xVel = _recoil * -_setVel;
+                        _yVel = _recoil * _setVel;
+                        //_body2d.velocity = new Vector2(_recoil * -_setVel, _recoil * _setVel);
                     }
                 }
 
@@ -53,19 +67,24 @@ public abstract class AbstractGun : AbstractPlayerActions {
 
                         //FALLING (NEGATIVE Y VELOCITY)
                         if (_body2d.velocity.y < 0) {
-                            _body2d.velocity = new Vector2(_body2d.velocity.x + _recoil * -(_addVel), _recoil * _setVel);
+                            _xVel = _body2d.velocity.x + _recoil * -(_addVel);
+                            _yVel = _recoil * _setVel;
+                            //_body2d.velocity = new Vector2(_body2d.velocity.x + _recoil * -(_addVel), _recoil * _setVel);
                         }
 
                         //RISING OR ZERO Y VELOCITY
                         else if (_body2d.velocity.y >= 0) {
-                            float temp = 0.0f;
-                            _body2d.velocity = new Vector2(_body2d.velocity.x + _recoil * -_addVel, Mathf.Clamp(temp, _recoil * _addVel, _recoil * 2));
+                            _xVel = _body2d.velocity.x + _recoil * -_addVel;
+                            _yVel = Mathf.Clamp(_body2d.velocity.y, _recoil * _addVel, _recoil * 2);
+                            //_body2d.velocity = new Vector2(_body2d.velocity.x + _recoil * -_addVel, Mathf.Clamp(temp, _recoil * _addVel, _recoil * 2));
                         }
                     }
 
                     //MOVING RIGHT OR STANDING STILL
                     else if (_body2d.velocity.x >= 0) {
-                        _body2d.velocity = new Vector2(_recoil * -_setVel, _recoil * _setVel);
+                        _xVel = _recoil * -_setVel;
+                        _yVel = _recoil * _setVel;
+                        //_body2d.velocity = new Vector2(_recoil * -_setVel, _recoil * _setVel);
                     }
                 }
             }
@@ -78,12 +97,16 @@ public abstract class AbstractGun : AbstractPlayerActions {
 
                     //MOVING RIGHT
                     if (_body2d.velocity.x > 0) {
-                        _body2d.velocity = new Vector2(_recoil * _addVel + _body2d.velocity.x, _recoil * _setVel);
+                        _xVel = _recoil * _addVel + _body2d.velocity.x;
+                        _yVel = _recoil * _setVel;
+                        //_body2d.velocity = new Vector2(_recoil * _addVel + _body2d.velocity.x, _recoil * _setVel);
                     }
 
                     // MOVING LEFT OR STANDING STILL
                     else if (_body2d.velocity.x <= 0) {
-                        _body2d.velocity = new Vector2(_recoil * _setVel, _recoil * _setVel);
+                        _xVel = _recoil * _setVel;
+                        _yVel = _recoil* _setVel;
+                        //_body2d.velocity = new Vector2(_recoil * _setVel, _recoil * _setVel);
                     }
                 }
 
@@ -95,19 +118,24 @@ public abstract class AbstractGun : AbstractPlayerActions {
 
                         //FALLING (NEGATIVE Y VELOCITY)
                         if (_body2d.velocity.y < 0) {
-                            _body2d.velocity = new Vector2(_body2d.velocity.x + _recoil * _addVel, _recoil * _setVel);
+                            _xVel = _body2d.velocity.x + _recoil * _addVel;
+                            _yVel = _recoil * _setVel;
+                            //_body2d.velocity = new Vector2(_body2d.velocity.x + _recoil * _addVel, _recoil * _setVel);
                         }
 
                         //RISING OR ZERO Y VELOCITY
                         else if (_body2d.velocity.y >= 0) {
-                            //_body2d.velocity = new Vector2(_recoil * _addVel, _recoil * _addVel);
-                            _body2d.velocity = new Vector2(_recoil * _setVel + _body2d.velocity.x, _recoil * _setVel);
+                            _xVel = _recoil * _setVel + _body2d.velocity.x;
+                            _yVel = _recoil * _setVel;
+                            //_body2d.velocity = new Vector2(_recoil * _setVel + _body2d.velocity.x, _recoil * _setVel);
                         }
                     }
 
                     // MOVING LEFT OR STANDING STILL
                     else if (_body2d.velocity.x <= 0) {
-                        _body2d.velocity = new Vector2(_recoil * _setVel, _recoil * _setVel);
+                        _xVel = _recoil * _setVel;
+                        _yVel = _recoil * _setVel;
+                        //_body2d.velocity = new Vector2(_recoil * _setVel, _recoil * _setVel);
                     }
                 }
             }
@@ -117,17 +145,15 @@ public abstract class AbstractGun : AbstractPlayerActions {
 
                 //FALLING (NEGATVIE Y VELOCITY
                 if (_body2d.velocity.y < 0) {
-                    _body2d.velocity = new Vector2(_body2d.velocity.x, _recoil);
+                    _xVel = _body2d.velocity.x;
+                    _yVel = _recoil;
+                    //_body2d.velocity = new Vector2(_body2d.velocity.x, _recoil);
                 }
 
                 //RISING OR ZERO Y VELOCITY
                 else if (_body2d.velocity.y >= 0) {
-
-                    _body2d.velocity = new Vector2(_body2d.velocity.x, _recoil);
-
-                    //float temp1 = _body2d.velocity.y;
-
-                    //float temp2 = Mathf.Clamp(_body2d.velocity.y + _recoil, _recoil, _recoil * 2.0f);
+                    _xVel = _body2d.velocity.x;
+                    _yVel = _recoil;
                     //_body2d.velocity = new Vector2(_body2d.velocity.x, _recoil);
                 }
             }
@@ -146,7 +172,9 @@ public abstract class AbstractGun : AbstractPlayerActions {
 
                 // MOVING RIGHT OR STANDING STILL
                 else if (_body2d.velocity.x >= 0) {
-                    _body2d.velocity = new Vector2(_recoil * -_setVel, _body2d.velocity.y);
+                    _xVel = _recoil * -_setVel;
+                    _yVel = _body2d.velocity.y;
+                    //_body2d.velocity = new Vector2(_recoil * -_setVel, _body2d.velocity.y);
                 }
             }
         }
@@ -162,9 +190,13 @@ public abstract class AbstractGun : AbstractPlayerActions {
 
                 //MOVING LEFT OR STANDING STILL
                 else if (_body2d.velocity.x <= 0) {
-                    _body2d.velocity = new Vector2(_recoil * _setVel, _body2d.velocity.y);
+                    _xVel = _recoil * _setVel;
+                    _yVel = _body2d.velocity.y;
+                    //_body2d.velocity = new Vector2(_recoil * _setVel, _body2d.velocity.y);
                 }
             }
         }
+
+        SetVeloctiy(_xVel, _yVel);
     }
 }
