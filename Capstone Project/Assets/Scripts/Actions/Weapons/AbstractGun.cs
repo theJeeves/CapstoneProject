@@ -3,8 +3,17 @@ using System.Collections;
 
 public abstract class AbstractGun : AbstractPlayerActions {
 
+    public delegate void AbstractGunEvent(int numOfRounds);
+
     [SerializeField]
     protected float _recoil;
+
+    [SerializeField]
+    protected int _clipSize;
+    [SerializeField]
+    protected int _numOfRounds;
+    [SerializeField]
+    protected float _coolDownTime;
 
     protected float _addVel = 0.35f;
     protected float _setVel = 0.6f;
@@ -20,14 +29,20 @@ public abstract class AbstractGun : AbstractPlayerActions {
 
     protected override void OnEnable() {
         base.OnEnable();
+        PlayerCollisionState.OnHitGround += Reload;
     }
 
     protected override void OnDisable() {
         base.OnDisable();
+        PlayerCollisionState.OnHitGround -= Reload;
     }
 
     protected void SetVeloctiy(float xVel, float yVel) {
         _body2d.velocity = new Vector2(xVel, yVel);
+    }
+
+    protected virtual void Reload() {
+        _numOfRounds = _clipSize;
     }
 
     protected override void OnButtonDown(Buttons button) {
@@ -160,7 +175,7 @@ public abstract class AbstractGun : AbstractPlayerActions {
         }
 
         //AIMING RIGHT
-        else if (_controller.AimDirection.Right) {
+        else if (_controller.AimDirection.Right ) {
 
             //IN AIR CONTROLLS ONLY
             if (!_collisionState.OnSolidGround) {
@@ -174,12 +189,11 @@ public abstract class AbstractGun : AbstractPlayerActions {
                 else if (_body2d.velocity.x >= 0) {
                     _xVel = _recoil * -_setVel;
                     _yVel = _body2d.velocity.y;
-                    //_body2d.velocity = new Vector2(_recoil * -_setVel, _body2d.velocity.y);
                 }
             }
         }
         //AIMING LEFT
-        else if (_controller.AimDirection.Left) {
+        else if (_controller.AimDirection.Left ) {
 
             //IN AIR CONTROLLS ONLY
             if (!_collisionState.OnSolidGround) {
@@ -192,7 +206,6 @@ public abstract class AbstractGun : AbstractPlayerActions {
                 else if (_body2d.velocity.x <= 0) {
                     _xVel = _recoil * _setVel;
                     _yVel = _body2d.velocity.y;
-                    //_body2d.velocity = new Vector2(_recoil * _setVel, _body2d.velocity.y);
                 }
             }
         }
