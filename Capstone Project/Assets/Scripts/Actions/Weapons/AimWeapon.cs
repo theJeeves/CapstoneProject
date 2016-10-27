@@ -22,22 +22,46 @@ public class AimWeapon : MonoBehaviour {
 
     private void OnButtonDown(Buttons button) {
 
-        if (button == Buttons.AimDown) {
-            if (_controller.AimDirection.Right) {
-                RotateGun(-45);
+        if (_controller.Direction > 0) {
+
+            if (button == Buttons.AimDown) {
+                if (_controller.AimDirection.Right) {
+                    RotateGun(-45);
+                }
+                else if (_controller.AimDirection.Left) {
+                    RotateGun(-135);
+                }
+                else {
+                    RotateGun(-90);
+                }
             }
-            else if (_controller.AimDirection.Left) {
-                RotateGun(-135);
+            else if (button == Buttons.AimRight) {
+                RotateGun(0);
             }
-            else {
-                RotateGun(-90);
+            else if (button == Buttons.AimLeft) {
+                Debug.Log("hello");
+                RotateGun(-180);
             }
         }
-        else if (button == Buttons.AimRight) {
-            RotateGun(0);
-        }
-        else if (button == Buttons.AimLeft) {
-            RotateGun(-180);
+        else if (_controller.Direction < 0) {
+
+            if (button == Buttons.AimDown) {
+                if (_controller.AimDirection.Right) {
+                    RotateGun(135);
+                }
+                else if (_controller.AimDirection.Left) {
+                    RotateGun(45);
+                }
+                else {
+                    RotateGun(90);
+                }
+            }
+            else if (button == Buttons.AimRight) {
+                RotateGun(-180);
+            }
+            else if (button == Buttons.AimLeft) {
+                RotateGun(0);
+            }
         }
     }
 
