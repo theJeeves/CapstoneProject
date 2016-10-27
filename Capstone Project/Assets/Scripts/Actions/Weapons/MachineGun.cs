@@ -4,22 +4,38 @@ using System.Collections;
 
 public class MachineGun : AbstractGun {
 
+    public static event AbstractGunEvent UpdateNumOfRounds;
+
     [SerializeField]
     protected float _xMultiplier;
+
+    private bool _canShoot;
+
+    protected override void Awake() {
+        base.Awake();
+        _numOfRounds = _clipSize;
+        _canShoot = true;
+    }
 
     protected override void OnEnable() {
         base.OnEnable();
         ControllableObject.OnButton += OnButton;
+        PlayerCollisionState.OnHitGround += Reload;
+
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(_numOfRounds);
+        }
     }
 
     protected override void OnDisable() {
         base.OnDisable();
         ControllableObject.OnButton -= OnButton;
+        PlayerCollisionState.OnHitGround -= Reload;
     }
 
     protected override void OnButtonDown(Buttons button) {
 
-        if (button == Buttons.Shoot && _collisionState.OnSolidGround) {
+        if (button == Buttons.Shoot && _collisionState.OnSolidGround && _numOfRounds > 0) {
 
             //STANDING STILL
             if (_body2d.velocity.x > -0.5f && _body2d.velocity.x < 0.5f) {
@@ -66,7 +82,12 @@ public class MachineGun : AbstractGun {
 
     private void OnButton(Buttons button) {
 
-        if (button == Buttons.Shoot && !_collisionState.OnSolidGround) {
+        if (button == Buttons.Shoot && !_collisionState.OnSolidGround && _numOfRounds > 0) {
+
+            if (UpdateNumOfRounds != null && _canShoot) {
+                UpdateNumOfRounds(--_numOfRounds);
+                StartCoroutine(ShotDelay());
+            }
 
             _xVel = _body2d.velocity.x;
             _yVel = _body2d.velocity.y;
@@ -119,5 +140,16 @@ public class MachineGun : AbstractGun {
             //SET THE VELOCITY
             _body2d.velocity = new Vector2(_xVel, _yVel);
         }
+    }
+
+    private IEnumerator ShotDelay() {
+        _canShoot = false;
+        yield return new WaitForSeconds(0.05f);
+        _canShoot = true;
+    }
+
+    protected override void Reload() {
+        base.Reload();
+        UpdateNumOfRounds(_numOfRounds);
     }
 }
