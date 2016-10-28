@@ -182,6 +182,7 @@ public abstract class AbstractGun : AbstractPlayerActions {
 
                 // MOVING LEFT
                 if (_body2d.velocity.x < 0) {
+                    Debug.Log("moving left");
                     _body2d.velocity += new Vector2(_recoil * -_addVel, 0);
                 }
 

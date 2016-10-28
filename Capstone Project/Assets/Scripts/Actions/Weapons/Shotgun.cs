@@ -13,12 +13,17 @@ public class Shotgun : AbstractGun {
 
         _blast = GetComponentInChildren<ParticleSystem>();
         _canReload = true;
-        UpdateNumOfRounds(_numOfRounds);
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(_numOfRounds);
+        }
     }
 
     private void Start() {
         _numOfRounds = _clipSize;
         _canReload = true;
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(_numOfRounds);
+        }
     }
 
     protected override void OnButtonDown(Buttons button) {

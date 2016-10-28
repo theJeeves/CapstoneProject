@@ -39,7 +39,6 @@ public class AimWeapon : MonoBehaviour {
                 RotateGun(0);
             }
             else if (button == Buttons.AimLeft) {
-                Debug.Log("hello");
                 RotateGun(-180);
             }
         }
