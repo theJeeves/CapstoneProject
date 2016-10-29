@@ -5,6 +5,7 @@ using System.Collections;
 public class MachineGun : AbstractGun {
 
     public static event AbstractGunEvent UpdateNumOfRounds;
+    public static event AbstractGunEvent2 Fire;
 
     [SerializeField]
     protected float _xMultiplier;
@@ -84,8 +85,9 @@ public class MachineGun : AbstractGun {
 
         if (button == Buttons.Shoot && !_collisionState.OnSolidGround && _numOfRounds > 0) {
 
-            if (UpdateNumOfRounds != null && _canShoot) {
+            if (UpdateNumOfRounds != null && Fire != null && _canShoot) {
                 UpdateNumOfRounds(--_numOfRounds);
+                Fire();
                 StartCoroutine(ShotDelay());
             }
 

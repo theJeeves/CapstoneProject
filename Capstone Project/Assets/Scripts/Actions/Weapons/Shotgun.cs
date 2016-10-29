@@ -4,6 +4,7 @@ using System.Collections;
 public class Shotgun : AbstractGun {
 
     public static event AbstractGunEvent UpdateNumOfRounds;
+    public static event AbstractGunEvent2 Fire;
 
     private ParticleSystem _blast;
     private bool _canReload;
@@ -30,8 +31,9 @@ public class Shotgun : AbstractGun {
 
         if (button == Buttons.Shoot && _numOfRounds > 0) {
 
-            if (UpdateNumOfRounds != null) {
+            if (UpdateNumOfRounds != null && Fire != null) {
                 UpdateNumOfRounds(--_numOfRounds);
+                Fire();
             }
 
             _blast.Play();
@@ -49,7 +51,9 @@ public class Shotgun : AbstractGun {
 
         if (_canReload) {
             base.Reload();
-            UpdateNumOfRounds(_numOfRounds);
+            if (UpdateNumOfRounds != null) {
+                UpdateNumOfRounds(_numOfRounds);
+            }
         }
         _canReload = true;
     }
