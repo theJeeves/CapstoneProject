@@ -4,6 +4,7 @@ using System.Collections;
 public abstract class AbstractGun : AbstractPlayerActions {
 
     public delegate void AbstractGunEvent(int numOfRounds);
+    public delegate void AbstractGunEvent2();
 
     [SerializeField]
     protected float _recoil;
