@@ -64,18 +64,20 @@ public class MachineGun : AbstractGun {
             //MOVING LEFT OR RIGHT
             else {
                 //AIMING DOWN AND RIGHT AND MOVING
-                if (_controller.AimDirection.Right) {
-                    _body2d.AddForce(new Vector2(0, 7500), ForceMode2D.Impulse);
-                }
+                if (_controller.AimDirection.Down) {
+                    if (_controller.AimDirection.Right) {
+                        _body2d.AddForce(new Vector2(0, 7500), ForceMode2D.Impulse);
+                    }
 
-                //AIMING DOWN AND LEFT AND MOVING
-                else if (_controller.AimDirection.Left) {
-                    _body2d.AddForce(new Vector2(0, 7500), ForceMode2D.Impulse);
-                }
+                    //AIMING DOWN AND LEFT AND MOVING
+                    else if (_controller.AimDirection.Left) {
+                        _body2d.AddForce(new Vector2(0, 7500), ForceMode2D.Impulse);
+                    }
 
-                //AIMING STRAIGHT DOWN AND MOVING
-                else {
-                    _body2d.AddForce(new Vector2(0, 10000), ForceMode2D.Impulse);
+                    //AIMING STRAIGHT DOWN AND MOVING
+                    else {
+                        _body2d.AddForce(new Vector2(0, 10000), ForceMode2D.Impulse);
+                    }
                 }
             }
         }

@@ -12,7 +12,6 @@ using System.Collections;
 public enum Buttons {
     MoveRight,
     MoveLeft,
-    Jump,
     Shoot,
     WeaponSwap,
     AimUp,

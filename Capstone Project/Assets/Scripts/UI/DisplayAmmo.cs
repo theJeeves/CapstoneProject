@@ -21,6 +21,11 @@ public class DisplayAmmo : MonoBehaviour {
     }
 
     private void UpdateText(int numOfRounds) {
-        _ammoText.text = string.Format("{0}", numOfRounds);
+        if (numOfRounds >= 10) {
+            _ammoText.text = string.Format("{0}", numOfRounds);
+        }
+        else {
+            _ammoText.text = string.Format("{0}  ", numOfRounds);
+        }
     }
 }
