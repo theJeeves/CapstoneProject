@@ -39,10 +39,6 @@ public class Shotgun : AbstractGun {
             _blast.Play();
             _canReload = false;
 
-            //if (_numOfRounds == _clipSize - 1) {
-            //    StartCoroutine(Reload());
-            //}
-
             base.OnButtonDown(button);
         }
     }
@@ -57,15 +53,4 @@ public class Shotgun : AbstractGun {
         }
         _canReload = true;
     }
-
-    //private IEnumerator Reload() {
-    //    while (_numOfRounds < _clipSize) {
-    //        yield return new WaitForSeconds(_coolDownTime);
-
-    //        ++_numOfRounds;
-    //        if (UpdateNumOfRounds != null && isActiveAndEnabled) {
-    //            UpdateNumOfRounds(_numOfRounds);
-    //        }
-    //    }
-    //}
 }

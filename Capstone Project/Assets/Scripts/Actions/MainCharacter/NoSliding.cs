@@ -15,7 +15,7 @@ public class NoSliding : AbstractPlayerActions {
 
         if (!_controller.GetButtonPress(Buttons.MoveLeft) &&
             !_controller.GetButtonPress(Buttons.MoveRight) &&
-            !_controller.GetButtonPress(Buttons.Shoot)  ) {
+            _controller.GetButtonPressTime(Buttons.Shoot) > 0.1f) {
 
             _body2d.velocity = new Vector2(0, _body2d.velocity.y);
         }

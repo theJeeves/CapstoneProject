@@ -25,10 +25,10 @@ public class PlayerWalking : AbstractPlayerActions {
 
     private void OnButton(Buttons button) {
 
-        if (button == Buttons.MoveRight && _collisionState.OnSolidGround && !_controller.GetButtonPress(Buttons.Shoot)) {
+        if (button == Buttons.MoveRight && _collisionState.OnSolidGround) {
             _body2d.velocity = new Vector2(_walkSpeed * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
         }
-        else if (button == Buttons.MoveLeft && _collisionState.OnSolidGround && !_controller.GetButtonPress(Buttons.Shoot)) {
+        else if (button == Buttons.MoveLeft && _collisionState.OnSolidGround) {
             _body2d.velocity = new Vector2(-(_walkSpeed) * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
         }
     }
