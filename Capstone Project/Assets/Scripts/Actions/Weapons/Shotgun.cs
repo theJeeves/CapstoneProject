@@ -11,7 +11,7 @@ public class Shotgun : AbstractGun {
 
     protected override void OnEnable() {
         base.OnEnable();
-
+        
         _blast = GetComponentInChildren<ParticleSystem>();
         _canReload = true;
         if (UpdateNumOfRounds != null) {
