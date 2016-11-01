@@ -8,9 +8,15 @@ public class MachineGun : AbstractGun {
     public static event AbstractGunEvent2 Fire;
 
     [SerializeField]
+    private GameObject _bullet;
+    [SerializeField]
+    private Transform _mgBarrel;
+
+    [SerializeField]
     protected float _xMultiplier;
 
     private bool _canShoot;
+    private ParticleSystem[] _pew;
 
     protected override void Awake() {
         base.Awake();
@@ -22,6 +28,8 @@ public class MachineGun : AbstractGun {
         base.OnEnable();
         ControllableObject.OnButton += OnButton;
         PlayerCollisionState.OnHitGround += Reload;
+
+        _pew = GetComponentsInChildren<ParticleSystem>();
 
         if (UpdateNumOfRounds != null) {
             UpdateNumOfRounds(_numOfRounds);
@@ -85,7 +93,7 @@ public class MachineGun : AbstractGun {
 
     private void OnButton(Buttons button) {
 
-        if (button == Buttons.Shoot && !_collisionState.OnSolidGround && _numOfRounds > 0) {
+        if (button == Buttons.Shoot && _numOfRounds > 0) {
 
             if (UpdateNumOfRounds != null && Fire != null && _canShoot) {
                 UpdateNumOfRounds(--_numOfRounds);
@@ -148,6 +156,8 @@ public class MachineGun : AbstractGun {
 
     private IEnumerator ShotDelay() {
         _canShoot = false;
+        _pew[1].Play();
+        //Instantiate(_bullet, transform.position, transform.localRotation);
         yield return new WaitForSeconds(0.05f);
         _canShoot = true;
     }
