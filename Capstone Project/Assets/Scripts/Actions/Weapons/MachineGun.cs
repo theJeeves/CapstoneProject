@@ -2,9 +2,14 @@
 using UnityEngine;
 using System.Collections;
 
+/*
+ * Weapon based on the AbstractGun class which gives the player a "float" like ability.
+ */ 
+
 public class MachineGun : AbstractGun {
 
-    public static event AbstractGunEvent UpdateNumOfRounds;
+    // This is put into the shotgun script so the shotgun screen shake script
+    // knows which weapon called this event.
     public static event AbstractGunEvent2 Fire;
 
     [SerializeField]
@@ -15,31 +20,16 @@ public class MachineGun : AbstractGun {
     [SerializeField]
     protected float _xMultiplier;
 
-    private bool _canShoot;
-    private ParticleSystem[] _pew;
-
-    protected override void Awake() {
-        base.Awake();
-        _numOfRounds = _clipSize;
-        _canShoot = true;
-    }
 
     protected override void OnEnable() {
         base.OnEnable();
+
         ControllableObject.OnButton += OnButton;
-        PlayerCollisionState.OnHitGround += Reload;
-
-        _pew = GetComponentsInChildren<ParticleSystem>();
-
-        if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
-        }
     }
 
     protected override void OnDisable() {
         base.OnDisable();
         ControllableObject.OnButton -= OnButton;
-        PlayerCollisionState.OnHitGround -= Reload;
     }
 
     protected override void OnButtonDown(Buttons button) {
@@ -93,77 +83,65 @@ public class MachineGun : AbstractGun {
 
     private void OnButton(Buttons button) {
 
-        if (button == Buttons.Shoot && _numOfRounds > 0) {
+        if (button == Buttons.Shoot && !_collisionState.OnSolidGround && _numOfRounds > 0) {
 
-            if (UpdateNumOfRounds != null && Fire != null && _canShoot) {
-                UpdateNumOfRounds(--_numOfRounds);
+            if (Fire != null) {
                 Fire();
-                StartCoroutine(ShotDelay());
             }
 
-            _xVel = _body2d.velocity.x;
-            _yVel = _body2d.velocity.y;
-
-            //AIMING DOWN
-            if (_controller.AimDirection.Down) {
-
-                //FALLING DOWN AND THE Y-VELOCITY IS LESS THAN THE SET RECOIL
-                if (_yVel <= _recoil && _body2d.velocity.y < 0) {
-
-                    //THIS QUICKLY SLOWS DOWN THE PLAYER FROM FALLING (IRON MAN EFFECT)
-                    _yVel += Mathf.Abs(_recoil * (1.3f * (_body2d.velocity.y / _yVel) ) );
-
-                    //AIMING DOWN AND RIGHT
-                    if (_controller.AimDirection.Right) {
-                        if (_xVel >= _recoil * -_xMultiplier) {
-                            _xVel -= _recoil;
-                        }
-                    }
-
-                    //AIMING DOWN AND LEFT
-                    else if (_controller.AimDirection.Left) {
-                        if (_xVel <= _recoil * _xMultiplier) {
-                            _xVel += _recoil;
-                        }
-                    }
-                }
-
-                //AIMING STRIGHT DOWN AND MOVING RIGHT
-                else if (_body2d.velocity.x > 0) {
-                    _xVel -= 2.0f;
-                }
-
-                //AIMING STRIGHT DOWN AND MOVING LEFT
-                else if (_body2d.velocity.x < 0) {
-                    _xVel += 2.0f;
-                }
-            }
-
-            //AIMING RIGHT
-            else if (_controller.AimDirection.Right) {
-                _xVel += (_recoil * -0.25f);
-            }
-
-            //AIMING LEFT
-            else if (_controller.AimDirection.Left) {
-                _xVel += (_recoil * 0.25f);
-            }
-
-            //SET THE VELOCITY
-            _body2d.velocity = new Vector2(_xVel, _yVel);
+            base.OnButtonDown(button);
         }
     }
 
-    private IEnumerator ShotDelay() {
-        _canShoot = false;
-        _pew[1].Play();
-        //Instantiate(_bullet, transform.position, transform.localRotation);
-        yield return new WaitForSeconds(0.05f);
-        _canShoot = true;
+    protected override void AimDown() {
+
+        //FALLING DOWN AND THE Y-VELOCITY IS LESS THAN THE SET RECOIL
+        if (_yVel <= _recoil && _body2d.velocity.y < 0) {
+
+            //THIS QUICKLY SLOWS DOWN THE PLAYER FROM FALLING (IRON MAN EFFECT)
+            _yVel += Mathf.Abs(_recoil * (1.3f * (_body2d.velocity.y / _yVel)));
+
+            //AIMING DOWN AND RIGHT
+            if (_controller.AimDirection.Right) {
+                AimDownAndRight();
+            }
+
+            //AIMING DOWN AND LEFT
+            else if (_controller.AimDirection.Left) {
+                AimDownAndLeft();
+            }
+        }
+
+        //AIMING STRIGHT DOWN AND MOVING RIGHT
+        else if (_body2d.velocity.x > 0) {
+            _xVel -= 2.0f;
+        }
+
+        //AIMING STRIGHT DOWN AND MOVING LEFT
+        else if (_body2d.velocity.x < 0) {
+            _xVel += 2.0f;
+        }
     }
 
-    protected override void Reload() {
-        base.Reload();
-        UpdateNumOfRounds(_numOfRounds);
+    protected override void AimDownAndRight() {
+
+        if (_xVel >= _recoil * -_xMultiplier) {
+            _xVel -= _recoil;
+        }
+    }
+
+    protected override void AimDownAndLeft() {
+
+        if (_xVel <= _recoil * _xMultiplier) {
+            _xVel += _recoil;
+        }
+    }
+
+    protected override void AimRight() {
+        _xVel += (_recoil * -0.25f);
+    }
+
+    protected override void AimLeft() {
+        _xVel += (_recoil * 0.25f);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections;
 
 public class CamaraShift : MonoBehaviour {
+
     private int gameWindow;
     public GameObject cameraPosition;
     private Rigidbody2D _body2D;
@@ -10,8 +11,7 @@ public class CamaraShift : MonoBehaviour {
 
     void Awake()
     {
-        _body2D = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>();
-        
+        _body2D = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>(); 
     }
 
     void OnTriggerExit2D(Collider2D other)
