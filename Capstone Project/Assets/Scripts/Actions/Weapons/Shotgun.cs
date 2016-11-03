@@ -21,6 +21,9 @@ public class Shotgun : AbstractGun {
 
             base.OnButtonDown(button);
         }
+        else if (_numOfRounds <= 0 && _collisionState.OnSolidGround) {
+            Reload();
+        }
     }
 
     protected override void AimDown() {
@@ -37,16 +40,17 @@ public class Shotgun : AbstractGun {
 
         //AIMING STRAIGHT DOWN
         else {
+
+            _yVel = _recoil;
+
             //FALLING (NEGATVIE Y VELOCITY
             if (_body2d.velocity.y < 0) {
                 _xVel = _body2d.velocity.x;
-                _yVel = _recoil;
             }
 
             //RISING OR ZERO Y VELOCITY
             else if (_body2d.velocity.y >= 0) {
                 _xVel = _body2d.velocity.x;
-                _yVel = _recoil;
             }
         }
     }
@@ -56,16 +60,16 @@ public class Shotgun : AbstractGun {
         //ON THE GROUND
         if (_collisionState.OnSolidGround) {
 
+            _yVel = _recoil * _setVel;
+
             // MOVING LEFT
             if (_body2d.velocity.x < 0) {
-                _xVel = _recoil * -_addVel + _body2d.velocity.x;
-                _yVel = _recoil * _setVel;
+                _xVel = -1.0f * Mathf.Clamp(Mathf.Abs(_body2d.velocity.x) + _recoil * _addVel, _recoil * _addVel, _recoil);
             }
 
             //MOVING RIGHT OR STANDING STILL
             else if (_body2d.velocity.x >= 0) {
                 _xVel = _recoil * -_setVel;
-                _yVel = _recoil * _setVel;
             }
         }
 
@@ -75,16 +79,15 @@ public class Shotgun : AbstractGun {
             //MOVING LEFT
             if (_body2d.velocity.x < 0) {
 
+                _xVel = -1.0f * Mathf.Clamp(Mathf.Abs(_body2d.velocity.x) + _recoil * _addVel, _recoil * _addVel, _recoil);
+
                 //FALLING (NEGATIVE Y VELOCITY)
                 if (_body2d.velocity.y < 0) {
-                    _xVel = _body2d.velocity.x + _recoil * -(_addVel);
                     _yVel = _recoil * _setVel;
                 }
 
                 //RISING OR ZERO Y VELOCITY
                 else if (_body2d.velocity.y >= 0) {
-                    _xVel = _body2d.velocity.x + _recoil * -_addVel;
-                    _xVel = -_recoil;
                     _yVel = Mathf.Clamp(_body2d.velocity.y, _recoil * _addVel, _recoil * 2);
                 }
             }
@@ -98,19 +101,20 @@ public class Shotgun : AbstractGun {
     }
 
     protected override void AimDownAndLeft() {
+
         //ON THE GROUND
         if (_collisionState.OnSolidGround) {
 
+            _yVel = _recoil * _setVel;
+
             //MOVING RIGHT
             if (_body2d.velocity.x > 0) {
-                _xVel = _recoil * _addVel + _body2d.velocity.x;
-                _yVel = _recoil * _setVel;
+                _xVel = Mathf.Clamp(_body2d.velocity.x + _recoil * _addVel, _recoil * _addVel, _recoil);
             }
 
             // MOVING LEFT OR STANDING STILL
             else if (_body2d.velocity.x <= 0) {
                 _xVel = _recoil * _setVel;
-                _yVel = _recoil * _setVel;
             }
         }
 
@@ -120,15 +124,15 @@ public class Shotgun : AbstractGun {
             //MOVING RIGHT
             if (_body2d.velocity.x > 0) {
 
+                _xVel = Mathf.Clamp(_body2d.velocity.x + _recoil * _addVel, _recoil * _addVel, _recoil);
+
                 //FALLING (NEGATIVE Y VELOCITY)
                 if (_body2d.velocity.y < 0) {
-                    _xVel = _body2d.velocity.x + _recoil * _addVel;
                     _yVel = _recoil * _setVel;
                 }
 
                 //RISING OR ZERO Y VELOCITY
                 else if (_body2d.velocity.y >= 0) {
-                    _xVel = _recoil * _setVel + _body2d.velocity.x;
                     _yVel = _recoil * _setVel;
                 }
             }
@@ -171,28 +175,30 @@ public class Shotgun : AbstractGun {
 
         //MOVING LEFT
         if (_body2d.velocity.x < 0) {
+
+            _xVel = _body2d.velocity.x + _recoil * -(_addVel);
+
             //FALLING
             if (_body2d.velocity.y < 0) {
-                _xVel = _body2d.velocity.x + _recoil * -(_addVel);
                 _yVel = _body2d.velocity.y + _recoil * -(_addVel);
             }
             //RISING
             else if (_body2d.velocity.y >= 0) {
-                _xVel = _body2d.velocity.x + _recoil * -(_addVel);
                 _yVel = _recoil * -(_addVel);
             }
         }
 
         //MOVING RIGHT NO X VELOCITY
         else if (_body2d.velocity.x >= 0) {
+
+            _xVel = _recoil * -(_setVel);
+
             //FALLING
             if (_body2d.velocity.y < 0) {
-                _xVel = _recoil * -(_setVel);
                 _yVel = _body2d.velocity.y + _recoil * -(_addVel);
             }
             //RISING
             else if (_body2d.velocity.y >= 0) {
-                _xVel = _recoil * -(_setVel);
                 _yVel = _recoil * -(_setVel);
             }
         }
@@ -202,28 +208,30 @@ public class Shotgun : AbstractGun {
 
         //MOVING LEFT
         if (_body2d.velocity.x < 0) {
+
+            _xVel = _recoil * (_setVel);
+
             //FALLING
             if (_body2d.velocity.y < 0) {
-                _xVel = _recoil * (_setVel);
                 _yVel = _body2d.velocity.y + _recoil * -(_addVel);
             }
             //RISING
             else if (_body2d.velocity.y >= 0) {
-                _xVel = _recoil * (_setVel);
                 _yVel = _recoil * -(_addVel);
             }
         }
 
         //MOVING RIGHT
         else if (_body2d.velocity.x >= 0) {
+
+            _xVel = _body2d.velocity.x + _recoil * _addVel;
+
             //FALLING
             if (_body2d.velocity.y < 0) {
-                _xVel = _body2d.velocity.x + _recoil * _addVel;
                 _yVel = _body2d.velocity.y + _recoil * -(_addVel);
             }
             //RISING
             if (_body2d.velocity.y >= 0) {
-                _xVel = _body2d.velocity.x + _recoil * _addVel;
                 _yVel = _recoil * -(_addVel);
             }
         }
@@ -233,15 +241,15 @@ public class Shotgun : AbstractGun {
         //IN AIR CONTROLLS ONLY
         if (!_collisionState.OnSolidGround) {
 
+            _xVel = -_recoil;
+
             // MOVING LEFT
             if (_body2d.velocity.x < 0) {
-                _xVel = -_recoil;
                 _yVel = _body2d.velocity.y;
             }
 
             // MOVING RIGHT OR STANDING STILL
             else if (_body2d.velocity.x >= 0) {
-                _xVel = -_recoil;
                 _yVel = _body2d.velocity.y;
             }
         }
@@ -252,15 +260,15 @@ public class Shotgun : AbstractGun {
         //IN AIR CONTROLLS ONLY
         if (!_collisionState.OnSolidGround) {
 
+            _xVel = _recoil;
+
             //MOVING RIGHT
             if (_body2d.velocity.x > 0) {
-                _xVel = _recoil;
                 _yVel = _body2d.velocity.y;
             }
 
             //MOVING LEFT OR STANDING STILL
             else if (_body2d.velocity.x <= 0) {
-                _xVel = _recoil;
                 _yVel = _body2d.velocity.y;
             }
         }

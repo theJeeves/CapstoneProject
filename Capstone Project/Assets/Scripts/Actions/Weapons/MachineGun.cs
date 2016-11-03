@@ -13,11 +13,6 @@ public class MachineGun : AbstractGun {
     public static event AbstractGunEvent2 Fire;
 
     [SerializeField]
-    private GameObject _bullet;
-    [SerializeField]
-    private Transform _mgBarrel;
-
-    [SerializeField]
     protected float _xMultiplier;
 
 
@@ -83,13 +78,16 @@ public class MachineGun : AbstractGun {
 
     private void OnButton(Buttons button) {
 
-        if (button == Buttons.Shoot && !_collisionState.OnSolidGround && _numOfRounds > 0) {
+        if (button == Buttons.Shoot && _numOfRounds > 0) {
 
             if (Fire != null) {
                 Fire();
             }
 
             base.OnButtonDown(button);
+        }
+        else if (_numOfRounds <= 0 && _collisionState.OnSolidGround) {
+            Reload();
         }
     }
 

@@ -36,6 +36,11 @@ public abstract class AbstractGun : MonoBehaviour {
     protected Rigidbody2D _body2d;
     protected PlayerCollisionState _collisionState;
 
+    [SerializeField]
+    private GameObject _bullet;
+    [SerializeField]
+    private Transform _mgBarrel;
+
     protected virtual void Awake()
     {
         _controller = GetComponentInParent<ControllableObject>();
@@ -61,6 +66,12 @@ public abstract class AbstractGun : MonoBehaviour {
     {
         ControllableObject.OnButtonDown -= OnButtonDown;
         PlayerCollisionState.OnHitGround -= Reload;
+
+        // Ensure the game is being play. If the player quits, do not call this
+        // as an error will be generated.
+        if (gameObject.activeInHierarchy) {
+            StartCoroutine(BackgroundReload());
+        }
     }
 
     protected void SetVeloctiy(float xVel, float yVel)
@@ -77,9 +88,18 @@ public abstract class AbstractGun : MonoBehaviour {
         }
     }
 
+    protected IEnumerator BackgroundReload() {
+
+        while (!_collisionState.OnSolidGround) {
+            yield return 0;
+        }
+        Reload();
+    }
+
     protected IEnumerator ShotDelay() {
 
         _canShoot = false;
+        Instantiate(_bullet, _mgBarrel.transform.position, Quaternion.identity);
         yield return new WaitForSeconds(_shotDelay);
         _canShoot = true;
     }
