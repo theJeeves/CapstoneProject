@@ -16,15 +16,14 @@ public class CamaraShift : MonoBehaviour {
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (_body2D.velocity.x > 0)
-        {
-            cameraPosition.transform.position += cameraMove;
-        }
-        else if(_body2D.velocity.x <0)
-        {
-            cameraPosition.transform.position -= cameraMove;
-        }
-        
+        if (other.gameObject.tag == "Player") {
+            if (_body2D.velocity.x > 0) {
+                cameraPosition.transform.position += cameraMove;
+            }
+            else if (_body2D.velocity.x < 0) {
+                cameraPosition.transform.position -= cameraMove;
+            }
+        }        
     }
 
 }

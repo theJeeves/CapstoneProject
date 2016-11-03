@@ -612,9 +612,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _widths: {x: 4, y: 2.5}
-  _growthDuration: 500
-  _endPosition: {x: 30, y: 35, z: 24, w: -24}
-  _dissipationRate: 4
+  _growthDuration: 5000000
+  _magnitudeRange: {x: 20, y: 100}
+  _directionRange: {x: -0.4, y: 0.4}
+  _dissipationRate: 6
 --- !u!120 &120000011606516570
 LineRenderer:
   m_ObjectHideFlags: 1
@@ -650,7 +651,7 @@ LineRenderer:
     endWidth: 0.05
     m_StartColor:
       serializedVersion: 2
-      rgba: 4294954708
+      rgba: 4278190335
     m_EndColor:
       serializedVersion: 2
       rgba: 4286924111
@@ -690,7 +691,7 @@ LineRenderer:
     endWidth: 0.05
     m_StartColor:
       serializedVersion: 2
-      rgba: 4294954708
+      rgba: 4278190335
     m_EndColor:
       serializedVersion: 2
       rgba: 4286924111
@@ -703,7 +704,7 @@ LineRenderer:
   m_GameObject: {fileID: 1000012527298256}
   m_Enabled: 1
   m_CastShadows: 0
-  m_ReceiveShadows: 0
+  m_ReceiveShadows: 1
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
@@ -730,7 +731,7 @@ LineRenderer:
     endWidth: 0.05
     m_StartColor:
       serializedVersion: 2
-      rgba: 4294954708
+      rgba: 4278190335
     m_EndColor:
       serializedVersion: 2
       rgba: 4286924111
@@ -770,7 +771,7 @@ LineRenderer:
     endWidth: 0.05
     m_StartColor:
       serializedVersion: 2
-      rgba: 4294954708
+      rgba: 4278190335
     m_EndColor:
       serializedVersion: 2
       rgba: 4286924111
@@ -810,7 +811,7 @@ LineRenderer:
     endWidth: 0.05
     m_StartColor:
       serializedVersion: 2
-      rgba: 4294954708
+      rgba: 4278190335
     m_EndColor:
       serializedVersion: 2
       rgba: 4286924111

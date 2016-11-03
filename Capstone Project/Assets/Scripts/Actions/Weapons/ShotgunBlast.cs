@@ -8,14 +8,31 @@ public class ShotgunBlast : MonoBehaviour {
     [SerializeField]
     private float _growthDuration;
     [SerializeField]
-    private Vector4 _endPosition;
+    private Vector2 _magnitudeRange;
+    [SerializeField]
+    private Vector2 _directionRange;
+
+
     [SerializeField]
     private float _dissipationRate;
 
+    private Vector2 _barrel;
+    private Vector2 _target;
+    private Vector3 _direction;
+
     private DigitalRuby.LightningBolt.LightningBoltScript[] _lightning;
-    private Vector3[] _endPositions = new Vector3[5];
+    private float[] _magnitudes = new float[5];
+    private Vector3[] _directions = new Vector3[5];
 
     private void Start() {
+
+        _barrel = GameObject.FindGameObjectWithTag("Barrel").transform.position;
+        _target = GameObject.FindGameObjectWithTag("Target").transform.position;
+
+        _direction = (_target - _barrel).normalized;
+
+        Debug.Log("direction = " + _direction);
+
 
         //Get all the prefab lightning bolts into one array
         _lightning = GetComponentsInChildren<DigitalRuby.LightningBolt.LightningBoltScript>();
@@ -28,7 +45,18 @@ public class ShotgunBlast : MonoBehaviour {
 
         //Generate random lengths and heights for each bolt to make it more chaotic
         for (int i = 0; i < _lightning.Length; ++i) {
-            _endPositions[i] = new Vector2(Random.Range(_endPosition.x, _endPosition.y), Random.Range(_endPosition.z, _endPosition.w));
+
+            if (i == _lightning.Length - 1) {
+                _magnitudes[i] = _magnitudeRange.y;
+                _directions[i] = _direction;
+            }
+            else {
+                _magnitudes[i] = Random.Range(_magnitudeRange.x, _magnitudeRange.y);
+                _directions[i].x += Random.Range(_directionRange.x, _directionRange.y);
+                _directions[i].y += Random.Range(_directionRange.x, _directionRange.y);
+
+                _directions[i] += _direction;
+            }
         }
 
         StartCoroutine(Extend());
@@ -37,15 +65,12 @@ public class ShotgunBlast : MonoBehaviour {
 
     private IEnumerator Extend() {
 
-        //while (_lightning[_lightning.Length-1].EndPosition.x < _endPositions[_lightning.Length - 1].x &&
-        //    _lightning[_lightning.Length-1].EndPosition.y < _endPositions[_lightning.Length - 1].y) {
-
-        while(_lightning[_lightning.Length-1].EndPosition != _endPositions[_lightning.Length-1]) {
+        while (_lightning[_lightning.Length - 1].EndPosition.magnitude <= _magnitudes[_lightning.Length - 1]) {
 
             int i = 0;
             foreach (DigitalRuby.LightningBolt.LightningBoltScript bolt in _lightning) {
 
-                bolt.EndPosition = Vector2.MoveTowards(bolt.EndPosition, _endPositions[i++], _growthDuration * Time.deltaTime);
+                bolt.EndPosition = Vector2.MoveTowards(bolt.EndPosition, (bolt.EndPosition + (_directions[i++] * 10.0f)), _growthDuration * Time.deltaTime);
             }
 
             yield return 0;
