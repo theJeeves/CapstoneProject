@@ -31,8 +31,6 @@ public class ShotgunBlast : MonoBehaviour {
 
         _direction = (_target - _barrel).normalized;
 
-        Debug.Log("direction = " + _direction);
-
 
         //Get all the prefab lightning bolts into one array
         _lightning = GetComponentsInChildren<DigitalRuby.LightningBolt.LightningBoltScript>();
