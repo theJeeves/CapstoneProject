@@ -14,11 +14,11 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     private void OnEnable() {
-        BoltCollider.DamageEnemy += DecrementHealth;
+        ShotgunBlast.DamageEnemy += DecrementHealth;
     }
 
     private void OnDisable() {
-        BoltCollider.DamageEnemy -= DecrementHealth;
+        ShotgunBlast.DamageEnemy -= DecrementHealth;
     }
 
     private void Start() {
@@ -29,6 +29,5 @@ public class EnemyHealth : MonoBehaviour {
 
         _health -= damage;
 
-        Debug.Log("I GOT HIT!");
     }
 }

@@ -600,6 +600,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageAmount: 7
+  enemies:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &114000011891521096
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -635,6 +638,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageAmount: 7
+  enemies:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &114000012759706832
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -693,6 +699,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageAmount: 7
+  enemies:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &114000013145226700
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -705,6 +714,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageAmount: 7
+  enemies:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &114000013268237014
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -740,6 +752,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damageAmount: 7
+  enemies:
+    serializedVersion: 2
+    m_Bits: 1024
 --- !u!114 &114000014100930858
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -751,10 +766,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb31536e8feb5274b9a4b1a9a26190bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damageAmount: 7
+  enemies:
+    serializedVersion: 2
+    m_Bits: 1024
   _widths: {x: 4, y: 2.5}
-  _growthDuration: 5000000
-  _magnitudeRange: {x: 20, y: 100}
-  _directionRange: {x: -0.4, y: 0.4}
+  _growthDuration: 500
+  _magnitudeRange:
+    _min: 50
+    _max: 100
+  _directionRange:
+    _min: -0.4
+    _max: 0.4
   _dissipationRate: 30
 --- !u!120 &120000011606516570
 LineRenderer:
