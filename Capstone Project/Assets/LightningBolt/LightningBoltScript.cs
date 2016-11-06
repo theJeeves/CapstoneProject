@@ -59,6 +59,11 @@ namespace DigitalRuby.LightningBolt
             set { _width = value; }
         }
 
+        private float _magnitude;
+        public float Magnitude {
+            get { return EndPosition.magnitude; }
+        }
+
         [Range(0, 8)]
         [Tooltip("How manu generations? Higher numbers create more line segments.")]
         public int Generations = 6;

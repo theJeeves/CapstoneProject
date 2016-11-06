@@ -13,7 +13,7 @@ public class PlayerBulletMovement : MonoBehaviour {
     private void Start()
     {
         _barrel = GameObject.FindGameObjectWithTag("Barrel").transform.position;
-        _target = GameObject.FindGameObjectWithTag("Target").transform.position;
+        _target = GameObject.FindGameObjectWithTag("Direction").transform.position;
 
         _direction = (_target - _barrel).normalized;
 

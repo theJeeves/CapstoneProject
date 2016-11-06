@@ -14,9 +14,10 @@ public class CamaraShift : MonoBehaviour {
         _body2D = GameObject.FindGameObjectWithTag("Player").GetComponent<Rigidbody2D>(); 
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.tag == "Player") {
+
             if (_body2D.velocity.x > 0) {
                 cameraPosition.transform.position += cameraMove;
             }
