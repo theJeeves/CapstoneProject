@@ -35,7 +35,9 @@ public class PlayerCollisionState : MonoBehaviour {
 
     // The radius size of each trigger
     [SerializeField]
-    private Vector2 _radius = Vector2.zero;
+    private float _radius = 0.0f;
+
+    private bool _eventBroadcasted = false;
 
     private void FixedUpdate() {
 
@@ -50,9 +52,14 @@ public class PlayerCollisionState : MonoBehaviour {
         point.y += transform.position.y;
 
        // _onSolidGround = Physics2D.OverlapCircle(point, _radius, _solidGroundLayer);
-        _onSolidGround = Physics2D.OverlapBox(point, _radius, 0.0f, _solidGroundLayer);
-        if (_onSolidGround && OnHitGround != null) {
+        _onSolidGround = Physics2D.OverlapCircle(point, _radius, _solidGroundLayer);
+
+        if (!_eventBroadcasted && _onSolidGround && OnHitGround != null) {
             OnHitGround();
+            _eventBroadcasted = true;
+        }
+        else if (_eventBroadcasted && !_onSolidGround) {
+            _eventBroadcasted = false;
         }
     }
 
@@ -66,7 +73,7 @@ public class PlayerCollisionState : MonoBehaviour {
             pos.x += transform.position.x;
             pos.y += transform.position.y;
 
-            Gizmos.DrawWireCube(pos, _radius);
+            Gizmos.DrawWireSphere(pos, _radius);
         }
     }
 }

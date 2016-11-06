@@ -6,6 +6,9 @@ TagManager:
   tags:
   - SolidGround
   - Gun
+  - Barrel
+  - Direction
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -16,8 +19,8 @@ TagManager:
   - 
   - 
   - SolidGround
-  - 
-  - 
+  - Player
+  - Enemy
   - 
   - 
   - 
@@ -42,4 +45,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Player
+    uniqueID: 3890449483
+    locked: 0
+  - name: Environment
+    uniqueID: 1683302791
     locked: 0

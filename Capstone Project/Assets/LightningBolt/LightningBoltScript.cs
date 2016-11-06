@@ -51,6 +51,19 @@ namespace DigitalRuby.LightningBolt
         [Tooltip("The end position where the lightning will end at. This is in world space if EndObject is null, otherwise this is offset from EndObject position.")]
         public Vector3 EndPosition;
 
+        //MODDED VARIABLE TO CONTROL THE WIDTH OF EACH BOLT
+        [SerializeField]
+        private Vector2 _width;
+        public Vector2 Width {
+            get { return _width; }
+            set { _width = value; }
+        }
+
+        private float _magnitude;
+        public float Magnitude {
+            get { return EndPosition.magnitude; }
+        }
+
         [Range(0, 8)]
         [Tooltip("How manu generations? Higher numbers create more line segments.")]
         public int Generations = 6;
@@ -301,6 +314,7 @@ namespace DigitalRuby.LightningBolt
             timer -= Time.deltaTime;
         }
 
+        // MODDED THIS FUNCTION TO CHANGE THE WIDTH OF THE LINE RENDERER
         /// <summary>
         /// Trigger a lightning bolt. Use this if ManualMode is true.
         /// </summary>
@@ -326,6 +340,7 @@ namespace DigitalRuby.LightningBolt
             }
             startIndex = 0;
             GenerateLightningBolt(start, end, Generations, Generations, 0.0f);
+            lineRenderer.SetWidth(_width.x, _width.y);
             UpdateLineRenderer();
         }
 
