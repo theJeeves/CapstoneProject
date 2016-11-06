@@ -26,18 +26,18 @@ public abstract class CameraShake : MonoBehaviour {
     protected void ShakeScreen() {
 
         _timer = _shakeTime;
-        _defaultCamPos = _camera.transform.position;
+        _defaultCamPos = _camera.transform.localPosition;
         StartCoroutine(Shake());
     }
 
     protected IEnumerator Shake() {
 
         while (_timer > 0.0f) {
-            _camera.transform.position += new Vector3(Random.insideUnitCircle.x * _shakeAmount, Random.insideUnitCircle.y * _shakeAmount, 0);
+            _camera.transform.localPosition += new Vector3(Random.insideUnitCircle.x * _shakeAmount, Random.insideUnitCircle.y * _shakeAmount, 0);
             _timer -= _decreaseRate * Time.deltaTime;
             yield return 0;
         }
 
-        _camera.transform.position = _defaultCamPos;
+        _camera.transform.localPosition = _defaultCamPos;
     }
 }
