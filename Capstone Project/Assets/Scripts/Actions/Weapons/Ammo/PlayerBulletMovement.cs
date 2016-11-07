@@ -19,8 +19,6 @@ public class PlayerBulletMovement : MonoBehaviour {
 
         transform.localEulerAngles = new Vector3(transform.localRotation.x, transform.localRotation.y, Vector3.Angle(_direction, Vector3.up));
 
-        Debug.Log(Vector2.Angle(_direction, Vector2.up));
-
         StartCoroutine(movement());
     }
 

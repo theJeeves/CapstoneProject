@@ -113,11 +113,9 @@ public class ShotgunBlast : MonoBehaviour {
 
             RaycastHit2D hit = Physics2D.Raycast(_start, _directions[i], _magnitudes[i], enemies);
 
-            if (hit.collider != null) {
+            if (hit.collider != null && DamageEnemy != null) {
                 Debug.DrawLine(_start, _start + _lightning[i].EndPosition, Color.white);
-                if (DamageEnemy != null) {
-                    DamageEnemy(_damageAmount);
-                }
+                DamageEnemy(_damageAmount);
             }
         }
 

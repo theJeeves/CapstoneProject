@@ -16,7 +16,6 @@ public class BulletMovement : MonoBehaviour {
     }
 
     private IEnumerator MoveTowards() {
-        //float dist = _player.GetComponent<Rigidbody2D>().velocity.x;
 
         Vector3 unitVect = (_player.transform.position - transform.position).normalized;
 
@@ -25,8 +24,7 @@ public class BulletMovement : MonoBehaviour {
 
         while (true) {
 
-            transform.position += unitVect* (_speed * Time.deltaTime);
-
+            transform.position += unitVect * (_speed * Time.deltaTime);
             yield return 0;
         }
     }

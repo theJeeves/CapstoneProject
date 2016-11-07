@@ -15,10 +15,12 @@ public class EnemyHealth : MonoBehaviour {
 
     private void OnEnable() {
         ShotgunBlast.DamageEnemy += DecrementHealth;
+        CrystalBulletBehavior.DamageEnemy += DecrementHealth;
     }
 
     private void OnDisable() {
         ShotgunBlast.DamageEnemy -= DecrementHealth;
+        CrystalBulletBehavior.DamageEnemy -= DecrementHealth;
     }
 
     private void Start() {
@@ -29,5 +31,9 @@ public class EnemyHealth : MonoBehaviour {
 
         _health -= damage;
 
+        if (_health <= 0.0f) {
+
+            Destroy(gameObject);
+        }
     }
 }
