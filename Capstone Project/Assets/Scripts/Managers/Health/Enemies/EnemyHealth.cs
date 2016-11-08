@@ -15,19 +15,25 @@ public class EnemyHealth : MonoBehaviour {
 
     private void OnEnable() {
         ShotgunBlast.DamageEnemy += DecrementHealth;
+        CrystalBullet.DamageEnemy += DecrementHealth;
     }
 
     private void OnDisable() {
         ShotgunBlast.DamageEnemy -= DecrementHealth;
+        CrystalBullet.DamageEnemy -= DecrementHealth;
     }
 
     private void Start() {
         _health = _maxHealth;
     }
 
-    private void DecrementHealth(float damage) {
+    private void DecrementHealth(int damage) {
 
         _health -= damage;
 
+        if (_health <= 0.0f) {
+
+            Destroy(gameObject);
+        }
     }
 }
