@@ -18,11 +18,13 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void OnEnable() {
-        DestroyOnContact.DecrementHealth += decrementPlayerHealth;
+        AbstractEnemyDealDamage.DecrementHealth += DecrementPlayerHealth;
+        ChargerDealDamage.DecrementHealth += DecrementPlayerHealth;
     }
 
     private void OnDisable() {
-        DestroyOnContact.DecrementHealth -= decrementPlayerHealth;
+        AbstractEnemyDealDamage.DecrementHealth -= DecrementPlayerHealth;
+        ChargerDealDamage.DecrementHealth -= DecrementPlayerHealth;
     }
 
     void Start() {
@@ -33,7 +35,7 @@ public class PlayerHealth : MonoBehaviour {
         }
     }
 
-    private void decrementPlayerHealth(int damage) {
+    private void DecrementPlayerHealth(int damage) {
         _health -= damage;
 
         if (UpdateHealth != null) {

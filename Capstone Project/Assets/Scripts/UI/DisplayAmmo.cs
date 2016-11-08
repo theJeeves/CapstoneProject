@@ -11,13 +11,11 @@ public class DisplayAmmo : MonoBehaviour {
     }
 
     private void OnEnable() {
-        Shotgun.UpdateNumOfRounds += UpdateText;
-        MachineGun.UpdateNumOfRounds += UpdateText;
+        AbstractGun.UpdateNumOfRounds += UpdateText;
     }
 
     private void OnDisable() {
-        Shotgun.UpdateNumOfRounds -= UpdateText;
-        MachineGun.UpdateNumOfRounds -= UpdateText;
+        AbstractGun.UpdateNumOfRounds -= UpdateText;
     }
 
     private void UpdateText(int numOfRounds) {

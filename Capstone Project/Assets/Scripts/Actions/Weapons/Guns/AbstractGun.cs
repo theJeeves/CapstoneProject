@@ -133,8 +133,11 @@ public abstract class AbstractGun : MonoBehaviour {
 
     protected virtual void OnButtonDown(Buttons button)
     {
-        if (UpdateNumOfRounds != null && _canShoot) {
-            UpdateNumOfRounds(--_numOfRounds);
+        if (_canShoot) {
+            --_numOfRounds;
+            if (UpdateNumOfRounds != null) {
+                UpdateNumOfRounds(_numOfRounds);
+            }
             StartCoroutine(ShotDelay());
         }
 
