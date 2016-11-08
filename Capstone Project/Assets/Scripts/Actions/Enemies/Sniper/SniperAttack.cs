@@ -9,11 +9,11 @@ public class SniperAttack : MonoBehaviour {
     private GameObject _bullet;
 
 	private void OnEnable() {
-        LockOntoPlayer.Fire += Fire;
+        SniperLockOn.Attack += Fire;
     }
 
     private void OnDisable() {
-        LockOntoPlayer.Fire -= Fire;
+        SniperLockOn.Attack -= Fire;
     }
 
     private void Fire() {
