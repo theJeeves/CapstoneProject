@@ -151,7 +151,8 @@ public abstract class AbstractGun : MonoBehaviour {
         }
 
         //AIMING UP IN AIR
-        else if (_controller.AimDirection.Up && _collisionState.OnSolidGround) {
+        else if (_controller.AimDirection.Up && !_collisionState.OnSolidGround) {
+            AimUp();
         }
             
         //AIMING RIGHT

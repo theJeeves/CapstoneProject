@@ -27,13 +27,17 @@ public class EnemyHealth : MonoBehaviour {
         _health = _maxHealth;
     }
 
-    private void DecrementHealth(int damage) {
+    private void DecrementHealth(int damage, GameObject whatGotHit) {
 
-        _health -= damage;
+        //whatGotHit is technically the enemy body where the collider is located.
+        //We look to its parent, which is where the health script is located.
+        if (whatGotHit.transform.parent.gameObject == gameObject) {
+            _health -= damage;
 
-        if (_health <= 0.0f) {
+            if (_health <= 0.0f) {
 
-            Destroy(gameObject);
+                Destroy(gameObject);
+            }
         }
     }
 }
