@@ -3,7 +3,7 @@ using System.Collections;
 
 public abstract class AbstractBullet : MonoBehaviour {
 
-    public delegate void AbstractBulletEvent(int damage);
+    public delegate void AbstractBulletEvent(int damage, GameObject whatGotHit);
 
     [SerializeField]
     protected float _shotSpeed;

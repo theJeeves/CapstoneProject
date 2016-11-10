@@ -18,13 +18,13 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void OnEnable() {
-        AbstractEnemyDealDamage.DecrementHealth += DecrementPlayerHealth;
-        ChargerDealDamage.DecrementHealth += DecrementPlayerHealth;
+        SniperDealDamage.DecrementPlayerHealth += DecrementPlayerHealth;
+        ChargerDealDamage.DecrementPlayerHealth += DecrementPlayerHealth;
     }
 
     private void OnDisable() {
-        AbstractEnemyDealDamage.DecrementHealth -= DecrementPlayerHealth;
-        ChargerDealDamage.DecrementHealth -= DecrementPlayerHealth;
+        SniperDealDamage.DecrementPlayerHealth -= DecrementPlayerHealth;
+        ChargerDealDamage.DecrementPlayerHealth -= DecrementPlayerHealth;
     }
 
     void Start() {

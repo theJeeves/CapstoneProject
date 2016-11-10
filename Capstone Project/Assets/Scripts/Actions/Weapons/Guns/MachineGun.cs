@@ -15,7 +15,6 @@ public class MachineGun : AbstractGun {
     [SerializeField]
     protected float _xMultiplier;
 
-
     protected override void OnEnable() {
         base.OnEnable();
 
@@ -84,7 +83,12 @@ public class MachineGun : AbstractGun {
                 Fire();
             }
 
-            base.OnButtonDown(button);
+            if (_collisionState.OnSolidGround && _controller.AimDirection.Down) {
+                OnButtonDown(button);
+            }
+            else {
+                base.OnButtonDown(button);
+            }
         }
         else if (_numOfRounds <= 0 && _collisionState.OnSolidGround) {
             Reload();
