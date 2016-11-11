@@ -10,7 +10,7 @@ public class Death : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-	    if(transform.position.y < -200)
+	    if(transform.position.y < -2000)
         {
             transform.position = new Vector3(0, -49, 0);
         }
