@@ -18,11 +18,11 @@ public class FacingDirection : AbstractPlayerActions {
         switch (button) {
             case Buttons.MoveRight:
             case Buttons.AimRight:
-                _controller.Direction = Facing.Right;
+                _controller.FacingDirection = Facing.Right;
                 break;
             case Buttons.MoveLeft:
             case Buttons.AimLeft:
-                _controller.Direction = Facing.Left;
+                _controller.FacingDirection = Facing.Left;
                 break;
             default:
                 break;
@@ -35,11 +35,11 @@ public class FacingDirection : AbstractPlayerActions {
         if (button == Buttons.MoveLeft || button == Buttons.MoveRight ||
             button == Buttons.AimLeft || button == Buttons.AimRight) {
 
-            if (_controller.Direction == Facing.Right && transform.localScale.x < 0) {
+            if (_controller.FacingDirection == Facing.Right && transform.localScale.x < 0) {
                 transform.localScale = new Vector3(-transform.localScale.x,
                     transform.localScale.y, transform.localScale.z);
             }
-            else if (_controller.Direction == Facing.Left && transform.localScale.x > 0) {
+            else if (_controller.FacingDirection == Facing.Left && transform.localScale.x > 0) {
                 transform.localScale = new Vector3(-transform.localScale.x,
                     transform.localScale.y, transform.localScale.z);
             }

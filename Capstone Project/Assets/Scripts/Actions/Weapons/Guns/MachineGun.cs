@@ -15,15 +15,29 @@ public class MachineGun : AbstractGun {
     [SerializeField]
     protected float _xMultiplier;
 
+    private bool _canLift = true;
+
     protected override void OnEnable() {
         base.OnEnable();
 
         ControllableObject.OnButton += OnButton;
+        PlayerCollisionState.OnHitGround += OnHitSolidGround;
+
+        _canLift = _collisionState.OnSolidGround ? true : false;
     }
 
     protected override void OnDisable() {
         base.OnDisable();
         ControllableObject.OnButton -= OnButton;
+        PlayerCollisionState.OnHitGround -= OnHitSolidGround;
+    }
+
+    private void OnHitSolidGround() {
+        _canLift = true;
+        
+        if (_body2d.velocity.y <= 0.0f) {
+            Reload();
+        }
     }
 
     protected override void OnButtonDown(Buttons button) {
@@ -50,6 +64,7 @@ public class MachineGun : AbstractGun {
                     else {
                         _body2d.AddForce(new Vector2(0, 10000), ForceMode2D.Impulse);
                     }
+                    _canLift = false;
                 }
             }
 
@@ -70,6 +85,7 @@ public class MachineGun : AbstractGun {
                     else {
                         _body2d.AddForce(new Vector2(0, 10000), ForceMode2D.Impulse);
                     }
+                    _canLift = false;
                 }
             }
         }
@@ -83,7 +99,7 @@ public class MachineGun : AbstractGun {
                 Fire();
             }
 
-            if (_collisionState.OnSolidGround && _controller.AimDirection.Down) {
+            if (_canLift && _controller.AimDirection.Down) {
                 OnButtonDown(button);
             }
             else {
