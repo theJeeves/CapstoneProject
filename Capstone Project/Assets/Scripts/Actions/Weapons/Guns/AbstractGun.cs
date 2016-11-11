@@ -81,10 +81,13 @@ public abstract class AbstractGun : MonoBehaviour {
 
     protected virtual void Reload() {
 
-        _numOfRounds = _clipSize;
+        if (_body2d.velocity.y <= 0.0f) {
 
-        if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
+            _numOfRounds = _clipSize;
+
+            if (UpdateNumOfRounds != null) {
+                UpdateNumOfRounds(_numOfRounds);
+            }
         }
     }
 
@@ -151,19 +154,21 @@ public abstract class AbstractGun : MonoBehaviour {
         }
 
         //AIMING UP IN AIR
-        else if (_controller.AimDirection.Up && !_collisionState.OnSolidGround) {
-            AimUp();
+        else if (_controller.AimDirection.Up) {
+            if (!_collisionState.OnSolidGround) {
+                AimUp();
+            }
         }
             
         //AIMING RIGHT
         else if (_controller.AimDirection.Right ||
-            (button == Buttons.Shoot && _controller.Direction == Facing.Right)) {
+            (button == Buttons.Shoot && _controller.FacingDirection == Facing.Right)) {
 
             AimRight();
         }
         //AIMING LEFT
         else if (_controller.AimDirection.Left ||
-            (button == Buttons.Shoot && _controller.Direction == Facing.Left)) {
+            (button == Buttons.Shoot && _controller.FacingDirection == Facing.Left)) {
 
             AimLeft();
         }
