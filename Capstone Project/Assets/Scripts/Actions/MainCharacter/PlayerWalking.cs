@@ -29,7 +29,7 @@ public class PlayerWalking : AbstractPlayerActions {
         // THIS IS TO PREVENT THE WALKING SCRIPT FROM OVERRIDING THE WEAPON RECOIL MOVEMENT
         if (_controller.AimDirection.Down && _controller.GetButtonPress(Buttons.Shoot)) {
         }
-        else { 
+        else {
 
             if (button == Buttons.MoveRight && _collisionState.OnSolidGround) {
                 _body2d.velocity = new Vector2(_walkSpeed * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);

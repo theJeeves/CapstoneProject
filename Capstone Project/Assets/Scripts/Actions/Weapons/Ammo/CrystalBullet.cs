@@ -23,7 +23,6 @@ public class CrystalBullet : AbstractBullet {
         transform.localEulerAngles = new Vector3(0, 0, (float)_controller.FacingDirection * _gun.localRotation.z + 90);
 
         _direction += new Vector3(Random.Range(_directionRange.Min, _directionRange.Max), Random.Range(_directionRange.Min, _directionRange.Max), 0);
-        Debug.Log(_direction);
 
         StartCoroutine(Shoot());
     }

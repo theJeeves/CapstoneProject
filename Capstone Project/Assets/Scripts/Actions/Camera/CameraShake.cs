@@ -15,29 +15,28 @@ public abstract class CameraShake : MonoBehaviour {
     [SerializeField]
     protected float _decreaseRate;
 
-    protected GameObject _camera;
     protected Vector3 _defaultCamPos;
     protected float _timer;
-
-	protected void Awake() {
-        _camera = GameObject.FindGameObjectWithTag("MainCamera");
-    }
 
     protected void ShakeScreen() {
 
         _timer = _shakeTime;
-        _defaultCamPos = _camera.transform.localPosition;
+        _defaultCamPos = Camera.main.transform.localPosition;
         StartCoroutine(Shake());
     }
 
     protected IEnumerator Shake() {
 
         while (_timer > 0.0f) {
-            _camera.transform.localPosition += new Vector3(Random.insideUnitCircle.x * _shakeAmount, Random.insideUnitCircle.y * _shakeAmount, 0);
+            Camera.main.transform.position += new Vector3(Random.insideUnitCircle.x * _shakeAmount, Random.insideUnitCircle.y * _shakeAmount, 0);
             _timer -= _decreaseRate * Time.deltaTime;
             yield return 0;
         }
 
-        _camera.transform.localPosition = _defaultCamPos;
+        /*
+         * NEED TO FIX THIS. WHEN THIS LINE IS ENABLED, THE CAMERA MOVEMENT IS
+         * WAY TO JARRING, BUT THE CAMERA DOES NOT GET SET BACK TO THE ORIGINAL POSITION.
+         */
+        //Camera.main.transform.position = _defaultCamPos;
     }
 }
