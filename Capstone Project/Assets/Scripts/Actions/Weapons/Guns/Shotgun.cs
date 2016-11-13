@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /*
  * Weapon based on the AbstractGun class which gives the player a "jump" like ability.
@@ -11,7 +12,7 @@ public class Shotgun : AbstractGun {
     // knows which weapon called this event.
     public static event AbstractGunEvent2 Fire;
 
-    protected override void OnButtonDown(Buttons button) {
+    protected override void OnButtonDown(Buttons button) { 
 
         if (button == Buttons.Shoot && _numOfRounds > 0 && _canShoot) {
 
@@ -20,6 +21,8 @@ public class Shotgun : AbstractGun {
             }
 
             base.OnButtonDown(button);
+            _gunActions[_controller.CurrentKey].Invoke();
+            SetVeloctiy(_xVel, _yVel);
         }
         else if (_numOfRounds <= 0 && _collisionState.OnSolidGround) {
             Reload();
@@ -28,31 +31,19 @@ public class Shotgun : AbstractGun {
 
     protected override void AimDown() {
 
-        //AIMING DOWN AND RIGHT
-        if (_controller.AimDirection.Right) {
-            AimDownAndRight();
+        _yVel = _recoil;
+
+        //FALLING (NEGATVIE Y VELOCITY
+        if (_body2d.velocity.y < 0) {
+            _xVel = _body2d.velocity.x;
         }
 
-        //AIMING DOWN AND LEFT
-        else if (_controller.AimDirection.Left) {
-            AimDownAndLeft();
+        //RISING OR ZERO Y VELOCITY
+        else if (_body2d.velocity.y >= 0) {
+            _xVel = _body2d.velocity.x;
         }
 
-        //AIMING STRAIGHT DOWN
-        else {
-
-            _yVel = _recoil;
-
-            //FALLING (NEGATVIE Y VELOCITY
-            if (_body2d.velocity.y < 0) {
-                _xVel = _body2d.velocity.x;
-            }
-
-            //RISING OR ZERO Y VELOCITY
-            else if (_body2d.velocity.y >= 0) {
-                _xVel = _body2d.velocity.x;
-            }
-        }
+        SetVeloctiy(_xVel, _yVel);
     }
 
     protected override void AimDownAndRight() {
@@ -147,27 +138,16 @@ public class Shotgun : AbstractGun {
 
     protected override void AimUp() {
 
-        //AIMING UP AND RIGHT IN AIR
-        if (_controller.AimDirection.Right) {
-            AimUpAndRight();
-        }
-        //AIMING UP AND LEFT IN AIR
-        else if (_controller.AimDirection.Left) {
-            AimUpAndLeft();
-        }
-        //AIMMING STRAIGHT UP
-        else {
-            _xVel = _body2d.velocity.x;
+        _xVel = _body2d.velocity.x;
 
-            //FALLING
-            if (_body2d.velocity.y < 0) {
-                _yVel = _body2d.velocity.y + _recoil * -(_setVel);
-            }
+        //FALLING
+        if (_body2d.velocity.y < 0) {
+            _yVel = _body2d.velocity.y + _recoil * -(_setVel);
+        }
 
-            //RISING OR STILL
-            else if (_body2d.velocity.y >= 0) {
-                _yVel = -(_recoil);
-            }
+        //RISING OR STILL
+        else if (_body2d.velocity.y >= 0) {
+            _yVel = -(_recoil);
         }
     }
 

@@ -19,47 +19,19 @@ public class AimWeapon : MonoBehaviour {
     }
 	
     private void OnDisable() {
-        ControllableObject.OnButton += OnButtonDown;
+        ControllableObject.OnButton -= OnButtonDown;
         ControllableObject.OnButtonUp -= OnButtonUp;
     }
 
     private void OnButtonDown(Buttons button) {
 
-        int degree = 0;
+        short degree = 0;
 
+        if (button == Buttons.AimDown || button == Buttons.AimLeft ||
+            button == Buttons.AimRight || button == Buttons.AimUp) {
 
-        if (button == Buttons.AimDown) {
-            if (_controller.AimDirection.Right) {
-                degree = 315;
-            }
-            else if (_controller.AimDirection.Left) {
-                degree = 225;
-            }
-            else {
-                degree = 270;
-            }
-        }
-        else if (button == Buttons.AimUp) {
-            if (_controller.AimDirection.Right) {
-                degree = 45;
-            }
-            else if (_controller.AimDirection.Left) {
-                degree = 135;
-            }
-            else {
-                degree = 90;
-            }
-        }
+            degree = _controller.AimDirection;
 
-        else if (button == Buttons.AimRight) {
-            degree = 0;
-        }
-        else if (button == Buttons.AimLeft) {
-            degree = 180;
-        }
-
-        // These tweaks are to take into account for negating the X-scale on the sprite.
-        if (button == Buttons.AimDown || button == Buttons.AimUp || button == Buttons.AimRight || button == Buttons.AimLeft) {
             switch (degree) {
                 case 225:
                     RotateGun(-45); break;

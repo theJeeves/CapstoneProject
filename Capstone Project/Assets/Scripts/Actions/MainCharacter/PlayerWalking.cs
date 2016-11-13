@@ -27,7 +27,9 @@ public class PlayerWalking : AbstractPlayerActions {
 
         //AS LONG AS THE PLAYER IS NOT AIMING IN A DOWN DIRECTION AND FIRING, THEY CAN WALK
         // THIS IS TO PREVENT THE WALKING SCRIPT FROM OVERRIDING THE WEAPON RECOIL MOVEMENT
-        if (_controller.AimDirection.Down && _controller.GetButtonPress(Buttons.Shoot)) {
+        //if (_controller.AimDirection.Down && _controller.GetButtonPress(Buttons.Shoot)) {
+        //}
+        if (_controller.GetButtonPress(Buttons.AimDown) && _controller.GetButtonPress(Buttons.Shoot)) {
         }
         else {
 

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ChargerLockOn : LockOntoPlayer {
 
-    public static event LockOntoPlayerEvent Attack;
+    //public static event LockOntoPlayerEvent Attack;
 
     [SerializeField]
     private LayerMask _whatToHit;

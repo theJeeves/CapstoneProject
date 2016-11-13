@@ -25,6 +25,7 @@ public abstract class AbstractGun : MonoBehaviour {
     protected float _shotDelay;
 
     protected bool _canShoot;
+    protected System.Action[] _gunActions = new System.Action[8];
 
     protected float _addVel = 0.45f;
     protected float _setVel = 0.75f;
@@ -60,6 +61,17 @@ public abstract class AbstractGun : MonoBehaviour {
         if (UpdateNumOfRounds != null) {
             UpdateNumOfRounds(_numOfRounds);
         }
+    }
+
+    private void Start() {
+        _gunActions[0] = AimRight;
+        _gunActions[1] = AimUpAndRight;
+        _gunActions[2] = AimUp;
+        _gunActions[3] = AimUpAndLeft;
+        _gunActions[4] = AimLeft;
+        _gunActions[5] = AimDownAndLeft;
+        _gunActions[6] = AimDown;
+        _gunActions[7] = AimDownAndRight;
     }
 
     protected virtual void OnDisable()
@@ -146,34 +158,6 @@ public abstract class AbstractGun : MonoBehaviour {
 
         _xVel = _body2d.velocity.x;
         _yVel = _body2d.velocity.y;
-
-        //AIMING DOWN
-        if (_controller.AimDirection.Down) {
-
-            AimDown();
-        }
-
-        //AIMING UP IN AIR
-        else if (_controller.AimDirection.Up) {
-            if (!_collisionState.OnSolidGround) {
-                AimUp();
-            }
-        }
-            
-        //AIMING RIGHT
-        else if (_controller.AimDirection.Right ||
-            (button == Buttons.Shoot && _controller.FacingDirection == Facing.Right)) {
-
-            AimRight();
-        }
-        //AIMING LEFT
-        else if (_controller.AimDirection.Left ||
-            (button == Buttons.Shoot && _controller.FacingDirection == Facing.Left)) {
-
-            AimLeft();
-        }
-
-        SetVeloctiy(_xVel, _yVel);
     }
 }
 
