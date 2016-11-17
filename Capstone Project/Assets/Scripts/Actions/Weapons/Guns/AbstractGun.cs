@@ -23,6 +23,8 @@ public abstract class AbstractGun : MonoBehaviour {
     protected int _numOfRounds;
     [SerializeField]
     protected float _shotDelay;
+    [SerializeField]
+    protected int _reloadTime;
 
     protected bool _canShoot;
     protected System.Action[] _gunActions = new System.Action[8];
@@ -32,6 +34,8 @@ public abstract class AbstractGun : MonoBehaviour {
 
     protected float _xVel;
     protected float _yVel;
+
+    protected bool _canReload = true;
 
     protected ControllableObject _controller;
     protected Rigidbody2D _body2d;
@@ -56,7 +60,13 @@ public abstract class AbstractGun : MonoBehaviour {
         ControllableObject.OnButtonDown += OnButtonDown;
         PlayerCollisionState.OnHitGround += Reload;
 
-        _canShoot = true;
+        if (_numOfRounds <= 0) {
+            Reload();
+            _canReload = false;
+        }
+        else {
+            _canShoot = true;
+        }
 
         if (UpdateNumOfRounds != null) {
             UpdateNumOfRounds(_numOfRounds);
@@ -78,12 +88,6 @@ public abstract class AbstractGun : MonoBehaviour {
     {
         ControllableObject.OnButtonDown -= OnButtonDown;
         PlayerCollisionState.OnHitGround -= Reload;
-
-        // Ensure the game is being play. If the player quits, do not call this
-        // as an error will be generated.
-        if (gameObject.activeInHierarchy) {
-            StartCoroutine(BackgroundReload());
-        }
     }
 
     protected void SetVeloctiy(float xVel, float yVel)
@@ -93,35 +97,17 @@ public abstract class AbstractGun : MonoBehaviour {
 
     protected virtual void Reload() {
 
-        if (_body2d.velocity.y <= 0.0f) {
-
-            _numOfRounds = _clipSize;
-
-            if (UpdateNumOfRounds != null) {
-                UpdateNumOfRounds(_numOfRounds);
-            }
+        _numOfRounds = _clipSize;
+            
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(_numOfRounds);
         }
     }
 
-    protected IEnumerator BackgroundReload() {
 
-        while (!_collisionState.OnSolidGround) {
-            yield return 0;
-        }
-        Reload();
-    }
-
-    protected IEnumerator ShotDelay() {
-
-        _canShoot = false;
-        Instantiate(_bullet, _mgBarrel.transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(_shotDelay);
-        _canShoot = true;
-    }
-
-
-    //Directional methods to be overriden by individual weapons
-    // and their unique properties of movement
+    /* Directional methods to be overriden by individual weapons
+    *  and their unique properties of movement
+    */
     protected virtual void AimDownAndRight() {
     }
 
@@ -149,7 +135,10 @@ public abstract class AbstractGun : MonoBehaviour {
     protected virtual void OnButtonDown(Buttons button)
     {
         if (_canShoot) {
-            --_numOfRounds;
+            if(--_numOfRounds <= 0) {
+                Reload();
+            }
+
             if (UpdateNumOfRounds != null) {
                 UpdateNumOfRounds(_numOfRounds);
             }
@@ -158,6 +147,14 @@ public abstract class AbstractGun : MonoBehaviour {
 
         _xVel = _body2d.velocity.x;
         _yVel = _body2d.velocity.y;
+    }
+
+    protected IEnumerator ShotDelay() {
+
+        _canShoot = false;
+        Instantiate(_bullet, _mgBarrel.transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(_shotDelay);
+        _canShoot = true;
     }
 }
 

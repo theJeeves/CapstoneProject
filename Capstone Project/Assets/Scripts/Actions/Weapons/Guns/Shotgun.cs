@@ -11,6 +11,7 @@ public class Shotgun : AbstractGun {
     // This is put into the shotgun script so the shotgun screen shake script
     // knows which weapon called this event.
     public static event AbstractGunEvent2 Fire;
+    public static event AbstractGunEvent2 StartReloadAnimation;
 
     protected override void OnButtonDown(Buttons button) { 
 
@@ -24,9 +25,56 @@ public class Shotgun : AbstractGun {
             _gunActions[_controller.CurrentKey].Invoke();
             SetVeloctiy(_xVel, _yVel);
         }
-        else if (_numOfRounds <= 0 && _collisionState.OnSolidGround) {
-            Reload();
+    }
+
+    protected override void Reload() {
+
+        if (StartReloadAnimation != null && _body2d.velocity.y <= 0) {
+            StartReloadAnimation();
+            StartCoroutine(ReloadDelay());
         }
+
+        //bool onGround = _collisionState.OnSolidGround;
+        //float yVel = _body2d.velocity.y;
+
+        //if (StartReloadAnimation != null) {
+        //    if (yVel <= 0) {
+
+        //        if (onGround && _numOfRounds <= 0 && yVel < 0) {
+        //            StartReloadAnimation(_reloadTime);
+        //            StartCoroutine(ReloadDelay());
+        //        }
+        //        else if (onGround && _numOfRounds <= 0 && yVel < 0) {
+        //            StartReloadAnimation(_reloadTime);
+        //            StartCoroutine(ReloadDelay());
+        //        }
+        //        else if (onGround && _numOfRounds <= 0) {
+        //            StartReloadAnimation(_reloadTime);
+        //            StartCoroutine(ReloadDelay());
+        //        }
+        //        else if (!onGround || _numOfRounds <= 0) {
+        //            StartReloadAnimation(0);
+        //        }
+        //    }
+        //    else if (!onGround || _numOfRounds <= 0) {
+        //        StartReloadAnimation(0);
+        //    }
+        //}
+    }
+
+    private IEnumerator ReloadDelay() {
+
+        _canShoot = false;
+        while (!_collisionState.OnSolidGround) {
+            yield return 0;
+        }
+
+        float timer = Time.time;
+        while (Time.time - timer < _reloadTime) {
+            yield return 0;
+        }
+        base.Reload();
+        _canShoot = true;
     }
 
     protected override void AimDown() {
