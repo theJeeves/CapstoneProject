@@ -80,13 +80,34 @@ public class ControllableObject : MonoBehaviour {
         set { _facingDirection = value; }
     }
 
-    private AimDirection _aimDirection = new AimDirection();
-    public AimDirection AimDirection {
+    // Keeps all the possible aiming directions. 
+    private short[] _aimDirections = new short[8];
+
+    private byte _currentKey;
+    public byte CurrentKey {
+        get { return _currentKey; }
+    }
+    private short _aimDirection;
+    public short AimDirection {
         get { return _aimDirection; }
     }
 
     // Other Action scripts will used this dictionary to query a button's state.
     private Dictionary<Buttons, ButtonState> buttonStates = new Dictionary<Buttons, ButtonState>();
+
+    private void Start() {
+
+        short angle = 0;
+        for (byte i = 0; i < 8; ++i) {
+            _aimDirections[i] = angle;
+            angle += 45;
+        }
+    }
+
+    public void SetAimDirection(byte key) {
+        _currentKey = key;
+        _aimDirection = _aimDirections[_currentKey];
+    }
 
 
     // Updated each of the Dictionary's Buttons and their State. Depending on whether the button has initially
@@ -145,5 +166,9 @@ public class ControllableObject : MonoBehaviour {
         else {
             return 0.0f;
         }
+    }
+
+    private short GetAimDirectionAngle(byte key) {
+        return _aimDirections[key];
     }
 }

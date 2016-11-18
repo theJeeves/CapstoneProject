@@ -11,8 +11,8 @@ public abstract class AbstractGun : MonoBehaviour {
     public delegate void AbstractGunEvent(int numOfRounds);
     // Delegate to work with ScreenShake feature
     public delegate void AbstractGunEvent2();
+    public delegate void AbstractGunEvent3(float reloadTime);
 
-    public static event AbstractGunEvent UpdateNumOfRounds;
 
     [SerializeField]
     protected float _recoil;
@@ -23,8 +23,11 @@ public abstract class AbstractGun : MonoBehaviour {
     protected int _numOfRounds;
     [SerializeField]
     protected float _shotDelay;
+    [SerializeField]
+    protected int _reloadTime;
 
     protected bool _canShoot;
+    protected System.Action[] _gunActions = new System.Action[8];
 
     protected float _addVel = 0.45f;
     protected float _setVel = 0.75f;
@@ -32,6 +35,9 @@ public abstract class AbstractGun : MonoBehaviour {
     protected float _xVel;
     protected float _yVel;
 
+    protected bool _canReload = true;
+
+    private GameObject _player;
     protected ControllableObject _controller;
     protected Rigidbody2D _body2d;
     protected PlayerCollisionState _collisionState;
@@ -41,11 +47,20 @@ public abstract class AbstractGun : MonoBehaviour {
     [SerializeField]
     private Transform _mgBarrel;
 
-    protected virtual void Awake()
-    {
-        _controller = GetComponentInParent<ControllableObject>();
-        _body2d = GetComponentInParent<Rigidbody2D>();
-        _collisionState = GetComponentInParent<PlayerCollisionState>();
+    protected virtual void Awake() {
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _controller = _player.GetComponent<ControllableObject>();
+        _body2d = _player.GetComponent<Rigidbody2D>();
+        _collisionState = _player.GetComponent<PlayerCollisionState>();
+
+        _gunActions[0] = AimRight;
+        _gunActions[1] = AimUpAndRight;
+        _gunActions[2] = AimUp;
+        _gunActions[3] = AimUpAndLeft;
+        _gunActions[4] = AimLeft;
+        _gunActions[5] = AimDownAndLeft;
+        _gunActions[6] = AimDown;
+        _gunActions[7] = AimDownAndRight;
 
         _numOfRounds = _clipSize;
     }
@@ -55,23 +70,21 @@ public abstract class AbstractGun : MonoBehaviour {
         ControllableObject.OnButtonDown += OnButtonDown;
         PlayerCollisionState.OnHitGround += Reload;
 
-        _canShoot = true;
-
-        if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
+        if (_numOfRounds <= 0) {
+            Reload();
+            _canReload = false;
         }
+        else {
+            _canShoot = true;
+        }
+
+        _numOfRounds = _clipSize;
     }
 
     protected virtual void OnDisable()
     {
         ControllableObject.OnButtonDown -= OnButtonDown;
         PlayerCollisionState.OnHitGround -= Reload;
-
-        // Ensure the game is being play. If the player quits, do not call this
-        // as an error will be generated.
-        if (gameObject.activeInHierarchy) {
-            StartCoroutine(BackgroundReload());
-        }
     }
 
     protected void SetVeloctiy(float xVel, float yVel)
@@ -80,36 +93,12 @@ public abstract class AbstractGun : MonoBehaviour {
     }
 
     protected virtual void Reload() {
-
-        if (_body2d.velocity.y <= 0.0f) {
-
-            _numOfRounds = _clipSize;
-
-            if (UpdateNumOfRounds != null) {
-                UpdateNumOfRounds(_numOfRounds);
-            }
-        }
-    }
-
-    protected IEnumerator BackgroundReload() {
-
-        while (!_collisionState.OnSolidGround) {
-            yield return 0;
-        }
-        Reload();
-    }
-
-    protected IEnumerator ShotDelay() {
-
-        _canShoot = false;
-        Instantiate(_bullet, _mgBarrel.transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(_shotDelay);
-        _canShoot = true;
     }
 
 
-    //Directional methods to be overriden by individual weapons
-    // and their unique properties of movement
+    /* Directional methods to be overriden by individual weapons
+    *  and their unique properties of movement
+    */
     protected virtual void AimDownAndRight() {
     }
 
@@ -136,44 +125,14 @@ public abstract class AbstractGun : MonoBehaviour {
 
     protected virtual void OnButtonDown(Buttons button)
     {
-        if (_canShoot) {
-            --_numOfRounds;
-            if (UpdateNumOfRounds != null) {
-                UpdateNumOfRounds(_numOfRounds);
-            }
-            StartCoroutine(ShotDelay());
-        }
+    }
 
-        _xVel = _body2d.velocity.x;
-        _yVel = _body2d.velocity.y;
+    protected virtual IEnumerator ShotDelay() {
 
-        //AIMING DOWN
-        if (_controller.AimDirection.Down) {
-
-            AimDown();
-        }
-
-        //AIMING UP IN AIR
-        else if (_controller.AimDirection.Up) {
-            if (!_collisionState.OnSolidGround) {
-                AimUp();
-            }
-        }
-            
-        //AIMING RIGHT
-        else if (_controller.AimDirection.Right ||
-            (button == Buttons.Shoot && _controller.FacingDirection == Facing.Right)) {
-
-            AimRight();
-        }
-        //AIMING LEFT
-        else if (_controller.AimDirection.Left ||
-            (button == Buttons.Shoot && _controller.FacingDirection == Facing.Left)) {
-
-            AimLeft();
-        }
-
-        SetVeloctiy(_xVel, _yVel);
+        _canShoot = false;
+        Instantiate(_bullet, _mgBarrel.transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(_shotDelay);
+        _canShoot = true;
     }
 }
 

@@ -14,39 +14,52 @@ public class SetAimingDirection : AbstractPlayerActions {
     }
 
     private void OnButton(Buttons button) {
-        switch (button) {
 
-            case Buttons.AimRight:
-                _controller.AimDirection.Right = true;
-                break;
-            case Buttons.AimLeft:
-                _controller.AimDirection.Left = true;
-                break;
-            case Buttons.AimUp:
-                _controller.AimDirection.Up = true;
-                break;
-            case Buttons.AimDown:
-                _controller.AimDirection.Down = true;
-                break;
+        if (button == Buttons.AimDown || button == Buttons.AimLeft || 
+            button == Buttons.AimRight || button == Buttons.AimUp) {
+
+            byte value = 0;
+
+            if (_controller.GetButtonPress(Buttons.AimDown)) {
+                if (_controller.GetButtonPress(Buttons.AimRight)) {
+                    value = 7;
+                }
+                else if (_controller.GetButtonPress(Buttons.AimLeft)) {
+                    value = 5;
+                }
+                else {
+                    value = 6;
+                }
+            }
+            else if (_controller.GetButtonPress(Buttons.AimUp)) {
+                if (_controller.GetButtonPress(Buttons.AimRight)) {
+                    value = 1;
+                }
+                else if (_controller.GetButtonPress(Buttons.AimLeft)) {
+                    value = 3;
+                }
+                else {
+                    value = 2;
+                }
+            }
+            else if (_controller.GetButtonPress(Buttons.AimRight)) {
+                value = 0;
+            }
+            else if (_controller.GetButtonPress(Buttons.AimLeft)) {
+                value = 4;
+            }
+
+            _controller.SetAimDirection(value);
         }
     }
 
     private void OnButtonUp(Buttons button) {
-
-        switch (button) {
-
-            case Buttons.AimRight:
-                _controller.AimDirection.Right = false;
-                break;
-            case Buttons.AimLeft:
-                _controller.AimDirection.Left = false;
-                break;
-            case Buttons.AimUp:
-                _controller.AimDirection.Up = false;
-                break;
-            case Buttons.AimDown:
-                _controller.AimDirection.Down = false;
-                break;
+        
+        if (_controller.FacingDirection == Facing.Right) {
+            _controller.SetAimDirection(0);
+        }
+        else if (_controller.FacingDirection == Facing.Left) {
+            _controller.SetAimDirection(4);
         }
     }
 }

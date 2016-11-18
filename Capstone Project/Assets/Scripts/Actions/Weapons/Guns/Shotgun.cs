@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 /*
  * Weapon based on the AbstractGun class which gives the player a "jump" like ability.
@@ -10,8 +11,20 @@ public class Shotgun : AbstractGun {
     // This is put into the shotgun script so the shotgun screen shake script
     // knows which weapon called this event.
     public static event AbstractGunEvent2 Fire;
+    public static event AbstractGunEvent3 StartReloadAnimation;
+    public static event AbstractGunEvent2 EmptyClip;
+    public static event AbstractGunEvent UpdateNumOfRounds;
 
-    protected override void OnButtonDown(Buttons button) {
+    protected override void OnEnable() {
+        base.OnEnable();
+
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(_numOfRounds);
+        }
+    }
+
+
+    protected override void OnButtonDown(Buttons button) { 
 
         if (button == Buttons.Shoot && _numOfRounds > 0 && _canShoot) {
 
@@ -19,40 +32,73 @@ public class Shotgun : AbstractGun {
                 Fire();
             }
 
-            base.OnButtonDown(button);
+            if (--_numOfRounds <= 0) {
+                if (EmptyClip != null) {
+                    EmptyClip();
+                }
+            }
+
+            if (UpdateNumOfRounds != null) {
+                UpdateNumOfRounds(_numOfRounds);
+            }
+            StartCoroutine(ShotDelay());
+
+            _xVel = _body2d.velocity.x;
+            _yVel = _body2d.velocity.y;
+
+            _gunActions[_controller.CurrentKey].Invoke();
+            SetVeloctiy(_xVel, _yVel);
         }
-        else if (_numOfRounds <= 0 && _collisionState.OnSolidGround) {
-            Reload();
+    }
+
+    protected override void Reload() {
+
+        if (_body2d.velocity.y <= 0 && _numOfRounds <= 0) {
+            StartCoroutine(ReloadDelay());
         }
+    }
+
+    private IEnumerator ReloadDelay() {
+
+        _canShoot = false;
+        while (!_collisionState.OnSolidGround) {
+            yield return 0;
+        }
+
+        if (StartReloadAnimation != null) {
+            StartReloadAnimation(_reloadTime);
+        }
+
+        float timer = Time.time;
+        while (Time.time - timer < _reloadTime) {
+            yield return 0;
+        }
+
+        _numOfRounds = _clipSize;
+
+        // UPDATE THE UI
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(_numOfRounds);
+        }
+
+        _canShoot = true;
     }
 
     protected override void AimDown() {
 
-        //AIMING DOWN AND RIGHT
-        if (_controller.AimDirection.Right) {
-            AimDownAndRight();
+        _yVel = _recoil;
+
+        //FALLING (NEGATVIE Y VELOCITY
+        if (_body2d.velocity.y < 0) {
+            _xVel = _body2d.velocity.x;
         }
 
-        //AIMING DOWN AND LEFT
-        else if (_controller.AimDirection.Left) {
-            AimDownAndLeft();
+        //RISING OR ZERO Y VELOCITY
+        else if (_body2d.velocity.y >= 0) {
+            _xVel = _body2d.velocity.x;
         }
 
-        //AIMING STRAIGHT DOWN
-        else {
-
-            _yVel = _recoil;
-
-            //FALLING (NEGATVIE Y VELOCITY
-            if (_body2d.velocity.y < 0) {
-                _xVel = _body2d.velocity.x;
-            }
-
-            //RISING OR ZERO Y VELOCITY
-            else if (_body2d.velocity.y >= 0) {
-                _xVel = _body2d.velocity.x;
-            }
-        }
+        SetVeloctiy(_xVel, _yVel);
     }
 
     protected override void AimDownAndRight() {
@@ -147,27 +193,16 @@ public class Shotgun : AbstractGun {
 
     protected override void AimUp() {
 
-        //AIMING UP AND RIGHT IN AIR
-        if (_controller.AimDirection.Right) {
-            AimUpAndRight();
-        }
-        //AIMING UP AND LEFT IN AIR
-        else if (_controller.AimDirection.Left) {
-            AimUpAndLeft();
-        }
-        //AIMMING STRAIGHT UP
-        else {
-            _xVel = _body2d.velocity.x;
+        _xVel = _body2d.velocity.x;
 
-            //FALLING
-            if (_body2d.velocity.y < 0) {
-                _yVel = _body2d.velocity.y + _recoil * -(_setVel);
-            }
+        //FALLING
+        if (_body2d.velocity.y < 0) {
+            _yVel = _body2d.velocity.y + _recoil * -(_setVel);
+        }
 
-            //RISING OR STILL
-            else if (_body2d.velocity.y >= 0) {
-                _yVel = -(_recoil);
-            }
+        //RISING OR STILL
+        else if (_body2d.velocity.y >= 0) {
+            _yVel = -(_recoil);
         }
     }
 

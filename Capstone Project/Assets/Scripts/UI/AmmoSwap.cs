@@ -27,12 +27,14 @@ public class AmmoSwap : MonoBehaviour {
         if (weapon == 0) {
             transform.localPosition = new Vector3(-13.0f, 0.0f, 0.0f);
             transform.localScale = new Vector3(0.25f, 0.25f, 1.0f);
+            transform.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
 
             GetComponent<Image>().sprite = _shotgun;
         }
         else if (weapon == 1) {
             transform.localPosition = new Vector3(-16.0f, 0.0f, 0.0f);
             transform.localScale = new Vector3(0.4f, 0.4f, 1.0f);
+            transform.localEulerAngles = new Vector3(0.0f, 0.0f, -90.0f);
 
             GetComponent<Image>().sprite = _machineGun;
         }

@@ -4,13 +4,16 @@ using System.Collections;
 
 /*
  * Weapon based on the AbstractGun class which gives the player a "float" like ability.
- */ 
+ */
 
 public class MachineGun : AbstractGun {
 
     // This is put into the shotgun script so the shotgun screen shake script
     // knows which weapon called this event.
     public static event AbstractGunEvent2 Fire;
+    public static event AbstractGunEvent2 EmptyClip;
+    public static event AbstractGunEvent3 StartReloadAnimation;
+    public static event AbstractGunEvent UpdateNumOfRounds;
 
     [SerializeField]
     protected float _xMultiplier;
@@ -20,8 +23,11 @@ public class MachineGun : AbstractGun {
     protected override void OnEnable() {
         base.OnEnable();
 
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(_numOfRounds);
+        }
+
         ControllableObject.OnButton += OnButton;
-        PlayerCollisionState.OnHitGround += OnHitSolidGround;
 
         _canLift = _collisionState.OnSolidGround ? true : false;
     }
@@ -29,62 +35,91 @@ public class MachineGun : AbstractGun {
     protected override void OnDisable() {
         base.OnDisable();
         ControllableObject.OnButton -= OnButton;
-        PlayerCollisionState.OnHitGround -= OnHitSolidGround;
     }
 
-    private void OnHitSolidGround() {
+    protected override void Reload() {
         _canLift = true;
-        
-        if (_body2d.velocity.y <= 0.0f) {
-            Reload();
+
+        if (_body2d.velocity.y <= 0.0f && _numOfRounds <= 0) {
+            StartCoroutine(ReloadDelay());
         }
+    }
+
+    private IEnumerator ReloadDelay() {
+
+        _canShoot = false;
+        while (!_collisionState.OnSolidGround) {
+            yield return 0;
+        }
+
+        if (StartReloadAnimation != null) {
+            StartReloadAnimation(_reloadTime);
+        }
+
+        float timer = Time.time;
+        while (Time.time - timer < _reloadTime) {
+            yield return 0;
+        }
+
+        _numOfRounds = _clipSize;
+
+        // UPDATE THE UI
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(_numOfRounds);
+        }
+
+        _canShoot = true;
     }
 
     protected override void OnButtonDown(Buttons button) {
 
-        if (button == Buttons.Shoot && _collisionState.OnSolidGround && _numOfRounds > 0) {
+        if (button == Buttons.Shoot && _canShoot && _collisionState.OnSolidGround && _numOfRounds > 0) {
+
+            float xVel = _body2d.velocity.x;
 
             //STANDING STILL
-            if (_body2d.velocity.x > -0.5f && _body2d.velocity.x < 0.5f) {
+            if (xVel > -0.5f && xVel < 0.5f) {
 
                 //AIMING DOWN
-                if (_controller.AimDirection.Down) {
-
-                    //AIMING DOWN AND RIGHT AND STANDING STILL
-                    if (_controller.AimDirection.Right) {
-                        _body2d.AddForce(new Vector2(-5000, 7500), ForceMode2D.Impulse);
-                    }
-
-                    //AIMING DOWN AND LEFT AND STANDING STILL
-                    else if (_controller.AimDirection.Left) {
-                        _body2d.AddForce(new Vector2(5000, 7500), ForceMode2D.Impulse);
-                    }
+                if (_controller.CurrentKey == 6) {
 
                     //AIMING STRAIGHT DOWN AND STANDING STILL
-                    else {
-                        _body2d.AddForce(new Vector2(0, 10000), ForceMode2D.Impulse);
-                    }
+                    _body2d.AddForce(new Vector2(0, 10000), ForceMode2D.Impulse);
+                    _canLift = false;
+                }
+
+                //AIMING DOWN AND RIGHT AND STANDING STILL
+                else if (_controller.CurrentKey == 7) {
+                    _body2d.AddForce(new Vector2(-5000, 7500), ForceMode2D.Impulse);
+                    _canLift = false;
+                }
+
+                //AIMING DOWN AND LEFT AND STANDING STILL
+                else if (_controller.CurrentKey == 5) {
+                    _body2d.AddForce(new Vector2(5000, 7500), ForceMode2D.Impulse);
                     _canLift = false;
                 }
             }
 
             //MOVING LEFT OR RIGHT
             else {
+
                 //AIMING DOWN AND RIGHT AND MOVING
-                if (_controller.AimDirection.Down) {
-                    if (_controller.AimDirection.Right) {
-                        _body2d.AddForce(new Vector2(0, 7500), ForceMode2D.Impulse);
-                    }
+                if (_controller.CurrentKey == 6) {
 
-                    //AIMING DOWN AND LEFT AND MOVING
-                    else if (_controller.AimDirection.Left) {
-                        _body2d.AddForce(new Vector2(0, 7500), ForceMode2D.Impulse);
-                    }
+                    //AIMING STRAIGHT DOWN AND MOVINGf
+                    _body2d.AddForce(new Vector2(0, 10000), ForceMode2D.Impulse);
+                    _canLift = false;
+                }
 
-                    //AIMING STRAIGHT DOWN AND MOVING
-                    else {
-                        _body2d.AddForce(new Vector2(0, 10000), ForceMode2D.Impulse);
-                    }
+                else if (_controller.CurrentKey == 7) {
+                    _body2d.AddForce(new Vector2(0, 7500), ForceMode2D.Impulse);
+                    _canLift = false;
+                }
+
+                //AIMING DOWN AND LEFT AND MOVING
+                else if (_controller.CurrentKey == 5) {
+                    _body2d.AddForce(new Vector2(0, 7500), ForceMode2D.Impulse);
                     _canLift = false;
                 }
             }
@@ -99,15 +134,34 @@ public class MachineGun : AbstractGun {
                 Fire();
             }
 
-            if (_canLift && _controller.AimDirection.Down) {
+            if (_canLift && _controller.GetButtonPress(Buttons.AimDown)) {
                 OnButtonDown(button);
             }
             else {
-                base.OnButtonDown(button);
+                if (_canShoot) {
+                    if (--_numOfRounds <= 0) {
+                        if (EmptyClip != null) {
+                            EmptyClip();
+                        }
+                    }
+                    if (UpdateNumOfRounds != null) {
+                        UpdateNumOfRounds(_numOfRounds);
+                    }
+
+                    StartCoroutine(ShotDelay());
+                }
+
+                _xVel = _body2d.velocity.x;
+                _yVel = _body2d.velocity.y;
+
+                _gunActions[_controller.CurrentKey].Invoke();
+                SetVeloctiy(_xVel, _yVel);
             }
         }
-        else if (_numOfRounds <= 0 && _collisionState.OnSolidGround) {
-            Reload();
+        else if (_numOfRounds <= 0) {
+            if (EmptyClip != null) {
+                EmptyClip();
+            }
         }
     }
 
@@ -118,16 +172,6 @@ public class MachineGun : AbstractGun {
 
             //THIS QUICKLY SLOWS DOWN THE PLAYER FROM FALLING (IRON MAN EFFECT)
             _yVel += Mathf.Abs(_recoil * (1.3f * (_body2d.velocity.y / _yVel)));
-
-            //AIMING DOWN AND RIGHT
-            if (_controller.AimDirection.Right) {
-                AimDownAndRight();
-            }
-
-            //AIMING DOWN AND LEFT
-            else if (_controller.AimDirection.Left) {
-                AimDownAndLeft();
-            }
         }
 
         //AIMING STRIGHT DOWN AND MOVING RIGHT
@@ -143,15 +187,28 @@ public class MachineGun : AbstractGun {
 
     protected override void AimDownAndRight() {
 
-        if (_xVel >= _recoil * -_xMultiplier) {
-            _xVel -= _recoil;
+        //FALLING DOWN AND THE Y-VELOCITY IS LESS THAN THE SET RECOIL
+        if (_yVel <= _recoil && _body2d.velocity.y < 0) {
+
+            //THIS QUICKLY SLOWS DOWN THE PLAYER FROM FALLING (IRON MAN EFFECT)
+            _yVel += Mathf.Abs(_recoil * (1.3f * (_body2d.velocity.y / _yVel)));
+
+            if (_xVel >= _recoil * -_xMultiplier) {
+                _xVel -= _recoil;
+            }
         }
     }
 
     protected override void AimDownAndLeft() {
+        //FALLING DOWN AND THE Y-VELOCITY IS LESS THAN THE SET RECOIL
+        if (_yVel <= _recoil && _body2d.velocity.y < 0) {
 
-        if (_xVel <= _recoil * _xMultiplier) {
-            _xVel += _recoil;
+            //THIS QUICKLY SLOWS DOWN THE PLAYER FROM FALLING (IRON MAN EFFECT)
+            _yVel += Mathf.Abs(_recoil * (1.3f * (_body2d.velocity.y / _yVel)));
+
+            if (_xVel <= _recoil * _xMultiplier) {
+                _xVel += _recoil;
+            }
         }
     }
 
