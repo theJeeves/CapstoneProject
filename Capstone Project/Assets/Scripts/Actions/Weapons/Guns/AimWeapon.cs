@@ -16,6 +16,11 @@ public class AimWeapon : MonoBehaviour {
     private void OnEnable() {
         ControllableObject.OnButton += OnButtonDown;
         ControllableObject.OnButtonUp += OnButtonUp;
+
+        RotateGun(0);
+        if (AimDirectionChanged != null) {
+            AimDirectionChanged(0);
+        }
     }
 	
     private void OnDisable() {

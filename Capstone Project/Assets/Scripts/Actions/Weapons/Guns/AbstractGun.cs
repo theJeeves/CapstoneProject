@@ -11,8 +11,8 @@ public abstract class AbstractGun : MonoBehaviour {
     public delegate void AbstractGunEvent(int numOfRounds);
     // Delegate to work with ScreenShake feature
     public delegate void AbstractGunEvent2();
+    public delegate void AbstractGunEvent3(float reloadTime);
 
-    public static event AbstractGunEvent UpdateNumOfRounds;
 
     [SerializeField]
     protected float _recoil;
@@ -37,6 +37,7 @@ public abstract class AbstractGun : MonoBehaviour {
 
     protected bool _canReload = true;
 
+    private GameObject _player;
     protected ControllableObject _controller;
     protected Rigidbody2D _body2d;
     protected PlayerCollisionState _collisionState;
@@ -46,11 +47,20 @@ public abstract class AbstractGun : MonoBehaviour {
     [SerializeField]
     private Transform _mgBarrel;
 
-    protected virtual void Awake()
-    {
-        _controller = GetComponentInParent<ControllableObject>();
-        _body2d = GetComponentInParent<Rigidbody2D>();
-        _collisionState = GetComponentInParent<PlayerCollisionState>();
+    protected virtual void Awake() {
+        _player = GameObject.FindGameObjectWithTag("Player");
+        _controller = _player.GetComponent<ControllableObject>();
+        _body2d = _player.GetComponent<Rigidbody2D>();
+        _collisionState = _player.GetComponent<PlayerCollisionState>();
+
+        _gunActions[0] = AimRight;
+        _gunActions[1] = AimUpAndRight;
+        _gunActions[2] = AimUp;
+        _gunActions[3] = AimUpAndLeft;
+        _gunActions[4] = AimLeft;
+        _gunActions[5] = AimDownAndLeft;
+        _gunActions[6] = AimDown;
+        _gunActions[7] = AimDownAndRight;
 
         _numOfRounds = _clipSize;
     }
@@ -68,20 +78,7 @@ public abstract class AbstractGun : MonoBehaviour {
             _canShoot = true;
         }
 
-        if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
-        }
-    }
-
-    private void Start() {
-        _gunActions[0] = AimRight;
-        _gunActions[1] = AimUpAndRight;
-        _gunActions[2] = AimUp;
-        _gunActions[3] = AimUpAndLeft;
-        _gunActions[4] = AimLeft;
-        _gunActions[5] = AimDownAndLeft;
-        _gunActions[6] = AimDown;
-        _gunActions[7] = AimDownAndRight;
+        _numOfRounds = _clipSize;
     }
 
     protected virtual void OnDisable()
@@ -96,12 +93,6 @@ public abstract class AbstractGun : MonoBehaviour {
     }
 
     protected virtual void Reload() {
-
-        _numOfRounds = _clipSize;
-            
-        if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
-        }
     }
 
 
@@ -134,22 +125,9 @@ public abstract class AbstractGun : MonoBehaviour {
 
     protected virtual void OnButtonDown(Buttons button)
     {
-        if (_canShoot) {
-            if(--_numOfRounds <= 0) {
-                Reload();
-            }
-
-            if (UpdateNumOfRounds != null) {
-                UpdateNumOfRounds(_numOfRounds);
-            }
-            StartCoroutine(ShotDelay());
-        }
-
-        _xVel = _body2d.velocity.x;
-        _yVel = _body2d.velocity.y;
     }
 
-    protected IEnumerator ShotDelay() {
+    protected virtual IEnumerator ShotDelay() {
 
         _canShoot = false;
         Instantiate(_bullet, _mgBarrel.transform.position, Quaternion.identity);

@@ -10,29 +10,36 @@ public class ReloadAnimation : MonoBehaviour {
 
     private void OnEnable() {
         Shotgun.StartReloadAnimation += Reload;
+        Shotgun.EmptyClip += ZeroFillAmount;
+        MachineGun.StartReloadAnimation += Reload;
+        MachineGun.EmptyClip += ZeroFillAmount;
 
         _ammoImage = GetComponent<Image>();
     }
 
     private void OnDisable() {
         Shotgun.StartReloadAnimation -= Reload;
+        Shotgun.EmptyClip -= ZeroFillAmount;
+        MachineGun.StartReloadAnimation -= Reload;
+        MachineGun.EmptyClip -= ZeroFillAmount;
     }
 
     private void Update() {
 
-        if (_canAnimate && _ammoImage.fillAmount < 1) {
+        if (!_canAnimate && _ammoImage.fillAmount < 1) {
             _ammoImage.fillAmount += 1.0f / _timer * Time.deltaTime;
         }
         else {
             _canAnimate = true;
+            _timer = 0;
         }
     }
 
-    private void Reload() {
+    private void Reload(float reloadTime) {
         
         if (_canAnimate) {
             _canAnimate = false;
-                        
+            _timer = reloadTime;
         }
     }
 

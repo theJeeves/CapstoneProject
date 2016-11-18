@@ -5,7 +5,7 @@ public class PlayerCollisionState : MonoBehaviour {
 
     public delegate void PlayerCollisionStateEvent();
     public static event PlayerCollisionStateEvent OnHitGround;
-    public static event PlayerCollisionStateEvent OnLifted;
+    //public static event PlayerCollisionStateEvent OnLifted;
 
     //// Cannot use an array of LayerMasks. When I tried it, all that would return would be the
     //// number of available LayerMasks and not the values assigned to the array in Inspector.
@@ -21,15 +21,15 @@ public class PlayerCollisionState : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D otherGO) {
-        if (otherGO.gameObject.layer == _solidGroundLayer && OnHitGround != null) {
+
+        if (otherGO.gameObject.tag == "SolidGround" && OnHitGround != null) {
             OnHitGround();
             _onSolidGround = true;
         }
     }
 
     private void OnCollisionExit2D(Collision2D otherGO) {
-        if (otherGO.gameObject.layer == _solidGroundLayer && OnLifted != null) {
-            OnLifted();
+        if (otherGO.gameObject.tag == "SolidGround") {
             _onSolidGround = false;
         }
     }

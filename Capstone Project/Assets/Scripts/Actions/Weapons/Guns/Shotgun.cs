@@ -11,7 +11,18 @@ public class Shotgun : AbstractGun {
     // This is put into the shotgun script so the shotgun screen shake script
     // knows which weapon called this event.
     public static event AbstractGunEvent2 Fire;
-    public static event AbstractGunEvent2 StartReloadAnimation;
+    public static event AbstractGunEvent3 StartReloadAnimation;
+    public static event AbstractGunEvent2 EmptyClip;
+    public static event AbstractGunEvent UpdateNumOfRounds;
+
+    protected override void OnEnable() {
+        base.OnEnable();
+
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(_numOfRounds);
+        }
+    }
+
 
     protected override void OnButtonDown(Buttons button) { 
 
@@ -21,7 +32,20 @@ public class Shotgun : AbstractGun {
                 Fire();
             }
 
-            base.OnButtonDown(button);
+            if (--_numOfRounds <= 0) {
+                if (EmptyClip != null) {
+                    EmptyClip();
+                }
+            }
+
+            if (UpdateNumOfRounds != null) {
+                UpdateNumOfRounds(_numOfRounds);
+            }
+            StartCoroutine(ShotDelay());
+
+            _xVel = _body2d.velocity.x;
+            _yVel = _body2d.velocity.y;
+
             _gunActions[_controller.CurrentKey].Invoke();
             SetVeloctiy(_xVel, _yVel);
         }
@@ -29,37 +53,9 @@ public class Shotgun : AbstractGun {
 
     protected override void Reload() {
 
-        if (StartReloadAnimation != null && _body2d.velocity.y <= 0) {
-            StartReloadAnimation();
+        if (_body2d.velocity.y <= 0 && _numOfRounds <= 0) {
             StartCoroutine(ReloadDelay());
         }
-
-        //bool onGround = _collisionState.OnSolidGround;
-        //float yVel = _body2d.velocity.y;
-
-        //if (StartReloadAnimation != null) {
-        //    if (yVel <= 0) {
-
-        //        if (onGround && _numOfRounds <= 0 && yVel < 0) {
-        //            StartReloadAnimation(_reloadTime);
-        //            StartCoroutine(ReloadDelay());
-        //        }
-        //        else if (onGround && _numOfRounds <= 0 && yVel < 0) {
-        //            StartReloadAnimation(_reloadTime);
-        //            StartCoroutine(ReloadDelay());
-        //        }
-        //        else if (onGround && _numOfRounds <= 0) {
-        //            StartReloadAnimation(_reloadTime);
-        //            StartCoroutine(ReloadDelay());
-        //        }
-        //        else if (!onGround || _numOfRounds <= 0) {
-        //            StartReloadAnimation(0);
-        //        }
-        //    }
-        //    else if (!onGround || _numOfRounds <= 0) {
-        //        StartReloadAnimation(0);
-        //    }
-        //}
     }
 
     private IEnumerator ReloadDelay() {
@@ -69,11 +65,22 @@ public class Shotgun : AbstractGun {
             yield return 0;
         }
 
+        if (StartReloadAnimation != null) {
+            StartReloadAnimation(_reloadTime);
+        }
+
         float timer = Time.time;
         while (Time.time - timer < _reloadTime) {
             yield return 0;
         }
-        base.Reload();
+
+        _numOfRounds = _clipSize;
+
+        // UPDATE THE UI
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(_numOfRounds);
+        }
+
         _canShoot = true;
     }
 
