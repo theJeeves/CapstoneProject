@@ -37,10 +37,16 @@ public class CrystalBullet : AbstractBullet {
     }
 
     // If it collides with an enemy, destroy itself.
-    private void OnTriggerEnter2D(Collider2D otherObject) {
+    private void OnTriggerEnter2D(Collider2D GO) {
 
-        if (otherObject.gameObject.tag == _whatToHit && DamageEnemy != null) {
-            DamageEnemy(_damageAmount, otherObject.gameObject);
+        if (GO.gameObject.tag == "Block") {
+            Destroy(gameObject);
+        }
+
+        else if (GO.gameObject.tag == _whatToHit) {
+            if (DamageEnemy != null) {
+                DamageEnemy(_damageAmount, GO.gameObject);
+            }
             Destroy(gameObject);
         }
     }
