@@ -28,15 +28,11 @@ public abstract class CameraShake : MonoBehaviour {
     protected IEnumerator Shake() {
 
         while (_timer > 0.0f) {
-            Camera.main.transform.position += new Vector3(Random.insideUnitCircle.x * _shakeAmount, Random.insideUnitCircle.y * _shakeAmount, 0);
+            transform.localPosition += new Vector3(Random.insideUnitCircle.x * _shakeAmount, Random.insideUnitCircle.y * _shakeAmount, 0);
             _timer -= _decreaseRate * Time.deltaTime;
             yield return 0;
         }
 
-        /*
-         * NEED TO FIX THIS. WHEN THIS LINE IS ENABLED, THE CAMERA MOVEMENT IS
-         * WAY TO JARRING, BUT THE CAMERA DOES NOT GET SET BACK TO THE ORIGINAL POSITION.
-         */
-        //Camera.main.transform.position = _defaultCamPos;
+        transform.localPosition = new Vector3(0.0f, 0.0f, 0.0f);
     }
 }

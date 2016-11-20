@@ -24,7 +24,7 @@ public class MachineGun : AbstractGun {
         base.OnEnable();
 
         if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
+            UpdateNumOfRounds(numOfRounds);
         }
 
         ControllableObject.OnButton += OnButton;
@@ -40,7 +40,7 @@ public class MachineGun : AbstractGun {
     protected override void Reload() {
         _canLift = true;
 
-        if (_body2d.velocity.y <= 0.0f && _numOfRounds <= 0) {
+        if (_body2d.velocity.y <= 0.0f && numOfRounds <= 0) {
             StartCoroutine(ReloadDelay());
         }
     }
@@ -61,11 +61,11 @@ public class MachineGun : AbstractGun {
             yield return 0;
         }
 
-        _numOfRounds = _clipSize;
+        numOfRounds = _clipSize;
 
         // UPDATE THE UI
         if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
+            UpdateNumOfRounds(numOfRounds);
         }
 
         _canShoot = true;
@@ -73,7 +73,7 @@ public class MachineGun : AbstractGun {
 
     protected override void OnButtonDown(Buttons button) {
 
-        if (button == Buttons.Shoot && _canShoot && _collisionState.OnSolidGround && _numOfRounds > 0) {
+        if (button == Buttons.Shoot && _canShoot && _collisionState.OnSolidGround && numOfRounds > 0) {
 
             float xVel = _body2d.velocity.x;
 
@@ -128,7 +128,13 @@ public class MachineGun : AbstractGun {
 
     private void OnButton(Buttons button) {
 
-        if (button == Buttons.Shoot && _numOfRounds > 0) {
+        if (button == Buttons.Shoot && numOfRounds > 0) {
+
+            _xVel = _body2d.velocity.x;
+            _yVel = _body2d.velocity.y;
+
+            _gunActions[_controller.CurrentKey].Invoke();
+            SetVeloctiy(_xVel, _yVel);
 
             if (Fire != null) {
                 Fire();
@@ -139,26 +145,21 @@ public class MachineGun : AbstractGun {
             }
             else {
                 if (_canShoot) {
-                    if (--_numOfRounds <= 0) {
+                    if (--numOfRounds <= 0) {
                         if (EmptyClip != null) {
                             EmptyClip();
                         }
+                        Reload();
                     }
                     if (UpdateNumOfRounds != null) {
-                        UpdateNumOfRounds(_numOfRounds);
+                        UpdateNumOfRounds(numOfRounds);
                     }
 
                     StartCoroutine(ShotDelay());
                 }
-
-                _xVel = _body2d.velocity.x;
-                _yVel = _body2d.velocity.y;
-
-                _gunActions[_controller.CurrentKey].Invoke();
-                SetVeloctiy(_xVel, _yVel);
             }
         }
-        else if (_numOfRounds <= 0) {
+        else if (numOfRounds <= 0) {
             if (EmptyClip != null) {
                 EmptyClip();
             }

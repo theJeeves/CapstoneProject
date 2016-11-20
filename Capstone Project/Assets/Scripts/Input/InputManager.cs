@@ -17,7 +17,8 @@ public enum Buttons {
     AimUp,
     AimDown,
     AimLeft,
-    AimRight
+    AimRight,
+    Reload
 }
 
 // This enum is used to determine if our code should start reading input from the player.

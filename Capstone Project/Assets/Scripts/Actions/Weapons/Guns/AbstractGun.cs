@@ -19,8 +19,9 @@ public abstract class AbstractGun : MonoBehaviour {
 
     [SerializeField]
     protected int _clipSize;
-    [SerializeField]
-    protected int _numOfRounds;
+    
+    public int numOfRounds;
+
     [SerializeField]
     protected float _shotDelay;
     [SerializeField]
@@ -34,8 +35,6 @@ public abstract class AbstractGun : MonoBehaviour {
 
     protected float _xVel;
     protected float _yVel;
-
-    protected bool _canReload = true;
 
     private GameObject _player;
     protected ControllableObject _controller;
@@ -62,7 +61,7 @@ public abstract class AbstractGun : MonoBehaviour {
         _gunActions[6] = AimDown;
         _gunActions[7] = AimDownAndRight;
 
-        _numOfRounds = _clipSize;
+        numOfRounds = _clipSize;
     }
 
     protected virtual void OnEnable()
@@ -70,15 +69,12 @@ public abstract class AbstractGun : MonoBehaviour {
         ControllableObject.OnButtonDown += OnButtonDown;
         PlayerCollisionState.OnHitGround += Reload;
 
-        if (_numOfRounds <= 0) {
+        if (numOfRounds <= 0) {
             Reload();
-            _canReload = false;
         }
         else {
             _canShoot = true;
         }
-
-        _numOfRounds = _clipSize;
     }
 
     protected virtual void OnDisable()
