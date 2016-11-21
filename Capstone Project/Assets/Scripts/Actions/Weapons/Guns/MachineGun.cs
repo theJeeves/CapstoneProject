@@ -37,29 +37,16 @@ public class MachineGun : AbstractGun {
         ControllableObject.OnButton -= OnButton;
     }
 
-    protected override void Reload() {
-        _canLift = true;
+    protected override IEnumerator ReloadDelay() {
 
-        if (_body2d.velocity.y <= 0.0f && numOfRounds <= 0) {
-            StartCoroutine(ReloadDelay());
-        }
-    }
-
-    private IEnumerator ReloadDelay() {
-
+        _reloading = true;
         _canShoot = false;
-        while (!_collisionState.OnSolidGround) {
-            yield return 0;
-        }
 
         if (StartReloadAnimation != null) {
             StartReloadAnimation(_reloadTime);
         }
 
-        float timer = Time.time;
-        while (Time.time - timer < _reloadTime) {
-            yield return 0;
-        }
+        yield return new WaitForSeconds(_reloadTime);
 
         numOfRounds = _clipSize;
 
@@ -68,6 +55,7 @@ public class MachineGun : AbstractGun {
             UpdateNumOfRounds(numOfRounds);
         }
 
+        _reloading = false;
         _canShoot = true;
     }
 
@@ -130,33 +118,34 @@ public class MachineGun : AbstractGun {
 
         if (button == Buttons.Shoot && numOfRounds > 0) {
 
-            _xVel = _body2d.velocity.x;
-            _yVel = _body2d.velocity.y;
-
-            _gunActions[_controller.CurrentKey].Invoke();
-            SetVeloctiy(_xVel, _yVel);
-
-            if (Fire != null) {
-                Fire();
-            }
-
             if (_canLift && _controller.GetButtonPress(Buttons.AimDown)) {
                 OnButtonDown(button);
             }
-            else {
-                if (_canShoot) {
-                    if (--numOfRounds <= 0) {
-                        if (EmptyClip != null) {
-                            EmptyClip();
-                        }
-                        Reload();
-                    }
-                    if (UpdateNumOfRounds != null) {
-                        UpdateNumOfRounds(numOfRounds);
-                    }
+            if (!_reloading) {
 
-                    StartCoroutine(ShotDelay());
+                _xVel = _body2d.velocity.x;
+                _yVel = _body2d.velocity.y;
+
+                _gunActions[_controller.CurrentKey].Invoke();
+                SetVeloctiy(_xVel, _yVel);
+
+                if (Fire != null) {
+                    Fire();
                 }
+            }
+            if (_canShoot & !_reloading) {
+
+                if (--numOfRounds <= 0) {
+                    if (EmptyClip != null) {
+                        EmptyClip();
+                    }
+                    AutoReload();
+                }
+                if (UpdateNumOfRounds != null) {
+                    UpdateNumOfRounds(numOfRounds);
+                }
+
+                StartCoroutine(ShotDelay());
             }
         }
         else if (numOfRounds <= 0) {

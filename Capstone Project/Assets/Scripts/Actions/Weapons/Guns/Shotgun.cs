@@ -12,7 +12,7 @@ public class Shotgun : AbstractGun {
     // knows which weapon called this event.
     public static event AbstractGunEvent2 Fire;
     public static event AbstractGunEvent3 StartReloadAnimation;
-    public static event AbstractGunEvent2 EmptyClip;
+    public static event AbstractGunEvent2 StillHaveAmmo;
     public static event AbstractGunEvent UpdateNumOfRounds;
 
     protected override void OnEnable() {
@@ -21,16 +21,7 @@ public class Shotgun : AbstractGun {
         if (UpdateNumOfRounds != null) {
             UpdateNumOfRounds(numOfRounds);
         }
-
-        ReloadWeapon.Reload += ManualReload;
     }
-
-    protected override void OnDisable() {
-        base.OnDisable();
-
-        ReloadWeapon.Reload -= ManualReload;
-    }
-
 
     protected override void OnButtonDown(Buttons button) { 
 
@@ -52,7 +43,7 @@ public class Shotgun : AbstractGun {
                 if (EmptyClip != null) {
                     EmptyClip();
                 }
-                Reload();
+                AutoReload();
             }
 
             if (UpdateNumOfRounds != null) {
@@ -60,16 +51,10 @@ public class Shotgun : AbstractGun {
             }
         }
     }
+    
+    protected override IEnumerator ReloadDelay() {
 
-    protected virtual void ManualReload() {
-
-        if (numOfRounds < _clipSize) {
-            StartCoroutine(ManualReloadDelay());
-        }
-    }
-
-    private IEnumerator ManualReloadDelay() {
-
+        _reloading = true;
         _canShoot = false;
 
         if (StartReloadAnimation != null) {
@@ -85,39 +70,7 @@ public class Shotgun : AbstractGun {
             UpdateNumOfRounds(numOfRounds);
         }
 
-        _canShoot = true;
-    }
-
-    protected override void Reload() {
-
-        //if (_body2d.velocity.y <= 0 && numOfRounds <= 0) {
-        //    StartCoroutine(ReloadDelay());
-        //}
-    }
-
-    private IEnumerator ReloadDelay() {
-
-        _canShoot = false;
-        while (!_collisionState.OnSolidGround) {
-            yield return 0;
-        }
-
-        if (StartReloadAnimation != null) {
-            StartReloadAnimation(_reloadTime);
-        }
-
-        float timer = Time.time;
-        while (Time.time - timer < _reloadTime) {
-            yield return 0;
-        }
-
-        numOfRounds = _clipSize;
-
-        // UPDATE THE UI
-        if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(numOfRounds);
-        }
-
+        _reloading = false;
         _canShoot = true;
     }
 

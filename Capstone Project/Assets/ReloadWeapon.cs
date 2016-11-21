@@ -24,8 +24,6 @@ public class ReloadWeapon : MonoBehaviour {
         
         if (button == Buttons.Reload) {
 
-            Debug.Log("reload");
-
             if (Reload != null) {
                 Reload();
             }

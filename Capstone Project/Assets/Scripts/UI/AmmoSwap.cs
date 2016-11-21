@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class AmmoSwap : MonoBehaviour {
 
     [SerializeField]
-    private Sprite _shotgun;
+    private GameObject _shotgun;
     [SerializeField]
-    private Sprite _machineGun;
+    private GameObject _machineGun;
 
 	private void OnEnable() {
         WeaponSelect.SwapWeapon += SwapAmmoType;
@@ -24,19 +24,21 @@ public class AmmoSwap : MonoBehaviour {
      */
     private void SwapAmmoType(int weapon) {
 
-        if (weapon == 0) {
-            transform.localPosition = new Vector3(-13.0f, 0.0f, 0.0f);
-            transform.localScale = new Vector3(0.25f, 0.25f, 1.0f);
-            transform.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
+        if (_shotgun.activeInHierarchy) {
+            _machineGun.transform.localPosition = new Vector3(-16.0f, 0.0f, 0.0f);
+            //_machineGun.transform.localScale = new Vector3(0.4f, 0.4f, 1.0f);
+            _machineGun.transform.localEulerAngles = new Vector3(0.0f, 0.0f, -90.0f);
 
-            GetComponent<Image>().sprite = _shotgun;
+            _shotgun.SetActive(false);
+            _machineGun.SetActive(true);
         }
-        else if (weapon == 1) {
-            transform.localPosition = new Vector3(-16.0f, 0.0f, 0.0f);
-            transform.localScale = new Vector3(0.4f, 0.4f, 1.0f);
-            transform.localEulerAngles = new Vector3(0.0f, 0.0f, -90.0f);
+        else if (_machineGun.activeInHierarchy) {
+            _shotgun.transform.localPosition = new Vector3(-13.0f, 0.0f, 0.0f);
+            //_shotgun.transform.localScale = new Vector3(0.25f, 0.25f, 1.0f);
+            _shotgun.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
 
-            GetComponent<Image>().sprite = _machineGun;
+            _machineGun.SetActive(false);
+            _shotgun.SetActive(true);
         }
     }
 }

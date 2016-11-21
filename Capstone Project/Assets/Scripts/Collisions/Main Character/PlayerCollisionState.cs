@@ -22,8 +22,10 @@ public class PlayerCollisionState : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
-        if (otherGO.gameObject.tag == "SolidGround" && OnHitGround != null) {
-            OnHitGround();
+        if (otherGO.gameObject.tag == "SolidGround") {
+            if (OnHitGround != null) {
+                OnHitGround();
+            }
             _onSolidGround = true;
         }
     }

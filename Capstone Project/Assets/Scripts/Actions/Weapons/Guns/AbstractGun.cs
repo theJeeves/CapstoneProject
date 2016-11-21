@@ -27,7 +27,9 @@ public abstract class AbstractGun : MonoBehaviour {
     [SerializeField]
     protected int _reloadTime;
 
-    protected bool _canShoot;
+    protected bool _reloading = false;
+
+    protected bool _canShoot = true;
     protected System.Action[] _gunActions = new System.Action[8];
 
     protected float _addVel = 0.45f;
@@ -67,12 +69,14 @@ public abstract class AbstractGun : MonoBehaviour {
     protected virtual void OnEnable()
     {
         ControllableObject.OnButtonDown += OnButtonDown;
-        PlayerCollisionState.OnHitGround += Reload;
+        ReloadWeapon.Reload += ManualReload;
 
         if (numOfRounds <= 0) {
-            Reload();
+            _reloading = false;
+            AutoReload();
         }
         else {
+
             _canShoot = true;
         }
     }
@@ -80,15 +84,30 @@ public abstract class AbstractGun : MonoBehaviour {
     protected virtual void OnDisable()
     {
         ControllableObject.OnButtonDown -= OnButtonDown;
-        PlayerCollisionState.OnHitGround -= Reload;
+        ReloadWeapon.Reload -= ManualReload;
     }
 
     protected void SetVeloctiy(float xVel, float yVel)
     {
         _body2d.velocity = new Vector2(xVel, yVel);
     }
+    
+    protected virtual void AutoReload() {
 
-    protected virtual void Reload() {
+        if (!_reloading) {
+            StartCoroutine(ReloadDelay());
+        }
+    }
+
+    protected virtual void ManualReload() {
+
+        if (numOfRounds < _clipSize && !_reloading) {
+            StartCoroutine(ReloadDelay());
+        }
+    }
+
+    protected virtual IEnumerator ReloadDelay() {
+        yield return 0;
     }
 
 
