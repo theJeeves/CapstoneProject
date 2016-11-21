@@ -14,9 +14,13 @@ public class ChargerDealDamage : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collider) {
 
-        if (collider.gameObject.tag == "Player" && DecrementPlayerHealth != null && KnockUp != null) {
-            DecrementPlayerHealth(_damage);
-            KnockUp();
+        if (collider.gameObject.tag == "Player") {
+            if (DecrementPlayerHealth != null) {
+                DecrementPlayerHealth(_damage);
+            }
+            if (KnockUp != null) {
+                KnockUp();
+            }
         }
     }
 }

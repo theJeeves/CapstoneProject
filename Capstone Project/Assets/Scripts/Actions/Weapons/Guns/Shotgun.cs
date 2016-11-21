@@ -19,28 +19,23 @@ public class Shotgun : AbstractGun {
         base.OnEnable();
 
         if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
+            UpdateNumOfRounds(numOfRounds);
         }
+
+        ReloadWeapon.Reload += ManualReload;
+    }
+
+    protected override void OnDisable() {
+        base.OnDisable();
+
+        ReloadWeapon.Reload -= ManualReload;
     }
 
 
     protected override void OnButtonDown(Buttons button) { 
 
-        if (button == Buttons.Shoot && _numOfRounds > 0 && _canShoot) {
+        if (button == Buttons.Shoot && numOfRounds > 0 && _canShoot) {
 
-            if (Fire != null) {
-                Fire();
-            }
-
-            if (--_numOfRounds <= 0) {
-                if (EmptyClip != null) {
-                    EmptyClip();
-                }
-            }
-
-            if (UpdateNumOfRounds != null) {
-                UpdateNumOfRounds(_numOfRounds);
-            }
             StartCoroutine(ShotDelay());
 
             _xVel = _body2d.velocity.x;
@@ -48,14 +43,56 @@ public class Shotgun : AbstractGun {
 
             _gunActions[_controller.CurrentKey].Invoke();
             SetVeloctiy(_xVel, _yVel);
+
+            if (Fire != null) {
+                Fire();
+            }
+
+            if (--numOfRounds <= 0) {
+                if (EmptyClip != null) {
+                    EmptyClip();
+                }
+                Reload();
+            }
+
+            if (UpdateNumOfRounds != null) {
+                UpdateNumOfRounds(numOfRounds);
+            }
         }
+    }
+
+    protected virtual void ManualReload() {
+
+        if (numOfRounds < _clipSize) {
+            StartCoroutine(ManualReloadDelay());
+        }
+    }
+
+    private IEnumerator ManualReloadDelay() {
+
+        _canShoot = false;
+
+        if (StartReloadAnimation != null) {
+            StartReloadAnimation(_reloadTime);
+        }
+
+        yield return new WaitForSeconds(_reloadTime);
+
+        numOfRounds = _clipSize;
+
+        // UPDATE THE UI
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(numOfRounds);
+        }
+
+        _canShoot = true;
     }
 
     protected override void Reload() {
 
-        if (_body2d.velocity.y <= 0 && _numOfRounds <= 0) {
-            StartCoroutine(ReloadDelay());
-        }
+        //if (_body2d.velocity.y <= 0 && numOfRounds <= 0) {
+        //    StartCoroutine(ReloadDelay());
+        //}
     }
 
     private IEnumerator ReloadDelay() {
@@ -74,11 +111,11 @@ public class Shotgun : AbstractGun {
             yield return 0;
         }
 
-        _numOfRounds = _clipSize;
+        numOfRounds = _clipSize;
 
         // UPDATE THE UI
         if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
+            UpdateNumOfRounds(numOfRounds);
         }
 
         _canShoot = true;
