@@ -6,13 +6,19 @@ public abstract class ReloadAnimation : MonoBehaviour {
 
     private Image _ammoImage;
     private float _timer = 0.0f;
-    private bool _canAnimate = true;
+    //private bool _canAnimate = true;
 
-    protected virtual void OnEnable() { 
+    protected virtual void Awake() {
         _ammoImage = GetComponent<Image>();
     }
 
+    protected virtual void OnEnable() { 
+    }
+
     protected virtual void OnDisable() {
+        if (_ammoImage.fillAmount < 1.0f) {
+            _ammoImage.fillAmount = 1.0f;
+        }
     }
 
     protected virtual void Update() {
@@ -29,6 +35,5 @@ public abstract class ReloadAnimation : MonoBehaviour {
     }
 
     protected virtual void ZeroFillAmount() {
-        _ammoImage.fillAmount = 0;
     }
 }

@@ -4,14 +4,12 @@ using System.Collections;
 public class MGReloadAnim : ReloadAnimation {
 
     protected override void OnEnable() {
-        base.OnEnable();
-
         MachineGun.StartReloadAnimation += Reload;
-        MachineGun.EmptyClip += ZeroFillAmount;
+        base.OnEnable();
     }
 
     protected override void OnDisable() {
         MachineGun.StartReloadAnimation -= Reload;
-        MachineGun.EmptyClip -= ZeroFillAmount;
+        base.OnDisable();
     }
 }

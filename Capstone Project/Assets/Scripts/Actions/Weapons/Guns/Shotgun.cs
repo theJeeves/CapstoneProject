@@ -12,7 +12,6 @@ public class Shotgun : AbstractGun {
     // knows which weapon called this event.
     public static event AbstractGunEvent2 Fire;
     public static event AbstractGunEvent3 StartReloadAnimation;
-    public static event AbstractGunEvent2 StillHaveAmmo;
     public static event AbstractGunEvent UpdateNumOfRounds;
 
     protected override void OnEnable() {
@@ -40,9 +39,9 @@ public class Shotgun : AbstractGun {
             }
 
             if (--numOfRounds <= 0) {
-                if (EmptyClip != null) {
-                    EmptyClip();
-                }
+                //if (EmptyClip != null) {
+                //    EmptyClip();
+                //}
                 AutoReload();
             }
 

@@ -5,11 +5,15 @@ using UnityEngine.UI;
 public class AmmoSwap : MonoBehaviour {
 
     [SerializeField]
-    private GameObject _shotgun;
+    private Image _shotgun;
     [SerializeField]
-    private GameObject _machineGun;
+    private Image _machineGun;
 
-	private void OnEnable() {
+    private void Awake() {
+        _machineGun.enabled = false;
+    }
+
+    private void OnEnable() {
         WeaponSelect.SwapWeapon += SwapAmmoType;
     }
 
@@ -24,21 +28,13 @@ public class AmmoSwap : MonoBehaviour {
      */
     private void SwapAmmoType(int weapon) {
 
-        if (_shotgun.activeInHierarchy) {
-            _machineGun.transform.localPosition = new Vector3(-16.0f, 0.0f, 0.0f);
-            //_machineGun.transform.localScale = new Vector3(0.4f, 0.4f, 1.0f);
-            _machineGun.transform.localEulerAngles = new Vector3(0.0f, 0.0f, -90.0f);
-
-            _shotgun.SetActive(false);
-            _machineGun.SetActive(true);
+        if (_shotgun.enabled) {
+            _shotgun.enabled = false;
+            _machineGun.enabled = true; ;
         }
-        else if (_machineGun.activeInHierarchy) {
-            _shotgun.transform.localPosition = new Vector3(-13.0f, 0.0f, 0.0f);
-            //_shotgun.transform.localScale = new Vector3(0.25f, 0.25f, 1.0f);
-            _shotgun.transform.localEulerAngles = new Vector3(0.0f, 0.0f, 0.0f);
-
-            _machineGun.SetActive(false);
-            _shotgun.SetActive(true);
+        else if (_machineGun.enabled) {
+            _machineGun.enabled = false;
+            _shotgun.enabled = true;
         }
     }
 }
