@@ -20,11 +20,13 @@ public class PlayerHealth : MonoBehaviour {
     private void OnEnable() {
         SniperDealDamage.DecrementPlayerHealth += DecrementPlayerHealth;
         ChargerDealDamage.DecrementPlayerHealth += DecrementPlayerHealth;
+        laserBeam.DecrementPlayerHealth += DecrementPlayerHealth;
     }
 
     private void OnDisable() {
         SniperDealDamage.DecrementPlayerHealth -= DecrementPlayerHealth;
         ChargerDealDamage.DecrementPlayerHealth -= DecrementPlayerHealth;
+        laserBeam.DecrementPlayerHealth -= DecrementPlayerHealth;
     }
 
     void Start() {
