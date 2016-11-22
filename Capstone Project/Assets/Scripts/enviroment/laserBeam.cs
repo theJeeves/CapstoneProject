@@ -27,13 +27,13 @@ public class laserBeam : MonoBehaviour
     [SerializeField]
     private float _startDelay;
 
+    private bool _delayFinished;
+
 
 
     // Use this for initialization
     void Start()
     {
-
-
         _lr = GetComponentInChildren<LineRenderer>();
         _laser = transform.GetChild(0);
         drawLaser();
@@ -58,7 +58,7 @@ public class laserBeam : MonoBehaviour
                 }
             }
         }
-        else if (!_laser.gameObject.activeInHierarchy)
+        else if (!_laser.gameObject.activeInHierarchy && _delayFinished)
         {
             StartCoroutine(LaserOnOff());
         }
@@ -68,9 +68,9 @@ public class laserBeam : MonoBehaviour
     void drawLaser()
     {
         _lr.SetPosition(0, start.position);
-        _lr.SetPosition(1, end.position);
+        //_lr.SetPosition(1, start.position);
         _lr.SetWidth(5.0f, 5.0f);
-
+        _laser.gameObject.SetActive(false);
     }
 
     IEnumerator LaserOnOff()
@@ -88,7 +88,9 @@ public class laserBeam : MonoBehaviour
 
     IEnumerator Delay()
     {
+        _delayFinished = false;
         yield return new WaitForSeconds(_startDelay);
+        _delayFinished = true;
         StartCoroutine(LaserOnOff());
     }
 }

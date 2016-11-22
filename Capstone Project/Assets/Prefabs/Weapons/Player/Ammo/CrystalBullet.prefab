@@ -23,6 +23,7 @@ GameObject:
   - 61: {fileID: 61000010740716760}
   - 114: {fileID: 114000012270899646}
   - 114: {fileID: 114000011053998472}
+  - 50: {fileID: 50000010745018882}
   m_Layer: 0
   m_Name: CrystalBullet
   m_TagString: Untagged
@@ -43,6 +44,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &50000010745018882
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011701536248}
+  m_UseAutoMass: 0
+  m_Mass: 1
+  m_LinearDrag: 0
+  m_AngularDrag: 0.05
+  m_GravityScale: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61000010740716760
 BoxCollider2D:
   m_ObjectHideFlags: 1

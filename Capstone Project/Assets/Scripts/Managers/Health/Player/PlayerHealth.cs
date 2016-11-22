@@ -4,17 +4,29 @@ using System.Collections;
 public class PlayerHealth : MonoBehaviour {
 
     public delegate void PlayerHealthEvent(int _health);
+    public delegate void PlayerHealthEvent2(float time);
+
     public static event PlayerHealthEvent UpdateHealth;
+    public static event PlayerHealthEvent2 StartInvulnAnim;
+
+    [SerializeField]
+    private int _maxHealth;
 
     [SerializeField]
     private int _health;
 
     [SerializeField]
-    private int _maxHealth;
+    private float _recoveryTime;
+
+    private bool _canTakeDamage;
 
     public int Health {
         get { return _health; }
         set { _health = value; }
+    }
+
+    private void Awake() {
+        _canTakeDamage = true;
     }
 
     private void OnEnable() {
@@ -38,10 +50,26 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void DecrementPlayerHealth(int damage) {
-        _health -= damage;
+        if (_canTakeDamage) {
 
-        if (UpdateHealth != null) {
-            UpdateHealth(_health);
+            StartCoroutine(RecoveryDelay());
+
+            _health -= damage;
+
+            if (UpdateHealth != null) {
+                UpdateHealth(_health);
+            }
         }
+    }
+
+    private IEnumerator RecoveryDelay() {
+        _canTakeDamage = false;
+
+        if (StartInvulnAnim != null) {
+            StartInvulnAnim(_recoveryTime);
+        }
+
+        yield return new WaitForSeconds(_recoveryTime);
+        _canTakeDamage = true;
     }
 }

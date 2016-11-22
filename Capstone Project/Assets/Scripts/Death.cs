@@ -12,7 +12,7 @@ public class Death : MonoBehaviour {
 	void Update () {
 	    if(transform.position.y < -2000)
         {
-            transform.position = new Vector3(0, -49, 0);
+            transform.position = new Vector3(-125, -30, 0);
         }
 	}
 }

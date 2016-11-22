@@ -15,7 +15,23 @@ public class LaserSights : MonoBehaviour {
     }
 
     private void OnEnable() {
+        SniperPushBack.Stun += TurnOffSights;
+
         StartCoroutine(Laser());
+    }
+
+    private void OnDisable() {
+        SniperPushBack.Stun -= TurnOffSights;
+    }
+
+    private void TurnOffSights() {
+        _renderer.enabled = false;
+        StartCoroutine(TurnOnSights());
+    }
+
+    private IEnumerator TurnOnSights() {
+        yield return new WaitForSeconds(1.0f);
+        _renderer.enabled = true;
     }
 
     private IEnumerator Laser() {

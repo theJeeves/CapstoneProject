@@ -71,12 +71,12 @@ public abstract class AbstractGun : MonoBehaviour {
         ControllableObject.OnButtonDown += OnButtonDown;
         ReloadWeapon.Reload += ManualReload;
 
+        _reloading = false;
+
         if (numOfRounds <= 0) {
-            _reloading = false;
             AutoReload();
         }
         else {
-
             _canShoot = true;
         }
     }
