@@ -12,12 +12,12 @@ public class PlayerChargerInteraction : MonoBehaviour {
 
     private void OnEnable()
     {
-        ChargerDealDamage.KnockUp += KnockUp;
+        //ChargerDealDamage.KnockUp += KnockUp;
     }
 
     private void OnDisable()
     {
-        ChargerDealDamage.KnockUp -= KnockUp;
+        //ChargerDealDamage.KnockUp -= KnockUp;
     }
 
     void Start()
@@ -25,7 +25,7 @@ public class PlayerChargerInteraction : MonoBehaviour {
         _knockBack = 50.0f;
         _launchDistance = 20000.0f;
         _playerBody2d = GetComponent<Rigidbody2D>();
-        _chargerBody2d = GameObject.Find("Charger").GetComponentInChildren<Rigidbody2D>();
+        //_chargerBody2d = GameObject.Find("Charger").GetComponentInChildren<Rigidbody2D>();
 
         if(PlayerKnockedUp != null)
         {
