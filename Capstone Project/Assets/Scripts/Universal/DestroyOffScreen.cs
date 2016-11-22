@@ -2,13 +2,16 @@
 using System.Collections;
 
 public class DestroyOffScreen : MonoBehaviour {
+
+    Vector3 _GOpos;
 	
 	// Update is called once per frame
 	void Update () {
-	    if (Camera.main.WorldToViewportPoint(transform.position).x < 0 ||
-            Camera.main.WorldToViewportPoint(transform.position).x > 1 ||
-            Camera.main.WorldToViewportPoint(transform.position).y < 0 ||
-            Camera.main.WorldToViewportPoint(transform.position).y > 1) {
+
+        _GOpos = Camera.main.WorldToViewportPoint(transform.position);
+
+
+        if (_GOpos.x < -.15f || _GOpos.x > 1.15f || _GOpos.y < -0.15f || _GOpos.y > 1.15f) {
 
             Destroy(gameObject);
         }

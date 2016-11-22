@@ -12,35 +12,20 @@ public class Shotgun : AbstractGun {
     // knows which weapon called this event.
     public static event AbstractGunEvent2 Fire;
     public static event AbstractGunEvent3 StartReloadAnimation;
-    public static event AbstractGunEvent2 EmptyClip;
     public static event AbstractGunEvent UpdateNumOfRounds;
 
     protected override void OnEnable() {
         base.OnEnable();
 
         if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
+            UpdateNumOfRounds(numOfRounds);
         }
     }
 
-
     protected override void OnButtonDown(Buttons button) { 
 
-        if (button == Buttons.Shoot && _numOfRounds > 0 && _canShoot) {
+        if (button == Buttons.Shoot && numOfRounds > 0 && _canShoot) {
 
-            if (Fire != null) {
-                Fire();
-            }
-
-            if (--_numOfRounds <= 0) {
-                if (EmptyClip != null) {
-                    EmptyClip();
-                }
-            }
-
-            if (UpdateNumOfRounds != null) {
-                UpdateNumOfRounds(_numOfRounds);
-            }
             StartCoroutine(ShotDelay());
 
             _xVel = _body2d.velocity.x;
@@ -48,39 +33,43 @@ public class Shotgun : AbstractGun {
 
             _gunActions[_controller.CurrentKey].Invoke();
             SetVeloctiy(_xVel, _yVel);
+
+            if (Fire != null) {
+                Fire();
+            }
+
+            if (--numOfRounds <= 0) {
+                //if (EmptyClip != null) {
+                //    EmptyClip();
+                //}
+                AutoReload();
+            }
+
+            if (UpdateNumOfRounds != null) {
+                UpdateNumOfRounds(numOfRounds);
+            }
         }
     }
+    
+    protected override IEnumerator ReloadDelay() {
 
-    protected override void Reload() {
-
-        if (_body2d.velocity.y <= 0 && _numOfRounds <= 0) {
-            StartCoroutine(ReloadDelay());
-        }
-    }
-
-    private IEnumerator ReloadDelay() {
-
+        _reloading = true;
         _canShoot = false;
-        while (!_collisionState.OnSolidGround) {
-            yield return 0;
-        }
 
         if (StartReloadAnimation != null) {
             StartReloadAnimation(_reloadTime);
         }
 
-        float timer = Time.time;
-        while (Time.time - timer < _reloadTime) {
-            yield return 0;
-        }
+        yield return new WaitForSeconds(_reloadTime);
 
-        _numOfRounds = _clipSize;
+        numOfRounds = _clipSize;
 
         // UPDATE THE UI
         if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
+            UpdateNumOfRounds(numOfRounds);
         }
 
+        _reloading = false;
         _canShoot = true;
     }
 

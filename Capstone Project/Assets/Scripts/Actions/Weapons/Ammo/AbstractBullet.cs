@@ -41,5 +41,7 @@ public abstract class AbstractBullet : MonoBehaviour {
         _direction = (_end - _start).normalized;
     }
 
-    protected abstract IEnumerator Shoot();
+    protected virtual IEnumerator Shoot() {
+        yield return 0;
+    }
 }

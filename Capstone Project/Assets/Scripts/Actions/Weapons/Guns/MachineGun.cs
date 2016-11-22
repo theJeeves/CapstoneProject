@@ -24,7 +24,7 @@ public class MachineGun : AbstractGun {
         base.OnEnable();
 
         if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
+            UpdateNumOfRounds(numOfRounds);
         }
 
         ControllableObject.OnButton += OnButton;
@@ -37,43 +37,31 @@ public class MachineGun : AbstractGun {
         ControllableObject.OnButton -= OnButton;
     }
 
-    protected override void Reload() {
-        _canLift = true;
+    protected override IEnumerator ReloadDelay() {
 
-        if (_body2d.velocity.y <= 0.0f && _numOfRounds <= 0) {
-            StartCoroutine(ReloadDelay());
-        }
-    }
-
-    private IEnumerator ReloadDelay() {
-
+        _reloading = true;
         _canShoot = false;
-        while (!_collisionState.OnSolidGround) {
-            yield return 0;
-        }
 
         if (StartReloadAnimation != null) {
             StartReloadAnimation(_reloadTime);
         }
 
-        float timer = Time.time;
-        while (Time.time - timer < _reloadTime) {
-            yield return 0;
-        }
+        yield return new WaitForSeconds(_reloadTime);
 
-        _numOfRounds = _clipSize;
+        numOfRounds = _clipSize;
 
         // UPDATE THE UI
         if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(_numOfRounds);
+            UpdateNumOfRounds(numOfRounds);
         }
 
+        _reloading = false;
         _canShoot = true;
     }
 
     protected override void OnButtonDown(Buttons button) {
 
-        if (button == Buttons.Shoot && _canShoot && _collisionState.OnSolidGround && _numOfRounds > 0) {
+        if (button == Buttons.Shoot && _canShoot && _collisionState.OnSolidGround && numOfRounds > 0) {
 
             float xVel = _body2d.velocity.x;
 
@@ -128,37 +116,39 @@ public class MachineGun : AbstractGun {
 
     private void OnButton(Buttons button) {
 
-        if (button == Buttons.Shoot && _numOfRounds > 0) {
-
-            if (Fire != null) {
-                Fire();
-            }
+        if (button == Buttons.Shoot && numOfRounds > 0) {
 
             if (_canLift && _controller.GetButtonPress(Buttons.AimDown)) {
                 OnButtonDown(button);
             }
-            else {
-                if (_canShoot) {
-                    if (--_numOfRounds <= 0) {
-                        if (EmptyClip != null) {
-                            EmptyClip();
-                        }
-                    }
-                    if (UpdateNumOfRounds != null) {
-                        UpdateNumOfRounds(_numOfRounds);
-                    }
-
-                    StartCoroutine(ShotDelay());
-                }
+            if (!_reloading) {
 
                 _xVel = _body2d.velocity.x;
                 _yVel = _body2d.velocity.y;
 
                 _gunActions[_controller.CurrentKey].Invoke();
                 SetVeloctiy(_xVel, _yVel);
+
+                if (Fire != null) {
+                    Fire();
+                }
+            }
+            if (_canShoot & !_reloading) {
+
+                if (--numOfRounds <= 0) {
+                    if (EmptyClip != null) {
+                        EmptyClip();
+                    }
+                    AutoReload();
+                }
+                if (UpdateNumOfRounds != null) {
+                    UpdateNumOfRounds(numOfRounds);
+                }
+
+                StartCoroutine(ShotDelay());
             }
         }
-        else if (_numOfRounds <= 0) {
+        else if (numOfRounds <= 0) {
             if (EmptyClip != null) {
                 EmptyClip();
             }

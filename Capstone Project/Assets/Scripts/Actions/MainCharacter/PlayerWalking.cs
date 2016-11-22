@@ -9,18 +9,34 @@ public class PlayerWalking : AbstractPlayerActions {
     [SerializeField]
     private float _walkSpeed;
 
+    private bool _canWalk;
+
     protected override void OnEnable() {
-        //base.OnEnable();
 
         ControllableObject.OnButton += OnButton;
         ControllableObject.OnButtonUp += OnButtonUp;
+        SniperPushBack.Stun += Stun;
+
+        _canWalk = true;
     }
 
     protected override void OnDisable() {
-        //base.OnDisable();
 
         ControllableObject.OnButton -= OnButton;
         ControllableObject.OnButtonUp -= OnButtonUp;
+        SniperPushBack.Stun -= Stun;
+    }
+
+    private void Stun() {
+        StartCoroutine(Delay());
+    }
+
+    private IEnumerator Delay() {
+        if (_canWalk) {
+            _canWalk = false;
+            yield return new WaitForSeconds(1.0f);
+            _canWalk = true;
+        }
     }
 
     private void OnButton(Buttons button) {
@@ -32,12 +48,13 @@ public class PlayerWalking : AbstractPlayerActions {
         if (_controller.GetButtonPress(Buttons.AimDown) && _controller.GetButtonPress(Buttons.Shoot)) {
         }
         else {
-
-            if (button == Buttons.MoveRight && _collisionState.OnSolidGround) {
-                _body2d.velocity = new Vector2(_walkSpeed * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
-            }
-            else if (button == Buttons.MoveLeft && _collisionState.OnSolidGround) {
-                _body2d.velocity = new Vector2(-(_walkSpeed) * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
+            if (_canWalk) {
+                if (button == Buttons.MoveRight && _collisionState.OnSolidGround) {
+                    _body2d.velocity = new Vector2(_walkSpeed * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
+                }
+                else if (button == Buttons.MoveLeft && _collisionState.OnSolidGround) {
+                    _body2d.velocity = new Vector2(-(_walkSpeed) * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
+                }
             }
         }
     }
@@ -45,7 +62,7 @@ public class PlayerWalking : AbstractPlayerActions {
     private void OnButtonUp(Buttons button) {
 
         if ((button == Buttons.MoveRight || button == Buttons.MoveLeft) && _collisionState.OnSolidGround) {
-            _body2d.velocity = new Vector2(0, _body2d.velocity.y);
+            //_body2d.velocity = new Vector2(0, _body2d.velocity.y);
         }
     }
 }

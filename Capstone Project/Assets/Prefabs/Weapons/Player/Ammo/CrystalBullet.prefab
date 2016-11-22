@@ -21,9 +21,9 @@ GameObject:
   - 4: {fileID: 4000012481817994}
   - 212: {fileID: 212000010021943968}
   - 61: {fileID: 61000010740716760}
-  - 50: {fileID: 50000010729749562}
   - 114: {fileID: 114000012270899646}
   - 114: {fileID: 114000011053998472}
+  - 50: {fileID: 50000010745018882}
   m_Layer: 0
   m_Name: CrystalBullet
   m_TagString: Untagged
@@ -44,7 +44,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &50000010729749562
+--- !u!50 &50000010745018882
 Rigidbody2D:
   serializedVersion: 2
   m_ObjectHideFlags: 1
@@ -55,12 +55,12 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 0
+  m_GravityScale: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 0
 --- !u!61 &61000010740716760
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -70,7 +70,7 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_Offset: {x: -7.0796957, y: -0.00000059604645}
   serializedVersion: 2
@@ -86,7 +86,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d9624fba71d4d74a97b5248bd1f9a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shotSpeed: 400
+  _shotSpeed: 450
   _damageAmount: 7
   _directionRange:
     _min: -0.033
