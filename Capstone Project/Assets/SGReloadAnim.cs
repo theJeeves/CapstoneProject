@@ -3,9 +3,8 @@ using System.Collections;
 
 public class SGReloadAnim : ReloadAnimation {
 
-    protected override void OnEnable() {
+    private void OnEnable() {
         Shotgun.StartReloadAnimation += Reload;
-        base.OnEnable();
     }
 
     protected override void OnDisable() {

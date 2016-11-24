@@ -20,9 +20,19 @@ public class PlayerCollisionState : MonoBehaviour {
         get { return _onSolidGround; }
     }
 
+    private BoxCollider2D _box;
+
+    private void Awake() {
+        _box = GetComponent<BoxCollider2D>();
+    }
+
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
-        if (otherGO.gameObject.tag == "SolidGround") {
+        // Ensure the player is on something they can walk on and ensure the platform / floor
+        // is under them for proper reloading. 
+        if (otherGO.gameObject.tag == "SolidGround" && 
+            otherGO.transform.position.y < _box.bounds.min.y) {
+
             if (OnHitGround != null) {
                 OnHitGround();
             }

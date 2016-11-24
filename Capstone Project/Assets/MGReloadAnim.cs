@@ -3,9 +3,8 @@ using System.Collections;
 
 public class MGReloadAnim : ReloadAnimation {
 
-    protected override void OnEnable() {
+    private void OnEnable() {
         MachineGun.StartReloadAnimation += Reload;
-        base.OnEnable();
     }
 
     protected override void OnDisable() {

@@ -11,6 +11,7 @@ public class Shotgun : AbstractGun {
     // This is put into the shotgun script so the shotgun screen shake script
     // knows which weapon called this event.
     public static event AbstractGunEvent2 Fire;
+    public static event AbstractGunEvent2 EmptyClip;
     public static event AbstractGunEvent3 StartReloadAnimation;
     public static event AbstractGunEvent UpdateNumOfRounds;
 
@@ -34,15 +35,22 @@ public class Shotgun : AbstractGun {
             _gunActions[_controller.CurrentKey].Invoke();
             SetVeloctiy(_xVel, _yVel);
 
+            // Call the screen shake class.
             if (Fire != null) {
                 Fire();
             }
+            _grounded = false;
 
+            // Make the ammo sprite disappear when the ammo is depleted while in the air.
             if (--numOfRounds <= 0) {
-                //if (EmptyClip != null) {
-                //    EmptyClip();
-                //}
-                AutoReload();
+                if (EmptyClip != null) {
+                    EmptyClip();
+                }
+
+                // Determine if the player was on the ground when they shot the last round in the chamber.
+                _grounded = _collisionState.OnSolidGround ? true : false;
+
+                Reload();
             }
 
             if (UpdateNumOfRounds != null) {
@@ -53,8 +61,24 @@ public class Shotgun : AbstractGun {
     
     protected override IEnumerator ReloadDelay() {
 
+        // Prevent the gun from trying to reload multiple times and
+        // prevent the player from firing while reloading.
         _reloading = true;
         _canShoot = false;
+
+        // The player will have the same reload time if they stay on the ground or if they
+        // shot themselves up into the air. The reload times balance out.
+        if (_grounded) {
+            _reloadTime = _normReloadTime;
+        }
+        else {
+            _reloadTime = _fastReloadTime;
+
+            // Prevent the gun from reloading until the player is back on the ground.
+            while (!_collisionState.OnSolidGround) {
+                yield return 0;
+            }
+        }
 
         if (StartReloadAnimation != null) {
             StartReloadAnimation(_reloadTime);
@@ -69,6 +93,7 @@ public class Shotgun : AbstractGun {
             UpdateNumOfRounds(numOfRounds);
         }
 
+        // The player can now fire again.
         _reloading = false;
         _canShoot = true;
     }
@@ -87,7 +112,7 @@ public class Shotgun : AbstractGun {
             _xVel = _body2d.velocity.x;
         }
 
-        SetVeloctiy(_xVel, _yVel);
+        //SetVeloctiy(_xVel, _yVel);
     }
 
     protected override void AimDownAndRight() {

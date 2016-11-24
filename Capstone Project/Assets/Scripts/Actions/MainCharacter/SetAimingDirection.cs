@@ -54,12 +54,14 @@ public class SetAimingDirection : AbstractPlayerActions {
     }
 
     private void OnButtonUp(Buttons button) {
-        
-        if (_controller.FacingDirection == Facing.Right) {
-            _controller.SetAimDirection(0);
-        }
-        else if (_controller.FacingDirection == Facing.Left) {
-            _controller.SetAimDirection(4);
+
+        if (button != Buttons.Shoot) {
+            if (_controller.FacingDirection == Facing.Right) {
+                _controller.SetAimDirection(0);
+            }
+            else if (_controller.FacingDirection == Facing.Left) {
+                _controller.SetAimDirection(4);
+            }
         }
     }
 }

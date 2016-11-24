@@ -37,28 +37,6 @@ public class MachineGun : AbstractGun {
         ControllableObject.OnButton -= OnButton;
     }
 
-    protected override IEnumerator ReloadDelay() {
-
-        _reloading = true;
-        _canShoot = false;
-
-        if (StartReloadAnimation != null) {
-            StartReloadAnimation(_reloadTime);
-        }
-
-        yield return new WaitForSeconds(_reloadTime);
-
-        numOfRounds = _clipSize;
-
-        // UPDATE THE UI
-        if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(numOfRounds);
-        }
-
-        _reloading = false;
-        _canShoot = true;
-    }
-
     protected override void OnButtonDown(Buttons button) {
 
         if (button == Buttons.Shoot && _canShoot && _collisionState.OnSolidGround && numOfRounds > 0) {
@@ -132,6 +110,7 @@ public class MachineGun : AbstractGun {
                 if (Fire != null) {
                     Fire();
                 }
+                _grounded = false;
             }
             if (_canShoot & !_reloading) {
 
@@ -139,7 +118,10 @@ public class MachineGun : AbstractGun {
                     if (EmptyClip != null) {
                         EmptyClip();
                     }
-                    AutoReload();
+
+                    // Determine if the player was on the ground when they shot the last round in the chamber.
+                    _grounded = _collisionState.OnSolidGround ? true : false;
+                    Reload();
                 }
                 if (UpdateNumOfRounds != null) {
                     UpdateNumOfRounds(numOfRounds);
@@ -153,6 +135,47 @@ public class MachineGun : AbstractGun {
                 EmptyClip();
             }
         }
+    }
+
+    protected override void Reload() {
+
+        // This ensures the player will be lifted by the initial shot every time.
+        // Machine Gun specific.
+        _canLift = true;
+
+        if (numOfRounds > 0 && _controller.GetButtonPress(Buttons.Shoot)) { }
+        else {
+            base.Reload();
+        }
+    }
+
+    protected override IEnumerator ReloadDelay() {
+
+        // Prevent the gun from trying to reload multiple times and
+        // prevent the player from firing while reloading.
+        _reloading = true;
+        _canShoot = false;
+
+        // The player will have the same reload time if they stay on the ground or if they
+        // shot themselves up into the air. The reload times balance out.
+        _reloadTime = _grounded ? _normReloadTime : _fastReloadTime;
+
+        if (StartReloadAnimation != null) {
+            StartReloadAnimation(_reloadTime);
+        }
+
+        yield return new WaitForSeconds(_reloadTime);
+
+        numOfRounds = _clipSize;
+
+        // UPDATE THE UI
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(numOfRounds);
+        }
+
+        // The player can now fire again.
+        _reloading = false;
+        _canShoot = true;
     }
 
     protected override void AimDown() {
