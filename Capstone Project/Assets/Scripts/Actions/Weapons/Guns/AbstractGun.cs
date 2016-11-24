@@ -79,8 +79,10 @@ public abstract class AbstractGun : MonoBehaviour {
     {
         ControllableObject.OnButtonDown += OnButtonDown;
         PlayerCollisionState.OnHitGround += Reload;
+        ReloadWeapon.Reload += ManualReload;
 
         _reloading = false;
+        _canShoot = true;
 
         if (numOfRounds <= 0) {
             Reload();
@@ -95,6 +97,7 @@ public abstract class AbstractGun : MonoBehaviour {
     {
         ControllableObject.OnButtonDown -= OnButtonDown;
         PlayerCollisionState.OnHitGround -= Reload;
+        ReloadWeapon.Reload -= ManualReload;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
     }
@@ -107,6 +110,13 @@ public abstract class AbstractGun : MonoBehaviour {
     protected virtual void Reload() {
 
         if (!_reloading && numOfRounds < _clipSize) {
+            StartCoroutine(ReloadDelay());
+        }
+    }
+
+    protected virtual void ManualReload() {
+        if (!_reloading && numOfRounds < _clipSize && _collisionState.OnSolidGround) {
+            _grounded = true;
             StartCoroutine(ReloadDelay());
         }
     }
