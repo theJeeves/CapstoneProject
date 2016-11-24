@@ -243,7 +243,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010871563602}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -125, y: -27, z: 0}
+  m_LocalPosition: {x: 1710, y: 344, z: 0}
   m_LocalScale: {x: 0.12, y: 0.12, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -341,7 +341,8 @@ MonoBehaviour:
   _clipSize: 26
   numOfRounds: 0
   _shotDelay: 0.1
-  _reloadTime: 2
+  _normReloadTime: 0.9
+  _fastReloadTime: 0.25
   _bullet: {fileID: 1000011701536248, guid: 73776fcad070521489ccef61e8e15077, type: 2}
   _mgBarrel: {fileID: 4000011143542942}
   _xMultiplier: 11.11
@@ -514,7 +515,8 @@ MonoBehaviour:
   _clipSize: 3
   numOfRounds: 0
   _shotDelay: 0.25
-  _reloadTime: 1
+  _normReloadTime: 0.9
+  _fastReloadTime: 0.25
   _bullet: {fileID: 1000014196884406, guid: 30dd231fbe5d1624489145f74a218fd1, type: 2}
   _mgBarrel: {fileID: 4000012713786154}
 --- !u!114 &114000014156416844

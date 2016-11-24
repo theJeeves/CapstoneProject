@@ -41,7 +41,7 @@ public class CrystalBullet : AbstractBullet {
 
     // If it collides with an enemy, destroy itself.
     private void OnTriggerEnter2D(Collider2D GO) {
-        Debug.Log("0");
+
         if (GO.gameObject.tag == "Block") {
             Destroy(gameObject);
         }
