@@ -2,55 +2,42 @@
 using System.Collections;
 using UnityEngine.UI;
 
-public class ReloadAnimation : MonoBehaviour {
+public abstract class ReloadAnimation : MonoBehaviour {
 
-    [SerializeField]
-    private AbstractGun _gun;
-
-    private Image _ammoImage;
+    protected Image _ammoImage;
     private float _timer = 0.0f;
-    private bool _canAnimate = true;
+    private bool _canAnimate;
 
-    private void OnEnable() {
-        //Shotgun.StartReloadAnimation += Reload;
-        //Shotgun.EmptyClip += ZeroFillAmount;
-        //MachineGun.StartReloadAnimation += Reload;
-        //MachineGun.EmptyClip += ZeroFillAmount;
-
+    protected virtual void Awake() {
         _ammoImage = GetComponent<Image>();
+        _canAnimate = false;
     }
 
-    private void OnDisable() {
-        //Shotgun.StartReloadAnimation -= Reload;
-        //Shotgun.EmptyClip -= ZeroFillAmount;
-        //MachineGun.StartReloadAnimation -= Reload;
-        //MachineGun.EmptyClip -= ZeroFillAmount;
-    }
+    protected virtual void OnDisable() {
 
-    private void Update() {
-
-        if (_gun.numOfRounds <= 0) {
-            ZeroFillAmount();
+        if (_ammoImage.fillAmount < 1.0f) {
+            _ammoImage.fillAmount = 1.0f;
         }
+    }
 
-        if (!_canAnimate && _ammoImage.fillAmount < 1) {
+    protected virtual void Update() {
+
+        if (_canAnimate && _ammoImage.fillAmount < 1) {
             _ammoImage.fillAmount += 1.0f / _timer * Time.deltaTime;
         }
-        else {
-            _canAnimate = true;
-            _timer = 0;
-        }
-    }
-
-    private void Reload(float reloadTime) {
-        
-        if (_canAnimate) {
+        else if (_canAnimate && _ammoImage.fillAmount >= 1) {
             _canAnimate = false;
-            _timer = reloadTime;
         }
     }
 
-    private void ZeroFillAmount() {
+    protected virtual void Reload(float reloadTime) {
+
+        _ammoImage.fillAmount = 0;
+        _timer = reloadTime;
+        _canAnimate = true;
+    }
+
+    protected virtual void ZeroFillAmount() {
         _ammoImage.fillAmount = 0;
     }
 }

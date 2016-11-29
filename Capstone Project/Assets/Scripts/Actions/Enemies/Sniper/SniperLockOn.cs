@@ -12,12 +12,25 @@ public class SniperLockOn : MonoBehaviour {
     private Vector3 _direction;
     private Vector3 _localScale;
 
+    private bool _canAttack;
+    private float _startTime;
+
     private void Awake() {
         _playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
 
     private void OnEnable() {
-        StartCoroutine(LockOn());
+        _canAttack = true;
+        _startTime = Time.time;
+        SniperPushBack.Stun += PauseAttack;
+    }
+
+    private void OnDisable() {
+        SniperPushBack.Stun -= PauseAttack;
+    }
+
+    private void PauseAttack() {
+        StartCoroutine(StunResetAttack());
     }
 
     private void Update() {
@@ -25,16 +38,25 @@ public class SniperLockOn : MonoBehaviour {
         _localScale = transform.localScale;
         transform.localScale = _direction.x > 0 ? new Vector3(0.12f, _localScale.y, _localScale.z)
             : new Vector3(-0.12f, _localScale.y, _localScale.z);
-    }
 
-    private IEnumerator LockOn() {
+        if (_canAttack) {
 
-        while (true) {
-            yield return new WaitForSeconds(_timer);
-
-            if (Attack != null) {
-                Attack();
+            if (Time.time - _startTime >= _timer) {
+                if (Attack != null) {
+                    Attack();
+                    _startTime = Time.time;
+                }
             }
         }
+        else {
+            _startTime = Time.time;
+        }
+    }
+
+    private IEnumerator StunResetAttack() {
+
+        _canAttack = false;
+        yield return new WaitForSeconds(1.0f);
+        _canAttack = true;
     }
 }

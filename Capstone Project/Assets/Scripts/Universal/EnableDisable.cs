@@ -17,6 +17,8 @@ public class EnableDisable : MonoBehaviour {
         _GOpos = Camera.main.WorldToViewportPoint(_object.transform.position);
 
         while (_GOpos.x < -0.15f || _GOpos.x > 1.15f || _GOpos.y < -0.15f || _GOpos.y > 1.0f) {
+
+            _GOpos = Camera.main.WorldToViewportPoint(_object.transform.position);
             yield return 0;
         }
 
@@ -29,6 +31,8 @@ public class EnableDisable : MonoBehaviour {
         _GOpos = Camera.main.WorldToViewportPoint(_object.transform.position);
 
         while (_GOpos.x > -0.15f && _GOpos.x < 1.15f && _GOpos.y > -0.15f && _GOpos.y < 1.0f) {
+
+            _GOpos = Camera.main.WorldToViewportPoint(_object.transform.position);
             yield return 0;
         }
 
