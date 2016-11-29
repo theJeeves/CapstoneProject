@@ -6,6 +6,9 @@ public class ShotgunBlast : AbstractBullet {
     public static event AbstractBulletEvent DamageEnemy;
 
     [SerializeField]
+    private GameObject _endOfBarrel;
+
+    [SerializeField]
     private Vector2 _widths;
 
     [SerializeField]
@@ -36,8 +39,16 @@ public class ShotgunBlast : AbstractBullet {
         GenLengthsAndHeights();
 
         StartCoroutine(Shoot());
+
+        _endOfBarrel = GameObject.FindGameObjectWithTag("Start");
     }
-    
+
+    private void Update() {
+        for (int i = 0; i < _lightning.Length; ++i) {
+            _lightning[i].StartPosition = _endOfBarrel.transform.position - transform.position;
+        }
+    }
+
 
     protected override IEnumerator Shoot() {
 
