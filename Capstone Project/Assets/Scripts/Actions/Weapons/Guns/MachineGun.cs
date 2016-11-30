@@ -25,6 +25,7 @@ public class MachineGun : AbstractGun {
 
         if (UpdateNumOfRounds != null) {
             UpdateNumOfRounds(numOfRounds);
+            Debug.Log("update rounds MG");
         }
 
         ControllableObject.OnButton += OnButton;
@@ -158,7 +159,19 @@ public class MachineGun : AbstractGun {
 
         // The player will have the same reload time if they stay on the ground or if they
         // shot themselves up into the air. The reload times balance out.
-        _reloadTime = _grounded ? _normReloadTime : _fastReloadTime;
+        if (_grounded) {
+            _reloadTime = _normReloadTime;
+        }
+        else {
+            _reloadTime = _fastReloadTime;
+
+            // Prevent the gun from reloading until the player is back on the ground.
+            while (!_collisionState.OnSolidGround) {
+                yield return 0;
+            }
+        }
+
+
 
         if (StartReloadAnimation != null) {
             StartReloadAnimation(_reloadTime);
