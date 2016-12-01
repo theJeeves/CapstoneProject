@@ -4,6 +4,7 @@ using System.Collections;
 public class ShotgunBlast : AbstractBullet {
 
     public static event AbstractBulletEvent DamageEnemy;
+    public static event AbstractBulletEvent2 PushEnemy;
 
     [SerializeField]
     private GameObject _endOfBarrel;
@@ -83,6 +84,8 @@ public class ShotgunBlast : AbstractBullet {
         Destroy(gameObject);
     }
 
+    // Generates a random length and a random direction between a specified range.
+    // The last lightning bolt will always have the longest length and have the exact aiming direction.
     private void GenLengthsAndHeights() {
         for (int i = 0; i < _lightning.Length; ++i) {
 
@@ -109,6 +112,7 @@ public class ShotgunBlast : AbstractBullet {
 
             if (hit.collider != null && DamageEnemy != null) {
                 Debug.DrawLine(_start, _start + _lightning[i].EndPosition, Color.white);
+                PushEnemy(hit.collider.gameObject, _direction);
                 DamageEnemy(_damageAmount, hit.collider.gameObject);
             }
         }

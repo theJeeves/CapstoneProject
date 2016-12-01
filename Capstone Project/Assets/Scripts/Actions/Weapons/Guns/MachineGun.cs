@@ -25,7 +25,6 @@ public class MachineGun : AbstractGun {
 
         if (UpdateNumOfRounds != null) {
             UpdateNumOfRounds(numOfRounds);
-            Debug.Log("update rounds MG");
         }
 
         ControllableObject.OnButton += OnButton;

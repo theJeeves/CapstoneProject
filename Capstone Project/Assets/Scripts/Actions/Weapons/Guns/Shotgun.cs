@@ -18,8 +18,6 @@ public class Shotgun : AbstractGun {
     protected override void OnEnable() {
         base.OnEnable();
 
-        Debug.Log("shotgun called");
-
         if (UpdateNumOfRounds != null) {
             UpdateNumOfRounds(numOfRounds);
         }

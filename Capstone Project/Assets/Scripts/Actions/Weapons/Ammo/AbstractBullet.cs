@@ -4,6 +4,7 @@ using System.Collections;
 public abstract class AbstractBullet : MonoBehaviour {
 
     public delegate void AbstractBulletEvent(int damage, GameObject whatGotHit);
+    public delegate void AbstractBulletEvent2(GameObject whatGotHit, Vector3 direction);
 
     [SerializeField]
     protected float _shotSpeed;
