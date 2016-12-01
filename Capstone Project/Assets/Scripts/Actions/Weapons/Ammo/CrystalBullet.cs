@@ -46,9 +46,7 @@ public class CrystalBullet : AbstractBullet {
             Destroy(gameObject);
         }
         else if (GO.gameObject.tag == "Enemy") {
-            Debug.Log("1");
             if (DamageEnemy != null) {
-                Debug.Log("2");
                 DamageEnemy(_damageAmount, GO.gameObject);
             }
             Destroy(gameObject);

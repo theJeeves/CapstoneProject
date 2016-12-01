@@ -112,8 +112,12 @@ public class ShotgunBlast : AbstractBullet {
 
             if (hit.collider != null && DamageEnemy != null) {
                 Debug.DrawLine(_start, _start + _lightning[i].EndPosition, Color.white);
-                PushEnemy(hit.collider.gameObject, _direction);
-                DamageEnemy(_damageAmount, hit.collider.gameObject);
+                if (PushEnemy != null) {
+                    PushEnemy(hit.collider.gameObject, _direction);
+                }
+                if (DamageEnemy != null) {
+                    DamageEnemy(_damageAmount, hit.collider.gameObject);
+                }
             }
         }
     }
