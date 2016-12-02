@@ -7,12 +7,8 @@ public class PlayerCollisionState : MonoBehaviour {
     public static event PlayerCollisionStateEvent OnHitGround;
     public static event PlayerCollisionStateEvent OnLifted;
 
-    //// Cannot use an array of LayerMasks. When I tried it, all that would return would be the
-    //// number of available LayerMasks and not the values assigned to the array in Inspector.
-
-    // Variables for the bottom of the character
     [SerializeField]
-    private LayerMask _solidGroundLayer;
+    private LayerMask _whatToHit;
 
     [SerializeField]
     private bool _onSolidGround;
@@ -20,33 +16,57 @@ public class PlayerCollisionState : MonoBehaviour {
         get { return _onSolidGround; }
     }
 
-    private BoxCollider2D _box;
+    [SerializeField]
+    private Vector2 _rayCastOffset;
 
-    private void Awake() {
+    private BoxCollider2D _box;                             // Used to get the dimension of the collider
+    private Vector2[] _rayOrigin = new Vector2[2];          // Stores the left and right side of the collider's world position
+    private float _distance;                                // The distance the raycast will travel will be slightly past the player's feet.
+    private Vector2 _direction;                             // Only interested in what is below the player's feet.
+    private bool _touchedGround;                            // Used to keep track of past states for EVENT purposes.
+
+    private void OnEnable() {
         _box = GetComponent<BoxCollider2D>();
+
+        // The distance should just be long enough to extend outside of the collider box.
+        _distance = 2.0f;
+        _direction = new Vector2(0.0f, -1.0f);              // Down direction.
+        _touchedGround = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D otherGO) {
+    private void FixedUpdate() {
 
-        // Ensure the player is on something they can walk on and ensure the platform / floor
-        // is under them for proper reloading. 
-        if (otherGO.gameObject.tag == "SolidGround" && 
-            otherGO.transform.position.y < _box.bounds.min.y) {
-            _onSolidGround = true;
+        // Get the position of the player's collider box every fixed update
+        _rayOrigin[0] = new Vector2(_box.bounds.min.x + _rayCastOffset.x, _box.bounds.min.y + 1.0f);
+        _rayOrigin[1] = new Vector2(_box.bounds.max.x - _rayCastOffset.x, _box.bounds.min.y + 1.0f);
 
+        // For both sides of the player, check if the Raycast is touching the floor.
+        // Only check the right side if the player's left side is not touching. Most of the time, 
+        // the player will be traveling left to right. Therefore, we should be checking the left side more.
+        RaycastHit2D hit;
+        for (int i = 0; i < 2; ++i) {
+            hit = Physics2D.Raycast(_rayOrigin[i], _direction, _distance, _whatToHit);
+            if (hit.collider != null) {
+                Debug.DrawRay(_rayOrigin[i], new Vector3(0.0f, -1.0f * _distance, 0.0f), Color.white);
+                _touchedGround = true;
+                break;
+            }
+        }
+
+        // Send out this event if the player wasn't on the ground and its status has changed.
+        if (!_onSolidGround && _touchedGround) {
             if (OnHitGround != null) {
                 OnHitGround();
             }
         }
-    }
-
-    private void OnCollisionExit2D(Collision2D otherGO) {
-        if (otherGO.gameObject.tag == "SolidGround") {
-            _onSolidGround = false;
-
+        // Send out this event if the player was on the ground and its status has changed.
+        else if (_onSolidGround && !_touchedGround) {
             if (OnLifted != null) {
                 OnLifted();
             }
         }
+
+        _onSolidGround = _touchedGround ? true : false;         // Update the collision state.
+        _touchedGround = false;                                 // Reset the collision check.
     }
 }
