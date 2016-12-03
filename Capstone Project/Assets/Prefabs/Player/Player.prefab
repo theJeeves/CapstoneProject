@@ -234,7 +234,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011360037762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1436, y: 59, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.18, y: 0.18, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -525,7 +525,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f19f0c34abb99444bb4d7e4913531b7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _whatToHit:
+    serializedVersion: 2
+    m_Bits: 2048
   _onSolidGround: 0
+  _rayCastOffset: {x: 0.25, y: 1}
 --- !u!114 &114000012246772790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -602,8 +606,8 @@ MonoBehaviour:
   _clipSize: 26
   numOfRounds: 0
   _shotDelay: 0.1
-  _normReloadTime: 1.5
-  _fastReloadTime: 1
+  _normReloadTime: 1
+  _fastReloadTime: 0.3
   _bullet: {fileID: 1000011701536248, guid: 73776fcad070521489ccef61e8e15077, type: 2}
   _mgBarrel: {fileID: 4000012581832260}
   _xMultiplier: 11.11
