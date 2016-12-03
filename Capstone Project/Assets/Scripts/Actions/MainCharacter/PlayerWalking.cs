@@ -12,6 +12,7 @@ public class PlayerWalking : AbstractPlayerActions {
     private bool _canWalk;
     private bool _isWalking;
     private bool _grounded;
+    //private float _xVel;
 
     protected override void OnEnable() {
 
@@ -44,6 +45,7 @@ public class PlayerWalking : AbstractPlayerActions {
     private void OnButton(Buttons button) {
 
         _grounded = _collisionState.OnSolidGround;
+        //_xVel = _body2d.velocity.x;
 
         //AS LONG AS THE PLAYER IS NOT AIMING IN A DOWN DIRECTION AND FIRING, THEY CAN WALK
         // THIS IS TO PREVENT THE WALKING SCRIPT FROM OVERRIDING THE WEAPON RECOIL MOVEMENT
@@ -55,10 +57,12 @@ public class PlayerWalking : AbstractPlayerActions {
             if (_canWalk) {
                 if (button == Buttons.MoveRight && _grounded) {
                     _body2d.velocity = new Vector2(_walkSpeed * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
+
                     UpdateWalking();
                 }
                 else if (button == Buttons.MoveLeft && _grounded) {
                     _body2d.velocity = new Vector2(-(_walkSpeed) * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
+
                     UpdateWalking();
                 }
                 else if (!_grounded && (button == Buttons.MoveLeft || button == Buttons.MoveRight)) {

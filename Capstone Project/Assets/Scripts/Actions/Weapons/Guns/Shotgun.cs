@@ -237,7 +237,7 @@ public class Shotgun : AbstractGun {
             }
         }
 
-        //MOVING RIGHT NO X VELOCITY
+        //MOVING RIGHT OR NO X VELOCITY
         else if (_body2d.velocity.x >= 0) {
 
             _xVel = _recoil * -(_setVel);
@@ -256,7 +256,7 @@ public class Shotgun : AbstractGun {
     protected override void AimUpAndLeft() {
 
         //MOVING LEFT
-        if (_body2d.velocity.x < 0) {
+        if (_body2d.velocity.x <= 0) {
 
             _xVel = _recoil * (_setVel);
 
@@ -266,12 +266,12 @@ public class Shotgun : AbstractGun {
             }
             //RISING
             else if (_body2d.velocity.y >= 0) {
-                _yVel = _recoil * -(_addVel);
+                _yVel = _recoil * -(_setVel);
             }
         }
 
         //MOVING RIGHT
-        else if (_body2d.velocity.x >= 0) {
+        else if (_body2d.velocity.x > 0) {
 
             _xVel = _body2d.velocity.x + _recoil * _addVel;
 
@@ -287,39 +287,32 @@ public class Shotgun : AbstractGun {
     }
 
     protected override void AimRight() {
-        //IN AIR CONTROLLS ONLY
-        if (!_collisionState.OnSolidGround) {
 
-            _xVel = -_recoil;
+        _xVel = !_collisionState.OnSolidGround ? -_recoil : -_recoil * 0.45f;
 
-            // MOVING LEFT
-            if (_body2d.velocity.x < 0) {
-                _yVel = _body2d.velocity.y;
-            }
+        // MOVING LEFT
+        if (_body2d.velocity.x < 0) {
+            _yVel = _body2d.velocity.y;
+        }
 
-            // MOVING RIGHT OR STANDING STILL
-            else if (_body2d.velocity.x >= 0) {
-                _yVel = _body2d.velocity.y;
-            }
+        // MOVING RIGHT OR STANDING STILL
+        else if (_body2d.velocity.x >= 0) {
+            _yVel = _body2d.velocity.y;
         }
     }
 
     protected override void AimLeft() {
 
-        //IN AIR CONTROLLS ONLY
-        if (!_collisionState.OnSolidGround) {
+        _xVel = !_collisionState.OnSolidGround ? _recoil : _recoil * 0.45f;
 
-            _xVel = _recoil;
+        //MOVING RIGHT
+        if (_body2d.velocity.x > 0) {
+            _yVel = _body2d.velocity.y;
+        }
 
-            //MOVING RIGHT
-            if (_body2d.velocity.x > 0) {
-                _yVel = _body2d.velocity.y;
-            }
-
-            //MOVING LEFT OR STANDING STILL
-            else if (_body2d.velocity.x <= 0) {
-                _yVel = _body2d.velocity.y;
-            }
+        //MOVING LEFT OR STANDING STILL
+        else if (_body2d.velocity.x <= 0) {
+            _yVel = _body2d.velocity.y;
         }
     }
 }

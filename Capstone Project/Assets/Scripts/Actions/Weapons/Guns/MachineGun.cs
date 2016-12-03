@@ -108,9 +108,6 @@ public class MachineGun : AbstractGun {
                 _gunActions[_controller.CurrentKey].Invoke();
                 SetVeloctiy(_xVel, _yVel);
 
-                if (Fire != null) {
-                    Fire();
-                }
                 _grounded = false;
             }
             if (_canShoot & !_reloading) {
@@ -139,6 +136,18 @@ public class MachineGun : AbstractGun {
             if (EmptyClip != null) {
                 EmptyClip();
             }
+        }
+    }
+
+    protected override IEnumerator ShotDelay() {
+        if (!_damaged) {
+            _canShoot = false;
+            Instantiate(_bullet, _mgBarrel.transform.position, Quaternion.identity);
+            if (Fire != null) {
+                Fire();
+            }
+            yield return new WaitForSeconds(_shotDelay);
+            _canShoot = true;
         }
     }
 

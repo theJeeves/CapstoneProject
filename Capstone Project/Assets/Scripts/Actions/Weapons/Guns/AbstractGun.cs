@@ -54,9 +54,9 @@ public abstract class AbstractGun : MonoBehaviour {
     protected PlayerCollisionState _collisionState;
 
     [SerializeField]
-    private GameObject _bullet;
+    protected GameObject _bullet;
     [SerializeField]
-    private Transform _mgBarrel;
+    protected Transform _mgBarrel;
 
     protected virtual void Awake() {
         _player = GameObject.FindGameObjectWithTag("Player");

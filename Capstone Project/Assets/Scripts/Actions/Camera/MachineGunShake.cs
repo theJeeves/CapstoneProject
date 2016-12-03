@@ -3,7 +3,8 @@ using System.Collections;
 
 public class MachineGunShake : CameraShake {
 
-	private void OnEnable() {
+	protected override void OnEnable() {
+        base.OnEnable();
         MachineGun.Fire += ShakeScreen;
     }
 
