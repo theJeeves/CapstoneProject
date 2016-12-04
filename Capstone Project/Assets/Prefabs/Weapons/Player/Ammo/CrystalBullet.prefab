@@ -20,10 +20,10 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012481817994}
   - 212: {fileID: 212000010021943968}
-  - 61: {fileID: 61000010740716760}
   - 114: {fileID: 114000012270899646}
   - 114: {fileID: 114000011053998472}
   - 50: {fileID: 50000010745018882}
+  - 61: {fileID: 61000010476269880}
   m_Layer: 0
   m_Name: CrystalBullet
   m_TagString: Untagged
@@ -38,7 +38,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011701536248}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 66.8, y: 0, z: 0}
+  m_LocalPosition: {x: 167.91014, y: -72.8273, z: 0}
   m_LocalScale: {x: 0.0425, y: 0.0425, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -61,7 +61,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61000010740716760
+--- !u!61 &61000010476269880
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -72,9 +72,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -7.0796957, y: -0.00000059604645}
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 150.35939, y: 404.3}
+  m_Size: {x: 390, y: 90}
 --- !u!114 &114000011053998472
 MonoBehaviour:
   m_ObjectHideFlags: 1

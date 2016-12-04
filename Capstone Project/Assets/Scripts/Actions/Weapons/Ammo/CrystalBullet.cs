@@ -43,10 +43,12 @@ public class CrystalBullet : AbstractBullet {
     private void OnTriggerEnter2D(Collider2D GO) {
 
         if (GO.gameObject.tag == "Block") {
+            Debug.Log("blocked");
             Destroy(gameObject);
         }
         else if (GO.gameObject.tag == "Enemy") {
             if (DamageEnemy != null) {
+                Debug.Log("hit");
                 DamageEnemy(_damageAmount, GO.gameObject);
             }
             Destroy(gameObject);

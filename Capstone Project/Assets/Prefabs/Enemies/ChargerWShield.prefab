@@ -42,6 +42,7 @@ GameObject:
   - 114: {fileID: 114000011247978376}
   - 61: {fileID: 61000011733424440}
   - 114: {fileID: 114000012702195058}
+  - 114: {fileID: 114000011054617442}
   m_Layer: 10
   m_Name: ChargerBody
   m_TagString: Enemy
@@ -75,14 +76,14 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012107971870}
   - 212: {fileID: 212000011597277286}
-  - 61: {fileID: 61000010054762280}
+  - 68: {fileID: 68000012672306730}
   m_Layer: 0
   m_Name: ChargerShield
   m_TagString: Block
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4000010808150770
 Transform:
   m_ObjectHideFlags: 1
@@ -155,20 +156,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
---- !u!61 &61000010054762280
-BoxCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013913921194}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
-  serializedVersion: 2
-  m_Size: {x: 640.00006, y: 143.5}
 --- !u!61 &61000011733424440
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -183,6 +170,21 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 200, y: 222}
+--- !u!68 &68000012672306730
+EdgeCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013913921194}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: -145.33}
+  m_Points:
+  - {x: -318.2, y: 0}
+  - {x: 307.5, y: 0}
 --- !u!114 &114000010746311534
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -195,6 +197,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _object: {fileID: 1000012382267308}
+--- !u!114 &114000011054617442
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012382267308}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605b282057b1c8b4db3cd67b3707e6ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011247978376
 MonoBehaviour:
   m_ObjectHideFlags: 1
