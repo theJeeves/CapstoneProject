@@ -9,62 +9,62 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1000013791917702}
+  m_RootGameObject: {fileID: 1000010929872452}
   m_IsPrefabParent: 1
---- !u!1 &1000013791917702
+--- !u!1 &1000010929872452
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 4000010395700726}
-  - 212: {fileID: 212000014142188184}
-  - 68: {fileID: 68000014207268788}
+  - 4: {fileID: 4000012584484784}
+  - 212: {fileID: 212000011025641122}
+  - 68: {fileID: 68000013877263374}
   m_Layer: 11
-  m_Name: Pillar_Crystal_Med
-  m_TagString: SolidGround
+  m_Name: Pillar_Crystal_Large
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4000010395700726
+--- !u!4 &4000012584484784
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013791917702}
+  m_GameObject: {fileID: 1000010929872452}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 3492, y: 985, z: 0}
-  m_LocalScale: {x: 1.8, y: 1.8, z: 1}
+  m_LocalPosition: {x: 28384, y: 3824.9702, z: 0}
+  m_LocalScale: {x: 1.7999998, y: -1.7999998, z: 1.8}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!68 &68000014207268788
+--- !u!68 &68000013877263374
 EdgeCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013791917702}
+  m_GameObject: {fileID: 1000010929872452}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 127.58}
+  m_Offset: {x: -143, y: -383.3}
   m_Points:
-  - {x: -127.48, y: 0}
-  - {x: -111.4, y: -253.6}
-  - {x: 126.74, y: -253.6}
-  - {x: 127.48, y: 0}
-  - {x: -127.48, y: 0}
---- !u!212 &212000014142188184
+  - {x: 6.4, y: 765.1}
+  - {x: 0, y: 0}
+  - {x: 268.5, y: 0}
+  - {x: 286.6, y: 765.1}
+  - {x: 6.4, y: 765.1}
+--- !u!212 &212000011025641122
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013791917702}
+  m_GameObject: {fileID: 1000010929872452}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -88,7 +88,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 58bd9678cb123d143970b2c34992db0c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4e52313a1bc016841a2fca98b31516ff, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
