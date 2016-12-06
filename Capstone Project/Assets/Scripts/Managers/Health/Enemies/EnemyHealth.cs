@@ -3,7 +3,7 @@ using System.Collections;
 
 public class EnemyHealth : MonoBehaviour {
 
-    public delegate void EnemyHealthEvent();
+    public delegate void EnemyHealthEvent(GameObject thisEnemy);
     public static event EnemyHealthEvent Damaged;
 
 
@@ -42,7 +42,7 @@ public class EnemyHealth : MonoBehaviour {
                 Destroy(gameObject);
             }
             else if (Damaged != null) {
-                Damaged();
+                Damaged(gameObject);
             }
         }
     }

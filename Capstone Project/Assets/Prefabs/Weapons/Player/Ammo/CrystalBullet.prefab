@@ -23,7 +23,8 @@ GameObject:
   - 114: {fileID: 114000012270899646}
   - 114: {fileID: 114000011053998472}
   - 50: {fileID: 50000010745018882}
-  - 61: {fileID: 61000010476269880}
+  - 68: {fileID: 68000010355145742}
+  - 61: {fileID: 61000010149088952}
   m_Layer: 0
   m_Name: CrystalBullet
   m_TagString: Untagged
@@ -37,10 +38,10 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011701536248}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 167.91014, y: -72.8273, z: 0}
-  m_LocalScale: {x: 0.0425, y: 0.0425, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0, y: 0, z: 1, w: 0}
+  m_LocalPosition: {x: 977.4147, y: 45.50642, z: 0}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 180}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -61,7 +62,7 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!61 &61000010476269880
+--- !u!61 &61000010149088952
 BoxCollider2D:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -74,7 +75,26 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Size: {x: 390, y: 90}
+  m_Size: {x: 35, y: 15}
+--- !u!68 &68000010355145742
+EdgeCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011701536248}
+  m_Enabled: 0
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -18.67, y: 0}
+  m_Points:
+  - {x: -0.14138603, y: -0.041618347}
+  - {x: 30.421648, y: -7.962055}
+  - {x: 36.83989, y: 0.49806976}
+  - {x: 33.070984, y: 8.165852}
+  - {x: -0.023939133, y: 5.410923}
+  - {x: -0.14417839, y: -0.040672302}
 --- !u!114 &114000011053998472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -132,7 +152,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: eca0b0ed2d4e62942a049a76f3a2e005, type: 3}
+  m_Sprite: {fileID: 21300000, guid: efd8bd36da7d7844b9f7e5188e6942a0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

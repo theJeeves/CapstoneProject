@@ -14,8 +14,10 @@ public class EnemyDamageEffect : MonoBehaviour {
         EnemyHealth.Damaged -= DamageEffect;
     }
 
-    private void DamageEffect() {
-        StartCoroutine(PlayEffect());
+    private void DamageEffect(GameObject thisEnemy) {
+        if (thisEnemy.GetComponentInChildren<SpriteRenderer>() == _sprite) {
+            StartCoroutine(PlayEffect());
+        }
     }
 
     private IEnumerator PlayEffect() {
