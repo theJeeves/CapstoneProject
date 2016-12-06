@@ -65,6 +65,7 @@ public class PlayerHealth : MonoBehaviour {
     private IEnumerator RecoveryDelay() {
         _canTakeDamage = false;
 
+        // Send the event so the character sprite can flash for a short time.
         if (StartInvulnAnim != null) {
             StartInvulnAnim(_recoveryTime);
         }

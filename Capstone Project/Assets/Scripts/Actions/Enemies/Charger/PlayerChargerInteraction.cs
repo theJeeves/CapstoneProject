@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class PlayerChargerInteraction : MonoBehaviour {
-    private float _knockBack;
+    //private float _knockBack;
     private float _launchDistance;
     private Rigidbody2D _playerBody2d;
     private Rigidbody2D _chargerBody2d;
@@ -22,7 +22,7 @@ public class PlayerChargerInteraction : MonoBehaviour {
 
     void Start()
     {
-        _knockBack = 50.0f;
+        //_knockBack = 50.0f;
         _launchDistance = 20000.0f;
         _playerBody2d = GetComponent<Rigidbody2D>();
         //_chargerBody2d = GameObject.Find("Charger").GetComponentInChildren<Rigidbody2D>();

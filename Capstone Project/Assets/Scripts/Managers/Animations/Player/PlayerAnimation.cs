@@ -9,23 +9,27 @@ using System.Collections;
 public class PlayerAnimation : MonoBehaviour {
 
     private Animator _animator;
-    //private ControllableObject _controller;
 
     private void Awake() {
         _animator = GetComponent<Animator>();
-        //_controller = GetComponent<ControllableObject>();
     }
 
 
     private void OnEnable() {
         AimWeapon.AimDirectionChanged += ChangeAnimationState;
+        PlayerWalking.Walking += Walking;
     }
 
     private void OnDisable() {
         AimWeapon.AimDirectionChanged -= ChangeAnimationState;
+        PlayerWalking.Walking -= Walking;
     }
 
     private void ChangeAnimationState(int degree) {
         _animator.SetInteger("AimDirection", degree);
+    }
+
+    private void Walking(bool isWalking) {
+        _animator.SetBool("Walking", isWalking);
     }
 }

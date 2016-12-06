@@ -28,8 +28,13 @@ public class ChargerDealDamage : MonoBehaviour {
             // PLEASE CHECK IF THIS IS CORRECT ONCE THE FINAL SPRITE IS PUT INTO THE GAME
             _direction = transform.localScale.x > 0.0f ? -1.0f : 1.0f;
 
+            // Hit the player back!
             _body2d = collider.gameObject.GetComponent<Rigidbody2D>();
             _body2d.AddForce(new Vector2(25000.0f * _direction, 20000.0f), ForceMode2D.Impulse);
+
+            // Stop the charger enemy from moving after the player is hit.
+            _body2d = GetComponent<Rigidbody2D>();
+            _body2d.velocity = new Vector3(0.0f, 0.0f, 0.0f);
         }
     }
 }

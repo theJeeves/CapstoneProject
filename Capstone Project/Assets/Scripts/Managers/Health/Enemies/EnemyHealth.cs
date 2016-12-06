@@ -3,6 +3,9 @@ using System.Collections;
 
 public class EnemyHealth : MonoBehaviour {
 
+    public delegate void EnemyHealthEvent(GameObject thisEnemy);
+    public static event EnemyHealthEvent Damaged;
+
 
     [SerializeField]
     private float _maxHealth;
@@ -37,6 +40,9 @@ public class EnemyHealth : MonoBehaviour {
             if (_health <= 0.0f) {
 
                 Destroy(gameObject);
+            }
+            else if (Damaged != null) {
+                Damaged(gameObject);
             }
         }
     }

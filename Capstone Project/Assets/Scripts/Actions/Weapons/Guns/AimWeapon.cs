@@ -56,7 +56,9 @@ public class AimWeapon : MonoBehaviour {
 
     private void OnButtonUp(Buttons button) {
         if (button == Buttons.AimDown || button == Buttons.AimUp ||
-            button == Buttons.AimRight || button == Buttons.AimLeft) {
+            button == Buttons.AimRight || button == Buttons.AimLeft &&
+            (!_controller.GetButtonPress(Buttons.AimDown) || !_controller.GetButtonPress(Buttons.AimUp) ||
+             !_controller.GetButtonPress(Buttons.AimRight) || !_controller.GetButtonPress(Buttons.AimLeft) )) {
 
             RotateGun(0);
             if (AimDirectionChanged != null) {
@@ -73,21 +75,21 @@ public class AimWeapon : MonoBehaviour {
         switch (angle) {
             case 0:
             case 180:
-                position = new Vector2(82.0f, 2.3f);
+                position = new Vector2(101.0f, 0.0f);
                 break;
             case 45:
             case 135:
-                position = new Vector2(64.5f, 121.0f);
+                position = new Vector2(96.0f, 75.0f);
                 break;
             case -45:
             case 315:
-                position = new Vector2(40.0f, -106.0f);
+                position = new Vector2(92.0f, -68.0f);
                 break;
             case 90:
-                position = new Vector2(-21.0f, 175.0f);
+                position = new Vector2(20.0f, 98.0f);
                 break;
             case 270:
-                position = new Vector2(-45.0f, -155.0f);
+                position = new Vector2(42.0f, -95.0f);
                 break;
         }
 

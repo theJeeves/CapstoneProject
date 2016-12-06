@@ -4,6 +4,7 @@ using System.Collections;
 public class ShotgunBlast : AbstractBullet {
 
     public static event AbstractBulletEvent DamageEnemy;
+    public static event AbstractBulletEvent2 PushEnemy;
 
     [SerializeField]
     private GameObject _endOfBarrel;
@@ -52,18 +53,23 @@ public class ShotgunBlast : AbstractBullet {
 
     protected override IEnumerator Shoot() {
 
-        while (_lightning[_lightning.Length - 1].EndPosition.magnitude < _magnitudes[_lightning.Length - 1]) {
+        //while (_lightning[_lightning.Length - 1].EndPosition.magnitude < _magnitudes[_lightning.Length - 1]) {
 
-            for (int i = 0; i < _lightning.Length; ++i) {
+        //    for (int i = 0; i < _lightning.Length; ++i) {
 
-                if (_lightning[i].EndPosition.magnitude < _magnitudes[i]) {
-                    _lightning[i].EndPosition = Vector2.MoveTowards(_lightning[i].EndPosition, _lightning[i].EndPosition + (_directions[i] * _magnitudes[i]), _shotSpeed * Time.deltaTime);
-                }
-                else {
-                    _magnitudes[i] = _lightning[i].EndPosition.magnitude;
-                }
-            }
-            yield return 0;
+        //        if (_lightning[i].EndPosition.magnitude < _magnitudes[i]) {
+        //            _lightning[i].EndPosition = Vector2.MoveTowards(_lightning[i].EndPosition, _lightning[i].EndPosition + (_directions[i] * _magnitudes[i]), _shotSpeed * Time.deltaTime);
+        //        }
+        //        else {
+        //            _magnitudes[i] = _lightning[i].EndPosition.magnitude;
+        //        }
+        //    }
+        //    yield return 0;
+        //}
+
+        // ASK THE GROUP IF THEY LIKE THIS LOOK BETTER
+        for (int i = 0; i < _lightning.Length; ++i) {
+            _lightning[i].EndPosition += _directions[i] * _magnitudes[i];
         }
 
         _magnitudes[_lightning.Length - 1] = _lightning[_lightning.Length - 1].EndPosition.magnitude;
@@ -83,6 +89,8 @@ public class ShotgunBlast : AbstractBullet {
         Destroy(gameObject);
     }
 
+    // Generates a random length and a random direction between a specified range.
+    // The last lightning bolt will always have the longest length and have the exact aiming direction.
     private void GenLengthsAndHeights() {
         for (int i = 0; i < _lightning.Length; ++i) {
 
@@ -109,7 +117,12 @@ public class ShotgunBlast : AbstractBullet {
 
             if (hit.collider != null && DamageEnemy != null) {
                 Debug.DrawLine(_start, _start + _lightning[i].EndPosition, Color.white);
-                DamageEnemy(_damageAmount, hit.collider.gameObject);
+                if (PushEnemy != null) {
+                    PushEnemy(hit.collider.gameObject, _direction);
+                }
+                if (DamageEnemy != null) {
+                    DamageEnemy(_damageAmount, hit.collider.gameObject);
+                }
             }
         }
     }

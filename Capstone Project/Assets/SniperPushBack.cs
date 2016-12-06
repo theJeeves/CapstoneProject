@@ -10,7 +10,6 @@ public class SniperPushBack : MonoBehaviour {
     float _direction;
 
     private void OnTriggerEnter2D(Collider2D go) {
-        Debug.Log("triggered");
 
         if (go.gameObject.tag == "Player") {
             if (Stun != null) {
