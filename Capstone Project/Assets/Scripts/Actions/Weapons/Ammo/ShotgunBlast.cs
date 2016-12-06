@@ -53,18 +53,23 @@ public class ShotgunBlast : AbstractBullet {
 
     protected override IEnumerator Shoot() {
 
-        while (_lightning[_lightning.Length - 1].EndPosition.magnitude < _magnitudes[_lightning.Length - 1]) {
+        //while (_lightning[_lightning.Length - 1].EndPosition.magnitude < _magnitudes[_lightning.Length - 1]) {
 
-            for (int i = 0; i < _lightning.Length; ++i) {
+        //    for (int i = 0; i < _lightning.Length; ++i) {
 
-                if (_lightning[i].EndPosition.magnitude < _magnitudes[i]) {
-                    _lightning[i].EndPosition = Vector2.MoveTowards(_lightning[i].EndPosition, _lightning[i].EndPosition + (_directions[i] * _magnitudes[i]), _shotSpeed * Time.deltaTime);
-                }
-                else {
-                    _magnitudes[i] = _lightning[i].EndPosition.magnitude;
-                }
-            }
-            yield return 0;
+        //        if (_lightning[i].EndPosition.magnitude < _magnitudes[i]) {
+        //            _lightning[i].EndPosition = Vector2.MoveTowards(_lightning[i].EndPosition, _lightning[i].EndPosition + (_directions[i] * _magnitudes[i]), _shotSpeed * Time.deltaTime);
+        //        }
+        //        else {
+        //            _magnitudes[i] = _lightning[i].EndPosition.magnitude;
+        //        }
+        //    }
+        //    yield return 0;
+        //}
+
+        // ASK THE GROUP IF THEY LIKE THIS LOOK BETTER
+        for (int i = 0; i < _lightning.Length; ++i) {
+            _lightning[i].EndPosition += _directions[i] * _magnitudes[i];
         }
 
         _magnitudes[_lightning.Length - 1] = _lightning[_lightning.Length - 1].EndPosition.magnitude;

@@ -104,16 +104,15 @@ public class MachineGun : AbstractGun {
                 _xVel = _body2d.velocity.x;
                 _yVel = _body2d.velocity.y;
 
+                // Call the appropriate function based on the player's aim direction.
                 _gunActions[_controller.CurrentKey].Invoke();
                 SetVeloctiy(_xVel, _yVel);
 
-                if (Fire != null) {
-                    Fire();
-                }
                 _grounded = false;
             }
             if (_canShoot & !_reloading) {
 
+                // If the last round has gone out, send out the event to hide the ammo type display.
                 if (--numOfRounds <= 0) {
                     if (EmptyClip != null) {
                         EmptyClip();
@@ -130,10 +129,25 @@ public class MachineGun : AbstractGun {
                 StartCoroutine(ShotDelay());
             }
         }
-        else if (numOfRounds <= 0) {
+        
+        // Only call for the ammo to hide if the player has no more bullets in the clip
+        // and are in the air. Otherwise, it is handle in the if statement above.
+        else if (numOfRounds <= 0 && !_collisionState.OnSolidGround) {
             if (EmptyClip != null) {
                 EmptyClip();
             }
+        }
+    }
+
+    protected override IEnumerator ShotDelay() {
+        if (!_damaged) {
+            _canShoot = false;
+            Instantiate(_bullet, _mgBarrel.transform.position, Quaternion.identity);
+            if (Fire != null) {
+                Fire();
+            }
+            yield return new WaitForSeconds(_shotDelay);
+            _canShoot = true;
         }
     }
 
