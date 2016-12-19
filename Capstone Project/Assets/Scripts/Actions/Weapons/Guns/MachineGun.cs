@@ -143,9 +143,11 @@ public class MachineGun : AbstractGun {
         if (!_damaged) {
             _canShoot = false;
             Instantiate(_bullet, _mgBarrel.transform.position, Quaternion.identity);
-            if (Fire != null) {
-                Fire();
-            }
+            //if (Fire != null) {
+            //    Fire();
+            //}
+            _SSRequest.UpdateDirection(_controller.CurrentKey);
+            Camera.main.SendMessage("RequestShake", _SSRequest);
             yield return new WaitForSeconds(_shotDelay);
             _canShoot = true;
         }

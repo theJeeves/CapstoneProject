@@ -12,7 +12,6 @@ public class PlayerWalking : AbstractPlayerActions {
     private bool _canWalk;
     private bool _isWalking;
     private bool _grounded;
-    //private float _xVel;
 
     protected override void OnEnable() {
 

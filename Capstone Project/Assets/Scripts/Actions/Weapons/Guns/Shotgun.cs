@@ -36,9 +36,12 @@ public class Shotgun : AbstractGun {
             SetVeloctiy(_xVel, _yVel);
 
             // Call the screen shake class.
-            if (Fire != null) {
-                Fire();
-            }
+            //if (Fire != null) {
+            //    Fire();
+            //}
+            _SSRequest.UpdateDirection(_controller.CurrentKey);
+            Camera.main.SendMessage("RequestShake", _SSRequest);
+
             _grounded = false;
 
             // Make the ammo sprite disappear when the ammo is depleted while in the air.

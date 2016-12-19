@@ -13,7 +13,8 @@ public abstract class AbstractGun : MonoBehaviour {
     public delegate void AbstractGunEvent2();
     public delegate void AbstractGunEvent3(float reloadTime);
 
-
+    [SerializeField]
+    protected ScreenShakeRequest _SSRequest;
 
     [SerializeField]
     protected float _recoil;
