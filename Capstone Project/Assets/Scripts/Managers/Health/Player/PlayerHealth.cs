@@ -10,7 +10,7 @@ public class PlayerHealth : MonoBehaviour {
     public static event PlayerHealthEvent2 StartInvulnAnim;
 
     [SerializeField]
-    private ScreenShakeRequest _request;
+    private ScreenShakeRequest _scrnShkRequest;
 
     [SerializeField]
     private int _maxHealth;
@@ -58,7 +58,7 @@ public class PlayerHealth : MonoBehaviour {
             StartCoroutine(RecoveryDelay());
 
             _health -= damage;
-            Camera.main.SendMessage("RequestShake", _request);
+            _scrnShkRequest.ShakeRequest();
 
             if (UpdateHealth != null) {
                 UpdateHealth(_health);

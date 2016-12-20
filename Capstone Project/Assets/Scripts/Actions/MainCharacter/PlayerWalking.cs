@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PlayerWalking : AbstractPlayerActions {
 
+    [SerializeField]
+    private MovementRequest _moveRequest;
+
     public delegate void PlayerWalkingEvent(bool isWalking);
     public static event PlayerWalkingEvent Walking;
 
@@ -54,22 +57,22 @@ public class PlayerWalking : AbstractPlayerActions {
         }
         else {
             if (_canWalk) {
-                if (button == Buttons.MoveRight && _grounded) {
-                    _body2d.velocity = new Vector2(_walkSpeed * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
-
-                    UpdateWalking();
+                if (button == Buttons.MoveRight || button == Buttons.MoveLeft) {
+                    _moveRequest.RequestMovement(button);
                 }
-                else if (button == Buttons.MoveLeft && _grounded) {
-                    _body2d.velocity = new Vector2(-(_walkSpeed) * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
-
-                    UpdateWalking();
-                }
+                //if (button == Buttons.MoveRight && _grounded) {
+                //    _body2d.velocity = new Vector2(_walkSpeed * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
+                //}
+                //else if (button == Buttons.MoveLeft && _grounded) {
+                //    _body2d.velocity = new Vector2(-(_walkSpeed) * Mathf.Clamp(_controller.GetButtonPressTime(button) * 4.5f, 0, 1), _body2d.velocity.y);
+                //}
                 else if (!_grounded && (button == Buttons.MoveLeft || button == Buttons.MoveRight)) {
                     if (Walking != null && _isWalking) {
                         _isWalking = false;
                         Walking(_isWalking);
                     }
                 }
+                UpdateWalking(button);
             }
         }
     }
@@ -87,10 +90,12 @@ public class PlayerWalking : AbstractPlayerActions {
     // For the animator, ensure the player is not walking first to ensure we are not telling the animator
     // to switch to itself and make sure the player is grounded. It would look funny if the walkiing animation
     // played while the player was in mid-air.
-    private void UpdateWalking() {
-        if (Walking != null && !_isWalking && _grounded) {
-            _isWalking = true;
-            Walking(_isWalking);
+    private void UpdateWalking(Buttons button) {
+        if (button == Buttons.MoveLeft || button == Buttons.MoveRight) {
+            if (Walking != null && !_isWalking && _grounded) {
+                _isWalking = true;
+                Walking(_isWalking);
+            }
         }
     }
 }

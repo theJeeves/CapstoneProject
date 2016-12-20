@@ -9,11 +9,7 @@ public class CameraShakeManager : MonoBehaviour {
 
     private Queue<ScreenShakeRequest> _shakeQ = new Queue<ScreenShakeRequest>();
 
-    private ControllableObject _controller;
     private Vector3 _defaultPosition = new Vector3(0.0f, 0.0f, 0.0f);
-
-    private void OnEnable() {
-    }
 
     private void LateUpdate() {
         if (_shakeQ.Count > 0) {
@@ -26,7 +22,7 @@ public class CameraShakeManager : MonoBehaviour {
         }
     }
 
-    public void RequestShake(ScreenShakeRequest request) {
+    public void Enqueue(ScreenShakeRequest request) {
         _shakeQ.Enqueue(request);
     }
 }

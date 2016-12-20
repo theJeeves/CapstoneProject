@@ -6,5 +6,5 @@ public abstract class ScreenShakeRequest : ScriptableObject {
     protected float _shakeAmount = 0.0f;
 
     public abstract Vector3 Shake();
-    public virtual void UpdateDirection(byte key) { }
+    public virtual void ShakeRequest(byte key = 0) {}
 }

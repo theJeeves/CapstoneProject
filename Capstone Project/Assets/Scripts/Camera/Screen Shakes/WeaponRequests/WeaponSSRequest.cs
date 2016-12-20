@@ -28,7 +28,9 @@ public class WeaponSSRequest : ScreenShakeRequest {
         return _directions[_key] * _shakeAmount;
     }
 
-    public override void UpdateDirection(byte key) {
+    public override void ShakeRequest(byte key) {
         _key = key;
+
+        Camera.main.SendMessage("Enqueue", this);
     }
 }

@@ -1956,6 +1956,22 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!1 &285630962 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000011360037762, guid: 6f81c70daa3371a47b941a5f3d763142,
+    type: 2}
+  m_PrefabInternal: {fileID: 2113181330}
+--- !u!114 &285630974
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 285630962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64de9cb12cc4d643a7af5d55008896a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &326255987
 Prefab:
   m_ObjectHideFlags: 0
@@ -12848,7 +12864,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 114000013396604282, guid: 3bfbe7c0a6be2294783b999e68ed7fee, type: 2}
+    - {fileID: 114000011041136462, guid: 3bfbe7c0a6be2294783b999e68ed7fee, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 3bfbe7c0a6be2294783b999e68ed7fee, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &2073053223
@@ -13147,6 +13165,30 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012257503968, guid: 6f81c70daa3371a47b941a5f3d763142,
+        type: 2}
+      propertyPath: _moveRequest
+      value: 
+      objectReference: {fileID: 11400000, guid: 68c3cf3adc5bc954a890c28c7a878717,
+        type: 2}
+    - target: {fileID: 114000010896926910, guid: 6f81c70daa3371a47b941a5f3d763142,
+        type: 2}
+      propertyPath: _moveRequest
+      value: 
+      objectReference: {fileID: 11400000, guid: fefba362a98a08a42bf917fbf9a456d8,
+        type: 2}
+    - target: {fileID: 114000014161022558, guid: 6f81c70daa3371a47b941a5f3d763142,
+        type: 2}
+      propertyPath: _moveRequest
+      value: 
+      objectReference: {fileID: 11400000, guid: d0f91d24a6cbc86419697a3298632cc6,
+        type: 2}
+    - target: {fileID: 114000014161022558, guid: 6f81c70daa3371a47b941a5f3d763142,
+        type: 2}
+      propertyPath: _initialMoveRequest
+      value: 
+      objectReference: {fileID: 11400000, guid: 55fca967e345e3b4eacd30f43956ecef,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f81c70daa3371a47b941a5f3d763142, type: 2}
   m_IsPrefabParent: 0

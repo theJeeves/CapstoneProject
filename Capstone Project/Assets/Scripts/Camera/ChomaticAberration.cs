@@ -21,7 +21,7 @@ public class ChomaticAberration : MonoBehaviour {
         //SniperDealDamage.DecrementPlayerHealth -= PlayerDamaged;
     }
 
-    public void PlayerDamaged(int ignore) {
+    public void PlayerDamaged(int ignore = 0) {
         StartCoroutine(PlayEffect());
     }
 

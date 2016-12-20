@@ -14,6 +14,8 @@ public abstract class AbstractGun : MonoBehaviour {
     public delegate void AbstractGunEvent3(float reloadTime);
 
     [SerializeField]
+    protected MovementRequest _moveRequest;
+    [SerializeField]
     protected ScreenShakeRequest _SSRequest;
 
     [SerializeField]
@@ -41,7 +43,7 @@ public abstract class AbstractGun : MonoBehaviour {
 
     protected bool _canShoot = true;
     protected bool _damaged = false;
-    protected System.Action[] _gunActions = new System.Action[8];
+    //protected System.Action[] _gunActions = new System.Action[8];
 
     protected float _addVel = 0.45f;
     protected float _setVel = 0.75f;
@@ -65,14 +67,14 @@ public abstract class AbstractGun : MonoBehaviour {
         _body2d = _player.GetComponent<Rigidbody2D>();
         _collisionState = _player.GetComponent<PlayerCollisionState>();
 
-        _gunActions[0] = AimRight;
-        _gunActions[1] = AimUpAndRight;
-        _gunActions[2] = AimUp;
-        _gunActions[3] = AimUpAndLeft;
-        _gunActions[4] = AimLeft;
-        _gunActions[5] = AimDownAndLeft;
-        _gunActions[6] = AimDown;
-        _gunActions[7] = AimDownAndRight;
+        //_gunActions[0] = AimRight;
+        //_gunActions[1] = AimUpAndRight;
+        //_gunActions[2] = AimUp;
+        //_gunActions[3] = AimUpAndLeft;
+        //_gunActions[4] = AimLeft;
+        //_gunActions[5] = AimDownAndLeft;
+        //_gunActions[6] = AimDown;
+        //_gunActions[7] = AimDownAndRight;
 
         numOfRounds = _clipSize;
     }
@@ -106,10 +108,10 @@ public abstract class AbstractGun : MonoBehaviour {
         _grounded = _collisionState.OnSolidGround ? true : false;
     }
 
-    protected void SetVeloctiy(float xVel, float yVel)
-    {
-        _body2d.velocity = new Vector2(xVel, yVel);
-    }
+    //protected void SetVeloctiy(float xVel, float yVel)
+    //{
+    //    _body2d.velocity = new Vector2(xVel, yVel);
+    //}
     
     protected virtual void Reload() {
 
@@ -157,29 +159,29 @@ public abstract class AbstractGun : MonoBehaviour {
     /* Directional methods to be overriden by individual weapons
     *  and their unique properties of movement
     */
-    protected virtual void AimDownAndRight() {
-    }
+    //protected virtual void AimDownAndRight() {
+    //}
 
-    protected virtual void AimDownAndLeft() {
-    }
+    //protected virtual void AimDownAndLeft() {
+    //}
 
-    protected virtual void AimDown() {
-    }
+    //protected virtual void AimDown() {
+    //}
 
-    protected virtual void AimUpAndRight() {
-    }
+    //protected virtual void AimUpAndRight() {
+    //}
 
-    protected virtual void AimUpAndLeft() {
-    }
+    //protected virtual void AimUpAndLeft() {
+    //}
 
-    protected virtual void AimUp() {
-    }
+    //protected virtual void AimUp() {
+    //}
 
-    protected virtual void AimRight() {
-    }
+    //protected virtual void AimRight() {
+    //}
 
-    protected virtual void AimLeft() {
-    }
+    //protected virtual void AimLeft() {
+    //}
 
     protected virtual void OnButtonDown(Buttons button)
     {
