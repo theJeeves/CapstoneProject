@@ -12,7 +12,7 @@ public class CameraShakeManager : MonoBehaviour {
     private Vector3 _defaultPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
     private void LateUpdate() {
-        if (_shakeQ.Count > 0) {
+        while (_shakeQ.Count > 0) {
             transform.localPosition = _shakeQ.Dequeue().Shake();
         }
 

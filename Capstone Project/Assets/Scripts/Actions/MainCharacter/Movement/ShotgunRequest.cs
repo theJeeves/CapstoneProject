@@ -30,6 +30,8 @@ public class ShotgunRequest : MovementRequest {
         _gunActions[5] = AimDownAndLeft;
         _gunActions[6] = AimDown;
         _gunActions[7] = AimDownAndRight;
+
+        _type = MovementType.Weapon;
     }
 
     public override Vector2 Move(Vector3 values, bool grounded = false, byte key = 0) {

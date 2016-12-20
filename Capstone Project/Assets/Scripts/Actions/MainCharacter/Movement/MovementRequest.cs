@@ -1,11 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum MovementType {
+    Walking,
+    Weapon,
+    AddForce
+}
+
 public abstract class MovementRequest : ScriptableObject {
 
-    protected bool _specialRequest = false;
-    public bool SpecialRequest {
-        get { return _specialRequest; }
+    protected MovementType _type;
+    public MovementType MovementType {
+        get { return _type; }
     }
 
     protected Buttons _button;

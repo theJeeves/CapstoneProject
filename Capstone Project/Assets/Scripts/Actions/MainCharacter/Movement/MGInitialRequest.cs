@@ -17,7 +17,7 @@ public class MGInitialRequest : MovementRequest {
         _gunActions[1] = AimDown;
         _gunActions[2] = AimDownAndRight;
 
-        _specialRequest = true;
+        _type = MovementType.AddForce;
     }
 
     public override Vector2 Move(Vector3 values, bool grounded = false, byte key = 0) {

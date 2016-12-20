@@ -21,26 +21,28 @@ public class PlayerMovementManager : MonoBehaviour {
 
     // Update is called once per frame
     private void Update () {
-        if (_moveQ.Count > 0) {
+        while (_moveQ.Count > 0) {
 
-            if (!_moveQ.Peek().SpecialRequest) {
-                _grounded = _collisionState.OnSolidGround;
-                Vector3 values = new Vector3(_body2d.velocity.x, _body2d.velocity.y, _controller.GetButtonPressTime(_moveQ.Peek().Button));
+            _grounded = _collisionState.OnSolidGround;
+            Vector3 values = new Vector3(_body2d.velocity.x, _body2d.velocity.y, _controller.GetButtonPressTime(_moveQ.Peek().Button));
 
-                _body2d.velocity = _moveQ.Dequeue().Move(values, _grounded, _controller.CurrentKey);
-            }
-            else {
-                _moveQ.Dequeue().Move(Vector3.zero, false, _controller.CurrentKey);
+            switch (_moveQ.Peek().MovementType) {
+                case MovementType.Walking:
+                case MovementType.Weapon:
+                    _body2d.velocity = _moveQ.Dequeue().Move(values, _grounded, _controller.CurrentKey);
+                    break;
+                case MovementType.AddForce:
+                    _moveQ.Dequeue().Move(Vector3.zero, false, _controller.CurrentKey);
+                    break;
             }
         }
 	}
 
     public void Enqueue(MovementRequest request) {
-
         _moveQ.Enqueue(request);
     }
 
-    //Skip the queue and instantly move the player (Mainly for world/enemy factors)
+    //Instantly move the player (Mainly for world/enemy factors)
     public void AddImpulseForce(Vector2 force) {
         _body2d.AddForce(force, ForceMode2D.Impulse);
     }

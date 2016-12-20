@@ -8,6 +8,12 @@ public class BodyMovement : MovementRequest {
     [SerializeField]
     private float _walkSpeed;
 
+    protected override void OnEnable() {
+        base.OnEnable();
+
+        _type = MovementType.Walking;
+    }
+
     public override Vector2 Move(Vector3 values, bool grounded = false, byte key = 0) {
 
         if (grounded) {
