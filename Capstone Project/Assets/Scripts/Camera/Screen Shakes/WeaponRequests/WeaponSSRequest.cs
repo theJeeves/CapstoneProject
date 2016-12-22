@@ -6,8 +6,6 @@ public class WeaponSSRequest : ScreenShakeRequest {
 
     private Vector3[] _directions = new Vector3[8];     // All possible angles which can be used by the player
 
-    private byte _key;
-
     private void OnEnable() {
         // Define all the possible angles based.
         AssignDirections(0, 1.0f, 0.0f);
@@ -24,13 +22,11 @@ public class WeaponSSRequest : ScreenShakeRequest {
         _directions[angle] = new Vector3(x, y, z);
     }
 
-    public override Vector3 Shake() {
-        return _directions[_key] * _shakeAmount;
+    public override Vector3 Shake(byte key) {
+        return _directions[key] * _shakeAmount;
     }
 
-    public override void ShakeRequest(byte key) {
-        _key = key;
-
+    public override void ShakeRequest() {
         Camera.main.SendMessage("Enqueue", this);
     }
 }

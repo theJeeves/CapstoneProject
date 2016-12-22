@@ -51,9 +51,9 @@ public abstract class AbstractGun : MonoBehaviour {
     protected float _xVel;
     protected float _yVel;
 
-    private GameObject _player;
+    //private GameObject _player;
     protected ControllableObject _controller;
-    protected Rigidbody2D _body2d;
+    //protected Rigidbody2D _body2d;
     protected PlayerCollisionState _collisionState;
 
     [SerializeField]
@@ -62,19 +62,10 @@ public abstract class AbstractGun : MonoBehaviour {
     protected Transform _mgBarrel;
 
     protected virtual void Awake() {
-        _player = GameObject.FindGameObjectWithTag("Player");
-        _controller = _player.GetComponent<ControllableObject>();
-        _body2d = _player.GetComponent<Rigidbody2D>();
-        _collisionState = _player.GetComponent<PlayerCollisionState>();
-
-        //_gunActions[0] = AimRight;
-        //_gunActions[1] = AimUpAndRight;
-        //_gunActions[2] = AimUp;
-        //_gunActions[3] = AimUpAndLeft;
-        //_gunActions[4] = AimLeft;
-        //_gunActions[5] = AimDownAndLeft;
-        //_gunActions[6] = AimDown;
-        //_gunActions[7] = AimDownAndRight;
+        //_player = GameObject.FindGameObjectWithTag("Player");
+        _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+        //_body2d = _player.GetComponent<Rigidbody2D>();
+        _collisionState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollisionState>();
 
         numOfRounds = _clipSize;
     }
@@ -107,11 +98,6 @@ public abstract class AbstractGun : MonoBehaviour {
 
         _grounded = _collisionState.OnSolidGround ? true : false;
     }
-
-    //protected void SetVeloctiy(float xVel, float yVel)
-    //{
-    //    _body2d.velocity = new Vector2(xVel, yVel);
-    //}
     
     protected virtual void Reload() {
 
@@ -154,34 +140,6 @@ public abstract class AbstractGun : MonoBehaviour {
         _damaged = false;
         _canShoot = true;
     }
-
-
-    /* Directional methods to be overriden by individual weapons
-    *  and their unique properties of movement
-    */
-    //protected virtual void AimDownAndRight() {
-    //}
-
-    //protected virtual void AimDownAndLeft() {
-    //}
-
-    //protected virtual void AimDown() {
-    //}
-
-    //protected virtual void AimUpAndRight() {
-    //}
-
-    //protected virtual void AimUpAndLeft() {
-    //}
-
-    //protected virtual void AimUp() {
-    //}
-
-    //protected virtual void AimRight() {
-    //}
-
-    //protected virtual void AimLeft() {
-    //}
 
     protected virtual void OnButtonDown(Buttons button)
     {

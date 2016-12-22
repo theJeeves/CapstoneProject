@@ -9,6 +9,7 @@ public class PlayerMovementManager : MonoBehaviour {
     private PlayerCollisionState _collisionState;
 
     private bool _grounded = false;
+    private Vector3 _values;
 
     // The key is whether or not the movement should be additive or override the current movement.
     private Queue<MovementRequest> _moveQ = new Queue<MovementRequest>();
@@ -21,15 +22,17 @@ public class PlayerMovementManager : MonoBehaviour {
 
     // Update is called once per frame
     private void Update () {
-        while (_moveQ.Count > 0) {
 
-            _grounded = _collisionState.OnSolidGround;
-            Vector3 values = new Vector3(_body2d.velocity.x, _body2d.velocity.y, _controller.GetButtonPressTime(_moveQ.Peek().Button));
+
+        _grounded = _collisionState.OnSolidGround;
+
+        while (_moveQ.Count > 0) {
+            _values = new Vector3(_body2d.velocity.x, _body2d.velocity.y, _controller.GetButtonPressTime(_moveQ.Peek().Button));
 
             switch (_moveQ.Peek().MovementType) {
                 case MovementType.Walking:
                 case MovementType.Weapon:
-                    _body2d.velocity = _moveQ.Dequeue().Move(values, _grounded, _controller.CurrentKey);
+                    _body2d.velocity = _moveQ.Dequeue().Move(_values, _grounded, _controller.CurrentKey);
                     break;
                 case MovementType.AddForce:
                     _moveQ.Dequeue().Move(Vector3.zero, false, _controller.CurrentKey);

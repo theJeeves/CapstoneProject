@@ -115,6 +115,7 @@ GameObject:
   - 114: {fileID: 114000010638290440}
   - 114: {fileID: 114000011128549062}
   - 114: {fileID: 114000012082696790}
+  - 114: {fileID: 114000010354947324}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -389,6 +390,17 @@ Animator:
   m_WarningMessage: 
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
+--- !u!114 &114000010354947324
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011360037762}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a64de9cb12cc4d643a7af5d55008896a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000010526839308
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -456,6 +468,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf2f8c2daa5c4a41983ac3e6d8d547c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveRequest: {fileID: 11400000, guid: fefba362a98a08a42bf917fbf9a456d8, type: 2}
   _SSRequest: {fileID: 11400000, guid: 7d55f017c234c1b4baa6e87eb8455543, type: 2}
   _recoil: 200
   _clipSize: 3
@@ -541,6 +554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9520bfa54f89949bff03e184b875e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveRequest: {fileID: 11400000, guid: 68c3cf3adc5bc954a890c28c7a878717, type: 2}
   _walkSpeed: 125
 --- !u!114 &114000012465963456
 MonoBehaviour:
@@ -592,6 +606,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a2376176fdf79a4dbf0ddce1062a41c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _moveRequest: {fileID: 11400000, guid: d0f91d24a6cbc86419697a3298632cc6, type: 2}
   _SSRequest: {fileID: 11400000, guid: 29dc05b90d7fb594ea0a8aae772e5619, type: 2}
   _recoil: 20
   _clipSize: 26
@@ -601,6 +616,8 @@ MonoBehaviour:
   _fastReloadTime: 0.3
   _bullet: {fileID: 1000011701536248, guid: 73776fcad070521489ccef61e8e15077, type: 2}
   _mgBarrel: {fileID: 4000012581832260}
+  _initialMoveRequest: {fileID: 11400000, guid: 55fca967e345e3b4eacd30f43956ecef,
+    type: 2}
   _xMultiplier: 11.11
 --- !u!212 &212000010212269030
 SpriteRenderer:
