@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class WeaponSelect : AbstractPlayerActions {
+public class WeaponSelect : MonoBehaviour {
 
     public delegate void WeaponSelectEvent(int weapon);
     public static event WeaponSelectEvent SwapWeapon;
@@ -11,7 +11,15 @@ public class WeaponSelect : AbstractPlayerActions {
     [SerializeField]
     public GameObject machineGun;
 
-    protected override void OnButtonDown(Buttons button) {
+    private void OnEnable() {
+        ControllableObject.OnButtonDown += OnButtonDown;
+    }
+
+    private void OnDisable() {
+        ControllableObject.OnButtonDown -= OnButtonDown;
+    }
+
+    private void OnButtonDown(Buttons button) {
         
         if (button == Buttons.WeaponSwap) {
 

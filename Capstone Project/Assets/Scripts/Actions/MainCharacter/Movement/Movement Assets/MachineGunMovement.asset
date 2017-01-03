@@ -8,10 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0efddff3cc8e0f149b550cebcc9cf3d7, type: 3}
-  m_Name: MGMovement
+  m_Script: {fileID: 11500000, guid: 3c4ff252a13dfd04988a76a84f4102e0, type: 3}
+  m_Name: MachineGunMovement
   m_EditorClassIdentifier: 
+  _type: 3
+  _walkSpeed: 0
   _recoil: 20
   _setVel: 0.75
   _addVel: 0.45
   _xMultiplier: 11.11
+  _xImpulse: 0
+  _yImpulse: 0

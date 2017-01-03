@@ -8,6 +8,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68688043a7693624f92dea73673f5acf, type: 3}
-  m_Name: MGInitialForce
+  m_Script: {fileID: 11500000, guid: 3c4ff252a13dfd04988a76a84f4102e0, type: 3}
+  m_Name: MachineGunImpulse
   m_EditorClassIdentifier: 
+  _type: 4
+  _walkSpeed: 0
+  _recoil: 0
+  _setVel: 0
+  _addVel: 0
+  _xMultiplier: 0
+  _xImpulse: 5000
+  _yImpulse: 7500

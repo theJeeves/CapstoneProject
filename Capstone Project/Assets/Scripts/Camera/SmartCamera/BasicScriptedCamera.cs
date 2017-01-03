@@ -15,10 +15,17 @@ public class BasicScriptedCamera : ScriptedCamera {
 
         if (_adjustFOV && Camera.main.orthographicSize < _toFOV) {
             Camera.main.orthographicSize = Mathf.SmoothStep(fromFOV, _toFOV + 2.0f, (Time.time - _time) / _FOVAdjustSpeed);
-            return false;
+            if (!_adjustXPosition && !_adjustYPosition) {
+                return false;
+            }
         }
         if (_adjustXPosition && Camera.main.WorldToViewportPoint(playerPos).x > _toXPos) {
             _camera.transform.position += Vector3.right * _XAdjustSpeed;
+            if (!_adjustYPosition) {
+                return false;
+            }
+        }
+        if (_adjustYPosition) {
             return false;
         }
         else {

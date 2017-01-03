@@ -1,14 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class SetAimingDirection : AbstractPlayerActions {
+public class SetAimingDirection : MonoBehaviour {
 
-    protected override void OnEnable() {
+    private ControllableObject _controller;
+
+    private void OnEnable() {
         ControllableObject.OnButton += OnButton;
         ControllableObject.OnButtonUp += OnButtonUp;
+
+        _controller = GetComponent<ControllableObject>();
     }
 
-    protected override void OnDisable() {
+    private void OnDisable() {
         ControllableObject.OnButton -= OnButton;
         ControllableObject.OnButtonUp -= OnButtonUp;
     }

@@ -112,7 +112,6 @@ GameObject:
   - 114: {fileID: 114000010724180278}
   - 114: {fileID: 114000012674084406}
   - 114: {fileID: 114000012246772790}
-  - 114: {fileID: 114000010638290440}
   - 114: {fileID: 114000011128549062}
   - 114: {fileID: 114000012082696790}
   - 114: {fileID: 114000010354947324}
@@ -234,7 +233,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011360037762}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 351, y: 0, z: 0}
+  m_LocalPosition: {x: 1876, y: 390, z: 0}
   m_LocalScale: {x: 0.18, y: 0.18, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -423,17 +422,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ff104f4130c7d34a8bfbaef184313c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000010638290440
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011360037762}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c1ebd8a0f4fa71a438273c342abba47e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000010724180278
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -468,9 +456,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf2f8c2daa5c4a41983ac3e6d8d547c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveRequest: {fileID: 11400000, guid: fefba362a98a08a42bf917fbf9a456d8, type: 2}
+  _moveRequest: {fileID: 11400000, guid: cdc3f595762bba34cba05b0ba046fcb3, type: 2}
   _SSRequest: {fileID: 11400000, guid: 7d55f017c234c1b4baa6e87eb8455543, type: 2}
-  _recoil: 200
   _clipSize: 3
   numOfRounds: 0
   _shotDelay: 0.25
@@ -554,8 +541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5b9520bfa54f89949bff03e184b875e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveRequest: {fileID: 11400000, guid: 68c3cf3adc5bc954a890c28c7a878717, type: 2}
-  _walkSpeed: 125
+  _moveRequest: {fileID: 11400000, guid: 56780ea444e542549b065f7efafada77, type: 2}
 --- !u!114 &114000012465963456
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -606,9 +592,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a2376176fdf79a4dbf0ddce1062a41c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _moveRequest: {fileID: 11400000, guid: d0f91d24a6cbc86419697a3298632cc6, type: 2}
+  _moveRequest: {fileID: 11400000, guid: ce569abef207a4548b05403932892f9c, type: 2}
   _SSRequest: {fileID: 11400000, guid: 29dc05b90d7fb594ea0a8aae772e5619, type: 2}
-  _recoil: 20
   _clipSize: 26
   numOfRounds: 0
   _shotDelay: 0.1
@@ -616,9 +601,8 @@ MonoBehaviour:
   _fastReloadTime: 0.3
   _bullet: {fileID: 1000011701536248, guid: 73776fcad070521489ccef61e8e15077, type: 2}
   _mgBarrel: {fileID: 4000012581832260}
-  _initialMoveRequest: {fileID: 11400000, guid: 55fca967e345e3b4eacd30f43956ecef,
+  _initialMoveRequest: {fileID: 11400000, guid: 5ea375aa461b91c41a46e0041f2c1b00,
     type: 2}
-  _xMultiplier: 11.11
 --- !u!212 &212000010212269030
 SpriteRenderer:
   m_ObjectHideFlags: 1

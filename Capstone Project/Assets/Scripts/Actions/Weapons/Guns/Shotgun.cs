@@ -23,7 +23,7 @@ public class Shotgun : AbstractGun {
         }
     }
 
-    protected override void OnButtonDown(Buttons button) { 
+    protected override void OnButtonDown(Buttons button) {
 
         if (button == Buttons.Shoot && numOfRounds > 0 && _canShoot) {
 

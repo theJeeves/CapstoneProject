@@ -18,9 +18,6 @@ public class MachineGun : AbstractGun {
     [SerializeField]
     private MovementRequest _initialMoveRequest;
 
-    [SerializeField]
-    protected float _xMultiplier;
-
     private bool _canLift = true;
 
     protected override void OnEnable() {

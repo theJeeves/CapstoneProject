@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class FacingDirection : AbstractPlayerActions {
+public class FacingDirection : MonoBehaviour {
 
-    protected override void OnEnable() {
-        base.OnEnable();
+    private ControllableObject _controller;
+
+    private void OnEnable() {
         ControllableObject.OnButton += OnButton;
+
+        _controller = GetComponent<ControllableObject>();
     }
 
-    protected override void OnDisable() {
-        base.OnDisable();
+    private void OnDisable() {
         ControllableObject.OnButton -= OnButton;
     }
 

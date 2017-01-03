@@ -19,9 +19,6 @@ public abstract class AbstractGun : MonoBehaviour {
     protected ScreenShakeRequest _SSRequest;
 
     [SerializeField]
-    protected float _recoil;
-
-    [SerializeField]
     protected int _clipSize;
     
     public int numOfRounds;
@@ -43,17 +40,8 @@ public abstract class AbstractGun : MonoBehaviour {
 
     protected bool _canShoot = true;
     protected bool _damaged = false;
-    //protected System.Action[] _gunActions = new System.Action[8];
 
-    protected float _addVel = 0.45f;
-    protected float _setVel = 0.75f;
-
-    protected float _xVel;
-    protected float _yVel;
-
-    //private GameObject _player;
     protected ControllableObject _controller;
-    //protected Rigidbody2D _body2d;
     protected PlayerCollisionState _collisionState;
 
     [SerializeField]
@@ -62,9 +50,8 @@ public abstract class AbstractGun : MonoBehaviour {
     protected Transform _mgBarrel;
 
     protected virtual void Awake() {
-        //_player = GameObject.FindGameObjectWithTag("Player");
+
         _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
-        //_body2d = _player.GetComponent<Rigidbody2D>();
         _collisionState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollisionState>();
 
         numOfRounds = _clipSize;
@@ -75,6 +62,7 @@ public abstract class AbstractGun : MonoBehaviour {
         ControllableObject.OnButtonDown += OnButtonDown;
         PlayerCollisionState.OnHitGround += Reload;
         ReloadWeapon.Reload += ManualReload;
+        //PlayerActions.Reload += ManualReload;
         ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
 
         _reloading = false;
@@ -94,6 +82,7 @@ public abstract class AbstractGun : MonoBehaviour {
         ControllableObject.OnButtonDown -= OnButtonDown;
         PlayerCollisionState.OnHitGround -= Reload;
         ReloadWeapon.Reload -= ManualReload;
+        //PlayerActions.Reload -= ManualReload;
         ChargerDealDamage.DecrementPlayerHealth -= DamageReceived;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
@@ -127,7 +116,7 @@ public abstract class AbstractGun : MonoBehaviour {
         }
     }
 
-    // The player cannot attach for a brief amount of time after they have received damage.
+    // The player cannot attack for a brief amount of time after they have received damage.
     protected virtual void DamageReceived(int ignore) {
         StartCoroutine(DamageDelay());
     }
