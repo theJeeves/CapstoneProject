@@ -74,7 +74,6 @@ public class ControllableObject : MonoBehaviour {
 
 
     // Class variables
-    [SerializeField]
     private Facing _facingDirection = Facing.Right;
     public Facing FacingDirection {
         get { return _facingDirection; }

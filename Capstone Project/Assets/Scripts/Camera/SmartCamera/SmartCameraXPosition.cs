@@ -5,18 +5,18 @@ public class SmartCameraXPosition : MonoBehaviour {
 
     [SerializeField]
     private float _adjustSpeed;
-    //private float _moddedAdjustSpeed;
 
     private GameObject _player;
     private Vector3 _currPlayerPos;
 
-    private bool _movingRight = true;
+    private bool _movingRight = false;
     private bool _adjusting = false;
 
     private float _startTime = 0.0f;
 
     private void OnEnable() {
         _player = GameObject.FindGameObjectWithTag("Player");
+        _startTime = Time.time;
     }
 
     private void LateUpdate() {

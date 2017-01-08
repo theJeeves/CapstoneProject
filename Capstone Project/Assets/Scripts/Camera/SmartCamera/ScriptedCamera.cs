@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public abstract class ScriptedCamera : ScriptableObject {
+[CreateAssetMenu(menuName ="Scripted Camera/New Scripted Camera")]
+public class ScriptedCamera : ScriptableObject {
 
     [SerializeField]
     protected bool _adjustFOV;
@@ -27,13 +28,53 @@ public abstract class ScriptedCamera : ScriptableObject {
     protected GameObject _camera;
     protected float _time = 0.0f;
 
+    [SerializeField]
+    private bool _rightTrigger = false;
+    public bool IsRightTrigger {
+        set { _rightTrigger = value; }
+    }
+
+    private bool _fovDone = false;
+    private bool _xDone = false;
+
     private void OnEnable() {
         _camera = GameObject.FindGameObjectWithTag("SmartCamera");
     }
 
-    public abstract bool MoveCamera(Vector2 playerPos);
+    public bool MoveCamera(Vector2 playerPos) {
 
-    protected virtual void EnableScripts() {
+        Debug.Log("move camera");
+
+        _time = _time == 0.0f ? Time.time : _time;
+        float fromFOV = Camera.main.orthographicSize;
+        //Vector3 fromPos = Camera.main.WorldToViewportPoint(playerPos);
+
+        if (_adjustFOV && Camera.main.orthographicSize < _toFOV) {
+            Camera.main.orthographicSize = Mathf.SmoothStep(fromFOV, _toFOV + 2.0f, (Time.time - _time) / _FOVAdjustSpeed);
+            Debug.Log("adjusting fov");
+        }
+        else { _fovDone = true; }
+
+        switch (_rightTrigger) {
+            case true:
+                if (_adjustXPosition && Camera.main.WorldToViewportPoint(playerPos).x < 1.0f - _toXPos) {
+                    _camera.transform.position += Vector3.left * _XAdjustSpeed;
+                }
+                else { _xDone = true; }
+                break;
+
+            case false:
+                if (_adjustXPosition && Camera.main.WorldToViewportPoint(playerPos).x > _toXPos) {
+                    _camera.transform.position += Vector3.right * _XAdjustSpeed;
+                }
+                else { _xDone = true; }
+                break;
+        }
+
+        return _fovDone == true && _xDone == true ? true : false;
+    }
+
+    public void EnableScripts() {
         if (_adjustFOV) {
             _camera.GetComponent<SmartCameraFOV>().enabled = true;
         }
@@ -43,9 +84,12 @@ public abstract class ScriptedCamera : ScriptableObject {
         if (_adjustYPosition) {
             _camera.GetComponent<SmartCameraYPosition>().enabled = true;
         }
+        _time = 0.0f;
+        _xDone = false;
+        _fovDone = false;
     }
 
-    protected virtual void DisableScripts() {
+    public void DisableScripts() {
         if (_adjustFOV) {
             _camera.GetComponent<SmartCameraFOV>().enabled = false;
         }
@@ -55,5 +99,8 @@ public abstract class ScriptedCamera : ScriptableObject {
         if (_adjustYPosition) {
             _camera.GetComponent<SmartCameraYPosition>().enabled = false;
         }
+        _time = 0.0f;
+        _xDone = false;
+        _fovDone = false;
     }
 }

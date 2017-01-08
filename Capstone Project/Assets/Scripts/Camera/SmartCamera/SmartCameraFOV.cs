@@ -24,6 +24,7 @@ public class SmartCameraFOV : MonoBehaviour {
 
     private void OnEnable() {
         _player = GameObject.FindGameObjectWithTag("Player");
+        _startTime = Time.time;
     }
 	
 	// Update is called once per frame
