@@ -95,7 +95,7 @@ public class MachineGun : AbstractGun {
     protected override IEnumerator ShotDelay() {
         if (!_damaged) {
             _canShoot = false;
-            Instantiate(_bullet, _mgBarrel.transform.position, Quaternion.identity);
+            Instantiate(_bullet, _barrel.transform.position, Quaternion.identity);
 
             _SSRequest.ShakeRequest();
             yield return new WaitForSeconds(_shotDelay);

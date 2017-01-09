@@ -52,7 +52,7 @@ public abstract class AbstractGun : MonoBehaviour {
     [SerializeField]
     protected GameObject _bullet;
     [SerializeField]
-    protected Transform _mgBarrel;
+    protected Transform _barrel;
 
     protected virtual void Awake() {
 
@@ -66,8 +66,6 @@ public abstract class AbstractGun : MonoBehaviour {
     {
         ControllableObject.OnButtonDown += OnButtonDown;
         PlayerCollisionState.OnHitGround += Reload;
-        //ReloadWeapon.Reload += ManualReload;
-        //PlayerActions.Reload += ManualReload;
         ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
 
         _reloading = false;
@@ -86,8 +84,6 @@ public abstract class AbstractGun : MonoBehaviour {
     {
         ControllableObject.OnButtonDown -= OnButtonDown;
         PlayerCollisionState.OnHitGround -= Reload;
-        //ReloadWeapon.Reload -= ManualReload;
-        //PlayerActions.Reload -= ManualReload;
         ChargerDealDamage.DecrementPlayerHealth -= DamageReceived;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
@@ -115,7 +111,7 @@ public abstract class AbstractGun : MonoBehaviour {
 
         if (!_damaged) {
             _canShoot = false;
-            Instantiate(_bullet, _mgBarrel.transform.position, Quaternion.identity);
+            Instantiate(_bullet, _barrel.transform.position, Quaternion.identity);
             yield return new WaitForSeconds(_shotDelay);
             _canShoot = true;
         }

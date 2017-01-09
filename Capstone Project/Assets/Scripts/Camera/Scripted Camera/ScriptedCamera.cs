@@ -28,7 +28,6 @@ public class ScriptedCamera : ScriptableObject {
     protected GameObject _camera;
     protected float _time = 0.0f;
 
-    [SerializeField]
     private bool _rightTrigger = false;
     public bool IsRightTrigger {
         set { _rightTrigger = value; }
@@ -43,15 +42,11 @@ public class ScriptedCamera : ScriptableObject {
 
     public bool MoveCamera(Vector2 playerPos) {
 
-        Debug.Log("move camera");
-
         _time = _time == 0.0f ? Time.time : _time;
         float fromFOV = Camera.main.orthographicSize;
-        //Vector3 fromPos = Camera.main.WorldToViewportPoint(playerPos);
 
         if (_adjustFOV && Camera.main.orthographicSize < _toFOV) {
             Camera.main.orthographicSize = Mathf.SmoothStep(fromFOV, _toFOV + 2.0f, (Time.time - _time) / _FOVAdjustSpeed);
-            Debug.Log("adjusting fov");
         }
         else { _fovDone = true; }
 

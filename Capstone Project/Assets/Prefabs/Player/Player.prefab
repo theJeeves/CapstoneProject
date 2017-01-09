@@ -126,7 +126,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000012613167264}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: -10, z: 0}
+  m_LocalPosition: {x: 80, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -154,7 +154,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010003500986}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1764, y: 407, z: 0}
+  m_LocalPosition: {x: 1844, y: 407, z: 0}
   m_LocalScale: {x: 0.18, y: 0.18, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -170,7 +170,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011665913088}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 100, y: -10, z: 0}
+  m_LocalPosition: {x: 100, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -216,7 +216,7 @@ Rigidbody2D:
   m_GravityScale: 40
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 4
 --- !u!61 &61000014004219714
@@ -287,7 +287,7 @@ MonoBehaviour:
   _normReloadTime: 1
   _fastReloadTime: 0.3
   _bullet: {fileID: 1000011701536248, guid: 73776fcad070521489ccef61e8e15077, type: 2}
-  _mgBarrel: {fileID: 4000010212104098}
+  _barrel: {fileID: 4000010212104098}
   _initialMoveRequest: {fileID: 11400000, guid: 5ea375aa461b91c41a46e0041f2c1b00,
     type: 2}
 --- !u!114 &114000010429126556
@@ -425,7 +425,7 @@ MonoBehaviour:
   _normReloadTime: 0.9
   _fastReloadTime: 0.25
   _bullet: {fileID: 1000014196884406, guid: 30dd231fbe5d1624489145f74a218fd1, type: 2}
-  _mgBarrel: {fileID: 4000010212104098}
+  _barrel: {fileID: 4000010212104098}
 --- !u!212 &212000011058754380
 SpriteRenderer:
   m_ObjectHideFlags: 1
