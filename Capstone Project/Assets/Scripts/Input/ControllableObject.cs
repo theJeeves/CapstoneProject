@@ -5,6 +5,7 @@ using System.Collections.Generic;
 /// <summary>
 /// This script is used to maintain a record of all the buttons and their state for Action scripts to query against.
 /// </summary>
+/// 
 
 // This helps other scripts determine which way the player should be facing/moving.
 // This is here primarily because each AbstractAction script will call upon this script,
@@ -73,7 +74,6 @@ public class ControllableObject : MonoBehaviour {
 
 
     // Class variables
-    [SerializeField]
     private Facing _facingDirection = Facing.Right;
     public Facing FacingDirection {
         get { return _facingDirection; }
@@ -147,7 +147,6 @@ public class ControllableObject : MonoBehaviour {
         // Update the status of the input
         buttonStates[button].IsPressed = isPressed;
     }
-
 
     public bool GetButtonPress(Buttons button) {
         if (buttonStates.ContainsKey(button)) {
