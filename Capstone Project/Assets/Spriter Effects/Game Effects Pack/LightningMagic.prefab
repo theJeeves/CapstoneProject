@@ -356,7 +356,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010136239340}
   - 212: {fileID: 212000013181684242}
-  - 114: {fileID: 114000013633456460}
+  - 114: {fileID: 114000012338473292}
   m_Layer: 0
   m_Name: electroball_rays_0
   m_TagString: Untagged
@@ -373,7 +373,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010419459514}
   - 212: {fileID: 212000013076477754}
-  - 114: {fileID: 114000013651149628}
+  - 114: {fileID: 114000011239081450}
   m_Layer: 0
   m_Name: Lightning_0
   m_TagString: Untagged
@@ -582,7 +582,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010519790492}
   - 212: {fileID: 212000013092978662}
-  - 114: {fileID: 114000013976146034}
+  - 114: {fileID: 114000010967860030}
   m_Layer: 0
   m_Name: electroball_archs_0
   m_TagString: Untagged
@@ -648,7 +648,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011772016110}
   - 212: {fileID: 212000012353156650}
-  - 114: {fileID: 114000010607549936}
+  - 114: {fileID: 114000013801029800}
   m_Layer: 0
   m_Name: electroball_back_0
   m_TagString: Untagged
@@ -697,7 +697,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010074116194}
   - 212: {fileID: 212000010934552448}
-  - 114: {fileID: 114000012931295344}
+  - 114: {fileID: 114000013818029826}
   m_Layer: 0
   m_Name: electroball_rays_0_000
   m_TagString: Untagged
@@ -746,7 +746,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010606335380}
   - 212: {fileID: 212000011229057918}
-  - 114: {fileID: 114000010479629180}
+  - 114: {fileID: 114000010527010464}
   m_Layer: 0
   m_Name: electroball_center_0
   m_TagString: Untagged
@@ -795,7 +795,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010136030266}
   - 212: {fileID: 212000011074661622}
-  - 114: {fileID: 114000012152628416}
+  - 114: {fileID: 114000011076810378}
   m_Layer: 0
   m_Name: Lightning_anchor_a
   m_TagString: Untagged
@@ -10530,7 +10530,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sortingOrder: 0
   applySpriterZOrder: 0
---- !u!114 &114000010479629180
+--- !u!114 &114000010527010464
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -10548,12 +10548,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 60e6e9a9e1a3f9f4ba01e1503c1673ca, type: 3}
   - {fileID: 21300000, guid: e877623281d451c4393cc001cf16264d, type: 3}
   - {fileID: 21300000, guid: cff481106da012241a13ad3f1b5e33a4, type: 3}
---- !u!114 &114000010607549936
+--- !u!114 &114000010967860030
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013577584784}
+  m_GameObject: {fileID: 1000013235627454}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87d8dc87df01e4958ab48153b19f0ccd, type: 3}
@@ -10561,11 +10561,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayedSprite: 0
   Sprites:
-  - {fileID: 21300000, guid: 356613ee73e4d9b418498c6a988a43df, type: 3}
-  - {fileID: 21300000, guid: fa095af2a20afb34db2252ae18ddaa3b, type: 3}
-  - {fileID: 21300000, guid: 1dd15049c94e36943b7b79ac9d2ed2b4, type: 3}
-  - {fileID: 21300000, guid: cff481106da012241a13ad3f1b5e33a4, type: 3}
---- !u!114 &114000012152628416
+  - {fileID: 21300000, guid: cbc73fd21ed2aab4387e1bcddd800b2c, type: 3}
+  - {fileID: 21300000, guid: 52053be4547cf9b41845a17fe9cd0b09, type: 3}
+  - {fileID: 21300000, guid: 365484cb3ffb81b47b33c477a0b69546, type: 3}
+--- !u!114 &114000011076810378
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -10580,12 +10579,12 @@ MonoBehaviour:
   Sprites:
   - {fileID: 21300000, guid: b500db31d463a4849a27b2dcc7558e94, type: 3}
   - {fileID: 21300000, guid: 5fca11d206a02604a858781662f48032, type: 3}
---- !u!114 &114000012931295344
+--- !u!114 &114000011239081450
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013641055072}
+  m_GameObject: {fileID: 1000012211568586}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87d8dc87df01e4958ab48153b19f0ccd, type: 3}
@@ -10593,10 +10592,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayedSprite: 0
   Sprites:
-  - {fileID: 21300000, guid: 4a68e2c963d77e84dafee168ca8f37c9, type: 3}
-  - {fileID: 21300000, guid: 658ad6c6bfa62bc4ea28c168a27d802e, type: 3}
-  - {fileID: 21300000, guid: e8f8925d8301c6547a7bac684b0bb3f6, type: 3}
---- !u!114 &114000013633456460
+  - {fileID: 21300000, guid: 0294c8bf29d66544395239a0d5222862, type: 3}
+  - {fileID: 21300000, guid: 5546f5924a338f64387fcea23a81f6c1, type: 3}
+--- !u!114 &114000012338473292
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -10613,12 +10611,12 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 658ad6c6bfa62bc4ea28c168a27d802e, type: 3}
   - {fileID: 21300000, guid: f8449a795bad13543a3bca0a33bf8bc8, type: 3}
   - {fileID: 21300000, guid: e8f8925d8301c6547a7bac684b0bb3f6, type: 3}
---- !u!114 &114000013651149628
+--- !u!114 &114000013801029800
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000012211568586}
+  m_GameObject: {fileID: 1000013577584784}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87d8dc87df01e4958ab48153b19f0ccd, type: 3}
@@ -10626,14 +10624,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayedSprite: 0
   Sprites:
-  - {fileID: 21300000, guid: 0294c8bf29d66544395239a0d5222862, type: 3}
-  - {fileID: 21300000, guid: 5546f5924a338f64387fcea23a81f6c1, type: 3}
---- !u!114 &114000013976146034
+  - {fileID: 21300000, guid: 356613ee73e4d9b418498c6a988a43df, type: 3}
+  - {fileID: 21300000, guid: fa095af2a20afb34db2252ae18ddaa3b, type: 3}
+  - {fileID: 21300000, guid: 1dd15049c94e36943b7b79ac9d2ed2b4, type: 3}
+  - {fileID: 21300000, guid: cff481106da012241a13ad3f1b5e33a4, type: 3}
+--- !u!114 &114000013818029826
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000013235627454}
+  m_GameObject: {fileID: 1000013641055072}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 87d8dc87df01e4958ab48153b19f0ccd, type: 3}
@@ -10641,9 +10641,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   DisplayedSprite: 0
   Sprites:
-  - {fileID: 21300000, guid: cbc73fd21ed2aab4387e1bcddd800b2c, type: 3}
-  - {fileID: 21300000, guid: 52053be4547cf9b41845a17fe9cd0b09, type: 3}
-  - {fileID: 21300000, guid: 365484cb3ffb81b47b33c477a0b69546, type: 3}
+  - {fileID: 21300000, guid: 4a68e2c963d77e84dafee168ca8f37c9, type: 3}
+  - {fileID: 21300000, guid: 658ad6c6bfa62bc4ea28c168a27d802e, type: 3}
+  - {fileID: 21300000, guid: e8f8925d8301c6547a7bac684b0bb3f6, type: 3}
 --- !u!212 &212000010074954420
 SpriteRenderer:
   m_ObjectHideFlags: 1
