@@ -35,9 +35,8 @@ public class SOAnimations : ScriptableObject {
                 break;
 
             case AnimationParameters.Grounded:
-                _animators = new Animator[2];
+                _animators = new Animator[1];
                 _animators[0] = GameObject.FindGameObjectWithTag("PlayerLowerBody").GetComponent<Animator>();
-                _animators[1] = GameObject.FindGameObjectWithTag("LandingDust").GetComponent<Animator>();
                 break;
 
             case AnimationParameters.Damaged:
@@ -87,12 +86,6 @@ public class SOAnimations : ScriptableObject {
     }
 
     private void SetBool(bool value) {
-
-        //Ensure the landing dust appears where the player landed and does not follow the player
-        if (_animationParameter == AnimationParameters.Grounded) {
-            _animators[1].transform.position = new Vector3(_animators[0].transform.position.x, _animators[0].transform.position.y -15.0f,
-                _animators[0].transform.position.z);
-        }
 
         for (byte i = 0; i < _animators.Length; ++i) {
             _animators[i].SetBool(_animationParameter.ToString(), value);

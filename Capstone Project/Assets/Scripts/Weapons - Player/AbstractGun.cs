@@ -112,6 +112,7 @@ public abstract class AbstractGun : MonoBehaviour {
         if (!_damaged) {
             _canShoot = false;
             Instantiate(_bullet, _barrel.transform.position, Quaternion.identity);
+
             yield return new WaitForSeconds(_shotDelay);
             _canShoot = true;
         }

@@ -3,9 +3,6 @@ using System.Collections;
 
 public class ShotgunBlast : AbstractBullet {
 
-    public static event AbstractBulletEvent DamageEnemy;
-    public static event AbstractBulletEvent2 PushEnemy;
-
     [SerializeField]
     private GameObject _endOfBarrel;
 
@@ -101,14 +98,8 @@ public class ShotgunBlast : AbstractBullet {
             
             RaycastHit2D hit = Physics2D.Raycast(_start, _directions[i], _magnitudes[i], _whatToHit);
 
-            if (hit.collider != null && DamageEnemy != null) {
+            if (hit.collider != null) {
                 Debug.DrawLine(_start, _start + _lightning[i].EndPosition, Color.white);
-                if (PushEnemy != null) {
-                    PushEnemy(hit.collider.gameObject, _direction);
-                }
-                if (DamageEnemy != null) {
-                    DamageEnemy(_damageAmount, hit.collider.gameObject);
-                }
             }
         }
     }
