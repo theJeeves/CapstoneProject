@@ -23,7 +23,6 @@ GameObject:
   - 114: {fileID: 114000012270899646}
   - 114: {fileID: 114000011053998472}
   - 50: {fileID: 50000010745018882}
-  - 68: {fileID: 68000010355145742}
   - 61: {fileID: 61000010149088952}
   m_Layer: 0
   m_Name: CrystalBullet
@@ -71,30 +70,11 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 35, y: 15}
---- !u!68 &68000010355145742
-EdgeCollider2D:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011701536248}
-  m_Enabled: 0
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_Offset: {x: -18.67, y: 0}
-  m_Points:
-  - {x: -0.14138603, y: -0.041618347}
-  - {x: 30.421648, y: -7.962055}
-  - {x: 36.83989, y: 0.49806976}
-  - {x: 33.070984, y: 8.165852}
-  - {x: -0.023939133, y: 5.410923}
-  - {x: -0.14417839, y: -0.040672302}
 --- !u!114 &114000011053998472
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -106,12 +86,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d9624fba71d4d74a97b5248bd1f9a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shotSpeed: 1200
+  _shotSpeed: 800
   _damageAmount: 7
   _directionRange:
-    _min: -0.033
-    _max: 0.033
-  _whatToHit: Enemy
+    _min: -0.05
+    _max: 0.05
+  _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
 --- !u!114 &114000012270899646
 MonoBehaviour:
   m_ObjectHideFlags: 1

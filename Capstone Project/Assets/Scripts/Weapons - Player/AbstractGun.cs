@@ -22,6 +22,8 @@ public abstract class AbstractGun : MonoBehaviour {
     protected MovementRequest _moveRequest;
     [SerializeField]
     protected ScreenShakeRequest _SSRequest;
+    [SerializeField]
+    protected SOEffects _SOEffect;
 
     [SerializeField]
     protected int _clipSize;
@@ -112,6 +114,7 @@ public abstract class AbstractGun : MonoBehaviour {
         if (!_damaged) {
             _canShoot = false;
             Instantiate(_bullet, _barrel.transform.position, Quaternion.identity);
+
             yield return new WaitForSeconds(_shotDelay);
             _canShoot = true;
         }

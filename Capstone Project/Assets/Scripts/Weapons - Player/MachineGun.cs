@@ -95,7 +95,12 @@ public class MachineGun : AbstractGun {
     protected override IEnumerator ShotDelay() {
         if (!_damaged) {
             _canShoot = false;
-            Instantiate(_bullet, _barrel.transform.position, Quaternion.identity);
+
+            _SOEffect.PlayEffect(EffectEnum.MGMuzzelFlash, _barrel.transform.position, _controller.AimDirection);
+            GameObject instance = Instantiate(_bullet, _barrel.transform.position, Quaternion.identity) as GameObject;
+
+            // Angle the crystal according the the angle of the gun's direction
+            instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, _controller.AimDirection);
 
             _SSRequest.ShakeRequest();
             yield return new WaitForSeconds(_shotDelay);

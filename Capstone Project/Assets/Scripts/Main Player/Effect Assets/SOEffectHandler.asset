@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d773aea4af5f1a74fbe8cc2b1b96302f, type: 3}
+  m_Name: SOEffectHandler
+  m_EditorClassIdentifier: 
+  _effects:
+  - effectType: 1
+    prefab: {fileID: 1000011614531626, guid: 08011844091dda2489fda98039211f1b, type: 2}
+    _animationClip: {fileID: 74000011747946100, guid: 08011844091dda2489fda98039211f1b,
+      type: 2}
+    offset: {x: 0, y: -15}
+  - effectType: 2
+    prefab: {fileID: 1000010313364122, guid: 49d1e7f5783a1d545876062a5dbb9b16, type: 2}
+    _animationClip: {fileID: 74000012595940084, guid: 49d1e7f5783a1d545876062a5dbb9b16,
+      type: 2}
+    offset: {x: 0, y: 0}
+  - effectType: 3
+    prefab: {fileID: 1000013321572822, guid: 5873dd26e18e9dd4599d903b6c02c242, type: 2}
+    _animationClip: {fileID: 74000011498252736, guid: 5873dd26e18e9dd4599d903b6c02c242,
+      type: 2}
+    offset: {x: 0, y: 0}
+  - effectType: 4
+    prefab: {fileID: 1000013944081278, guid: fc68be0b4043eda4e8cb222ae5fde02e, type: 2}
+    _animationClip: {fileID: 74000013294673148, guid: fc68be0b4043eda4e8cb222ae5fde02e,
+      type: 2}
+    offset: {x: 0, y: 0}
+  - effectType: 5
+    prefab: {fileID: 1000013944081278, guid: fc68be0b4043eda4e8cb222ae5fde02e, type: 2}
+    _animationClip: {fileID: 74000012439688528, guid: fc68be0b4043eda4e8cb222ae5fde02e,
+      type: 2}
+    offset: {x: 0, y: 0}

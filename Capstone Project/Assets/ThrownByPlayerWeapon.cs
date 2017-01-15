@@ -14,14 +14,6 @@ public class ThrownByPlayerWeapon : MonoBehaviour {
         _body2d = GetComponent<Rigidbody2D>();
     }
 
-    private void OnEnable() {
-        ShotgunBlast.PushEnemy += PushThisGameObject;
-    }
-
-    private void OnDisable() {
-        ShotgunBlast.PushEnemy -= PushThisGameObject;
-    }
-
     private void PushThisGameObject(GameObject whatGotHit, Vector3 direction) {
 
         if (whatGotHit == gameObject) {

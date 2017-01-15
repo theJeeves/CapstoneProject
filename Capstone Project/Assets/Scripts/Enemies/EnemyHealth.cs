@@ -1,12 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum EnemyType {
+    Sniper,
+    Swarmer,
+    Charger
+}
+
 public class EnemyHealth : MonoBehaviour {
 
     public delegate void EnemyHealthEvent(GameObject thisEnemy);
     public static event EnemyHealthEvent Damaged;
 
-
+    [SerializeField]
+    private EnemyType _enemyType;
     [SerializeField]
     private float _maxHealth;
     [SerializeField]
@@ -16,34 +23,30 @@ public class EnemyHealth : MonoBehaviour {
         set { _health = value; }
     }
 
-    private void OnEnable() {
-        ShotgunBlast.DamageEnemy += DecrementHealth;
-        CrystalBullet.DamageEnemy += DecrementHealth;
-    }
-
-    private void OnDisable() {
-        ShotgunBlast.DamageEnemy -= DecrementHealth;
-        CrystalBullet.DamageEnemy -= DecrementHealth;
-    }
+    [SerializeField]
+    private SOEffects _SOEffect;
 
     private void Start() {
         _health = _maxHealth;
     }
 
-    private void DecrementHealth(int damage, GameObject whatGotHit) {
+    public void DecrementHealth(int damage) {
 
-        //whatGotHit is technically the enemy body where the collider is located.
-        //We look to its parent, which is where the health script is located.
-        if (whatGotHit.transform.parent.gameObject == gameObject) {
-            _health -= damage;
+        _health -= damage;
+        if (_health <= 0.0f) {
 
-            if (_health <= 0.0f) {
+            switch (_enemyType) {
 
-                Destroy(gameObject);
+                case EnemyType.Sniper:
+                    _SOEffect.PlayEffect(EffectEnum.SniperDeathExplosion, transform.position); break;
+
+                case EnemyType.Swarmer:
+                    _SOEffect.PlayEffect(EffectEnum.SwarmerDeathExplosion, transform.position); break;
             }
-            else if (Damaged != null) {
-                Damaged(gameObject);
-            }
+            Destroy(gameObject);
+        }
+        else {
+            GetComponentInChildren<EnemyDamageEffect>().DamageEffect();
         }
     }
 }

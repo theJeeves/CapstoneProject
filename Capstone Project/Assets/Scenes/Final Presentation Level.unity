@@ -102,7 +102,7 @@ GameObject:
   - 68: {fileID: 3341860}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (24)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,7 +179,7 @@ GameObject:
   - 4: {fileID: 708358661}
   m_Layer: 11
   m_Name: 4-piece-Ground_3
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -196,7 +196,7 @@ GameObject:
   - 68: {fileID: 21313976}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -273,7 +273,7 @@ GameObject:
   - 212: {fileID: 22233690}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (6)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -417,40 +417,11 @@ GameObject:
   - 4: {fileID: 1568753368}
   m_Layer: 11
   m_Name: 4-piece-Ground_1
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!1 &50941016
-GameObject:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
-  m_Component:
-  - 4: {fileID: 50941017}
-  m_Layer: 0
-  m_Name: Effects
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &50941017
-Transform:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 50941016}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_Children:
-  - {fileID: 623410164}
-  m_Father: {fileID: 0}
-  m_RootOrder: 9
 --- !u!1 &68183343
 GameObject:
   m_ObjectHideFlags: 0
@@ -528,7 +499,7 @@ GameObject:
   - 68: {fileID: 71349282}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (26)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -605,7 +576,7 @@ GameObject:
   - 4: {fileID: 81851056}
   m_Layer: 11
   m_Name: 4-piece-Ground_2
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -718,7 +689,7 @@ GameObject:
   - 212: {fileID: 90536226}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (5)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -904,7 +875,7 @@ GameObject:
   - 68: {fileID: 114403233}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (18)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -975,101 +946,6 @@ Transform:
   m_PrefabParentObject: {fileID: 4000010714169896, guid: c983411b30b1711429c371eba0c70081,
     type: 2}
   m_PrefabInternal: {fileID: 1095775835}
---- !u!1001 &153753930
-Prefab:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 50941017}
-    m_Modifications:
-    - target: {fileID: 4000014108809354, guid: a325de74cccc13f43931a45d9d6dccad, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000014108809354, guid: a325de74cccc13f43931a45d9d6dccad, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000014108809354, guid: a325de74cccc13f43931a45d9d6dccad, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000014108809354, guid: a325de74cccc13f43931a45d9d6dccad, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000014108809354, guid: a325de74cccc13f43931a45d9d6dccad, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000014108809354, guid: a325de74cccc13f43931a45d9d6dccad, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000014108809354, guid: a325de74cccc13f43931a45d9d6dccad, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4000014108809354, guid: a325de74cccc13f43931a45d9d6dccad, type: 2}
-      propertyPath: m_RootOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010439218624, guid: a325de74cccc13f43931a45d9d6dccad, type: 2}
-      propertyPath: m_Name
-      value: DustEffects
-      objectReference: {fileID: 0}
-    - target: {fileID: 1000010439218624, guid: a325de74cccc13f43931a45d9d6dccad, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212000013614835932, guid: a325de74cccc13f43931a45d9d6dccad,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212000014225325760, guid: a325de74cccc13f43931a45d9d6dccad,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212000012080045534, guid: a325de74cccc13f43931a45d9d6dccad,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212000013966386230, guid: a325de74cccc13f43931a45d9d6dccad,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212000013367063812, guid: a325de74cccc13f43931a45d9d6dccad,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212000013411336860, guid: a325de74cccc13f43931a45d9d6dccad,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212000013503513956, guid: a325de74cccc13f43931a45d9d6dccad,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212000014104866754, guid: a325de74cccc13f43931a45d9d6dccad,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114000010180899502, guid: a325de74cccc13f43931a45d9d6dccad,
-        type: 2}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_ParentPrefab: {fileID: 100100000, guid: a325de74cccc13f43931a45d9d6dccad, type: 2}
-  m_IsPrefabParent: 0
 --- !u!1 &158043206
 GameObject:
   m_ObjectHideFlags: 0
@@ -1082,7 +958,7 @@ GameObject:
   - 68: {fileID: 158043209}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (22)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1219,7 +1095,7 @@ GameObject:
   - 68: {fileID: 166780222}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (27)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1297,7 +1173,7 @@ GameObject:
   - 68: {fileID: 179240243}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (46)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1417,7 +1293,7 @@ GameObject:
   - 68: {fileID: 190232748}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (25)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1495,7 +1371,7 @@ GameObject:
   - 68: {fileID: 196356266}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (14)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1651,7 +1527,7 @@ GameObject:
   - 212: {fileID: 228526196}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (14)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1794,7 +1670,7 @@ GameObject:
   - 68: {fileID: 242135310}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (38)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1872,7 +1748,7 @@ GameObject:
   - 68: {fileID: 245145756}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (8)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2029,7 +1905,7 @@ GameObject:
   - 212: {fileID: 279382094}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (9)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2092,7 +1968,7 @@ GameObject:
   - 68: {fileID: 326902403}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (15)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2225,7 +2101,7 @@ GameObject:
   - 68: {fileID: 348590777}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (49)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2365,15 +2241,15 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000012537036146, guid: 8fe5dd6e43f77344c81b92de8b1821d5, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 212
+      value: 124
       objectReference: {fileID: 0}
     - target: {fileID: 4000012537036146, guid: 8fe5dd6e43f77344c81b92de8b1821d5, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 41
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4000012537036146, guid: 8fe5dd6e43f77344c81b92de8b1821d5, type: 2}
       propertyPath: m_LocalPosition.z
-      value: 40.90625
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4000012537036146, guid: 8fe5dd6e43f77344c81b92de8b1821d5, type: 2}
       propertyPath: m_LocalRotation.x
@@ -2416,6 +2292,53 @@ Prefab:
       propertyPath: _object
       value: 
       objectReference: {fileID: 1780364440}
+    - target: {fileID: 1000012748764930, guid: 8fe5dd6e43f77344c81b92de8b1821d5, type: 2}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61000010205786370, guid: 8fe5dd6e43f77344c81b92de8b1821d5,
+        type: 2}
+      propertyPath: m_Size.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 61000010205786370, guid: 8fe5dd6e43f77344c81b92de8b1821d5,
+        type: 2}
+      propertyPath: m_Offset.x
+      value: -20.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 61000010205786370, guid: 8fe5dd6e43f77344c81b92de8b1821d5,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 214.26
+      objectReference: {fileID: 0}
+    - target: {fileID: 61000010205786370, guid: 8fe5dd6e43f77344c81b92de8b1821d5,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 61000013125205818, guid: 8fe5dd6e43f77344c81b92de8b1821d5,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000014011108116, guid: 8fe5dd6e43f77344c81b92de8b1821d5,
+        type: 2}
+      propertyPath: _SOEffect
+      value: 
+      objectReference: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829,
+        type: 2}
+    - target: {fileID: 4000013385113262, guid: 8fe5dd6e43f77344c81b92de8b1821d5, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013385113262, guid: 8fe5dd6e43f77344c81b92de8b1821d5, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000013385113262, guid: 8fe5dd6e43f77344c81b92de8b1821d5, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8fe5dd6e43f77344c81b92de8b1821d5, type: 2}
   m_IsPrefabParent: 0
@@ -2430,7 +2353,7 @@ GameObject:
   - 212: {fileID: 366374131}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (14)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2493,7 +2416,7 @@ GameObject:
   - 68: {fileID: 378758210}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (16)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2571,7 +2494,7 @@ GameObject:
   - 68: {fileID: 379375227}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (21)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2707,7 +2630,7 @@ GameObject:
   - 212: {fileID: 420764337}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (6)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2758,6 +2681,49 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!1 &427128582
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 427128584}
+  - 114: {fileID: 427128583}
+  m_Layer: 0
+  m_Name: SwarmPod
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &427128583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 427128582}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8f3470bbd67d2154a9585df6bfba0bd4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _swarmPrefab: {fileID: 1000013574260114, guid: da27409c0c017f749a329f811472b7c6,
+    type: 2}
+  _sizeOfSwarm: 20
+--- !u!4 &427128584
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 427128582}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 315, y: 20, z: -0.125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
 --- !u!1 &435973176
 GameObject:
   m_ObjectHideFlags: 0
@@ -2820,7 +2786,7 @@ GameObject:
   - 68: {fileID: 438509379}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (50)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2999,6 +2965,10 @@ Prefab:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013164781518, guid: c983411b30b1711429c371eba0c70081, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c983411b30b1711429c371eba0c70081, type: 2}
   m_IsPrefabParent: 0
@@ -3014,7 +2984,7 @@ GameObject:
   - 68: {fileID: 460560054}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (41)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3158,7 +3128,7 @@ GameObject:
   - 212: {fileID: 480706202}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (13)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3220,7 +3190,7 @@ GameObject:
   - 212: {fileID: 507492952}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (5)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3288,7 +3258,7 @@ GameObject:
   - 68: {fileID: 520710338}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (43)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3365,7 +3335,7 @@ GameObject:
   - 212: {fileID: 522953649}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (1)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3433,7 +3403,7 @@ GameObject:
   - 68: {fileID: 531548521}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (35)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3575,7 +3545,7 @@ GameObject:
   - 68: {fileID: 545809922}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (19)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3963,7 +3933,7 @@ GameObject:
   - 4: {fileID: 225670586}
   m_Layer: 11
   m_Name: 4-Piece_Floor_1
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4107,6 +4077,10 @@ Prefab:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013164781518, guid: c983411b30b1711429c371eba0c70081, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c983411b30b1711429c371eba0c70081, type: 2}
   m_IsPrefabParent: 0
@@ -4122,7 +4096,7 @@ GameObject:
   - 68: {fileID: 606368326}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (47)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4188,11 +4162,6 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!4 &623410164 stripped
-Transform:
-  m_PrefabParentObject: {fileID: 4000014108809354, guid: a325de74cccc13f43931a45d9d6dccad,
-    type: 2}
-  m_PrefabInternal: {fileID: 153753930}
 --- !u!1 &624142350
 GameObject:
   m_ObjectHideFlags: 0
@@ -4204,7 +4173,7 @@ GameObject:
   - 212: {fileID: 624142352}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (15)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4271,7 +4240,7 @@ GameObject:
   - 212: {fileID: 636973353}
   m_Layer: 11
   m_Name: floorpiece_connector_1 (1)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4334,7 +4303,7 @@ GameObject:
   - 68: {fileID: 637191186}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (5)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4482,7 +4451,7 @@ GameObject:
   - 68: {fileID: 653038211}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (36)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4560,7 +4529,7 @@ GameObject:
   - 68: {fileID: 675593752}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (48)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4637,7 +4606,7 @@ GameObject:
   - 212: {fileID: 680134409}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (20)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4870,7 +4839,7 @@ GameObject:
   - 212: {fileID: 743077596}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (1)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4992,6 +4961,10 @@ Prefab:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011170434280, guid: e344aa0f4c443104ab7c52e4debec654, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e344aa0f4c443104ab7c52e4debec654, type: 2}
   m_IsPrefabParent: 0
@@ -5098,6 +5071,10 @@ Prefab:
     - target: {fileID: 4000012584484784, guid: b99c1767a677a034782cd979e87119c3, type: 2}
       propertyPath: m_RootOrder
       value: 101
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010929872452, guid: b99c1767a677a034782cd979e87119c3, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b99c1767a677a034782cd979e87119c3, type: 2}
@@ -5257,7 +5234,7 @@ GameObject:
   - 212: {fileID: 797431891}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (3)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5467,7 +5444,7 @@ GameObject:
   - 68: {fileID: 812617595}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (44)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5610,7 +5587,7 @@ GameObject:
   - 68: {fileID: 840446799}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (37)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5687,7 +5664,7 @@ GameObject:
   - 212: {fileID: 848237612}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (10)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5823,7 +5800,7 @@ GameObject:
   - 212: {fileID: 871380023}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (3)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6044,7 +6021,7 @@ GameObject:
   - 68: {fileID: 922404344}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (29)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6392,7 +6369,7 @@ GameObject:
   - 212: {fileID: 946872119}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (3)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6488,7 +6465,7 @@ GameObject:
   - 68: {fileID: 967259650}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (39)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6565,7 +6542,7 @@ GameObject:
   - 212: {fileID: 971616729}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (11)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6628,7 +6605,7 @@ GameObject:
   - 68: {fileID: 985852754}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (33)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6705,7 +6682,7 @@ GameObject:
   - 212: {fileID: 992851623}
   m_Layer: 11
   m_Name: floorpiece_connector_3
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6767,7 +6744,7 @@ GameObject:
   - 212: {fileID: 997818662}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (9)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7145,7 +7122,7 @@ GameObject:
   - 68: {fileID: 1050647937}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (23)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7223,7 +7200,7 @@ GameObject:
   - 68: {fileID: 1055896729}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (12)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7306,7 +7283,7 @@ GameObject:
   - 68: {fileID: 1075503638}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (7)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7449,7 +7426,7 @@ GameObject:
   - 68: {fileID: 1087092327}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (11)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7586,6 +7563,10 @@ Prefab:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013164781518, guid: c983411b30b1711429c371eba0c70081, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c983411b30b1711429c371eba0c70081, type: 2}
   m_IsPrefabParent: 0
@@ -7600,7 +7581,7 @@ GameObject:
   - 212: {fileID: 1096923669}
   m_Layer: 11
   m_Name: floorpiece_connector_1 (2)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7740,7 +7721,7 @@ GameObject:
   - 68: {fileID: 1099564225}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (1)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7850,7 +7831,7 @@ GameObject:
   - 212: {fileID: 1119575171}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (7)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -7987,7 +7968,7 @@ GameObject:
   - 68: {fileID: 1154842873}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (30)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8197,6 +8178,10 @@ Prefab:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011170434280, guid: e344aa0f4c443104ab7c52e4debec654, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e344aa0f4c443104ab7c52e4debec654, type: 2}
   m_IsPrefabParent: 0
@@ -8211,7 +8196,7 @@ GameObject:
   - 212: {fileID: 1158502542}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (18)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8279,7 +8264,7 @@ GameObject:
   - 68: {fileID: 1185858753}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (32)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8356,7 +8341,7 @@ GameObject:
   - 212: {fileID: 1198920531}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (11)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8419,7 +8404,7 @@ GameObject:
   - 68: {fileID: 1199780001}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (6)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8620,7 +8605,7 @@ GameObject:
   - 68: {fileID: 1237438771}
   m_Layer: 11
   m_Name: floorpiece_connector_2
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8697,7 +8682,7 @@ GameObject:
   - 212: {fileID: 1242518257}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (2)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8759,7 +8744,7 @@ GameObject:
   - 4: {fileID: 1357819067}
   m_Layer: 11
   m_Name: 4-Piece_Floor_2
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8781,7 +8766,7 @@ GameObject:
   - 68: {fileID: 1302213015}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (45)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -8924,7 +8909,7 @@ GameObject:
   - 68: {fileID: 1330848954}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (9)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9002,7 +8987,7 @@ GameObject:
   - 68: {fileID: 1332257396}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (40)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9417,6 +9402,10 @@ Prefab:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011170434280, guid: e344aa0f4c443104ab7c52e4debec654, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e344aa0f4c443104ab7c52e4debec654, type: 2}
   m_IsPrefabParent: 0
@@ -9431,7 +9420,7 @@ GameObject:
   - 212: {fileID: 1397681595}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (8)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9699,7 +9688,7 @@ GameObject:
   - 68: {fileID: 1470877569}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (42)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9847,6 +9836,10 @@ Prefab:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013164781518, guid: c983411b30b1711429c371eba0c70081, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c983411b30b1711429c371eba0c70081, type: 2}
   m_IsPrefabParent: 0
@@ -9861,7 +9854,7 @@ GameObject:
   - 212: {fileID: 1517859491}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (12)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10000,7 +9993,7 @@ GameObject:
   - 212: {fileID: 1529339769}
   m_Layer: 11
   m_Name: floorpiece_connector_1 (3)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10062,7 +10055,7 @@ GameObject:
   - 212: {fileID: 1538974470}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (16)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10125,7 +10118,7 @@ GameObject:
   - 68: {fileID: 1561600132}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (34)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10222,7 +10215,7 @@ GameObject:
   - 212: {fileID: 1589649902}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (10)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10285,7 +10278,7 @@ GameObject:
   - 68: {fileID: 1618453637}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (10)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10607,7 +10600,7 @@ GameObject:
   - 212: {fileID: 1655284588}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (21)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10667,11 +10660,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000011903040744, guid: 6f81c70daa3371a47b941a5f3d763142, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1844
+      value: 31
       objectReference: {fileID: 0}
     - target: {fileID: 4000011903040744, guid: 6f81c70daa3371a47b941a5f3d763142, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 407
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 4000011903040744, guid: 6f81c70daa3371a47b941a5f3d763142, type: 2}
       propertyPath: m_LocalPosition.z
@@ -10707,6 +10700,18 @@ Prefab:
       propertyPath: _machineGunAmmo
       value: 
       objectReference: {fileID: 574282279}
+    - target: {fileID: 114000010193264830, guid: 6f81c70daa3371a47b941a5f3d763142,
+        type: 2}
+      propertyPath: _SOEffect
+      value: 
+      objectReference: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829,
+        type: 2}
+    - target: {fileID: 114000014110801342, guid: 6f81c70daa3371a47b941a5f3d763142,
+        type: 2}
+      propertyPath: _SOEffect
+      value: 
+      objectReference: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f81c70daa3371a47b941a5f3d763142, type: 2}
   m_IsPrefabParent: 0
@@ -10722,7 +10727,7 @@ GameObject:
   - 68: {fileID: 1684457449}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (17)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10799,7 +10804,7 @@ GameObject:
   - 212: {fileID: 1687083985}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (8)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10921,6 +10926,10 @@ Prefab:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011170434280, guid: e344aa0f4c443104ab7c52e4debec654, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e344aa0f4c443104ab7c52e4debec654, type: 2}
   m_IsPrefabParent: 0
@@ -10935,7 +10944,7 @@ GameObject:
   - 4: {fileID: 1720401333}
   m_Layer: 11
   m_Name: WorldObjects
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11179,7 +11188,7 @@ GameObject:
   - 68: {fileID: 1765001868}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (20)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11343,6 +11352,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: 1.8
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010929872452, guid: b99c1767a677a034782cd979e87119c3, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b99c1767a677a034782cd979e87119c3, type: 2}
   m_IsPrefabParent: 0
@@ -11486,7 +11499,7 @@ GameObject:
   - 212: {fileID: 1832626564}
   m_Layer: 11
   m_Name: floorpiece_connector_3
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11607,6 +11620,10 @@ Prefab:
     - target: {fileID: 1000014012475706, guid: e344aa0f4c443104ab7c52e4debec654, type: 2}
       propertyPath: m_Layer
       value: 11
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000011170434280, guid: e344aa0f4c443104ab7c52e4debec654, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: e344aa0f4c443104ab7c52e4debec654, type: 2}
@@ -11764,6 +11781,10 @@ Prefab:
       propertyPath: m_Layer
       value: 11
       objectReference: {fileID: 0}
+    - target: {fileID: 1000013164781518, guid: c983411b30b1711429c371eba0c70081, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c983411b30b1711429c371eba0c70081, type: 2}
   m_IsPrefabParent: 0
@@ -11914,7 +11935,7 @@ GameObject:
   - 212: {fileID: 1896142691}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (4)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12041,7 +12062,7 @@ GameObject:
   - 212: {fileID: 1917431839}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (16)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12191,7 +12212,7 @@ GameObject:
   - 212: {fileID: 1968813577}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (13)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12330,7 +12351,7 @@ GameObject:
   - 212: {fileID: 1971776920}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (4)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12392,7 +12413,7 @@ GameObject:
   - 212: {fileID: 1971871448}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (15)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12481,6 +12502,10 @@ Prefab:
     - target: {fileID: 4000010331813474, guid: 8531b8a05b1f18f4daecf54120c61b2f, type: 2}
       propertyPath: m_RootOrder
       value: 103
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010059341606, guid: 8531b8a05b1f18f4daecf54120c61b2f, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8531b8a05b1f18f4daecf54120c61b2f, type: 2}
@@ -12582,7 +12607,7 @@ GameObject:
   - 212: {fileID: 1976927483}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (19)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12645,7 +12670,7 @@ GameObject:
   - 68: {fileID: 2001576501}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (31)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12723,7 +12748,7 @@ GameObject:
   - 68: {fileID: 2005140861}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (28)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12800,7 +12825,7 @@ GameObject:
   - 212: {fileID: 2036951759}
   m_Layer: 11
   m_Name: floorpiece_connector_1
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12925,11 +12950,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000014231370674, guid: 3bfbe7c0a6be2294783b999e68ed7fee, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 1836
+      value: 49
       objectReference: {fileID: 0}
     - target: {fileID: 4000014231370674, guid: 3bfbe7c0a6be2294783b999e68ed7fee, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 400
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4000014231370674, guid: 3bfbe7c0a6be2294783b999e68ed7fee, type: 2}
       propertyPath: m_LocalPosition.z
@@ -12969,7 +12994,7 @@ GameObject:
   - 212: {fileID: 2073053225}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (17)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13031,7 +13056,7 @@ GameObject:
   - 212: {fileID: 2074219503}
   m_Layer: 11
   m_Name: floorpiece_connector_4
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13207,6 +13232,10 @@ Prefab:
       propertyPath: m_Name
       value: Pillar_Crystal_Large
       objectReference: {fileID: 0}
+    - target: {fileID: 1000010929872452, guid: b99c1767a677a034782cd979e87119c3, type: 2}
+      propertyPath: m_TagString
+      value: SolidGround
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: b99c1767a677a034782cd979e87119c3, type: 2}
   m_IsPrefabParent: 0
@@ -13307,7 +13336,7 @@ GameObject:
   - 212: {fileID: 2117134036}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (2)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13370,7 +13399,7 @@ GameObject:
   - 68: {fileID: 2128848519}
   m_Layer: 11
   m_Name: floorpiece_connector_boundary (13)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13447,7 +13476,7 @@ GameObject:
   - 212: {fileID: 2130688996}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (7)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13509,7 +13538,7 @@ GameObject:
   - 212: {fileID: 2136983653}
   m_Layer: 11
   m_Name: floorpiece_connector_4 (4)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13571,7 +13600,7 @@ GameObject:
   - 212: {fileID: 2138638633}
   m_Layer: 11
   m_Name: floorpiece_connector_2 (12)
-  m_TagString: Untagged
+  m_TagString: SolidGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
