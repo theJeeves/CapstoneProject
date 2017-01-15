@@ -23,6 +23,8 @@ GameObject:
   - 50: {fileID: 50000010046020002}
   - 61: {fileID: 61000013529956624}
   - 114: {fileID: 114000014291518348}
+  - 114: {fileID: 114000014156775938}
+  - 114: {fileID: 114000010858991182}
   m_Layer: 10
   m_Name: dummyenemy
   m_TagString: Enemy
@@ -74,6 +76,32 @@ BoxCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Size: {x: 0.88, y: 0.84}
+--- !u!114 &114000010858991182
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013574260114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605b282057b1c8b4db3cd67b3707e6ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114000014156775938
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000013574260114}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ebe2bd32e221e7048bc390171a4cf42d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemyType: 1
+  _maxHealth: 21
+  _health: 0
+  _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
 --- !u!114 &114000014291518348
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -120,7 +148,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ccb7f881f35252e4b9fecec9e4244855, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d33a4a52b95bce4459aa91e4a782ffa5, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

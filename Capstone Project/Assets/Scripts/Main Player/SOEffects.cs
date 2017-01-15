@@ -6,7 +6,9 @@ public enum EffectEnum {
     None,
     Grounded,
     MGImpact,
-    SniperDeathExplosion
+    MGMuzzelFlash,
+    SniperDeathExplosion,
+    SwarmerDeathExplosion
 }
 
 [CreateAssetMenu(menuName ="SO Effects/New SO Effect")]
@@ -19,11 +21,10 @@ public class SOEffects : ScriptableObject {
 
     [System.Serializable]
     private struct EffectProperties {
-        [SerializeField]
+
         public EffectEnum effectType;
-        [SerializeField]
         public GameObject prefab;
-        [SerializeField]
+        public AnimationClip _animationClip;
         public Vector2 offset;
     };
 
@@ -40,5 +41,8 @@ public class SOEffects : ScriptableObject {
         instance.transform.position = new Vector3(position.x + _effectsTable[effectType].offset.x, 
                                                   position.y + _effectsTable[effectType].offset.y, position.z);
         instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, angle);
+
+        instance.GetComponent<Animator>().Play(_effectsTable[effectType]._animationClip.name);
+        Destroy(instance, _effectsTable[effectType]._animationClip.length);
     }
 }

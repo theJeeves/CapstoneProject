@@ -22,6 +22,8 @@ public abstract class AbstractGun : MonoBehaviour {
     protected MovementRequest _moveRequest;
     [SerializeField]
     protected ScreenShakeRequest _SSRequest;
+    [SerializeField]
+    protected SOEffects _SOEffect;
 
     [SerializeField]
     protected int _clipSize;
