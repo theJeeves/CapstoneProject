@@ -4,6 +4,9 @@ using System.Collections;
 public class ShotgunBlast : AbstractBullet {
 
     [SerializeField]
+    private SOEffects _SOEffect;
+
+    [SerializeField]
     private GameObject _endOfBarrel;
 
     [SerializeField]
@@ -47,31 +50,6 @@ public class ShotgunBlast : AbstractBullet {
         }
     }
 
-
-    protected override IEnumerator Shoot() {
-
-        // ASK THE GROUP IF THEY LIKE THIS LOOK BETTER
-        for (int i = 0; i < _lightning.Length; ++i) {
-            _lightning[i].EndPosition += _directions[i] * _magnitudes[i];
-        }
-
-        _magnitudes[_lightning.Length - 1] = _lightning[_lightning.Length - 1].EndPosition.magnitude;
-
-        CheckCollisions();
-
-        while (_lightning[_lightning.Length - 1].Width.x > 0 &&
-            _lightning[_lightning.Length - 1].Width.y > 0) {
-
-            foreach (DigitalRuby.LightningBolt.LightningBoltScript bolt in _lightning) {
-
-                bolt.Width = Vector2.MoveTowards(bolt.Width, Vector2.zero, _dissipationRate * Time.deltaTime);
-            }
-            yield return 0;
-        }
-
-        Destroy(gameObject);
-    }
-
     // Generates a random length and a random direction between a specified range.
     // The last lightning bolt will always have the longest length and have the exact aiming direction.
     private void GenLengthsAndHeights() {
@@ -91,6 +69,31 @@ public class ShotgunBlast : AbstractBullet {
         }
     }
 
+
+    protected override IEnumerator Shoot() {
+
+        CheckCollisions();
+
+        // ASK THE GROUP IF THEY LIKE THIS LOOK BETTER
+        for (int i = 0; i < _lightning.Length; ++i) {
+            _lightning[i].EndPosition += _directions[i] * _magnitudes[i];
+        }
+
+        _magnitudes[_lightning.Length - 1] = _lightning[_lightning.Length - 1].EndPosition.magnitude;
+
+        while (_lightning[_lightning.Length - 1].Width.x > 0 &&
+            _lightning[_lightning.Length - 1].Width.y > 0) {
+
+            foreach (DigitalRuby.LightningBolt.LightningBoltScript bolt in _lightning) {
+
+                bolt.Width = Vector2.MoveTowards(bolt.Width, Vector2.zero, _dissipationRate * Time.deltaTime);
+            }
+            yield return 0;
+        }
+
+        Destroy(gameObject);
+    }
+
     // User Raycasting on each lightning bolt to determine if a collision has occured.
     private void CheckCollisions() {
 
@@ -99,7 +102,16 @@ public class ShotgunBlast : AbstractBullet {
             RaycastHit2D hit = Physics2D.Raycast(_start, _directions[i], _magnitudes[i], _whatToHit);
 
             if (hit.collider != null) {
-                Debug.DrawLine(_start, _start + _lightning[i].EndPosition, Color.white);
+                string hitTagName = hit.collider.gameObject.tag;
+
+                if (hitTagName == "Enemy") {
+                    hit.collider.gameObject.GetComponentInParent<EnemyHealth>().DecrementHealth(_damageAmount);
+                }
+                else if (hitTagName == "SolidGround") {
+                    _magnitudes[i] = Mathf.Sqrt(Mathf.Pow(hit.point.x - _start.x, 2.0f) + Mathf.Pow(hit.point.y - _start.y, 2.0f));
+                }
+
+                _SOEffect.PlayEffect(EffectEnum.LightningContact, hit.point);
             }
         }
     }

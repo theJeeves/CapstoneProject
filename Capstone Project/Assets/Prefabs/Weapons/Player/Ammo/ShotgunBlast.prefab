@@ -474,7 +474,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000014196884406}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 93.81832, y: 63.452812, z: 0}
+  m_LocalPosition: {x: 93.81832, y: 63.452812, z: -1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -616,6 +616,7 @@ MonoBehaviour:
   _directionRange:
     _min: -0.4
     _max: 0.4
+  _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
   _endOfBarrel: {fileID: 1000013478115852, guid: afe8ddfbd33c2f54d8c39bbc41850c79,
     type: 2}
   _widths: {x: 4, y: 2.5}
@@ -625,7 +626,7 @@ MonoBehaviour:
   _dissipationRate: 20
   _whatToHit:
     serializedVersion: 2
-    m_Bits: 1024
+    m_Bits: 1280
 --- !u!120 &120000011606516570
 LineRenderer:
   m_ObjectHideFlags: 1

@@ -17,6 +17,8 @@ public class FocusCamera : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D player) {
 
+        GameObject.FindGameObjectWithTag("SmartCamera").GetComponent<SmartCameraXPosition>().MovingRight = _rightTrigger ? false : true;
+
         if (player.tag == "Player") {
 
             _scriptedCam.IsRightTrigger = _rightTrigger;

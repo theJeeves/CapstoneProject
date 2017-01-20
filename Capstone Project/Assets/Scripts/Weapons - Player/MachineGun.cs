@@ -8,9 +8,6 @@ using System.Collections;
 
 public class MachineGun : AbstractGun {
 
-    // This is put into the shotgun script so the shotgun screen shake script
-    // knows which weapon called this event.
-    //public static event AbstractGunEvent2 Fire;
     public static event AbstractGunEvent2 EmptyClip;
     public static event AbstractGunEvent3 StartReloadAnimation;
     public static event AbstractGunEvent UpdateNumOfRounds;
@@ -57,6 +54,9 @@ public class MachineGun : AbstractGun {
             if (_canLift && _controller.GetButtonPress(Buttons.AimDown)) {
                 OnButtonDown(button);
             }
+
+            _canLift = _collisionState.OnSolidGround ? true : false;
+
             if (!_reloading) {
 
                 _moveRequest.RequestMovement();

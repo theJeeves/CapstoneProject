@@ -10,6 +10,9 @@ public class SmartCameraXPosition : MonoBehaviour {
     private Vector3 _currPlayerPos;
 
     private bool _movingRight = false;
+    public bool MovingRight {
+        set { _movingRight = value; }
+    }
     private bool _adjusting = false;
 
     private float _startTime = 0.0f;
