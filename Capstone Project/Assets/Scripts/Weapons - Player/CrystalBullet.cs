@@ -6,12 +6,6 @@ public class CrystalBullet : AbstractBullet {
     [SerializeField]
     private SOEffects _SOEffect;
 
-    private ControllableObject _controller;
-
-    private void OnEnable() {
-        _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
-    }
-
     protected override void Start() {
         base.Start();
 
@@ -28,7 +22,7 @@ public class CrystalBullet : AbstractBullet {
         }
 
         if (otherGO != null) {
-            _SOEffect.PlayEffect(EffectEnum.MGImpact, transform.position, gameObject.transform.localEulerAngles.z);
+            _SOEffect.PlayEffect(EffectEnum.CrystalBulletImpact, transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }
     }

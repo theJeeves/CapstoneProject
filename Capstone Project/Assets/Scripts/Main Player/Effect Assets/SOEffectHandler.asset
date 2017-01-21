@@ -13,32 +13,38 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _effects:
   - effectType: 1
-    prefab: {fileID: 1000011826723480, guid: 3e9b59448800a5e4ba98490473b28b54, type: 2}
-    _animationClip: {fileID: 74000011209334486, guid: 3e9b59448800a5e4ba98490473b28b54,
-      type: 2}
+    prefab: {fileID: 1000011011047628, guid: 42e180ce19f803449886929c20c317a8, type: 2}
+    data: {fileID: 11400000, guid: 12602b4e11e20da4595e4e1e50169a42, type: 2}
     offset: {x: 0, y: -15}
-  - effectType: 2
-    prefab: {fileID: 1000010313364122, guid: 49d1e7f5783a1d545876062a5dbb9b16, type: 2}
-    _animationClip: {fileID: 74000012595940084, guid: 49d1e7f5783a1d545876062a5dbb9b16,
-      type: 2}
-    offset: {x: 0, y: 0}
-  - effectType: 3
-    prefab: {fileID: 1000013321572822, guid: 5873dd26e18e9dd4599d903b6c02c242, type: 2}
-    _animationClip: {fileID: 74000011498252736, guid: 5873dd26e18e9dd4599d903b6c02c242,
-      type: 2}
+  - effectType: 6
+    prefab: {fileID: 1000010412250782, guid: dae8635b13b5697408de1ebc81438a89, type: 2}
+    data: {fileID: 11400000, guid: 0657b47dbb3284c4c9295f3f17e1d853, type: 2}
     offset: {x: 0, y: 0}
   - effectType: 4
-    prefab: {fileID: 1000011759766824, guid: 5155894a4043e1240a623c776141cf5b, type: 2}
-    _animationClip: {fileID: 74000010986249466, guid: 5155894a4043e1240a623c776141cf5b,
-      type: 2}
+    prefab: {fileID: 1000013516019508, guid: 34d2190136b73544a9285df861cba150, type: 2}
+    data: {fileID: 11400000, guid: 9af21a51e87b83d4aa196dc7421e78a3, type: 2}
+    offset: {x: 0, y: 0}
+  - effectType: 3
+    prefab: {fileID: 1000010791255080, guid: 4ed13e218c17ac74197ee7a1533c0e85, type: 2}
+    data: {fileID: 11400000, guid: be13c8ef3f6ca19439cd99fe09119266, type: 2}
+    offset: {x: 0, y: 0}
+  - effectType: 2
+    prefab: {fileID: 1000012516758814, guid: 4f5b16c4b652f804f8b3d79b0b7206ae, type: 2}
+    data: {fileID: 11400000, guid: f90baa91161ceb34e88c894312b7f16e, type: 2}
     offset: {x: 0, y: 0}
   - effectType: 5
-    prefab: {fileID: 1000014140781506, guid: a2c475dc72c60ac478b3ff07f209fd17, type: 2}
-    _animationClip: {fileID: 74000011600822220, guid: a2c475dc72c60ac478b3ff07f209fd17,
-      type: 2}
+    prefab: {fileID: 1000011590153082, guid: 77b4db16c6d7bc44dbdb462bc2a6408a, type: 2}
+    data: {fileID: 11400000, guid: 2fb2964bc340a77419330911e735834e, type: 2}
     offset: {x: 0, y: 0}
-  - effectType: 6
-    prefab: {fileID: 1000010605806768, guid: 3ebfaab0c1ce440488f179e090ba423b, type: 2}
-    _animationClip: {fileID: 74000011120377096, guid: 3ebfaab0c1ce440488f179e090ba423b,
-      type: 2}
-    offset: {x: 0, y: 0}
+  - effectType: 8
+    prefab: {fileID: 1000012827696562, guid: 0691fa36dd3206e4b8679b749b4a3d3a, type: 2}
+    data: {fileID: 11400000, guid: 7fea12eb8521b0948a256fc454a18079, type: 2}
+    offset: {x: 0, y: -40}
+  - effectType: 9
+    prefab: {fileID: 1000012523205568, guid: e3768aa02fc06474a99439cf2561f277, type: 2}
+    data: {fileID: 11400000, guid: 63d8ef5fe1e2e34478ac4dbd04acf1c9, type: 2}
+    offset: {x: 1, y: 28}
+  - effectType: 10
+    prefab: {fileID: 1000012242193484, guid: 0fb6d586e90b1d14da371f1e22405c6d, type: 2}
+    data: {fileID: 11400000, guid: d53965a00320c31459925d028d7390cd, type: 2}
+    offset: {x: 1, y: 38}

@@ -39,14 +39,14 @@ public class SwarmerBehavior : MonoBehaviour {
         }
     }
 
-    private Animator _animator;
-    [SerializeField]
-    private AnimationClip _landingClip;
+    private SpriterDotNetUnity.SpriterDotNetBehaviour _animator;
+    private float _timer = 0.0f;
+    private float _landingDuration = 0.0f;
 
     private void OnEnable() {
         _GOBox = GetComponent<BoxCollider2D>();
         _body = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<Animator>();
+        _animator = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>();
 
         _body.AddForce(new Vector2(Random.Range(-150.0f, 150.0f), Random.Range(100.0f, 500.0f)), ForceMode2D.Impulse);
         _walkingSpeed = Random.Range(_walkingSpeedRange.Min, _walkingSpeedRange.Max);
@@ -62,6 +62,12 @@ public class SwarmerBehavior : MonoBehaviour {
     private void Update() {
 
         if (_canMove) {
+
+            if (Time.time - _timer > _landingDuration && _timer != 0.0f) {
+                _animator.Animator.Play(_animator.SpriterData.Spriter.Entities[0].Animations[3]);
+                _timer = 0.0f;
+            }
+
             _offset = _movingRight ? _GOBox.bounds.max.x : _GOBox.bounds.min.x;
 
             _origin = _GOBox.bounds.center;
@@ -86,9 +92,11 @@ public class SwarmerBehavior : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "SolidGround") {
+        if (collision.gameObject.tag == "SolidGround" && !_canMove) {
+            _animator.Animator.Play(_animator.SpriterData.Spriter.Entities[0].Animations[1]);
+            _landingDuration = _animator.SpriterData.Spriter.Entities[0].Animations[1].Length * 0.001f;
             _canMove = true;
-            _animator.SetBool("Grounded", true);
+            _timer = Time.time;
         }
     }
 

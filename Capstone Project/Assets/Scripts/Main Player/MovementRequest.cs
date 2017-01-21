@@ -120,14 +120,17 @@ public class MovementRequest : ScriptableObject {
 
         switch (_type) {
             case MovementType.Shotgun:
-                _xVel = !_grounded ? -_recoil : -_recoil * 0.45f;
+                _xVel = !_grounded ? -_recoil : -_recoil * 0.5f;
 
                 // MOVING LEFT OR MOVING RIGHT OR STANDING STILL
                 _yVel = bodyYvel;
                 break;
 
             case MovementType.MachineGun:
-                _xVel += (_recoil * -0.25f);
+                if (_xVel >= -_recoil) {
+                    _xVel -= _recoil / 2.0f;
+                }
+
                 _yVel = bodyYvel;
                 break;
         }
@@ -227,14 +230,17 @@ public class MovementRequest : ScriptableObject {
 
         //SHOTGUN
         if (_type == MovementType.Shotgun) {
-            _xVel = !_grounded ? _recoil : _recoil * 0.45f;
+            _xVel = !_grounded ? _recoil : _recoil * 0.5f;
 
             //MOVING RIGHT OR MOVING LEFT OR STANDING STILL
             _yVel = bodyYvel;
         }
         //MACHINEGUN
         else if (_type == MovementType.MachineGun) {
-            _xVel += (_recoil * 0.25f);
+
+            if (_xVel <= _recoil) {
+                _xVel += _recoil / 2.0f;
+            }
             _yVel = bodyYvel;
         }
     }
@@ -264,23 +270,23 @@ public class MovementRequest : ScriptableObject {
                 else if (!_grounded) {
 
                     //MOVING RIGHT
-                    if (bodyXvel > 0) {
+                    if (bodyXvel > 0.0f) {
 
                         _xVel = Mathf.Clamp(bodyXvel + _recoil * _addVel, _recoil * _addVel, _recoil);
 
                         //FALLING (NEGATIVE Y VELOCITY)
-                        if (bodyYvel < 0) {
+                        if (bodyYvel < 0.0f) {
                             _yVel = _recoil * _setVel;
                         }
 
                         //RISING OR ZERO Y VELOCITY
-                        else if (bodyYvel >= 0) {
+                        else if (bodyYvel >= 0.0f) {
                             _yVel = _recoil * _setVel;
                         }
                     }
 
                     // MOVING LEFT OR STANDING STILL
-                    else if (bodyXvel <= 0) {
+                    else if (bodyXvel <= 0.0f) {
                         _xVel = _recoil * _setVel;
                         _yVel = _recoil * _setVel;
                     }

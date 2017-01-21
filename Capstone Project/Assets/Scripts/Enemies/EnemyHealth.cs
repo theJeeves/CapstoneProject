@@ -9,9 +9,6 @@ public enum EnemyType {
 
 public class EnemyHealth : MonoBehaviour {
 
-    public delegate void EnemyHealthEvent(GameObject thisEnemy);
-    public static event EnemyHealthEvent Damaged;
-
     [SerializeField]
     private EnemyType _enemyType;
     [SerializeField]

@@ -30,8 +30,8 @@ public class Shotgun : AbstractGun {
             StartCoroutine(ShotDelay());
 
             _moveRequest.RequestMovement();
-
             _SSRequest.ShakeRequest();
+            //_SOEffect.PlayEffect(EffectEnum.SGMuzzleFlash, _barrel.transform.position, _controller.AimDirection - 90.0f);
 
             _grounded = false;
 

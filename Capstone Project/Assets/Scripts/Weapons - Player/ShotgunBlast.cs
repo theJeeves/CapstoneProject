@@ -110,6 +110,9 @@ public class ShotgunBlast : AbstractBullet {
                 else if (hitTagName == "SolidGround") {
                     _magnitudes[i] = Mathf.Sqrt(Mathf.Pow(hit.point.x - _start.x, 2.0f) + Mathf.Pow(hit.point.y - _start.y, 2.0f));
                 }
+                else if (hitTagName == "SwarmerPodBattery") {
+                    hit.collider.gameObject.GetComponentInParent<SwarmPodSpawner>().DestroyPod();
+                }
 
                 _SOEffect.PlayEffect(EffectEnum.LightningContact, hit.point);
             }

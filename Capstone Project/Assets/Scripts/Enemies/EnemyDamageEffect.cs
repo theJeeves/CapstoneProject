@@ -3,12 +3,18 @@ using System.Collections;
 
 public class EnemyDamageEffect : MonoBehaviour {
 
+    private float _effectDuration = 0.7f;
+
     private SpriteRenderer _sprite;
-    private Spriter2UnityDX.EntityRenderer _entity;
+    private SpriterDotNetUnity.ChildData _entity;
 
     private void OnEnable() {
-        _sprite = GetComponent<SpriteRenderer>();
-        _entity = GetComponent<Spriter2UnityDX.EntityRenderer>();
+        if (gameObject.GetComponent<SpriteRenderer>() != null) {
+            _sprite = GetComponent<SpriteRenderer>();
+        }
+        else if (gameObject.GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>() != null) {
+            _entity = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>().ChildData;
+        }
     }
 
 
@@ -18,39 +24,35 @@ public class EnemyDamageEffect : MonoBehaviour {
 
     private IEnumerator PlayEffect() {
         if (_sprite != null) {
-            _sprite.color = Color.red;
-            yield return new WaitForSeconds(0.1f);
-            _sprite.color = Color.white;
-            yield return new WaitForSeconds(0.1f);
-            _sprite.color = Color.red;
-            yield return new WaitForSeconds(0.1f);
-            _sprite.color = Color.white;
-            yield return new WaitForSeconds(0.1f);
-            _sprite.color = Color.red;
-            yield return new WaitForSeconds(0.1f);
-            _sprite.color = Color.white;
-            yield return new WaitForSeconds(0.1f);
-            _sprite.color = Color.red;
-            yield return new WaitForSeconds(0.1f);
-            _sprite.color = Color.white;
+
+            float timer = 0.0f;
+            while (timer < _effectDuration) {
+                _sprite.color = Color.red;
+                yield return new WaitForSeconds(_effectDuration / 7.0f);
+                _sprite.color = Color.white;
+                yield return new WaitForSeconds(_effectDuration / 7.0f);
+
+                timer += _effectDuration / 7.0f;
+            }
         }
 
         else if (_entity != null) {
-            _entity.Color = Color.red;
-            yield return new WaitForSeconds(0.1f);
-            _entity.Color = Color.white;
-            yield return new WaitForSeconds(0.1f);
-            _entity.Color = Color.red;
-            yield return new WaitForSeconds(0.1f);
-            _entity.Color = Color.white;
-            yield return new WaitForSeconds(0.1f);
-            _entity.Color = Color.red;
-            yield return new WaitForSeconds(0.1f);
-            _entity.Color = Color.white;
-            yield return new WaitForSeconds(0.1f);
-            _entity.Color = Color.red;
-            yield return new WaitForSeconds(0.1f);
-            _entity.Color = Color.white;
+
+            float timer = 0.0f;
+            while (timer < _effectDuration) {
+
+                foreach (GameObject sprite in _entity.Sprites) {
+                    sprite.GetComponent<SpriteRenderer>().color = Color.red;
+                }
+                yield return new WaitForSeconds(_effectDuration / 7.0f);
+
+                foreach (GameObject sprite in _entity.Sprites) {
+                    sprite.GetComponent<SpriteRenderer>().color = Color.white;
+                }
+                yield return new WaitForSeconds(_effectDuration / 7.0f);
+
+                timer += _effectDuration / 7.0f;
+            }
         }
     }
 }

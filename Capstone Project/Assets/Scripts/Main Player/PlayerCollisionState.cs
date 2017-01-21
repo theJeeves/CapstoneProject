@@ -61,7 +61,7 @@ public class PlayerCollisionState : MonoBehaviour {
         // Send out this event if the player wasn't on the ground and its status has changed.
         if (!_onSolidGround && _touchedGround) {
             _groundedAnimation.PlayAnimation();
-            _SOEffect.PlayEffect(EffectEnum.Grounded, transform.position);
+            _SOEffect.PlayEffect(EffectEnum.PlayerGrounded, transform.position);
             if (OnHitGround != null) {
                 OnHitGround();
             }
