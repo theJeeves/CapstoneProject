@@ -5,16 +5,11 @@ using System.Collections.Generic;
 // This list will continue to grow. This is a list of all the possible effects we will have in the game.
 public enum EffectEnum {
     None,
-    PlayerGrounded,
-    CrystalBulletImpact,
-    MGMuzzelFlash,
+    PlayerGrounded, PlayerRespawn,
+    CrystalBulletImpact, MGMuzzelFlash, LightningContact, SGMuzzleFlash,
     SniperDeathExplosion,
     SwarmerDeathExplosion,
-    LightningContact,
-    SGMuzzleFlash,
-    SwarmPodDestruction,
-    PodBatteryDamage,
-    PodBatteryIndicator
+    SwarmPodDestruction, PodBatteryDamage, PodBatteryIndicator, PodOilSpill_1, PodOilSpill_2
 }
 
 //Create Asset Menu allows us to turn this scriptable object into an asset to be used in the game.
@@ -49,20 +44,20 @@ public class SOEffects : ScriptableObject {
 
     //This is the primary function which will be called in many scripts. An EffectEnum must be given so the correct prefab is instantiated.
     //It is give a position + the offset, and optionally (priamrily for the weapons) the angle.
-    public GameObject PlayEffect(EffectEnum effectType, Vector3 position, float angle = 0.0f) {
+    public GameObject PlayEffect(EffectEnum effectType, Vector2 position, float angle = 0.0f) {
 
         if (_effectsTable[effectType].prefab != null) {
             EffectProperties effect = _effectsTable[effectType];
 
             GameObject instance = Instantiate(effect.prefab, position, Quaternion.identity) as GameObject;
 
-            instance.transform.position = new Vector3(position.x + effect.offset.x, position.y + effect.offset.y, position.z);
+            instance.transform.position = new Vector3(position.x + effect.offset.x, position.y + effect.offset.y, -1.0f);
 
             instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, angle);
 
             // If the effect does not loop, this will automatically destroy the instance after its animation has completed.
             if (!effect.data.Spriter.Entities[0].Animations[0].Looping) {
-                Destroy(instance, effect.data.Spriter.Entities[0].Animations[0].Length);
+                Destroy(instance, effect.data.Spriter.Entities[0].Animations[0].Length * 0.001f);
             }
 
             // This returns a reference to the instance for the effects which loop. Other scripts will need to explicity call

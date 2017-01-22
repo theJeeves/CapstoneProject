@@ -19,6 +19,10 @@ public class SwarmPodSpawner : MonoBehaviour {
     //Therefore, we need to have a reference to their instance at manually tell the SOEffectHandler when to destroy them.
     private GameObject _podBatteryIndicatorGO;
     private GameObject _podBatteryDamageGO;
+    private GameObject _oilSpill1;
+    private GameObject _oilSpill2;
+
+    private bool _move = false;
 
     private void OnEnable() {
 
@@ -34,10 +38,27 @@ public class SwarmPodSpawner : MonoBehaviour {
         if (_batteryDamaged) {
 
             if (Time.time - _timer > _destructionDelay) {
+
                 _SOEffect.PlayEffect(EffectEnum.SwarmPodDestruction, transform.position);
+
                 _SOEffect.StopEffect(_podBatteryDamageGO);
+                _SOEffect.StopEffect(_oilSpill1);
+                _SOEffect.StopEffect(_oilSpill2);
+
                 GetComponent<SpriteRenderer>().enabled = false;
                 SpawnSwarm();
+            }
+            else {
+
+                // Have the pod shake violently before it explodes
+                if (_move) {
+                    transform.position = new Vector2(transform.position.x + 2.5f, transform.position.y);
+                    _move = false;
+                }
+                else if (!_move) {
+                    transform.position = new Vector2(transform.position.x - 2.5f, transform.position.y);
+                    _move = true;
+                }
             }
         }
     }
@@ -52,6 +73,8 @@ public class SwarmPodSpawner : MonoBehaviour {
             _batteryDamaged = true;
             _SOEffect.StopEffect(_podBatteryIndicatorGO);
             _podBatteryDamageGO = _SOEffect.PlayEffect(EffectEnum.PodBatteryDamage, GetComponentInChildren<Transform>().position);
+            _oilSpill1 = _SOEffect.PlayEffect(EffectEnum.PodOilSpill_1, transform.position);
+            _oilSpill2 = _SOEffect.PlayEffect(EffectEnum.PodOilSpill_2, transform.position);
         }
     }
 

@@ -89,6 +89,8 @@ public abstract class AbstractGun : MonoBehaviour {
         ChargerDealDamage.DecrementPlayerHealth -= DamageReceived;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
+
+        StopAllCoroutines();
     }
     
     protected virtual void Reload() {
