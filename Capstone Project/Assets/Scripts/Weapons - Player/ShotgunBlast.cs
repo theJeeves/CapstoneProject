@@ -113,6 +113,9 @@ public class ShotgunBlast : AbstractBullet {
                 else if (hitTagName == "SwarmerPodBattery") {
                     hit.collider.gameObject.GetComponentInParent<SwarmPodSpawner>().DestroyPod();
                 }
+                else if (hitTagName == "AcidBall") {
+                    hit.collider.gameObject.GetComponent<AcidBallBehavior>().Splatter();
+                }
 
                 _SOEffect.PlayEffect(EffectEnum.LightningContact, hit.point);
             }

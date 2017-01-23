@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum DamageEnum {
+    None,
+    Acid,
+    Explosion
+}
+
 public class PlayerHealth : MonoBehaviour {
 
     public delegate void PlayerHealthEvent(int _health);
     public static event PlayerHealthEvent UpdateHealth;
 
+    [SerializeField]
+    private SOEffects _SOEffect;
     [SerializeField]
     private ScreenShakeRequest _scrnShkRequest;
     [SerializeField]
@@ -20,7 +28,13 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     private float _recoveryTime;
 
+    private GameObject _effect;
+    private DamageEnum _damageType;
+    private SpriteRenderer[] _spriteRenderer;
     private bool _canTakeDamage;
+    private float _timer = 0.0f;
+    private int _damageReceived = 0;
+    private float _duration = 0.0f;
 
     public int Health {
         get { return _health; }
@@ -32,15 +46,7 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void OnEnable() {
-        SniperDealDamage.DecrementPlayerHealth += DecrementPlayerHealth;
-        ChargerDealDamage.DecrementPlayerHealth += DecrementPlayerHealth;
-        laserBeam.DecrementPlayerHealth += DecrementPlayerHealth;
-    }
-
-    private void OnDisable() {
-        SniperDealDamage.DecrementPlayerHealth -= DecrementPlayerHealth;
-        ChargerDealDamage.DecrementPlayerHealth -= DecrementPlayerHealth;
-        laserBeam.DecrementPlayerHealth -= DecrementPlayerHealth;
+        _spriteRenderer = GetComponentsInChildren<SpriteRenderer>();
     }
 
     void Start() {
@@ -51,17 +57,96 @@ public class PlayerHealth : MonoBehaviour {
         }
     }
 
-    private void DecrementPlayerHealth(int damage) {
+    private void Update() {
+
+        if (_effect != null) {
+            _effect.transform.position = transform.position + new Vector3(0.0f, 25.0f, 0.0f);
+        }
+
+        if (_duration != 0.0f) {
+
+            if (Time.time - _timer < _duration) {
+
+                if (_damageType == DamageEnum.Acid && _canTakeDamage) {
+                    _health -= _damageReceived;
+                    _scrnShkRequest.ShakeRequest();
+                    StartCoroutine(RecoveryDelay());
+                    if (UpdateHealth != null) {
+                        UpdateHealth(_health);
+                    }
+                }
+
+                ReturnToNormalColor();
+            }
+            else {
+                _duration = 0.0f;
+                _SOEffect.StopEffect(_effect);
+            }
+        }
+    }
+
+    public void DecrementPlayerHealth(int damage, float duration = 0.0f, DamageEnum damageType = DamageEnum.None) {
+
         if (_canTakeDamage) {
 
-            StartCoroutine(RecoveryDelay());
+            if (duration > 0.0f) {
+                _damageReceived = damage;
+                _duration = duration;
 
-            _health -= damage;
-            _scrnShkRequest.ShakeRequest();
+                if (damageType == DamageEnum.Acid) {
+                    AcidDamageEffect();
+                    _effect = _SOEffect.PlayEffect(EffectEnum.AcidDamageEffect, transform.position);
+                    _damageType = damageType;
+                }
+                else if (damageType == DamageEnum.Explosion) {
+                    ExplosionDamageEffect();
+                    _effect = _SOEffect.PlayEffect(EffectEnum.ExplosionDamageEffect, transform.position);
+                    _damageType = damageType;
+                    _health -= damage;
+                    _scrnShkRequest.ShakeRequest();
+                    StartCoroutine(RecoveryDelay());
 
-            if (UpdateHealth != null) {
-                UpdateHealth(_health);
+                    if (UpdateHealth != null) {
+                        UpdateHealth(_health);
+                    }
+                }
+
+                _timer = Time.time;
             }
+            else {
+                StartCoroutine(RecoveryDelay());
+
+                _health -= damage;
+                _scrnShkRequest.ShakeRequest();
+
+                if (UpdateHealth != null) {
+                    UpdateHealth(_health);
+                }
+            }
+        }
+    }
+
+    private void AcidDamageEffect() {
+
+        for (int i = 0; i < _spriteRenderer.Length - 1; ++i) {
+            _spriteRenderer[i].color = Color.green;
+        }
+    }
+
+    private void ExplosionDamageEffect() {
+        for (int i = 0; i < _spriteRenderer.Length - 1; ++i) {
+            _spriteRenderer[i].color = new Color(0.18f, 0.18f, 0.18f);
+        }
+    }
+
+    private void ReturnToNormalColor() {
+
+        float t = Time.deltaTime * (1.0f / _duration);
+
+        for (int i = 0; i < _spriteRenderer.Length - 1; ++i) {
+
+            _spriteRenderer[i].color = new Color(Mathf.Clamp01(_spriteRenderer[i].color.r + t), Mathf.Clamp01(_spriteRenderer[i].color.g + t),
+                Mathf.Clamp01(_spriteRenderer[i].color.b + t));
         }
     }
 

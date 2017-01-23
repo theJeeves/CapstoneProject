@@ -21,6 +21,8 @@ public class SwarmerBehavior : MonoBehaviour {
     [SerializeField]
     private bool _canMove = false;
 
+    private EnemyType _enemyType;
+
     [System.Serializable]
     private struct Range {
 
@@ -47,6 +49,7 @@ public class SwarmerBehavior : MonoBehaviour {
         _GOBox = GetComponent<BoxCollider2D>();
         _body = GetComponent<Rigidbody2D>();
         _animator = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>();
+        _enemyType = GetComponent<EnemyHealth>().enemyType;
 
         _body.AddForce(new Vector2(Random.Range(-150.0f, 150.0f), Random.Range(100.0f, 500.0f)), ForceMode2D.Impulse);
         _walkingSpeed = Random.Range(_walkingSpeedRange.Min, _walkingSpeedRange.Max);
@@ -91,12 +94,16 @@ public class SwarmerBehavior : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision) {
-        if (collision.gameObject.tag == "SolidGround" && !_canMove) {
+    private void OnCollisionEnter2D(Collision2D otherGO) {
+        if (otherGO.gameObject.tag == "SolidGround" && !_canMove) {
             _animator.Animator.Play(_animator.SpriterData.Spriter.Entities[0].Animations[1]);
             _landingDuration = _animator.SpriterData.Spriter.Entities[0].Animations[1].Length * 0.001f;
             _canMove = true;
             _timer = Time.time;
+        }
+        else if (_enemyType == EnemyType.ExplodingSwamer && otherGO.gameObject.tag == "Player") {
+            otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(15, 3.0f, DamageEnum.Explosion);
+            GetComponent<EnemyHealth>().DecrementHealth(100);
         }
     }
 

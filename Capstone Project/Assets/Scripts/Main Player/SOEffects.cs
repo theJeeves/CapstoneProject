@@ -9,7 +9,9 @@ public enum EffectEnum {
     CrystalBulletImpact, MGMuzzelFlash, LightningContact, SGMuzzleFlash,
     SniperDeathExplosion,
     SwarmerDeathExplosion,
-    SwarmPodDestruction, PodBatteryDamage, PodBatteryIndicator, PodOilSpill_1, PodOilSpill_2
+    SwarmPodDestruction, PodBatteryDamage, PodBatteryIndicator, PodOilSpill_1, PodOilSpill_2,
+    AcidSwarmerSpill, AcidSwarmerBall, AcidBallSplatter, AcidDamageEffect, ExplosionDamageEffect,
+    ExplosiveSwarmerEffect
 }
 
 //Create Asset Menu allows us to turn this scriptable object into an asset to be used in the game.

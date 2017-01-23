@@ -7,7 +7,7 @@ public enum AnimationParameters {
     Walking,
     AimDirection,
     Grounded,
-    Damaged,
+    Damaged
 }
 
 [CreateAssetMenu(menuName =("SO Animatoins/New SO Animation"))]
