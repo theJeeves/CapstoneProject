@@ -469,6 +469,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca859f4dd5a5bf54392e63bed11aa302, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _xMinVelocity: -150
+  _xMaxVelocity: 150
+  _yMinVelocity: 100
+  _yMaxVelocity: 500
   _walkingSpeedRange:
     _min: 50
     _max: 100
@@ -486,7 +490,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebe2bd32e221e7048bc390171a4cf42d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _enemyType: 1
+  enemyType: 0
   _maxHealth: 14
   _health: 0
   _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}

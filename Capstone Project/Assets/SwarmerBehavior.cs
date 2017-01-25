@@ -2,6 +2,15 @@
 using System.Collections;
 
 public class SwarmerBehavior : MonoBehaviour {
+    [SerializeField]
+    private float _xMinVelocity = -150.0f;
+    [SerializeField]
+    private float _xMaxVelocity = 150.0f;
+    [SerializeField]
+    private float _yMinVelocity = 100.0f;
+    [SerializeField]
+    private float _yMaxVelocity = 500.0f;
+
 
     [SerializeField]
     private Range _walkingSpeedRange;
@@ -51,7 +60,7 @@ public class SwarmerBehavior : MonoBehaviour {
         _animator = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>();
         _enemyType = GetComponent<EnemyHealth>().enemyType;
 
-        _body.AddForce(new Vector2(Random.Range(-150.0f, 150.0f), Random.Range(100.0f, 500.0f)), ForceMode2D.Impulse);
+        _body.AddForce(new Vector2(Random.Range(_xMinVelocity, _xMaxVelocity), Random.Range(_yMinVelocity, _yMaxVelocity)), ForceMode2D.Impulse);
         _walkingSpeed = Random.Range(_walkingSpeedRange.Min, _walkingSpeedRange.Max);
     }
 
