@@ -49,19 +49,22 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     private void Update() {
+
+        Vector3 position = transform.position;
+
         if (enemyType == EnemyType.AcidSwarmer) {
 
             if (Time.time - _timer > _effectDelay) {
-                _SOEffect.PlayEffect(EffectEnum.AcidSwarmerSpill, transform.position, transform.eulerAngles.z + 90.0f);
+                _SOEffect.PlayEffect(EffectEnum.AcidSwarmerSpill, position, transform.eulerAngles.z + 90.0f);
 
-                _SOEffect.PlayEffect(EffectEnum.AcidSwarmerBall, transform.position);
+                _SOEffect.PlayEffect(EffectEnum.AcidSwarmerBall, position);
                 _effectDelay = Random.Range(1.0f, 3.0f);
                 _timer = Time.time;
             }
         }
 
         else if (enemyType == EnemyType.ExplodingSwamer && _effect != null) {
-            _effect.transform.position = transform.position + new Vector3(0.0f, 15.0f, 0.0f);
+            _effect.transform.position = new Vector3(position.x, position.y + 15.0f, position.z);
         }
     }
 

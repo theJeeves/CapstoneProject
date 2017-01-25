@@ -11,14 +11,44 @@ public class MachineGun : AbstractGun {
     public static event AbstractGunEvent2 EmptyClip;
     public static event AbstractGunEvent3 StartReloadAnimation;
     public static event AbstractGunEvent UpdateNumOfRounds;
+    public static event AbstractGunEvent2 DisplayAmmo;
 
     [SerializeField]
     private MovementRequest _initialMoveRequest;
 
     private bool _canLift = true;
 
-    protected override void OnEnable() {
-        base.OnEnable();
+    protected override void Awake() {
+        base.Awake();
+
+        _weaponManager.SetAmmoCapacity(_type, _ammoCapacity);
+
+        numOfRounds = _weaponManager.GetNumOfRounds(_type);
+        if (numOfRounds > 0) {
+            DisplayAmmo();
+        }
+    }
+
+    private void OnEnable() {
+        ControllableObject.OnButtonDown += OnButtonDown;
+        PlayerCollisionState.OnHitGround += Reload;
+        ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
+
+        _reloading = false;
+        _canShoot = true;
+
+        if (_weaponManager.reloaded) {
+            numOfRounds = _ammoCapacity;
+            DisplayAmmo();
+            _weaponManager.reloaded = false;
+        }
+        else if (numOfRounds <= 0) {
+            Reload();
+        }
+
+        if (numOfRounds == _ammoCapacity) {
+            _canShoot = true;
+        }
 
         if (UpdateNumOfRounds != null) {
             UpdateNumOfRounds(numOfRounds);
@@ -29,8 +59,14 @@ public class MachineGun : AbstractGun {
         _canLift = _collisionState.OnSolidGround ? true : false;
     }
 
-    protected override void OnDisable() {
-        base.OnDisable();
+    private void OnDisable() {
+        ControllableObject.OnButtonDown -= OnButtonDown;
+        PlayerCollisionState.OnHitGround -= Reload;
+        ChargerDealDamage.DecrementPlayerHealth -= DamageReceived;
+
+        _grounded = _collisionState.OnSolidGround ? true : false;
+
+        StopAllCoroutines();
         ControllableObject.OnButton -= OnButton;
     }
 
@@ -92,7 +128,7 @@ public class MachineGun : AbstractGun {
         }
     }
 
-    protected override IEnumerator ShotDelay() {
+    private IEnumerator ShotDelay() {
         if (!_damaged) {
             _canShoot = false;
 
@@ -108,7 +144,7 @@ public class MachineGun : AbstractGun {
         }
     }
 
-    protected override void Reload() {
+    private void Reload() {
 
         // This ensures the player will be lifted by the initial shot every time.
         // Machine Gun specific.
@@ -116,11 +152,20 @@ public class MachineGun : AbstractGun {
 
         if (numOfRounds > 0 && _controller.GetButtonPress(Buttons.Shoot)) { }
         else {
-            base.Reload();
+            if (!_reloading && numOfRounds < _ammoCapacity) {
+                StartCoroutine(ReloadDelay());
+            }
         }
     }
 
-    protected override IEnumerator ReloadDelay() {
+    private void ManualReload() {
+        if (!_reloading && numOfRounds < _ammoCapacity && _collisionState.OnSolidGround) {
+            _grounded = true;
+            StartCoroutine(ReloadDelay());
+        }
+    }
+
+    private IEnumerator ReloadDelay() {
 
         // Prevent the gun from trying to reload multiple times and
         // prevent the player from firing while reloading.
@@ -149,7 +194,8 @@ public class MachineGun : AbstractGun {
 
         yield return new WaitForSeconds(_reloadTime);
 
-        numOfRounds = _clipSize;
+        _weaponManager.Reload();
+        numOfRounds = _weaponManager.GetNumOfRounds(_type);
 
         // UPDATE THE UI
         if (UpdateNumOfRounds != null) {

@@ -14,6 +14,11 @@ public abstract class AbstractGun : MonoBehaviour {
     public delegate void AbstractGunEvent3(float reloadTime);
 
     [SerializeField]
+    protected SOWeaponManager _weaponManager;
+    [SerializeField]
+    protected WeaponType _type;
+
+    [SerializeField]
     private Sprite _sprite;
     public Sprite Sprite {
         get { return _sprite; }
@@ -26,8 +31,8 @@ public abstract class AbstractGun : MonoBehaviour {
     protected SOEffects _SOEffect;
 
     [SerializeField]
-    protected int _clipSize;
-    
+    protected int _ammoCapacity;
+
     public int numOfRounds;
 
     [SerializeField]
@@ -60,66 +65,6 @@ public abstract class AbstractGun : MonoBehaviour {
 
         _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
         _collisionState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollisionState>();
-
-        numOfRounds = _clipSize;
-    }
-
-    protected virtual void OnEnable()
-    {
-        ControllableObject.OnButtonDown += OnButtonDown;
-        PlayerCollisionState.OnHitGround += Reload;
-        ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
-
-        _reloading = false;
-        _canShoot = true;
-
-        if (numOfRounds <= 0) {
-            Reload();
-        }
-
-        if (numOfRounds == _clipSize) {
-            _canShoot = true;
-        }
-    }
-
-    protected virtual void OnDisable()
-    {
-        ControllableObject.OnButtonDown -= OnButtonDown;
-        PlayerCollisionState.OnHitGround -= Reload;
-        ChargerDealDamage.DecrementPlayerHealth -= DamageReceived;
-
-        _grounded = _collisionState.OnSolidGround ? true : false;
-
-        StopAllCoroutines();
-    }
-    
-    protected virtual void Reload() {
-
-        if (!_reloading && numOfRounds < _clipSize) {
-            StartCoroutine(ReloadDelay());
-        }
-    }
-
-    protected virtual void ManualReload() {
-        if (!_reloading && numOfRounds < _clipSize && _collisionState.OnSolidGround) {
-            _grounded = true;
-            StartCoroutine(ReloadDelay());
-        }
-    }
-
-    protected virtual IEnumerator ReloadDelay() {
-        yield return 0;
-    }
-
-    protected virtual IEnumerator ShotDelay() {
-
-        if (!_damaged) {
-            _canShoot = false;
-            Instantiate(_bullet, _barrel.transform.position, Quaternion.identity);
-
-            yield return new WaitForSeconds(_shotDelay);
-            _canShoot = true;
-        }
     }
 
     // The player cannot attack for a brief amount of time after they have received damage.
@@ -136,8 +81,6 @@ public abstract class AbstractGun : MonoBehaviour {
         _canShoot = true;
     }
 
-    protected virtual void OnButtonDown(Buttons button)
-    {
-    }
+    protected abstract void OnButtonDown(Buttons button);
 }
 

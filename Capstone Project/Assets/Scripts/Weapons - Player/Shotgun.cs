@@ -14,13 +14,53 @@ public class Shotgun : AbstractGun {
     public static event AbstractGunEvent2 EmptyClip;
     public static event AbstractGunEvent3 StartReloadAnimation;
     public static event AbstractGunEvent UpdateNumOfRounds;
+    public static event AbstractGunEvent2 DisplayAmmo;
 
-    protected override void OnEnable() {
-        base.OnEnable();
+    protected override void Awake() {
+        base.Awake();
+
+        _weaponManager.SetAmmoCapacity(_type, _ammoCapacity);
+
+        numOfRounds = _weaponManager.GetNumOfRounds(_type);
+        if (numOfRounds > 0) {
+            DisplayAmmo();
+        }
+    }
+
+    private void OnEnable() {
+        ControllableObject.OnButtonDown += OnButtonDown;
+        PlayerCollisionState.OnHitGround += Reload;
+        ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
+
+        _reloading = false;
+        _canShoot = true;
+
+        if (_weaponManager.reloaded) {
+            numOfRounds = _ammoCapacity;
+            DisplayAmmo();
+            _weaponManager.reloaded = false;
+        }
+        else if (numOfRounds <= 0) {
+            Reload();
+        }
+
+        if (numOfRounds == _ammoCapacity) {
+            _canShoot = true;
+        }
 
         if (UpdateNumOfRounds != null) {
             UpdateNumOfRounds(numOfRounds);
         }
+    }
+
+    private void OnDisable() {
+        ControllableObject.OnButtonDown -= OnButtonDown;
+        PlayerCollisionState.OnHitGround -= Reload;
+        ChargerDealDamage.DecrementPlayerHealth -= DamageReceived;
+
+        _grounded = _collisionState.OnSolidGround ? true : false;
+
+        StopAllCoroutines();
     }
 
     protected override void OnButtonDown(Buttons button) {
@@ -56,8 +96,21 @@ public class Shotgun : AbstractGun {
             ManualReload();
         }
     }
-    
-    protected override IEnumerator ReloadDelay() {
+
+    private void Reload() {
+        if (!_reloading && numOfRounds < _ammoCapacity) {
+            StartCoroutine(ReloadDelay());
+        }
+    }
+
+    private void ManualReload() {
+        if (!_reloading && numOfRounds < _ammoCapacity && _collisionState.OnSolidGround) {
+            _grounded = true;
+            StartCoroutine(ReloadDelay());
+        }
+    }
+
+    private IEnumerator ReloadDelay() {
 
         // Prevent the gun from trying to reload multiple times and
         // prevent the player from firing while reloading.
@@ -84,7 +137,8 @@ public class Shotgun : AbstractGun {
 
         yield return new WaitForSeconds(_reloadTime);
 
-        numOfRounds = _clipSize;
+        _weaponManager.Reload();
+        numOfRounds = _weaponManager.GetNumOfRounds(_type);
 
         // UPDATE THE UI
         if (UpdateNumOfRounds != null) {
@@ -94,5 +148,16 @@ public class Shotgun : AbstractGun {
         // The player can now fire again.
         _reloading = false;
         _canShoot = true;
+    }
+
+    private IEnumerator ShotDelay() {
+
+        if (!_damaged) {
+            _canShoot = false;
+            Instantiate(_bullet, _barrel.transform.position, Quaternion.identity);
+
+            yield return new WaitForSeconds(_shotDelay);
+            _canShoot = true;
+        }
     }
 }

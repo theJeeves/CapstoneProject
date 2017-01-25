@@ -40,4 +40,8 @@ public abstract class ReloadAnimation : MonoBehaviour {
     protected virtual void ZeroFillAmount() {
         _ammoImage.fillAmount = 0;
     }
+
+    protected virtual void DisplayAmmo() {
+        _ammoImage.fillAmount = 1;
+    }
 }

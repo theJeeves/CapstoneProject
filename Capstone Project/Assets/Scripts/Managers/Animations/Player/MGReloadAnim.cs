@@ -7,11 +7,13 @@ public class MGReloadAnim : ReloadAnimation {
 
         MachineGun.StartReloadAnimation += Reload;
         MachineGun.EmptyClip += ZeroFillAmount;
+        MachineGun.DisplayAmmo += DisplayAmmo;
     }
 
     protected override void OnDisable() {
         MachineGun.StartReloadAnimation -= Reload;
         MachineGun.EmptyClip -= ZeroFillAmount;
+        MachineGun.DisplayAmmo -= DisplayAmmo;
         base.OnDisable();
     }
 }
