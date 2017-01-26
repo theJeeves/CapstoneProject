@@ -17,28 +17,31 @@ public class FocusCamera : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D player) {
 
-        GameObject.FindGameObjectWithTag("SmartCamera").GetComponent<SmartCameraXPosition>().MovingRight = _rightTrigger ? false : true;
+        if (gameObject.GetComponent<FocusCamera>().isActiveAndEnabled) {
 
-        if (player.tag == "Player") {
+            GameObject.FindGameObjectWithTag("SmartCamera").GetComponent<SmartCameraXPosition>().MovingRight = _rightTrigger ? false : true;
 
-            _scriptedCam.IsRightTrigger = _rightTrigger;
+            if (player.tag == "Player") {
 
-            switch (_rightTrigger) {
-                case true:
+                _scriptedCam.IsRightTrigger = _rightTrigger;
 
-                    if (player.transform.position.x >= _boxPos.x) {
-                        _scriptedCam.DisableScripts();
-                        StartCoroutine(MoveCamera());
-                    }
-                    break;
+                switch (_rightTrigger) {
+                    case true:
 
-                case false:
+                        if (player.transform.position.x >= _boxPos.x) {
+                            _scriptedCam.DisableScripts();
+                            StartCoroutine(MoveCamera());
+                        }
+                        break;
 
-                    if (player.transform.position.x <= _boxPos.x) {
-                        _scriptedCam.DisableScripts();
-                        StartCoroutine(MoveCamera());
-                    }
-                    break;
+                    case false:
+
+                        if (player.transform.position.x <= _boxPos.x) {
+                            _scriptedCam.DisableScripts();
+                            StartCoroutine(MoveCamera());
+                        }
+                        break;
+                }
             }
         }
     }
@@ -52,24 +55,27 @@ public class FocusCamera : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D player) {
 
-        if (player.tag == "Player") {
+        if (gameObject.GetComponent<FocusCamera>().isActiveAndEnabled) {
 
-            _scriptedCam.IsRightTrigger = _rightTrigger;
+            if (player.tag == "Player") {
 
-            switch (_rightTrigger) {
-                case true:
-                    if (player.transform.position.x > _boxPos.x) {
-                        _scriptedCam.EnableScripts();
-                        StopAllCoroutines();
-                    }
-                    break;
+                _scriptedCam.IsRightTrigger = _rightTrigger;
 
-                case false:
-                    if (player.transform.position.x < _boxPos.x) {
-                        _scriptedCam.EnableScripts();
-                        StopAllCoroutines();
-                    }
-                    break;
+                switch (_rightTrigger) {
+                    case true:
+                        if (player.transform.position.x > _boxPos.x) {
+                            _scriptedCam.EnableScripts();
+                            StopAllCoroutines();
+                        }
+                        break;
+
+                    case false:
+                        if (player.transform.position.x < _boxPos.x) {
+                            _scriptedCam.EnableScripts();
+                            StopAllCoroutines();
+                        }
+                        break;
+                }
             }
         }
     }

@@ -64,12 +64,14 @@ public class MovementRequest : ScriptableObject {
 
         switch (_type) {
             case MovementType.Walking:
+
                 if (grounded) {
                     if (_button == Buttons.MoveRight) {
-                        return new Vector2(_walkSpeed * Mathf.Clamp(values.z * 4.5f, 0, 1), values.y);
+
+                        return new Vector2(Mathf.Clamp( values.x + (_walkSpeed * Mathf.Clamp(values.z * 2.0f , 0, 1)), 0.0f, _walkSpeed), values.y);
                     }
                     else {
-                        return new Vector2(-(_walkSpeed) * Mathf.Clamp(values.z * 4.5f, 0, 1), values.y);
+                        return new Vector2(Mathf.Clamp(values.x - (_walkSpeed * Mathf.Clamp(values.z * 2.0f, 0, 1)), -_walkSpeed, 0.0f), values.y);
                     }
                 }
                 else {

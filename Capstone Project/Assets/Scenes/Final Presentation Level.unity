@@ -2721,6 +2721,11 @@ Prefab:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012606268920, guid: 993f29d263aab6248a96343c26c44f4f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 993f29d263aab6248a96343c26c44f4f, type: 2}
   m_IsPrefabParent: 0
@@ -2953,12 +2958,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 114000010553676992, guid: 993f29d263aab6248a96343c26c44f4f,
-        type: 2}
-      propertyPath: _SOEffect
-      value: 
-      objectReference: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 993f29d263aab6248a96343c26c44f4f, type: 2}
   m_IsPrefabParent: 0
@@ -5276,24 +5275,6 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!1 &782287691 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000010533084006, guid: 993f29d263aab6248a96343c26c44f4f,
-    type: 2}
-  m_PrefabInternal: {fileID: 455207652}
---- !u!114 &782287692
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 782287691}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: 57aefc78e6cf5d141a20e3bfc3162931, type: 2}
-  _rightTrigger: 0
 --- !u!4 &788897760 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000010694377290, guid: cefaa7c6bcab0cb46b41400b200d0d1a,
@@ -9226,6 +9207,11 @@ Prefab:
       propertyPath: m_Offset.y
       value: 283.3
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012843378516, guid: 993f29d263aab6248a96343c26c44f4f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 993f29d263aab6248a96343c26c44f4f, type: 2}
   m_IsPrefabParent: 0
@@ -9384,6 +9370,16 @@ Prefab:
     - target: {fileID: 4000012160714128, guid: 993f29d263aab6248a96343c26c44f4f, type: 2}
       propertyPath: m_LocalPosition.y
       value: 415
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012606268920, guid: 993f29d263aab6248a96343c26c44f4f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012843378516, guid: 993f29d263aab6248a96343c26c44f4f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 993f29d263aab6248a96343c26c44f4f, type: 2}
@@ -9659,6 +9655,16 @@ Prefab:
     - target: {fileID: 4000012160714128, guid: 993f29d263aab6248a96343c26c44f4f, type: 2}
       propertyPath: m_LocalPosition.x
       value: 189
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012606268920, guid: 993f29d263aab6248a96343c26c44f4f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012843378516, guid: 993f29d263aab6248a96343c26c44f4f,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 993f29d263aab6248a96343c26c44f4f, type: 2}
@@ -9942,6 +9948,7 @@ GameObject:
   - 4: {fileID: 1459616995}
   - 212: {fileID: 1459616997}
   - 61: {fileID: 1459616996}
+  - 252: {fileID: 1459616998}
   m_Layer: 8
   m_Name: floorpiece_1
   m_TagString: SolidGround
@@ -10012,6 +10019,23 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!252 &1459616998
+SurfaceEffector2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1459616994}
+  m_Enabled: 1
+  m_UseColliderMask: 1
+  m_ColliderMask:
+    serializedVersion: 2
+    m_Bits: 512
+  m_Speed: 1
+  m_SpeedVariation: 0
+  m_ForceScale: 0.1
+  m_UseContactForce: 0
+  m_UseFriction: 1
+  m_UseBounce: 1
 --- !u!1 &1470877567
 GameObject:
   m_ObjectHideFlags: 0
@@ -10986,11 +11010,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000011903040744, guid: 6f81c70daa3371a47b941a5f3d763142, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 57
+      value: 2740
       objectReference: {fileID: 0}
     - target: {fileID: 4000011903040744, guid: 6f81c70daa3371a47b941a5f3d763142, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 22
+      value: 399
       objectReference: {fileID: 0}
     - target: {fileID: 4000011903040744, guid: 6f81c70daa3371a47b941a5f3d763142, type: 2}
       propertyPath: m_LocalPosition.z
@@ -11122,6 +11146,16 @@ Prefab:
         type: 2}
       propertyPath: _type
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 50000012315900164, guid: 6f81c70daa3371a47b941a5f3d763142,
+        type: 2}
+      propertyPath: m_UseAutoMass
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 50000012315900164, guid: 6f81c70daa3371a47b941a5f3d763142,
+        type: 2}
+      propertyPath: m_Mass
+      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6f81c70daa3371a47b941a5f3d763142, type: 2}
@@ -12600,24 +12634,6 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
---- !u!1 &1938518154 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000012786253094, guid: 993f29d263aab6248a96343c26c44f4f,
-    type: 2}
-  m_PrefabInternal: {fileID: 455207652}
---- !u!114 &1938518155
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1938518154}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: 57aefc78e6cf5d141a20e3bfc3162931, type: 2}
-  _rightTrigger: 1
 --- !u!4 &1942911833 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000010714169896, guid: c983411b30b1711429c371eba0c70081,
@@ -13406,58 +13422,24 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114000012702677052, guid: 3bfbe7c0a6be2294783b999e68ed7fee,
+    - target: {fileID: 114000013248320574, guid: 3bfbe7c0a6be2294783b999e68ed7fee,
         type: 2}
-      propertyPath: m_Enabled
+      propertyPath: intensity
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000012702677052, guid: 3bfbe7c0a6be2294783b999e68ed7fee,
+    - target: {fileID: 114000013248320574, guid: 3bfbe7c0a6be2294783b999e68ed7fee,
         type: 2}
-      propertyPath: vignetteShader
-      value: 
+      propertyPath: chromaticAberration
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000012702677052, guid: 3bfbe7c0a6be2294783b999e68ed7fee,
+    - target: {fileID: 114000013248320574, guid: 3bfbe7c0a6be2294783b999e68ed7fee,
         type: 2}
-      propertyPath: separableBlurShader
-      value: 
+      propertyPath: mode
+      value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 114000012702677052, guid: 3bfbe7c0a6be2294783b999e68ed7fee,
-        type: 2}
-      propertyPath: chromAberrationShader
-      value: 
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 114000012702677052, guid: 3bfbe7c0a6be2294783b999e68ed7fee, type: 2}
+    m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3bfbe7c0a6be2294783b999e68ed7fee, type: 2}
   m_IsPrefabParent: 0
---- !u!1 &2061395499 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1000010316609078, guid: 3bfbe7c0a6be2294783b999e68ed7fee,
-    type: 2}
-  m_PrefabInternal: {fileID: 2048941741}
---- !u!114 &2061395500
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 2061395499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd6d4281e5d7cd44d8c6e38bc2c1b8d8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mode: 0
-  intensity: 0.036
-  chromaticAberration: 0.2
-  axialAberration: 0.5
-  blur: 0
-  blurSpread: 0.75
-  luminanceDependency: 0.25
-  blurDistance: 2.5
-  vignetteShader: {fileID: 4800000, guid: 627943dc7a9a74286b70a4f694a0acd5, type: 3}
-  separableBlurShader: {fileID: 4800000, guid: e97c14fbb5ea04c3a902cc533d7fc5d1, type: 3}
-  chromAberrationShader: {fileID: 4800000, guid: 2b4f29398d9484ccfa9fd220449f5eee,
-    type: 3}
 --- !u!1 &2073053223
 GameObject:
   m_ObjectHideFlags: 0

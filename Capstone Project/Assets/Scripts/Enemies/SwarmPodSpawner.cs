@@ -28,6 +28,8 @@ public class SwarmPodSpawner : MonoBehaviour {
 
         // Start the battery indication effect animation
         _podBatteryIndicatorGO = _SOEffect.PlayEffect(EffectEnum.PodBatteryIndicator, GetComponentInChildren<Transform>().position);
+
+        _timer = Time.time;
     }
 
     private void Update() {
@@ -59,6 +61,17 @@ public class SwarmPodSpawner : MonoBehaviour {
                     transform.position = new Vector2(transform.position.x - 2.5f, transform.position.y);
                     _move = true;
                 }
+            }
+        }
+        else {
+            //Have the pod shake just a bit to give it some life.
+            if (_move) {
+                transform.position = new Vector2(transform.position.x + 2.75f, transform.position.y);
+                _move = false;
+            }
+            else if (!_move) {
+                transform.position = new Vector2(transform.position.x - 2.75f, transform.position.y);
+                _move = true;
             }
         }
     }

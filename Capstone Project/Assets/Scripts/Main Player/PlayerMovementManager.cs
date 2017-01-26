@@ -10,6 +10,7 @@ public class PlayerMovementManager : MonoBehaviour {
 
     private bool _grounded = false;
     private Vector3 _values;
+    private float _timer = 0.0f;
 
     // The key is whether or not the movement should be additive or override the current movement.
     private Queue<MovementRequest> _moveQ = new Queue<MovementRequest>();
@@ -26,8 +27,17 @@ public class PlayerMovementManager : MonoBehaviour {
 
         _grounded = _collisionState.OnSolidGround;
 
+        if (_moveQ.Count == 0 && _grounded && Mathf.Abs(_body2d.velocity.x) > 0.5f) {
+            _body2d.velocity = new Vector2(Mathf.SmoothStep(_body2d.velocity.x, 0.0f, (Time.time - _timer) / 1.00f), _body2d.velocity.y);
+        }
+        else {
+            _timer = Time.time;
+        }
+
         while (_moveQ.Count > 0) {
             _values = new Vector3(_body2d.velocity.x, _body2d.velocity.y, _controller.GetButtonPressTime(_moveQ.Peek().Button));
+
+            //_body2d.velocity = _moveQ.Dequeue().Move(_moveQ.Peek().MovementType, _values, _grounded, _controller.CurrentKey);
 
             switch (_moveQ.Peek().MovementType) {
                 case MovementType.Walking:

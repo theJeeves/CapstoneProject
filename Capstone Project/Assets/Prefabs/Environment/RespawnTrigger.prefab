@@ -21,6 +21,7 @@ GameObject:
   - 4: {fileID: 4000010259206154}
   - 61: {fileID: 61000013655102370}
   - 114: {fileID: 114000011672624168}
+  - 114: {fileID: 114000012606268920}
   m_Layer: 0
   m_Name: RespawnPointLeft
   m_TagString: Untagged
@@ -38,6 +39,7 @@ GameObject:
   - 4: {fileID: 4000012160714128}
   - 61: {fileID: 61000013789664810}
   - 114: {fileID: 114000010478104360}
+  - 114: {fileID: 114000012843378516}
   m_Layer: 0
   m_Name: RespawnPointRight
   m_TagString: Untagged
@@ -198,6 +200,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _respawnContainer: {fileID: 11400000, guid: b12c6c53b48ee4248b0ac62872aad9ca, type: 2}
+  _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
+  _SOWeaponManager: {fileID: 11400000, guid: fcec17c53c3b960458e7557822f929b5, type: 2}
 --- !u!114 &114000011672624168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -210,3 +214,29 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _respawnContainer: {fileID: 11400000, guid: b12c6c53b48ee4248b0ac62872aad9ca, type: 2}
+--- !u!114 &114000012606268920
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010533084006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptedCam: {fileID: 11400000, guid: 57aefc78e6cf5d141a20e3bfc3162931, type: 2}
+  _rightTrigger: 0
+--- !u!114 &114000012843378516
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000012786253094}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptedCam: {fileID: 11400000, guid: 57aefc78e6cf5d141a20e3bfc3162931, type: 2}
+  _rightTrigger: 1
