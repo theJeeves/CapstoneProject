@@ -63,17 +63,6 @@ public class SwarmPodSpawner : MonoBehaviour {
                 }
             }
         }
-        else {
-            //Have the pod shake just a bit to give it some life.
-            if (_move) {
-                transform.position = new Vector2(transform.position.x + 2.75f, transform.position.y);
-                _move = false;
-            }
-            else if (!_move) {
-                transform.position = new Vector2(transform.position.x - 2.75f, transform.position.y);
-                _move = true;
-            }
-        }
     }
 
     public void DestroyPod() {

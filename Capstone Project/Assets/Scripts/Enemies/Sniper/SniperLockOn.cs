@@ -3,17 +3,23 @@ using System.Collections;
 
 public class SniperLockOn : MonoBehaviour {
 
-    public delegate void SniperLockOnEvent();
-    public static event SniperLockOnEvent Attack;
+    [SerializeField]
+    private SOEffects _SOEffects;
 
     [SerializeField]
-    private float _timer;
+    private GameObject _endOfBarrel;
+    [SerializeField]
+    private GameObject _bullet;
+
+    [SerializeField]
+    private float _shotDelay;
     private Transform _playerPos;
     private Vector3 _direction;
     private Vector3 _localScale;
 
     private bool _canAttack;
     private float _startTime;
+    private GameObject _tellEffect;
 
     private void Awake() {
         _playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
@@ -21,42 +27,44 @@ public class SniperLockOn : MonoBehaviour {
 
     private void OnEnable() {
         _canAttack = true;
-        _startTime = Time.time;
-        SniperPushBack.Stun += PauseAttack;
+        RestartAttack();
     }
 
     private void OnDisable() {
-        SniperPushBack.Stun -= PauseAttack;
-    }
-
-    private void PauseAttack() {
-        StartCoroutine(StunResetAttack());
+        _SOEffects.StopEffect(_tellEffect);
     }
 
     private void Update() {
+
         _direction = (_playerPos.position - transform.position);
         _localScale = transform.localScale;
         transform.localScale = _direction.x > 0 ? new Vector3(0.12f, _localScale.y, _localScale.z)
             : new Vector3(-0.12f, _localScale.y, _localScale.z);
 
-        if (_canAttack) {
-
-            if (Time.time - _startTime >= _timer) {
-                if (Attack != null) {
-                    Attack();
-                    _startTime = Time.time;
-                }
-            }
+        if (_tellEffect != null) {
+            _tellEffect.transform.position = _endOfBarrel.transform.position;
         }
-        else {
-            _startTime = Time.time;
+
+
+        if (Time.time - _startTime >= _shotDelay) {
+            Fire();
+                
+            if (Time.time - _startTime >= _shotDelay + 2.0f) {
+                RestartAttack();
+            }
         }
     }
 
-    private IEnumerator StunResetAttack() {
+    private void Fire() {
+        if (_canAttack) {
+            Instantiate(_bullet, _endOfBarrel.transform.position, Quaternion.identity);
+            _canAttack = false;
+        }
+    }
 
-        _canAttack = false;
-        yield return new WaitForSeconds(1.0f);
+    private void RestartAttack() {
+        _startTime = Time.time;
+        _tellEffect = _SOEffects.PlayEffect(EffectEnum.SniperTellEffect, _endOfBarrel.transform.position);
         _canAttack = true;
     }
 }

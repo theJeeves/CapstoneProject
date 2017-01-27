@@ -10,7 +10,7 @@ public class CrystalBullet : AbstractBullet {
         base.Start();
 
         // Have the crystals fire out from the MG at slightly off directions to give a more chaotic feel.
-        _direction += new Vector3(Random.Range(_directionRange.Min, _directionRange.Max), Random.Range(_directionRange.Min, _directionRange.Max), 0);
+        _direction += new Vector2(Random.Range(_directionRange.Min, _directionRange.Max), Random.Range(_directionRange.Min, _directionRange.Max));
 
         GetComponent<Rigidbody2D>().velocity = _direction * _shotSpeed;
     }

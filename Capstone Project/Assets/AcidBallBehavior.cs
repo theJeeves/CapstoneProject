@@ -20,7 +20,7 @@ public class AcidBallBehavior : MonoBehaviour {
     }
 
     public void Splatter() {
-        _SOEffect.PlayEffect(EffectEnum.AcidBallSplatter, transform.position, 90.0f);
+        _SOEffect.PlayEffect(EffectEnum.AcidBallSplatter, transform.position, -90.0f);
         Destroy(gameObject);
     }
 }
