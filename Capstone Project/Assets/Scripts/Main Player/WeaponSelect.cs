@@ -16,14 +16,13 @@ public class WeaponSelect : MonoBehaviour {
 
     private Shotgun _shotgun;
     private MachineGun _machineGun;
-    private SpriteRenderer _renderer;
+    //private SpriteRenderer _renderer;
 
     private void OnEnable() {
         ControllableObject.OnButtonDown += OnButtonDown;
 
         _shotgun = GetComponent<Shotgun>();
         _machineGun = GetComponent<MachineGun>();
-        _renderer = GetComponent<SpriteRenderer>();
 
         EnableShotgun();
     }
@@ -53,7 +52,6 @@ public class WeaponSelect : MonoBehaviour {
 
         _shotgun.enabled = true;
         _shotgunAmmo.enabled = true;
-        _renderer.sprite = _shotgun.Sprite;
     }
 
     private void EnableMachineGun() {
@@ -62,6 +60,5 @@ public class WeaponSelect : MonoBehaviour {
 
         _machineGun.enabled = true;
         _machineGunAmmo.enabled = true;
-        _renderer.sprite = _machineGun.Sprite;
     }
 }

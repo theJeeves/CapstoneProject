@@ -278,11 +278,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a2376176fdf79a4dbf0ddce1062a41c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponManager: {fileID: 0}
+  _type: 0
   _sprite: {fileID: 21300000, guid: 65a3cb1e8a14eef46ad89d7b009cd885, type: 3}
   _moveRequest: {fileID: 11400000, guid: ce569abef207a4548b05403932892f9c, type: 2}
   _SSRequest: {fileID: 11400000, guid: 29dc05b90d7fb594ea0a8aae772e5619, type: 2}
   _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
-  _clipSize: 26
+  _ammoCapacity: 0
   numOfRounds: 0
   _shotDelay: 0.1
   _normReloadTime: 1
@@ -388,6 +390,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ffa48f7f144125488b3c817362f2abf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
   _scrnShkRequest: {fileID: 11400000, guid: 8ef3faf65b3f2824bb551b6f8c073115, type: 2}
   _damageAnimation: {fileID: 11400000, guid: 3cede631e31462941a43574dd2765a44, type: 2}
   _maxHealth: 100
@@ -417,11 +420,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cf2f8c2daa5c4a41983ac3e6d8d547c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _weaponManager: {fileID: 0}
+  _type: 0
   _sprite: {fileID: 21300000, guid: 182d218e771b8f042a1cfb0d59703af7, type: 3}
   _moveRequest: {fileID: 11400000, guid: cdc3f595762bba34cba05b0ba046fcb3, type: 2}
   _SSRequest: {fileID: 11400000, guid: 7d55f017c234c1b4baa6e87eb8455543, type: 2}
   _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
-  _clipSize: 3
+  _ammoCapacity: 0
   numOfRounds: 0
   _shotDelay: 0.25
   _normReloadTime: 0.9

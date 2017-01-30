@@ -60,7 +60,7 @@ public class MovementRequest : ScriptableObject {
         }
     }
 
-    public Vector2 Move(Vector3 values, bool grounded = false, byte key = 0) {
+    public Vector2 Move(Vector3 values, bool grounded = false, int key = 0) {
 
         switch (_type) {
             case MovementType.Walking:

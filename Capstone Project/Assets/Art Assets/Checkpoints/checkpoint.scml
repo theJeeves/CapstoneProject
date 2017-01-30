@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r10">
+    <folder id="0">
+        <file id="0" name="checkpoint_base.png" width="557" height="340" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="checkpoint_tower.png" width="350" height="611" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="checkpoint_tower_green.png" width="350" height="611" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="checkpoint_base_green.png" width="557" height="340" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <entity id="0" name="Checkpoint">
+        <animation id="0" name="Checkpoint Idle" length="10" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="1" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="0" key="0" z_index="1"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="checkpoint_base">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-263" y="339" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="checkpoint_tower">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-133.72093" y="614.44186" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="1" name="Checkpoint Deploy" length="750" interval="100" looping="false">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="1" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="0" key="0" z_index="1"/>
+                </key>
+                <key id="1" time="399">
+                    <object_ref id="0" timeline="1" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="0" key="1" z_index="1"/>
+                </key>
+                <key id="2" time="499">
+                    <object_ref id="0" timeline="2" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="3" key="0" z_index="1"/>
+                </key>
+                <key id="3" time="750">
+                    <object_ref id="0" timeline="2" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="3" key="1" z_index="1"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="checkpoint_base">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-263" y="339" angle="0"/>
+                </key>
+                <key id="1" time="399" spin="0">
+                    <object folder="0" file="0" x="-263" y="339" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="checkpoint_tower">
+                <key id="0" spin="0">
+                    <object folder="0" file="1" x="-133.72093" y="614.44186" angle="0"/>
+                </key>
+                <key id="1" time="399" spin="0">
+                    <object folder="0" file="1" x="-133.72093" y="790.44186" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="checkpoint_tower_green">
+                <key id="0" time="499" spin="0">
+                    <object folder="0" file="2" x="-133.523645" y="790.842505" angle="0"/>
+                </key>
+                <key id="1" time="750" spin="0">
+                    <object folder="0" file="2" x="-133.523645" y="790.842505" angle="0"/>
+                </key>
+            </timeline>
+            <timeline id="3" name="checkpoint_base_green">
+                <key id="0" time="499" spin="0">
+                    <object folder="0" file="3" x="-262.627903" y="339.005286" angle="0"/>
+                </key>
+                <key id="1" time="750" spin="0">
+                    <object folder="0" file="3" x="-262.627903" y="339.005286" angle="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

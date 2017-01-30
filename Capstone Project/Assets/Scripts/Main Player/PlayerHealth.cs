@@ -16,8 +16,6 @@ public class PlayerHealth : MonoBehaviour {
     private SOEffects _SOEffect;
     [SerializeField]
     private ScreenShakeRequest _scrnShkRequest;
-    [SerializeField]
-    private SOAnimations _damageAnimation;
 
     [SerializeField]
     private int _maxHealth;
@@ -156,9 +154,9 @@ public class PlayerHealth : MonoBehaviour {
         float timer = 0.0f;
         while (timer < _recoveryTime) {
 
-            _damageAnimation.PlayAnimation();
+            //_damageAnimation.PlayAnimation();
             yield return new WaitForSeconds(_recoveryTime / 10.0f);
-            _damageAnimation.StopAnimation();
+            //_damageAnimation.StopAnimation();
             yield return new WaitForSeconds(_recoveryTime / 10.0f);
 
             timer += _recoveryTime / 5.0f;

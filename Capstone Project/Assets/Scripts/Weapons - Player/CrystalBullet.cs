@@ -21,7 +21,7 @@ public class CrystalBullet : AbstractBullet {
             otherGO.gameObject.GetComponentInParent<EnemyHealth>().DecrementHealth(_damageAmount);
         }
 
-        if (otherGO != null) {
+        if (otherGO.gameObject.tag != "Player" && otherGO != null) {
             _SOEffect.PlayEffect(EffectEnum.CrystalBulletImpact, transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }

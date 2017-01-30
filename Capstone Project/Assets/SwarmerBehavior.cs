@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SpriterDotNetUnity;
+using System.Collections.Generic;
+using System.Linq;
 
 public class SwarmerBehavior : MonoBehaviour {
     [SerializeField]
@@ -50,14 +53,13 @@ public class SwarmerBehavior : MonoBehaviour {
         }
     }
 
-    private SpriterDotNetUnity.SpriterDotNetBehaviour _animator;
+    private UnityAnimator _animator;
     private float _timer = 0.0f;
     private float _landingDuration = 0.0f;
 
     private void OnEnable() {
         _GOBox = GetComponent<BoxCollider2D>();
         _body = GetComponent<Rigidbody2D>();
-        _animator = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>();
         _enemyType = GetComponent<EnemyHealth>().enemyType;
 
         _body.AddForce(new Vector2(Random.Range(_xMinVelocity, _xMaxVelocity), Random.Range(_yMinVelocity, _yMaxVelocity)), ForceMode2D.Impulse);
@@ -73,10 +75,15 @@ public class SwarmerBehavior : MonoBehaviour {
 
     private void Update() {
 
+        if (_animator == null) {
+            _animator = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>().Animator;
+            _animator.Play(GetAnimation(1));
+        }
+
         if (_canMove) {
 
             if (Time.time - _timer > _landingDuration && _timer != 0.0f) {
-                _animator.Animator.Play(_animator.SpriterData.Spriter.Entities[0].Animations[3]);
+                _animator.Play(GetAnimation(2));
                 _timer = 0.0f;
             }
 
@@ -104,9 +111,9 @@ public class SwarmerBehavior : MonoBehaviour {
     }
 
     private void OnCollisionEnter2D(Collision2D otherGO) {
+
         if (otherGO.gameObject.tag == "SolidGround" && !_canMove) {
-            _animator.Animator.Play(_animator.SpriterData.Spriter.Entities[0].Animations[1]);
-            _landingDuration = _animator.SpriterData.Spriter.Entities[0].Animations[1].Length * 0.001f;
+            _animator.Play(GetAnimation(0));
             _canMove = true;
             _timer = Time.time;
         }
@@ -114,6 +121,13 @@ public class SwarmerBehavior : MonoBehaviour {
             otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(15, 3.0f, DamageEnum.Explosion);
             GetComponent<EnemyHealth>().DecrementHealth(100);
         }
+    }
+
+    private string GetAnimation(int animationNum) {
+
+        List<string> animations = _animator.GetAnimations().ToList();
+        _landingDuration = animations[0].Length * 0.001f;
+        return animations[animationNum];
     }
 
 }

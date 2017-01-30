@@ -83,8 +83,8 @@ public class ControllableObject : MonoBehaviour {
     // Keeps all the possible aiming directions. 
     private short[] _aimDirections = new short[8];
 
-    private byte _currentKey;
-    public byte CurrentKey {
+    private int _currentKey;
+    public int CurrentKey {
         get { return _currentKey; }
     }
     private short _aimDirection;
@@ -104,7 +104,7 @@ public class ControllableObject : MonoBehaviour {
         }
     }
 
-    public void SetAimDirection(byte key) {
+    public void SetAimDirection(int key) {
         _currentKey = key;
         _aimDirection = _aimDirections[_currentKey];
     }

@@ -3,9 +3,6 @@ using System.Collections;
 
 public class AimWeapon : MonoBehaviour {
 
-    [SerializeField]
-    private SOAnimations _aimingDirection;
-
     private ControllableObject _controller;
 
 	// Use this for initialization
@@ -18,7 +15,6 @@ public class AimWeapon : MonoBehaviour {
         ControllableObject.OnButtonUp += OnButtonUp;
 
         RotateGun(0);
-        _aimingDirection.StopAnimation();
     }
 	
     private void OnDisable() {
@@ -45,8 +41,6 @@ public class AimWeapon : MonoBehaviour {
                 default:
                     RotateGun(degree); break;
             }
-
-            _aimingDirection.PlayAnimation(degree);
         }
     }
 
@@ -57,8 +51,6 @@ public class AimWeapon : MonoBehaviour {
              !_controller.GetButtonPress(Buttons.AimRight) || !_controller.GetButtonPress(Buttons.AimLeft) )) {
 
             RotateGun(0);
-
-            _aimingDirection.StopAnimation();
         }
     }
 

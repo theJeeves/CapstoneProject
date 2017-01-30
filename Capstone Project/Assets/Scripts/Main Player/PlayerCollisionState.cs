@@ -1,14 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using SpriterDotNetUnity;
 
 public class PlayerCollisionState : MonoBehaviour {
 
     public delegate void PlayerCollisionStateEvent();
     public static event PlayerCollisionStateEvent OnHitGround;
     public static event PlayerCollisionStateEvent OnLifted;
-
-    [SerializeField]
-    private SOAnimations _groundedAnimation;
 
     [SerializeField]
     private SOEffects _SOEffect;
@@ -60,7 +58,6 @@ public class PlayerCollisionState : MonoBehaviour {
 
         // Send out this event if the player wasn't on the ground and its status has changed.
         if (!_onSolidGround && _touchedGround) {
-            _groundedAnimation.PlayAnimation();
             _SOEffect.PlayEffect(EffectEnum.PlayerGrounded, transform.position);
             if (OnHitGround != null) {
                 OnHitGround();
@@ -68,7 +65,6 @@ public class PlayerCollisionState : MonoBehaviour {
         }
         // Send out this event if the player was on the ground and its status has changed.
         else if (_onSolidGround && !_touchedGround) {
-            _groundedAnimation.StopAnimation();
             if (OnLifted != null) {
                 OnLifted();
             }

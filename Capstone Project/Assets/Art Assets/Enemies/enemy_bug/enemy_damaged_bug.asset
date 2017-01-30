@@ -104,628 +104,6 @@ MonoBehaviour:
         Variables: []
       CharacterMaps: []
       Animations:
-      - Id: 0
-        Name: Idle
-        Length: 720
-        Looping: 1
-        MainlineKeys:
-        - Id: 0
-          Name: 
-          Time: 0
-          CurveType: 0
-          C1: 0
-          C2: 0
-          C3: 0
-          C4: 0
-          BoneRefs:
-          - Id: 0
-            Name: 
-            ParentId: -1
-            TimelineId: 5
-            KeyId: 0
-          - Id: 1
-            Name: 
-            ParentId: 0
-            TimelineId: 6
-            KeyId: 0
-          - Id: 2
-            Name: 
-            ParentId: 1
-            TimelineId: 7
-            KeyId: 0
-          - Id: 3
-            Name: 
-            ParentId: 0
-            TimelineId: 8
-            KeyId: 0
-          - Id: 4
-            Name: 
-            ParentId: 3
-            TimelineId: 9
-            KeyId: 0
-          ObjectRefs:
-          - Id: 0
-            Name: 
-            ParentId: 1
-            TimelineId: 2
-            KeyId: 0
-            ZIndex: 0
-          - Id: 1
-            Name: 
-            ParentId: 3
-            TimelineId: 1
-            KeyId: 0
-            ZIndex: 1
-          - Id: 2
-            Name: 
-            ParentId: 0
-            TimelineId: 0
-            KeyId: 0
-            ZIndex: 2
-          - Id: 3
-            Name: 
-            ParentId: 4
-            TimelineId: 3
-            KeyId: 0
-            ZIndex: 3
-          - Id: 4
-            Name: 
-            ParentId: 2
-            TimelineId: 4
-            KeyId: 0
-            ZIndex: 4
-        - Id: 1
-          Name: 
-          Time: 328
-          CurveType: 0
-          C1: 0
-          C2: 0
-          C3: 0
-          C4: 0
-          BoneRefs:
-          - Id: 0
-            Name: 
-            ParentId: -1
-            TimelineId: 5
-            KeyId: 1
-          - Id: 1
-            Name: 
-            ParentId: 0
-            TimelineId: 6
-            KeyId: 1
-          - Id: 2
-            Name: 
-            ParentId: 1
-            TimelineId: 7
-            KeyId: 0
-          - Id: 3
-            Name: 
-            ParentId: 0
-            TimelineId: 8
-            KeyId: 1
-          - Id: 4
-            Name: 
-            ParentId: 3
-            TimelineId: 9
-            KeyId: 0
-          ObjectRefs:
-          - Id: 0
-            Name: 
-            ParentId: 1
-            TimelineId: 2
-            KeyId: 0
-            ZIndex: 0
-          - Id: 1
-            Name: 
-            ParentId: 3
-            TimelineId: 1
-            KeyId: 0
-            ZIndex: 1
-          - Id: 2
-            Name: 
-            ParentId: 0
-            TimelineId: 0
-            KeyId: 0
-            ZIndex: 2
-          - Id: 3
-            Name: 
-            ParentId: 4
-            TimelineId: 3
-            KeyId: 0
-            ZIndex: 3
-          - Id: 4
-            Name: 
-            ParentId: 2
-            TimelineId: 4
-            KeyId: 0
-            ZIndex: 4
-        Timelines:
-        - Id: 0
-          Name: enemy_bug_body
-          ObjectType: 0
-          ObjectId: 0
-          Keys:
-          - Id: 0
-            Name: 
-            Time: 0
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: 0
-            BoneInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 317.18945
-              Y: 172.97087
-              Angle: 270
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 5
-              PivotX: 0
-              PivotY: 1
-              T: 0
-          Meta:
-            Varlines: []
-            Tagline:
-              Keys: []
-        - Id: 1
-          Name: enemy_bug_leg_joint_left
-          ObjectType: 0
-          ObjectId: 0
-          Keys:
-          - Id: 0
-            Name: 
-            Time: 0
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: 0
-            BoneInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: -0.236818
-              Y: -1.928086
-              Angle: 242.95947
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 1
-              PivotX: 0.686567
-              PivotY: 0.267045
-              T: 0
-          Meta:
-            Varlines: []
-            Tagline:
-              Keys: []
-        - Id: 2
-          Name: enemy_bug_leg_joint_right
-          ObjectType: 0
-          ObjectId: 0
-          Keys:
-          - Id: 0
-            Name: 
-            Time: 0
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: 0
-            BoneInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 4.334717
-              Y: -4.178873
-              Angle: 302.57407
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 2
-              PivotX: 0.313433
-              PivotY: 0.261364
-              T: 0
-          Meta:
-            Varlines: []
-            Tagline:
-              Keys: []
-        - Id: 3
-          Name: enemy_bug_leg_left
-          ObjectType: 0
-          ObjectId: 0
-          Keys:
-          - Id: 0
-            Name: 
-            Time: 0
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: 0
-            BoneInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 8.805868
-              Y: 7.209709
-              Angle: 106.44038
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 3
-              PivotX: 0.696296
-              PivotY: 0.856655
-              T: 0
-          Meta:
-            Varlines: []
-            Tagline:
-              Keys: []
-        - Id: 4
-          Name: enemy_bug_leg_right
-          ObjectType: 0
-          ObjectId: 0
-          Keys:
-          - Id: 0
-            Name: 
-            Time: 0
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: 0
-            BoneInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 3.793851
-              Y: -3.689654
-              Angle: 73.474205
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 4
-              PivotX: 0.303704
-              PivotY: 0.863481
-              T: 0
-          Meta:
-            Varlines: []
-            Tagline:
-              Keys: []
-        - Id: 5
-          Name: bone_002
-          ObjectType: 1
-          ObjectId: 0
-          Keys:
-          - Id: 0
-            Name: 
-            Time: 0
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: 0
-            BoneInfo:
-              X: 0.970874
-              Y: 142.44807
-              Angle: 90
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 0
-              PivotX: NaN
-              PivotY: NaN
-              T: 0
-          - Id: 1
-            Name: 
-            Time: 328
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: 0
-            BoneInfo:
-              X: 0.970874
-              Y: 122.44808
-              Angle: 90
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 0
-              PivotX: NaN
-              PivotY: NaN
-              T: 0
-          Meta:
-            Varlines: []
-            Tagline:
-              Keys: []
-        - Id: 6
-          Name: bone_000
-          ObjectType: 1
-          ObjectId: 1
-          Keys:
-          - Id: 0
-            Name: 
-            Time: 0
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: 1
-            BoneInfo:
-              X: 6.329114
-              Y: -111.687355
-              Angle: 327.42593
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 0
-              PivotX: NaN
-              PivotY: NaN
-              T: 0
-          - Id: 1
-            Name: 
-            Time: 328
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: -1
-            BoneInfo:
-              X: 6.329114
-              Y: -111.687355
-              Angle: 335.12708
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 0
-              PivotX: NaN
-              PivotY: NaN
-              T: 0
-          Meta:
-            Varlines: []
-            Tagline:
-              Keys: []
-        - Id: 7
-          Name: bone_001
-          ObjectType: 1
-          ObjectId: 2
-          Keys:
-          - Id: 0
-            Name: 
-            Time: 0
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: 0
-            BoneInfo:
-              X: 106.40374
-              Y: 0.385199
-              Angle: 229.09985
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 0
-              PivotX: NaN
-              PivotY: NaN
-              T: 0
-          Meta:
-            Varlines: []
-            Tagline:
-              Keys: []
-        - Id: 8
-          Name: bone_003
-          ObjectType: 1
-          ObjectId: 3
-          Keys:
-          - Id: 0
-            Name: 
-            Time: 0
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: -1
-            BoneInfo:
-              X: 7.066486
-              Y: 118.4466
-              Angle: 27.040524
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 0
-              PivotX: NaN
-              PivotY: NaN
-              T: 0
-          - Id: 1
-            Name: 
-            Time: 328
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: 1
-            BoneInfo:
-              X: 7.066486
-              Y: 118.4466
-              Angle: 18.039404
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 0
-              PivotX: NaN
-              PivotY: NaN
-              T: 0
-          Meta:
-            Varlines: []
-            Tagline:
-              Keys: []
-        - Id: 9
-          Name: bone_004
-          ObjectType: 1
-          ObjectId: 4
-          Keys:
-          - Id: 0
-            Name: 
-            Time: 0
-            CurveType: 0
-            C1: 0
-            C2: 0
-            C3: 0
-            C4: 0
-            Spin: 0
-            BoneInfo:
-              X: 104.219536
-              Y: 1.306122
-              Angle: 136.5191
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-            ObjectInfo:
-              X: 0
-              Y: 0
-              Angle: 0
-              ScaleX: 1
-              ScaleY: 1
-              Alpha: 1
-              AnimationId: 0
-              EntityId: 0
-              FolderId: 0
-              FileId: 0
-              PivotX: NaN
-              PivotY: NaN
-              T: 0
-          Meta:
-            Varlines: []
-            Tagline:
-              Keys: []
-        Eventlines: []
-        Soundlines: []
-        Meta:
-          Varlines: []
-          Tagline:
-            Keys: []
       - Id: 1
         Name: Jump to Idle
         Length: 720
@@ -1669,8 +1047,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 1
             Name: 
@@ -1699,8 +1077,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 2
             Name: 
@@ -1729,8 +1107,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 3
             Name: 
@@ -1759,8 +1137,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -1798,8 +1176,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 1
             Name: 
@@ -1828,8 +1206,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 2
             Name: 
@@ -1858,8 +1236,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 3
             Name: 
@@ -1888,8 +1266,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -1927,8 +1305,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 1
             Name: 
@@ -1957,8 +1335,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 2
             Name: 
@@ -1987,8 +1365,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 3
             Name: 
@@ -2017,8 +1395,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -2056,8 +1434,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 1
             Name: 
@@ -2086,8 +1464,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 2
             Name: 
@@ -2116,8 +1494,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 3
             Name: 
@@ -2146,8 +1524,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -2185,8 +1563,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 1
             Name: 
@@ -2215,8 +1593,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 2
             Name: 
@@ -2245,8 +1623,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 3
             Name: 
@@ -2275,8 +1653,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -2586,8 +1964,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -2625,8 +2003,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -2664,8 +2042,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -2703,8 +2081,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -2742,8 +2120,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -3053,8 +2431,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 1
             Name: 
@@ -3083,8 +2461,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 2
             Name: 
@@ -3113,8 +2491,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 3
             Name: 
@@ -3143,8 +2521,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -3182,8 +2560,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 1
             Name: 
@@ -3212,8 +2590,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 2
             Name: 
@@ -3242,8 +2620,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 3
             Name: 
@@ -3272,8 +2650,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -3311,8 +2689,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 1
             Name: 
@@ -3341,8 +2719,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 2
             Name: 
@@ -3371,8 +2749,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -3410,8 +2788,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 1
             Name: 
@@ -3440,8 +2818,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 2
             Name: 
@@ -3470,8 +2848,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 3
             Name: 
@@ -3500,8 +2878,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []
@@ -3539,8 +2917,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 1
             Name: 
@@ -3569,8 +2947,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 2
             Name: 
@@ -3599,8 +2977,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           - Id: 3
             Name: 
@@ -3629,8 +3007,8 @@ MonoBehaviour:
               EntityId: 0
               FolderId: 0
               FileId: 0
-              PivotX: NaN
-              PivotY: NaN
+              PivotX: 0
+              PivotY: 1
               T: 0
           Meta:
             Varlines: []

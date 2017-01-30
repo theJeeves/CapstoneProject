@@ -4,7 +4,7 @@ using System.Collections;
 [CreateAssetMenu(menuName ="Screen Shake/Damage")]
 public class DamageSSRequest : ScreenShakeRequest {
 
-    public override Vector3 Shake(byte key = 0) {
+    public override Vector3 Shake(int key = 0) {
         return new Vector3(Random.insideUnitCircle.x * _shakeAmount, Random.insideUnitCircle.y * _shakeAmount, 0.0f);
     }
 

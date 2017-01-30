@@ -5,32 +5,30 @@ public class PlayerWalking : MonoBehaviour {
 
     [SerializeField]
     private MovementRequest _moveRequest;
-    [SerializeField]
-    private SOAnimations _walkingAnimation;
 
     private ControllableObject _controller;
-    private PlayerCollisionState _collisionState;
+    //private PlayerCollisionState _collisionState;
 
-    private bool _grounded;
+    //private bool _grounded;
 
     private void OnEnable() {
 
         _controller = GetComponent<ControllableObject>();
-        _collisionState = GetComponent<PlayerCollisionState>();
+        //_collisionState = GetComponent<PlayerCollisionState>();
 
         ControllableObject.OnButton += OnButton;
-        ControllableObject.OnButtonUp += OnButtonUp;
+        //ControllableObject.OnButtonUp += OnButtonUp;
     }
 
     private void OnDisable() {
 
         ControllableObject.OnButton -= OnButton;
-        ControllableObject.OnButtonUp -= OnButtonUp;
+        //ControllableObject.OnButtonUp -= OnButtonUp;
     }
 
     private void OnButton(Buttons button) {
 
-        _grounded = _collisionState.OnSolidGround;
+        //_grounded = _collisionState.OnSolidGround;
 
         //AS LONG AS THE PLAYER IS NOT AIMING IN A DOWN DIRECTION AND FIRING, THEY CAN WALK
         // THIS IS TO PREVENT THE WALKING SCRIPT FROM OVERRIDING THE WEAPON RECOIL MOVEMENT
@@ -39,17 +37,7 @@ public class PlayerWalking : MonoBehaviour {
         else {
             if (button == Buttons.MoveRight || button == Buttons.MoveLeft) {
                 _moveRequest.RequestMovement(button);
-
-                if (_grounded) _walkingAnimation.PlayAnimation();
-                else if (!_grounded) _walkingAnimation.StopAnimation();
             }
-        }
-    }
-
-    private void OnButtonUp(Buttons button) {
-
-        if ((button == Buttons.MoveRight || button == Buttons.MoveLeft)) {
-            _walkingAnimation.StopAnimation();
         }
     }
 }
