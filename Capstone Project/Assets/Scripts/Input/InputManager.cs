@@ -37,6 +37,8 @@ public enum Condition {
 public class InputAxisState {
     [SerializeField]
     private string _axisName;                //Which axis will this input be looking for
+    [SerializeField]
+    private string _altAxisName;            // If the axis has an alternative button.
 
     [SerializeField]
     private Buttons _button;                // Which button will be mapped to the assigned axis
@@ -53,7 +55,14 @@ public class InputAxisState {
     // Used to determine when our code should start/stop reading input on the defined axis based on Condition and OffValue
     public bool IsPressed {
         get {
-            float isPressed = Input.GetAxis(_axisName);
+            float isPressed = 0.0f;
+
+            if (_altAxisName != "") {
+                isPressed = Input.GetAxis(_altAxisName);
+            }
+            if (isPressed == 0.0f){
+                 isPressed = Input.GetAxis(_axisName);
+            }
 
             switch (_condition) {
                 case Condition.GreaterThanOffValue:
