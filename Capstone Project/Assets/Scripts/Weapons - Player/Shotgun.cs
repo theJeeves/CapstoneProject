@@ -32,8 +32,6 @@ public class Shotgun : AbstractGun {
         PlayerCollisionState.OnHitGround += Reload;
         ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
 
-        _audioSource = GetComponent<AudioSource>();
-
         _reloading = false;
         _canShoot = true;
 
@@ -73,7 +71,6 @@ public class Shotgun : AbstractGun {
 
             _moveRequest.RequestMovement();
             _SSRequest.ShakeRequest();
-            _SOAudio.Play(_audioSource, AudioTypeEnum.ShotgunFire);
             //_SOEffect.PlayEffect(EffectEnum.SGMuzzleFlash, _barrel.transform.position, _controller.AimDirection - 90.0f);
 
             _grounded = false;

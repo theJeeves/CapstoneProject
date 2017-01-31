@@ -11,7 +11,7 @@ public class PlayerAnimations : MonoBehaviour {
 
     private ControllableObject _controller;
     private PlayerCollisionState _collisionState;
-    //private Rigidbody2D _body2D;
+    private Rigidbody2D _body2D;
 
     private int _currentIndex;
     private int _previousIndex = -100;
@@ -22,7 +22,7 @@ public class PlayerAnimations : MonoBehaviour {
 
         _controller = GetComponent<ControllableObject>();
         _collisionState = GetComponent<PlayerCollisionState>();
-        //_body2D = GetComponent<Rigidbody2D>();
+        _body2D = GetComponent<Rigidbody2D>();
 
         _shotgunGO = GetComponentInChildren<Shotgun>();
     }
