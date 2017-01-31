@@ -17,6 +17,9 @@ public abstract class AbstractGun : MonoBehaviour {
     protected SOWeaponManager _weaponManager;
     [SerializeField]
     protected WeaponType _type;
+    [SerializeField]
+    protected SOAudio _SOAudio;
+    protected AudioSource _audioSource;
 
     [SerializeField]
     private Sprite _sprite;

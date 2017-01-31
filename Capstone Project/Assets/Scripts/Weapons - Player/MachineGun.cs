@@ -35,6 +35,8 @@ public class MachineGun : AbstractGun {
         PlayerCollisionState.OnHitGround += Reload;
         ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
 
+        _audioSource = GetComponent<AudioSource>();
+
         _reloading = false;
         _canShoot = true;
 
@@ -144,8 +146,9 @@ public class MachineGun : AbstractGun {
 
             // Angle the crystal according the the angle of the gun's direction
             instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, _controller.AimDirection);
-
+      
             _SSRequest.ShakeRequest();
+            _SOAudio.Play(_audioSource, AudioTypeEnum.MachineGunFire);
             yield return new WaitForSeconds(_shotDelay);
             _canShoot = true;
         }
