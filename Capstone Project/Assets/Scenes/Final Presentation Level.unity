@@ -5296,6 +5296,7 @@ MonoBehaviour:
   _maxHealth: 100
   _health: 0
   _recoveryTime: 1
+  _SOCheckpoint: {fileID: 0}
 --- !u!114 &772999862
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10315,6 +10316,12 @@ Prefab:
       propertyPath: _machineGunAmmo
       value: 
       objectReference: {fileID: 574282279}
+    - target: {fileID: 114000011323350128, guid: 63cfe9ff7d7330b4fa9a1c27845aef42,
+        type: 2}
+      propertyPath: _SOCheckpoint
+      value: 
+      objectReference: {fileID: 11400000, guid: 2891e6f4f3d0a9648b35cda93f48de61,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
   m_IsPrefabParent: 0
