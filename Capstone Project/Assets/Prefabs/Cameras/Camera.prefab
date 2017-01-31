@@ -41,9 +41,9 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 4000014231370674}
-  - 114: {fileID: 114000013816360962}
-  - 114: {fileID: 114000014018062590}
   - 114: {fileID: 114000013908755744}
+  - 114: {fileID: 114000014018062590}
+  - 114: {fileID: 114000013816360962}
   m_Layer: 0
   m_Name: Camera
   m_TagString: SmartCamera
@@ -199,6 +199,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ba260bd9506f0eb40bfe810d7617cb71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _adjustSpeed: 7
 --- !u!114 &114000014018062590
 MonoBehaviour:
   m_ObjectHideFlags: 1

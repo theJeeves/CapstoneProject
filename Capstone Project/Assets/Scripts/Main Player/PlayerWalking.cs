@@ -14,16 +14,13 @@ public class PlayerWalking : MonoBehaviour {
     private void OnEnable() {
 
         _controller = GetComponent<ControllableObject>();
-        //_collisionState = GetComponent<PlayerCollisionState>();
 
         ControllableObject.OnButton += OnButton;
-        //ControllableObject.OnButtonUp += OnButtonUp;
     }
 
     private void OnDisable() {
 
         ControllableObject.OnButton -= OnButton;
-        //ControllableObject.OnButtonUp -= OnButtonUp;
     }
 
     private void OnButton(Buttons button) {
@@ -37,6 +34,9 @@ public class PlayerWalking : MonoBehaviour {
         else {
             if (button == Buttons.MoveRight || button == Buttons.MoveLeft) {
                 _moveRequest.RequestMovement(button);
+
+                if (button == Buttons.MoveRight) { _controller.SetAimDirection(0); }
+                else if (button == Buttons.MoveLeft) { _controller.SetAimDirection(4); }
             }
         }
     }

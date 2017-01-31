@@ -16,6 +16,7 @@ public class MachineGun : AbstractGun {
     [SerializeField]
     private MovementRequest _initialMoveRequest;
 
+    private GameObject _muzzleFlashGO;
     private bool _canLift = true;
 
     protected override void Awake() {
@@ -68,6 +69,12 @@ public class MachineGun : AbstractGun {
 
         StopAllCoroutines();
         ControllableObject.OnButton -= OnButton;
+    }
+
+    private void Update() {
+        if (_muzzleFlashGO != null) {
+            _muzzleFlashGO.transform.position = _barrel.transform.position;
+        }
     }
 
     protected override void OnButtonDown(Buttons button) {
@@ -132,7 +139,7 @@ public class MachineGun : AbstractGun {
         if (!_damaged) {
             _canShoot = false;
 
-            _SOEffect.PlayEffect(EffectEnum.MGMuzzelFlash, _barrel.transform.position, _controller.AimDirection);
+            _muzzleFlashGO = _SOEffect.PlayEffect(EffectEnum.MGMuzzelFlash, _barrel.transform.position, _controller.AimDirection);
             GameObject instance = Instantiate(_bullet, _barrel.transform.position, Quaternion.identity) as GameObject;
 
             // Angle the crystal according the the angle of the gun's direction

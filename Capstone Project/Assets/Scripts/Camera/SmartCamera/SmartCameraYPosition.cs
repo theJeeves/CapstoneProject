@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// NOTE: WHEN USING WORLDTOVIEWPORTPOINT, BOTTOM LEFT IS (0, 0) AND TOP RIGHT IS (1, 1)
+/// </summary>
+
 public class SmartCameraYPosition : MonoBehaviour {
 
     [SerializeField]
@@ -9,9 +13,9 @@ public class SmartCameraYPosition : MonoBehaviour {
     private GameObject _player;
     private Vector3 _currPlayerPos;
 
-    private bool _movingRight = false;
-    public bool MovingRight {
-        set { _movingRight = value; }
+    private bool _movingUp = false;
+    public bool MovingUp {
+        set { _movingUp = value; }
     }
     private bool _adjusting = false;
 
@@ -20,6 +24,8 @@ public class SmartCameraYPosition : MonoBehaviour {
     private void OnEnable() {
         _player = GameObject.FindGameObjectWithTag("Player");
         _startTime = Time.time;
+
+        _movingUp = Camera.main.WorldToViewportPoint(_player.transform.position).y <= 0.3f ? false : true;
     }
 
     private void LateUpdate() {
@@ -27,12 +33,18 @@ public class SmartCameraYPosition : MonoBehaviour {
         // EACH FRAME, DETERMINE THE PLAYER'S POSITION ON THE SCREEN TO PROPERLY ADJUST THE CAMERA.
         _currPlayerPos = Camera.main.WorldToViewportPoint(_player.transform.position);
 
+        //Debug.Log("Moving Up: " + _movingUp + " " + _currPlayerPos.y);
 
-        // WHEN THE PLAYER IS MOVING TO THE RIGHT
-        if (_movingRight) {
-            // CHECK IF THE PLAYER IS CLOSE TO THE LEFT SIDE OF THE SCREEN
-            if (_currPlayerPos.x <= 0.3f) {
-                _movingRight = false;
+        // WHEN THE PLAYER IS MOVING UP
+        if (_movingUp) {
+
+            if (_currPlayerPos.y > 0.7f) {
+                _adjusting = true;
+            }
+
+            // CHECK IF THE PLAYER IS CLOSE BOTTOM OF THE SCREEN
+            if (_currPlayerPos.y <= 0.3f) {
+                _movingUp = false;
                 _adjusting = true;
                 _startTime = 0.0f;
             }
@@ -42,28 +54,27 @@ public class SmartCameraYPosition : MonoBehaviour {
                     _startTime = Time.time;
                 }
 
-                transform.position = new Vector3(Mathf.SmoothStep(transform.position.x, _player.transform.position.x, (Time.time - _startTime) / _adjustSpeed),
-                    transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x,
+                    Mathf.SmoothStep(transform.position.y, _player.transform.position.y + 100.0f, (Time.time - _startTime) / _adjustSpeed), transform.position.z);
 
-                // ONCE THE PLAYER IS IN THE CENTER, STOP ADJUSTING AND RESET THE TIMER.
-                if (_currPlayerPos.x <= 0.5f) {
+                // ONCE THE PLAYER AT THIS Y POSITION, STOP ADJUSTING AND RESET THE TIMER.
+                if (_currPlayerPos.y <= 0.35f) {
                     _adjusting = false;
                     _startTime = 0.0f;
                 }
             }
-
-            //IF THE PLYAER REACHES THE HALF WAY POINT ON THE SCREEN, START FOLLOWING THE PLAYER
-            else if (_currPlayerPos.x >= 0.5f) {
-                transform.position = new Vector3(_player.transform.position.x, transform.position.y, transform.position.z);
-            }
         }
 
         // WHEN THE PLAYER IS MOVING TO THE LEFT
-        else if (!_movingRight) {
+        else if (!_movingUp) {
 
-            // CHECK IF THE PLAYER IS CLOSE TO THE RIGHT SIDE OF THE SCREEN
-            if (_currPlayerPos.x >= 0.6f) {
-                _movingRight = true;
+            if (_currPlayerPos.y < 0.3f) {
+                _adjusting = true;
+            }
+
+            // CHECK IF THE PLAYER IS CLOSE TO THE TOP OF THE SCREEN
+            if (_currPlayerPos.y >= 0.7f) {
+                _movingUp = true;
                 _adjusting = true;
                 _startTime = 0.0f;
             }
@@ -73,18 +84,14 @@ public class SmartCameraYPosition : MonoBehaviour {
                     _startTime = Time.time;
                 }
 
-                transform.position = new Vector3(Mathf.SmoothStep(transform.position.x, _player.transform.position.x, (Time.time - _startTime) / _adjustSpeed),
-                    transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x,
+                    Mathf.SmoothStep(transform.position.y, _player.transform.position.y - 100.0f, (Time.time - _startTime) / _adjustSpeed), transform.position.z);
 
                 // ONCE THE PLAYER IS IN THE CENTER, STOP ADJUSTING AND RESET THE TIMER
-                if (_currPlayerPos.x >= 0.5f) {
+                if (_currPlayerPos.y >= 0.35f) {
                     _adjusting = false;
                     _startTime = 0.0f;
                 }
-            }
-            // KEEP ADJUSTING THE CAMERA TO THE right UNTIL THE PLAYER IS ALMOST IN THE CENTER OF THE SCREEN (X-AXIS WISE)
-            else if (_currPlayerPos.x <= 0.5f) {
-                transform.position = new Vector3(_player.transform.position.x, transform.position.y, transform.position.z);
             }
         }
     }
