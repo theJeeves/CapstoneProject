@@ -13,10 +13,15 @@ public abstract class AbstractGun : MonoBehaviour {
     public delegate void AbstractGunEvent2();
     public delegate void AbstractGunEvent3(float reloadTime);
 
+    
     [SerializeField]
     protected SOWeaponManager _weaponManager;
     [SerializeField]
     protected WeaponType _type;
+
+    [SerializeField]
+    protected SOAudio _SOAudio;
+    protected AudioSource _audioSource;
 
     [SerializeField]
     private Sprite _sprite;
