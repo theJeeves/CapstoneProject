@@ -26,6 +26,9 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     private float _recoveryTime;
 
+    [SerializeField]
+    private SOCheckpoint _SOCheckpoint;
+
     private GameObject _effect;
     private DamageEnum _damageType;
     private SpriteRenderer[] _spriteRenderer;
@@ -56,6 +59,12 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void Update() {
+        if (_health <= 0)
+        {
+            gameObject.transform.position = _SOCheckpoint.checkpointPosition;
+            _health = _maxHealth;
+            UpdateHealth(_health);
+        }
 
         if (_effect != null) {
             _effect.transform.position = transform.position + new Vector3(0.0f, 25.0f, 0.0f);
