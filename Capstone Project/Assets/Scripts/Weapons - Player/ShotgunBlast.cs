@@ -4,6 +4,10 @@ using System.Collections;
 public class ShotgunBlast : AbstractBullet {
 
     [SerializeField]
+    private SOAudio _SOAudioManager;
+    private AudioSource _auidoSource;
+
+    [SerializeField]
     private SOEffects _SOEffect;
 
     [SerializeField]
@@ -24,6 +28,10 @@ public class ShotgunBlast : AbstractBullet {
     private DigitalRuby.LightningBolt.LightningBoltScript[] _lightning = new DigitalRuby.LightningBolt.LightningBoltScript[5];
     private float[] _magnitudes = new float[5];
     private Vector2[] _directions = new Vector2[5];
+
+    private void OnEnable() {
+        _auidoSource = GetComponent<AudioSource>();
+    }
 
     protected override void Start() {
 
@@ -120,6 +128,7 @@ public class ShotgunBlast : AbstractBullet {
                 }
 
                 _SOEffect.PlayEffect(EffectEnum.LightningContact, hit.point);
+                _SOAudioManager.Play(_auidoSource, AudioTypeEnum.LightningImpact);
             }
         }
     }

@@ -238,6 +238,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000014032182952}
   - 114: {fileID: 114000014100930858}
+  - 82: {fileID: 82000012333680418}
   m_Layer: 0
   m_Name: ShotgunBlast
   m_TagString: Untagged
@@ -485,6 +486,81 @@ Transform:
   - {fileID: 4000011885439204}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!82 &82000012333680418
+AudioSource:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014196884406}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 24300001, guid: 96b4729a800506045bed5d155138b40f,
+    type: 2}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    - time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
 --- !u!114 &114000010450382692
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -616,6 +692,7 @@ MonoBehaviour:
   _directionRange:
     _min: -0.4
     _max: 0.4
+  _SOAudioManager: {fileID: 0}
   _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
   _endOfBarrel: {fileID: 1000013478115852, guid: afe8ddfbd33c2f54d8c39bbc41850c79,
     type: 2}
