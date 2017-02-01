@@ -128,7 +128,7 @@ public class ShotgunBlast : AbstractBullet {
                 }
 
                 _SOEffect.PlayEffect(EffectEnum.LightningContact, hit.point);
-                _SOAudioManager.Play(_auidoSource, AudioTypeEnum.LightningImpact);
+                _SOAudioManager.Play(_auidoSource);
             }
         }
     }

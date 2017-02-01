@@ -2,21 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public enum AudioTypeEnum {
-    ShotgunFire, MachineGunFire, AcidBallSplat, LightningImpact, CrystalBulletImpact, PlayerDamaged, PlayerRespawn
-}
-
 [CreateAssetMenu(menuName =("SO Audio/Create SO Aduio"))]
 public class SOAudio : ScriptableObject {
 
-    [System.Serializable]
-    private struct AudioStruct {
+    [SerializeField]
+    private AudioClip _audioClip;
+    [SerializeField]
+    private VolumeRange _volume;
+    [SerializeField]
+    private PitchRange _pitch;
 
-        public AudioTypeEnum type;
-        public AudioClip[] audioClips;
-        public VolumeRange volume;
-        public PitchRange pitch;
-    }
     [System.Serializable]
     private struct VolumeRange {
 
@@ -34,33 +29,32 @@ public class SOAudio : ScriptableObject {
         public float max;
     }
 
-    [SerializeField]
-    private List<AudioStruct> _audioClips;
+    public void Play(AudioSource source) {
 
-    //private Dictionary<AudioTypeEnum, AudioStruct> _clipTable = new Dictionary<AudioTypeEnum, AudioStruct>();
+        if (_audioClip != null) {
 
-    private void OnEnable() {
-        
-        //foreach(AudioStruct source in _audioClips) {
-        //    _clipTable.Add(source.type, source);
-        //}
-    }
-
-    public void Play(AudioSource source, AudioTypeEnum type) {
-
-        if (_audioClips[(int)type].audioClips.Length > 0) {
-            AudioStruct instance = _audioClips[(int)type];
-            int length = _audioClips[(int)type].audioClips.Length;
-
-            // Pick a random clip from the clips and keep a reference of it.
-            source.clip = instance.audioClips[Random.Range(0, length)];
-            source.volume = Random.Range(instance.volume.min, instance.volume.max);
-            source.pitch = Random.Range(instance.pitch.min, instance.pitch.max);
+            source.clip = _audioClip;
+            source.volume = Random.Range(_volume.min, _volume.max);
+            source.pitch = Random.Range(_pitch.min, _pitch.max);
             source.Play();
         }
         else {
             Debug.Log("No audio clips available.");
         }
+
+        //if (_audioClips[(int)type].audioClips.Length > 0) {
+        //    AudioStruct instance = _audioClips[(int)type];
+        //    int length = _audioClips[(int)type].audioClips.Length;
+
+        //    // Pick a random clip from the clips and keep a reference of it.
+        //    source.clip = instance.audioClips[Random.Range(0, length)];
+        //    source.volume = Random.Range(instance.volume.min, instance.volume.max);
+        //    source.pitch = Random.Range(instance.pitch.min, instance.pitch.max);
+        //    source.Play();
+        //}
+        //else {
+        //    Debug.Log("No audio clips available.");
+        //}
 
         //if (_clipTable[type].audioClips.Length > 0) {
 

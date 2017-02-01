@@ -35,7 +35,7 @@ public class RespawnPlayer : MonoBehaviour {
 
                 _otherGo.GetComponent<Rigidbody2D>().gravityScale = 40.0f;
                 _SOEffect.PlayEffect(EffectEnum.PlayerRespawn, _respawnContainer.respawnPos);
-                _SOAudioManager.Play(_audioSource, AudioTypeEnum.PlayerRespawn);
+                _SOAudioManager.Play(_audioSource);
                 _SOWeaponManager.Reload();
                 _respawned = false;
             }

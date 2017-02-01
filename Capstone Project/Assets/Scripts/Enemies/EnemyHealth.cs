@@ -22,6 +22,10 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     [SerializeField]
+    private SOAudio _SOAudio;
+    private AudioSource _audioSource;
+
+    [SerializeField]
     private SOEffects _SOEffect;
     private GameObject _effect;
 
@@ -29,6 +33,8 @@ public class EnemyHealth : MonoBehaviour {
     private float _effectDelay = 0.0f;
 
     private void OnEnable() {
+
+        _audioSource = GetComponent<AudioSource>();
 
         if (enemyType == EnemyType.AcidSwarmer) {
             _timer = Time.time;

@@ -73,7 +73,7 @@ public class Shotgun : AbstractGun {
           
             _moveRequest.RequestMovement();
             _SSRequest.ShakeRequest();
-            _SOAudio.Play(_audioSource, AudioTypeEnum.ShotgunFire);
+            _SOAudio.Play(_audioSource);
             //_SOEffect.PlayEffect(EffectEnum.SGMuzzleFlash, _barrel.transform.position, _controller.AimDirection - 90.0f);
 
             _grounded = false;

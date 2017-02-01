@@ -148,7 +148,7 @@ public class MachineGun : AbstractGun {
             instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, _controller.AimDirection);
       
             _SSRequest.ShakeRequest();
-            _SOAudio.Play(_audioSource, AudioTypeEnum.MachineGunFire);
+            _SOAudio.Play(_audioSource);
             yield return new WaitForSeconds(_shotDelay);
             _canShoot = true;
         }
