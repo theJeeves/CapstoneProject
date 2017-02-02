@@ -12,11 +12,7 @@ public class PlayerHealth : MonoBehaviour {
     public delegate void PlayerHealthEvent(int _health);
     public static event PlayerHealthEvent UpdateHealth;
 
-    [SerializeField]
-    private SOEffects _SOEffect;
-    [SerializeField]
-    private ScreenShakeRequest _scrnShkRequest;
-
+    [Header("Health Variables")]
     [SerializeField]
     private int _maxHealth;
 
@@ -26,8 +22,22 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     private float _recoveryTime;
 
+    [Space]
+
+    [Header("Effects")]
+
+    [SerializeField]
+    private SOEffects _acidDamageEfect;
+    [SerializeField]
+    private SOEffects _explosionDamageEffect;
+    [SerializeField]
+    private ScreenShakeRequest _scrnShkRequest;
+
+
     [SerializeField]
     private SOCheckpoint _SOCheckpoint;
+
+    private AudioSource _audioSource;
 
     private GameObject _effect;
     private DamageEnum _damageType;
@@ -48,6 +58,7 @@ public class PlayerHealth : MonoBehaviour {
 
     private void OnEnable() {
         _spriteRenderer = GetComponentsInChildren<SpriteRenderer>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     void Start() {
@@ -87,7 +98,7 @@ public class PlayerHealth : MonoBehaviour {
             }
             else {
                 _duration = 0.0f;
-                _SOEffect.StopEffect(_effect);
+                _acidDamageEfect.StopEffect(_effect);
             }
         }
     }
@@ -102,12 +113,12 @@ public class PlayerHealth : MonoBehaviour {
 
                 if (damageType == DamageEnum.Acid) {
                     AcidDamageEffect();
-                    _effect = _SOEffect.PlayEffect(EffectEnum.AcidDamageEffect, transform.position);
+                    _effect = _acidDamageEfect.PlayVisualEffect(transform.position);
                     _damageType = damageType;
                 }
                 else if (damageType == DamageEnum.Explosion) {
                     ExplosionDamageEffect();
-                    _effect = _SOEffect.PlayEffect(EffectEnum.ExplosionDamageEffect, transform.position);
+                    _effect = _explosionDamageEffect.PlayVisualEffect(transform.position);
                     _damageType = damageType;
                     _health -= damage;
                     _scrnShkRequest.ShakeRequest();

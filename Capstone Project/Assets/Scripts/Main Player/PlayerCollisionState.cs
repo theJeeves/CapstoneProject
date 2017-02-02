@@ -8,9 +8,7 @@ public class PlayerCollisionState : MonoBehaviour {
     public static event PlayerCollisionStateEvent OnHitGround;
     public static event PlayerCollisionStateEvent OnLifted;
 
-    [SerializeField]
-    private SOEffects _SOEffect;
-
+    [Header("Collision Varialbes")]
     [SerializeField]
     private LayerMask _whatToHit;
 
@@ -21,6 +19,13 @@ public class PlayerCollisionState : MonoBehaviour {
 
     [SerializeField]
     private Vector2 _rayCastOffset;
+
+    [Space]
+
+    [Header("Effects")]
+
+    [SerializeField]
+    private SOEffects _SOEffect;
 
     private BoxCollider2D _box;                             // Used to get the dimension of the collider
     private Vector2[] _rayOrigin = new Vector2[2];          // Stores the left and right side of the collider's world position
@@ -58,7 +63,7 @@ public class PlayerCollisionState : MonoBehaviour {
 
         // Send out this event if the player wasn't on the ground and its status has changed.
         if (!_onSolidGround && _touchedGround) {
-            _SOEffect.PlayEffect(EffectEnum.PlayerGrounded, transform.position);
+            _SOEffect.PlayVisualEffect(transform.position);
             if (OnHitGround != null) {
                 OnHitGround();
             }

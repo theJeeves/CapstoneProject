@@ -4,11 +4,9 @@ using System.Collections;
 public class ShotgunBlast : AbstractBullet {
 
     [SerializeField]
-    private SOAudio _SOAudioManager;
-    private AudioSource _auidoSource;
-
-    [SerializeField]
     private SOEffects _SOEffect;
+
+    private AudioSource _auidoSource;
 
     [SerializeField]
     private GameObject _endOfBarrel;
@@ -127,8 +125,7 @@ public class ShotgunBlast : AbstractBullet {
                     hit.collider.gameObject.GetComponent<AcidBallBehavior>().Splatter();
                 }
 
-                _SOEffect.PlayEffect(EffectEnum.LightningContact, hit.point);
-                _SOAudioManager.Play(_auidoSource);
+                _SOEffect.PlayEffect(_auidoSource, hit.point);
             }
         }
     }

@@ -143,7 +143,14 @@ MonoBehaviour:
     type: 2}
   _sizeOfSwarm: 20
   _destructionDelay: 3
-  _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
+  _batteryIndicatorEffect: {fileID: 11400000, guid: 677d64578560ee749a4d66b91433ff79,
+    type: 2}
+  _batteryDamageEffect: {fileID: 11400000, guid: b00fe4df7d7706a439ff5437ea91a23e,
+    type: 2}
+  _oilSpill_1_Effect: {fileID: 11400000, guid: 8f7b1a64e64131f43b01613f8e9feb6e, type: 2}
+  _oilSpill_2_Effect: {fileID: 11400000, guid: 2defb23e0fd45ec49877eee0f8755f53, type: 2}
+  _podExplosionEffect: {fileID: 11400000, guid: 2e6ddb5ef3508294fb84c50f7165a804,
+    type: 2}
 --- !u!212 &212000012205938362
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -9,8 +9,6 @@ public class RespawnPlayer : MonoBehaviour {
     private SOEffects _SOEffect;
     [SerializeField]
     private SOWeaponManager _SOWeaponManager;
-    [SerializeField]
-    private SOAudio _SOAudioManager;
 
     private AudioSource _audioSource;
 
@@ -34,8 +32,7 @@ public class RespawnPlayer : MonoBehaviour {
                 Camera.main.WorldToViewportPoint(_respawnContainer.respawnPos).x < 1.0f) {
 
                 _otherGo.GetComponent<Rigidbody2D>().gravityScale = 40.0f;
-                _SOEffect.PlayEffect(EffectEnum.PlayerRespawn, _respawnContainer.respawnPos);
-                _SOAudioManager.Play(_audioSource);
+                _SOEffect.PlayEffect(_audioSource, _respawnContainer.respawnPos);
                 _SOWeaponManager.Reload();
                 _respawned = false;
             }

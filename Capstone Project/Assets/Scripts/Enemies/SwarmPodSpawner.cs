@@ -3,14 +3,26 @@ using System.Collections;
 
 public class SwarmPodSpawner : MonoBehaviour {
 
+    [Header("Swarmer Pod Variables")]
     [SerializeField]
     private GameObject _swarmPrefab;                //Prefab of the Pod sprite and its scripts
     [SerializeField]
     private int _sizeOfSwarm = 0;                   //The number of swarmers the developer wants to spawn from this instance.
     [SerializeField]
     private float _destructionDelay = 0.0f;         //How long the pod should remain in a damaged state.
+
+    [Space]
+    [Header("Effects")]
     [SerializeField]
-    private SOEffects _SOEffect;                    //Get a reference to the SOEffectHandler to start and stop effect animations.
+    private SOEffects _batteryIndicatorEffect;
+    [SerializeField]
+    private SOEffects _batteryDamageEffect;
+    [SerializeField]
+    private SOEffects _oilSpill_1_Effect;
+    [SerializeField]
+    private SOEffects _oilSpill_2_Effect;
+    [SerializeField]
+    private SOEffects _podExplosionEffect;
 
     private bool _batteryDamaged = false;           //Bool to determine if the player has hit the battery already
     private float _timer = 0.0f;                    //For delay purposes in Update
@@ -27,7 +39,7 @@ public class SwarmPodSpawner : MonoBehaviour {
     private void OnEnable() {
 
         // Start the battery indication effect animation
-        _podBatteryIndicatorGO = _SOEffect.PlayEffect(EffectEnum.PodBatteryIndicator, GetComponentInChildren<Transform>().position);
+        _podBatteryIndicatorGO = _batteryIndicatorEffect.PlayVisualEffect(GetComponentInChildren<Transform>().position);
 
         _timer = Time.time;
     }
@@ -41,11 +53,11 @@ public class SwarmPodSpawner : MonoBehaviour {
 
             if (Time.time - _timer > _destructionDelay) {
 
-                _SOEffect.PlayEffect(EffectEnum.SwarmPodDestruction, transform.position);
+                _podExplosionEffect.PlayVisualEffect(transform.position);
 
-                _SOEffect.StopEffect(_podBatteryDamageGO);
-                _SOEffect.StopEffect(_oilSpill1);
-                _SOEffect.StopEffect(_oilSpill2);
+                _podExplosionEffect.StopEffect(_podBatteryDamageGO);
+                _podExplosionEffect.StopEffect(_oilSpill1);
+                _podExplosionEffect.StopEffect(_oilSpill2);
 
                 GetComponent<SpriteRenderer>().enabled = false;
                 SpawnSwarm();
@@ -73,10 +85,10 @@ public class SwarmPodSpawner : MonoBehaviour {
         if (!_batteryDamaged) {
             _timer = Time.time;
             _batteryDamaged = true;
-            _SOEffect.StopEffect(_podBatteryIndicatorGO);
-            _podBatteryDamageGO = _SOEffect.PlayEffect(EffectEnum.PodBatteryDamage, GetComponentInChildren<Transform>().position);
-            _oilSpill1 = _SOEffect.PlayEffect(EffectEnum.PodOilSpill_1, transform.position);
-            _oilSpill2 = _SOEffect.PlayEffect(EffectEnum.PodOilSpill_2, transform.position);
+            _batteryDamageEffect.StopEffect(_podBatteryIndicatorGO);
+            _podBatteryDamageGO = _batteryDamageEffect.PlayVisualEffect(GetComponentInChildren<Transform>().position);
+            _oilSpill1 = _oilSpill_1_Effect.PlayVisualEffect(transform.position);
+            _oilSpill2 = _oilSpill_2_Effect.PlayVisualEffect(transform.position);
         }
     }
 

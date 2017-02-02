@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d773aea4af5f1a74fbe8cc2b1b96302f, type: 3}
+  m_Name: MG Muzzle Flash Effect
+  m_EditorClassIdentifier: 
+  _effectPrefab: {fileID: 1000010791255080, guid: 4ed13e218c17ac74197ee7a1533c0e85,
+    type: 2}
+  _effectData: {fileID: 11400000, guid: be13c8ef3f6ca19439cd99fe09119266, type: 2}
+  _offset: {x: 0, y: 0}
+  _audioClip: {fileID: 8300000, guid: f3bb7b49dd9d75a41a8f9d36c736c39f, type: 3}
+  _volume:
+    min: 1
+    max: 1
+  _pitch:
+    min: 1
+    max: 1

@@ -73,7 +73,7 @@ public class Shotgun : AbstractGun {
           
             _moveRequest.RequestMovement();
             _SSRequest.ShakeRequest();
-            _SOAudio.Play(_audioSource);
+
             //_SOEffect.PlayEffect(EffectEnum.SGMuzzleFlash, _barrel.transform.position, _controller.AimDirection - 90.0f);
 
             _grounded = false;
@@ -157,7 +157,8 @@ public class Shotgun : AbstractGun {
 
         if (!_damaged) {
             _canShoot = false;
-            Instantiate(_bullet, _barrel.transform.position, Quaternion.identity);
+            //Instantiate(_bullet, _barrel.transform.position, Quaternion.identity);
+            _SOEffect.PlayEffect(_audioSource, _barrel.transform.position, _controller.AimDirection);
 
             yield return new WaitForSeconds(_shotDelay);
             _canShoot = true;

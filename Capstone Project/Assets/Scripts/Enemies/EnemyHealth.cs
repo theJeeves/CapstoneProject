@@ -22,12 +22,9 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     [SerializeField]
-    private SOAudio _SOAudio;
-    private AudioSource _audioSource;
-
-    [SerializeField]
     private SOEffects _SOEffect;
     private GameObject _effect;
+    private AudioSource _audioSource;
 
     private float _timer = 0.0f;
     private float _effectDelay = 0.0f;
@@ -41,7 +38,7 @@ public class EnemyHealth : MonoBehaviour {
             _effectDelay = Random.Range(1.0f, 3.0f);
         }
         else if (enemyType == EnemyType.ExplodingSwamer) {
-            _effect = _SOEffect.PlayEffect(EffectEnum.ExplosiveSwarmerEffect, transform.position);
+            _effect = _SOEffect.PlayEffect(_audioSource, transform.position);
         }
 
     }
@@ -61,9 +58,9 @@ public class EnemyHealth : MonoBehaviour {
         if (enemyType == EnemyType.AcidSwarmer) {
 
             if (Time.time - _timer > _effectDelay) {
-                _SOEffect.PlayEffect(EffectEnum.AcidSwarmerSpill, position, transform.eulerAngles.z + 90.0f);
+                _SOEffect.PlayEffect(_audioSource, position, transform.eulerAngles.z + 90.0f);
 
-                _SOEffect.PlayEffect(EffectEnum.AcidSwarmerBall, position);
+                _SOEffect.PlayEffect(_audioSource, position);
                 _effectDelay = Random.Range(1.0f, 3.0f);
                 _timer = Time.time;
             }
@@ -82,12 +79,12 @@ public class EnemyHealth : MonoBehaviour {
             switch (enemyType) {
 
                 case EnemyType.Sniper:
-                    _SOEffect.PlayEffect(EffectEnum.SniperDeathExplosion, transform.position); break;
+                    _SOEffect.PlayEffect(_audioSource, transform.position); break;
 
                 case EnemyType.Swarmer:
                 case EnemyType.AcidSwarmer:
                 case EnemyType.ExplodingSwamer:
-                    _SOEffect.PlayEffect(EffectEnum.SwarmerDeathExplosion, transform.position); break;
+                    _SOEffect.PlayEffect(_audioSource, transform.position); break;
             }
             Destroy(gameObject);
         }

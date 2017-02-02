@@ -15,6 +15,8 @@ public class MachineGun : AbstractGun {
 
     [SerializeField]
     private MovementRequest _initialMoveRequest;
+    [SerializeField]
+    private SOEffects _cystalBullet;
 
     private GameObject _muzzleFlashGO;
     private bool _canLift = true;
@@ -141,14 +143,16 @@ public class MachineGun : AbstractGun {
         if (!_damaged) {
             _canShoot = false;
 
-            _muzzleFlashGO = _SOEffect.PlayEffect(EffectEnum.MGMuzzelFlash, _barrel.transform.position, _controller.AimDirection);
-            GameObject instance = Instantiate(_bullet, _barrel.transform.position, Quaternion.identity) as GameObject;
+            _muzzleFlashGO = _SOEffect.PlayEffect(_audioSource, _barrel.transform.position, _controller.AimDirection);
+            //GameObject instance = Instantiate(_bullet, _barrel.transform.position, Quaternion.identity) as GameObject;
 
             // Angle the crystal according the the angle of the gun's direction
-            instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, _controller.AimDirection);
-      
+            //instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, _controller.AimDirection);
+
+
+            _cystalBullet.PlayVisualEffect(_barrel.transform.position, _controller.AimDirection);
             _SSRequest.ShakeRequest();
-            _SOAudio.Play(_audioSource);
+
             yield return new WaitForSeconds(_shotDelay);
             _canShoot = true;
         }

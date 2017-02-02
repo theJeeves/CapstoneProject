@@ -393,7 +393,7 @@ Transform:
   m_GameObject: {fileID: 1000010200423028}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 109.22, y: 0.5852299, z: 0}
-  m_LocalScale: {x: 5, y: 5, z: 1}
+  m_LocalScale: {x: 6, y: 6, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 4000011497115548}
@@ -472,6 +472,7 @@ MonoBehaviour:
   enemyType: 3
   _maxHealth: 7
   _health: 0
+  _SOAudio: {fileID: 0}
   _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
 --- !u!114 &114000010636658692
 MonoBehaviour:

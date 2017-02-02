@@ -4,13 +4,11 @@ using System.Collections;
 public class AcidBallBehavior : MonoBehaviour {
 
     [SerializeField]
-    private SOAudio _SOAudio;
-    private AudioSource _audioSource;
-
-    [SerializeField]
     private SOEffects _SOEffect;
 
-	private void OnEnable() {
+    private AudioSource _audioSource;
+
+    private void OnEnable() {
         GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-75.0f, 75.0f), Random.Range(75.0f, 250.0f)), ForceMode2D.Impulse);
         _audioSource = GetComponent<AudioSource>();
     }
@@ -25,8 +23,7 @@ public class AcidBallBehavior : MonoBehaviour {
     }
 
     public void Splatter() {
-        _SOEffect.PlayEffect(EffectEnum.AcidBallSplatter, transform.position, -90.0f);
-        _SOAudio.Play(_audioSource);
+        _SOEffect.PlayEffect(_audioSource, transform.position, -90.0f);
         Destroy(gameObject);
     }
 }

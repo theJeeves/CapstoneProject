@@ -33,7 +33,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011653274236}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -54,38 +54,47 @@ MonoBehaviour:
   _player: {fileID: 0}
   _inputs:
   - _axisName: LSX
+    _altAxisName: D-Pad_H
     _button: 0
     _offValue: 0
     _condition: 0
   - _axisName: LSX
+    _altAxisName: D-Pad_H
     _button: 1
     _offValue: 0
     _condition: 1
   - _axisName: R1
+    _altAxisName: L1
     _button: 3
     _offValue: 0
     _condition: 0
   - _axisName: RSX
+    _altAxisName: 
     _button: 7
     _offValue: 0
     _condition: 0
   - _axisName: RSX
+    _altAxisName: 
     _button: 6
     _offValue: 0
     _condition: 1
   - _axisName: RSY
+    _altAxisName: 
     _button: 4
     _offValue: 0
     _condition: 1
   - _axisName: R2
+    _altAxisName: 
     _button: 2
     _offValue: -1
     _condition: 0
   - _axisName: RSY
+    _altAxisName: 
     _button: 5
     _offValue: 0
     _condition: 0
   - _axisName: Square
+    _altAxisName: 
     _button: 8
     _offValue: 0
     _condition: 0

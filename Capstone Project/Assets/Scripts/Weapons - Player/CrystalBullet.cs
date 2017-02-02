@@ -4,15 +4,7 @@ using System.Collections;
 public class CrystalBullet : AbstractBullet {
 
     [SerializeField]
-    private SOAudio _SOAudio;
-    [SerializeField]
     private SOEffects _SOEffect;
-
-    private AudioSource _audioSource;
-
-    private void OnEnable() {
-        _audioSource = GetComponent<AudioSource>();
-    }
 
     protected override void Start() {
         base.Start();
@@ -30,8 +22,7 @@ public class CrystalBullet : AbstractBullet {
         }
 
         if (otherGO.gameObject.tag != "Player" && otherGO != null) {
-            _SOEffect.PlayEffect(EffectEnum.CrystalBulletImpact, transform.position, gameObject.transform.localEulerAngles.z);
-            _SOAudio.Play(_audioSource);
+            _SOEffect.PlayVisualEffect(transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }
     }

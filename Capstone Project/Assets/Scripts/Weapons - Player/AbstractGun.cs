@@ -17,21 +17,15 @@ public abstract class AbstractGun : MonoBehaviour {
     protected SOWeaponManager _weaponManager;
     [SerializeField]
     protected WeaponType _type;
-    [SerializeField]
-    protected SOAudio _SOAudio;
-    protected AudioSource _audioSource;
 
-    [SerializeField]
-    private Sprite _sprite;
-    public Sprite Sprite {
-        get { return _sprite; }
-    }
     [SerializeField]
     protected MovementRequest _moveRequest;
     [SerializeField]
     protected ScreenShakeRequest _SSRequest;
     [SerializeField]
     protected SOEffects _SOEffect;
+
+    protected AudioSource _audioSource;
 
     [SerializeField]
     protected int _ammoCapacity;
@@ -59,8 +53,8 @@ public abstract class AbstractGun : MonoBehaviour {
     protected ControllableObject _controller;
     protected PlayerCollisionState _collisionState;
 
-    [SerializeField]
-    protected GameObject _bullet;
+    //[SerializeField]
+    //protected GameObject _bullet;
     [SerializeField]
     protected Transform _barrel;
 
