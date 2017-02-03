@@ -25,8 +25,6 @@ public abstract class AbstractGun : MonoBehaviour {
     [SerializeField]
     protected SOEffects _SOEffect;
 
-    protected AudioSource _audioSource;
-
     [SerializeField]
     protected int _ammoCapacity;
 

@@ -39,7 +39,7 @@ public class SwarmPodSpawner : MonoBehaviour {
     private void OnEnable() {
 
         // Start the battery indication effect animation
-        _podBatteryIndicatorGO = _batteryIndicatorEffect.PlayVisualEffect(GetComponentInChildren<Transform>().position);
+        _podBatteryIndicatorGO = _batteryIndicatorEffect.PlayEffect(GetComponentInChildren<Transform>().position);
 
         _timer = Time.time;
     }
@@ -53,7 +53,7 @@ public class SwarmPodSpawner : MonoBehaviour {
 
             if (Time.time - _timer > _destructionDelay) {
 
-                _podExplosionEffect.PlayVisualEffect(transform.position);
+                _podExplosionEffect.PlayEffect(transform.position);
 
                 _podExplosionEffect.StopEffect(_podBatteryDamageGO);
                 _podExplosionEffect.StopEffect(_oilSpill1);
@@ -86,9 +86,9 @@ public class SwarmPodSpawner : MonoBehaviour {
             _timer = Time.time;
             _batteryDamaged = true;
             _batteryDamageEffect.StopEffect(_podBatteryIndicatorGO);
-            _podBatteryDamageGO = _batteryDamageEffect.PlayVisualEffect(GetComponentInChildren<Transform>().position);
-            _oilSpill1 = _oilSpill_1_Effect.PlayVisualEffect(transform.position);
-            _oilSpill2 = _oilSpill_2_Effect.PlayVisualEffect(transform.position);
+            _podBatteryDamageGO = _batteryDamageEffect.PlayEffect(GetComponentInChildren<Transform>().position);
+            _oilSpill1 = _oilSpill_1_Effect.PlayEffect(transform.position);
+            _oilSpill2 = _oilSpill_2_Effect.PlayEffect(transform.position);
         }
     }
 

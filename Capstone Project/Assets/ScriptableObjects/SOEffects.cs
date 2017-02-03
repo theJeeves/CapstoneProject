@@ -18,7 +18,6 @@ using System.Collections.Generic;
 [CreateAssetMenu(menuName ="SO AV Effects/New SO AV Effect")]
 public class SOEffects : ScriptableObject {
 
-    [Header("Visual Effect")]
     [SerializeField]
     private GameObject _effectPrefab;
     [SerializeField]
@@ -26,71 +25,15 @@ public class SOEffects : ScriptableObject {
     [SerializeField]
     private Vector2 _offset;
 
-    [Space]
-
-    [Header("Sound Effect")]
-    [SerializeField]
-    private AudioClip _audioClip;
-    [SerializeField]
-    private VolumeRange _volume;
-    [SerializeField]
-    private PitchRange _pitch;
-
-    [System.Serializable]
-    private struct VolumeRange {
-
-        [Range(0.0f, 1.0f)]
-        public float min;
-        [Range(0.0f, 1.0f)]
-        public float max;
-    };
-
-    [System.Serializable]
-    private struct PitchRange {
-
-        [Range(0.0f, 2.0f)]
-        public float min;
-        [Range(0.0f, 2.0f)]
-        public float max;
-    };
-
-    //// This List is used to populate the dictionary AND allows the developers to keep track of all the effects
-    //// in the inspector. DO NOT CLEAR THIS IN THE CODE AS IT WILL ERASE THE SETTINGS EVERY TIME.
-    //[SerializeField]
-    //private List<EffectProperties> _effects;
-
-    ////A Dictionary is used to receive O(1) search times and ensure there is no lag when an effect animation is requested.
-    //private Dictionary<EffectEnum, EffectProperties> _effectsTable = new Dictionary<EffectEnum, EffectProperties>();
-
-    ////This struct is used to hold any additional data developers need when declaring a new usable effect animation.
-    //[System.Serializable]
-    //private struct EffectProperties {
-
-    //    public EffectEnum effectType;                   //Enum which defines which effect should be played
-    //    public GameObject prefab;                       //The prefab to be instantiated
-    //    public SpriterDotNetUnity.SpriterData data;     //All aditional data which comes with the prefab. This is needed because of the SpriterDotNet tool
-    //    public Vector2 offset;                          //Create an offset if the prefab needs to be adjusted in world space.
-    //};
-
-    //private void OnEnable() {
-
-    //    // From the list, populate the dictionary
-    //    foreach(EffectProperties effect in _effects) {
-    //        _effectsTable.Add(effect.effectType, effect);
-    //    }
-    //}
-
     //This is the primary function which will be called in many scripts. An EffectEnum must be given so the correct prefab is instantiated.
     //It is give a position + the offset, and optionally (priamrily for the weapons) the angle.
-    public GameObject PlayEffect(AudioSource source, Vector2 position, float angle = 0.0f) {
-
-        PlayAudioEffect(source);
+    public GameObject PlayEffect(Vector2 position, float angle = 0.0f) {
 
         return PlayVisualEffect(position, angle);
     }
 
     // Visual effect only. No audio.
-    public GameObject PlayVisualEffect(Vector2 position, float angle = 0.0f) {
+    private GameObject PlayVisualEffect(Vector2 position, float angle = 0.0f) {
 
         if (_effectPrefab != null) {
 
@@ -110,22 +53,8 @@ public class SOEffects : ScriptableObject {
             return instance;
         }
         else {
-            Debug.Log("Effect is Missing for " + _effectPrefab);
+            Debug.Log("Effect is Missing for " + name);
             return null;
-        }
-    }
-
-    public void PlayAudioEffect(AudioSource source) {
-
-        if (_audioClip != null) {
-
-            source.clip = _audioClip;
-            source.volume = Random.Range(_volume.min, _volume.max);
-            source.pitch = Random.Range(_pitch.min, _pitch.max);
-            source.Play();
-        }
-        else {
-            Debug.Log("No audio clips available.");
         }
     }
 

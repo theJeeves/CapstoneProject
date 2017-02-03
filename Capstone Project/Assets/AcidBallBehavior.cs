@@ -6,11 +6,8 @@ public class AcidBallBehavior : MonoBehaviour {
     [SerializeField]
     private SOEffects _SOEffect;
 
-    private AudioSource _audioSource;
-
     private void OnEnable() {
         GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-75.0f, 75.0f), Random.Range(75.0f, 250.0f)), ForceMode2D.Impulse);
-        _audioSource = GetComponent<AudioSource>();
     }
 
     private void OnCollisionEnter2D(Collision2D otherGO) {
@@ -23,7 +20,7 @@ public class AcidBallBehavior : MonoBehaviour {
     }
 
     public void Splatter() {
-        _SOEffect.PlayEffect(_audioSource, transform.position, -90.0f);
+        _SOEffect.PlayEffect(transform.position, 90.0f);
         Destroy(gameObject);
     }
 }

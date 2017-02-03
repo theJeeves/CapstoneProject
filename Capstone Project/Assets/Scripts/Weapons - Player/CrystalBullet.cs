@@ -22,7 +22,7 @@ public class CrystalBullet : AbstractBullet {
         }
 
         if (otherGO.gameObject.tag != "Player" && otherGO != null) {
-            _SOEffect.PlayVisualEffect(transform.position, gameObject.transform.localEulerAngles.z);
+            _SOEffect.PlayEffect(transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }
     }

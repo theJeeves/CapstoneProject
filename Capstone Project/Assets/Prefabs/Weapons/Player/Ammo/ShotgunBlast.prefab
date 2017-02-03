@@ -496,7 +496,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 24300001, guid: 96b4729a800506045bed5d155138b40f,
     type: 2}
-  m_audioClip: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: 49682e82d6895d74c872c1832c7a8a36, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -692,10 +692,7 @@ MonoBehaviour:
   _directionRange:
     _min: -0.4
     _max: 0.4
-  _SOAudioManager: {fileID: 11400000, guid: 14d9f7bed6757e44cb9ae4b0b6b2bb19, type: 2}
-  _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
-  _endOfBarrel: {fileID: 1000013478115852, guid: afe8ddfbd33c2f54d8c39bbc41850c79,
-    type: 2}
+  _SOEffect: {fileID: 11400000, guid: aba83fa7a7a5b6c4cac7580c3aa4e96f, type: 2}
   _widths: {x: 4, y: 2.5}
   _magnitudeRange:
     _min: 50
