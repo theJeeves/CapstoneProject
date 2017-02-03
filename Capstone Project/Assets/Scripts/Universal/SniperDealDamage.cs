@@ -22,7 +22,7 @@ public class SniperDealDamage : MonoBehaviour {
                 otherGO.gameObject.GetComponent<Rigidbody2D>().AddForce(direction.normalized * _knockBack, ForceMode2D.Impulse);
             }
 
-            _SOEffect.PlayVisualEffect(transform.position);
+            _SOEffect.PlayEffect(transform.position);
             Destroy(gameObject);
         }
     }

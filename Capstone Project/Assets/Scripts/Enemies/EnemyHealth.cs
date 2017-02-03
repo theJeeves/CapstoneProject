@@ -22,25 +22,24 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     [SerializeField]
-    private SOEffects _SOEffect;
+    private SOEffects[] _SOEffects;
     private GameObject _effect;
-    private AudioSource _audioSource;
 
+    private int length = 0;
     private float _timer = 0.0f;
     private float _effectDelay = 0.0f;
 
     private void OnEnable() {
-
-        _audioSource = GetComponent<AudioSource>();
 
         if (enemyType == EnemyType.AcidSwarmer) {
             _timer = Time.time;
             _effectDelay = Random.Range(1.0f, 3.0f);
         }
         else if (enemyType == EnemyType.ExplodingSwamer) {
-            _effect = _SOEffect.PlayEffect(_audioSource, transform.position);
+            _effect = _SOEffects[0].PlayEffect(transform.position);
         }
 
+        length = _SOEffects.Length;
     }
 
     private void Start() {
@@ -48,7 +47,7 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     private void OnDisable() {
-        _SOEffect.StopEffect(_effect);
+        _SOEffects[0].StopEffect(_effect);
     }
 
     private void Update() {
@@ -58,9 +57,9 @@ public class EnemyHealth : MonoBehaviour {
         if (enemyType == EnemyType.AcidSwarmer) {
 
             if (Time.time - _timer > _effectDelay) {
-                _SOEffect.PlayEffect(_audioSource, position, transform.eulerAngles.z + 90.0f);
+                _SOEffects[0].PlayEffect(position, transform.eulerAngles.z + 90.0f);
 
-                _SOEffect.PlayEffect(_audioSource, position);
+                _SOEffects[1].PlayEffect(position);
                 _effectDelay = Random.Range(1.0f, 3.0f);
                 _timer = Time.time;
             }
@@ -79,12 +78,12 @@ public class EnemyHealth : MonoBehaviour {
             switch (enemyType) {
 
                 case EnemyType.Sniper:
-                    _SOEffect.PlayEffect(_audioSource, transform.position); break;
+                    _SOEffects[0].PlayEffect(transform.position); break;
 
                 case EnemyType.Swarmer:
                 case EnemyType.AcidSwarmer:
                 case EnemyType.ExplodingSwamer:
-                    _SOEffect.PlayEffect(_audioSource, transform.position); break;
+                    _SOEffects[length - 1].PlayEffect(transform.position); break;
             }
             Destroy(gameObject);
         }

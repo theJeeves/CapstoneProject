@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3305f66261bb8b04fa3d052ccd15c6e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
+  _SOEffect: {fileID: 0}
   _whatToHit:
     serializedVersion: 2
     m_Bits: 27392
@@ -260,8 +260,7 @@ MonoBehaviour:
   enemyType: 0
   _maxHealth: 50
   _health: 0
-  _SOAudio: {fileID: 0}
-  _SOEffect: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
+  _SOEffects: []
 --- !u!114 &114000013719628914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -273,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bab53db10711bd4a9e6e80eab5e8f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SOEffects: {fileID: 11400000, guid: 6946588ea1b29c046929271838c69829, type: 2}
+  _SOEffects: {fileID: 0}
   _endOfBarrel: {fileID: 1000013448789806}
   _bullet: {fileID: 1000011209798602, guid: 824999f7f8bbaef4a8cc294117a1be90, type: 2}
   _shotDelay: 3

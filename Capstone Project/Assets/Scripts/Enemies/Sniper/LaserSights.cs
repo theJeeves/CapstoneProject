@@ -21,7 +21,7 @@ public class LaserSights : MonoBehaviour {
     }
 
     private void OnEnable() {
-        _laserEffect = _SOEffect.PlayVisualEffect(_endOfBarrel.position);
+        _laserEffect = _SOEffect.PlayEffect(_endOfBarrel.position);
     }
 
     private void OnDisable() {

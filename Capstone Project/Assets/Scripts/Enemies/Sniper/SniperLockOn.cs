@@ -64,7 +64,7 @@ public class SniperLockOn : MonoBehaviour {
 
     private void RestartAttack() {
         _startTime = Time.time;
-        _tellEffect = _SOEffects.PlayVisualEffect(_endOfBarrel.transform.position);
+        _tellEffect = _SOEffects.PlayEffect(_endOfBarrel.transform.position);
         _canAttack = true;
     }
 }

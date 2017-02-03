@@ -37,8 +37,6 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     private SOCheckpoint _SOCheckpoint;
 
-    private AudioSource _audioSource;
-
     private GameObject _effect;
     private DamageEnum _damageType;
     private SpriteRenderer[] _spriteRenderer;
@@ -58,7 +56,6 @@ public class PlayerHealth : MonoBehaviour {
 
     private void OnEnable() {
         _spriteRenderer = GetComponentsInChildren<SpriteRenderer>();
-        _audioSource = GetComponent<AudioSource>();
     }
 
     void Start() {
@@ -113,12 +110,12 @@ public class PlayerHealth : MonoBehaviour {
 
                 if (damageType == DamageEnum.Acid) {
                     AcidDamageEffect();
-                    _effect = _acidDamageEfect.PlayVisualEffect(transform.position);
+                    _effect = _acidDamageEfect.PlayEffect(transform.position);
                     _damageType = damageType;
                 }
                 else if (damageType == DamageEnum.Explosion) {
                     ExplosionDamageEffect();
-                    _effect = _explosionDamageEffect.PlayVisualEffect(transform.position);
+                    _effect = _explosionDamageEffect.PlayEffect(transform.position);
                     _damageType = damageType;
                     _health -= damage;
                     _scrnShkRequest.ShakeRequest();

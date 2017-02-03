@@ -32,8 +32,6 @@ public class Shotgun : AbstractGun {
         PlayerCollisionState.OnHitGround += Reload;
         ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
 
-        _audioSource = GetComponent<AudioSource>();
-
         _reloading = false;
         _canShoot = true;
 
@@ -157,8 +155,7 @@ public class Shotgun : AbstractGun {
 
         if (!_damaged) {
             _canShoot = false;
-            //Instantiate(_bullet, _barrel.transform.position, Quaternion.identity);
-            _SOEffect.PlayEffect(_audioSource, _barrel.transform.position, _controller.AimDirection);
+            _SOEffect.PlayEffect(_barrel.transform.position, _controller.AimDirection);
 
             yield return new WaitForSeconds(_shotDelay);
             _canShoot = true;
