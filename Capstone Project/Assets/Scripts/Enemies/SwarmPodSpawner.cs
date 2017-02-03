@@ -24,6 +24,7 @@ public class SwarmPodSpawner : MonoBehaviour {
     [SerializeField]
     private SOEffects _podExplosionEffect;
 
+    private Transform[] _effectPositions;           // Positions where the effects will play from.
     private bool _batteryDamaged = false;           //Bool to determine if the player has hit the battery already
     private float _timer = 0.0f;                    //For delay purposes in Update
 
@@ -37,9 +38,14 @@ public class SwarmPodSpawner : MonoBehaviour {
     private bool _move = false;
 
     private void OnEnable() {
+        _effectPositions = GetComponentsInChildren<Transform>();
+
+        for(int i = 0; i < _effectPositions.Length; ++i) {
+            Debug.Log(_effectPositions[i]);
+        }
 
         // Start the battery indication effect animation
-        _podBatteryIndicatorGO = _batteryIndicatorEffect.PlayEffect(GetComponentInChildren<Transform>().position);
+        _podBatteryIndicatorGO = _batteryIndicatorEffect.PlayEffect(_effectPositions[1].position);
 
         _timer = Time.time;
     }
@@ -53,7 +59,7 @@ public class SwarmPodSpawner : MonoBehaviour {
 
             if (Time.time - _timer > _destructionDelay) {
 
-                _podExplosionEffect.PlayEffect(transform.position);
+                _podExplosionEffect.PlayEffect(_effectPositions[5].position);
 
                 _podExplosionEffect.StopEffect(_podBatteryDamageGO);
                 _podExplosionEffect.StopEffect(_oilSpill1);
@@ -86,9 +92,9 @@ public class SwarmPodSpawner : MonoBehaviour {
             _timer = Time.time;
             _batteryDamaged = true;
             _batteryDamageEffect.StopEffect(_podBatteryIndicatorGO);
-            _podBatteryDamageGO = _batteryDamageEffect.PlayEffect(GetComponentInChildren<Transform>().position);
-            _oilSpill1 = _oilSpill_1_Effect.PlayEffect(transform.position);
-            _oilSpill2 = _oilSpill_2_Effect.PlayEffect(transform.position);
+            _podBatteryDamageGO = _batteryDamageEffect.PlayEffect(_effectPositions[2].position);
+            _oilSpill1 = _oilSpill_1_Effect.PlayEffect(_effectPositions[3].position);
+            _oilSpill2 = _oilSpill_2_Effect.PlayEffect(_effectPositions[4].position);
         }
     }
 

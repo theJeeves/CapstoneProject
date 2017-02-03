@@ -2,18 +2,6 @@
 using System.Collections;
 using System.Collections.Generic;
 
-//// This list will continue to grow. This is a list of all the possible effects we will have in the game.
-//public enum EffectEnum {
-//    None,
-//    PlayerGrounded, PlayerRespawn,
-//    CrystalBulletImpact, MGMuzzelFlash, LightningContact, SGMuzzleFlash,
-//    SniperDeathExplosion,
-//    SwarmerDeathExplosion,
-//    SwarmPodDestruction, PodBatteryDamage, PodBatteryIndicator, PodOilSpill_1, PodOilSpill_2,
-//    AcidSwarmerSpill, AcidSwarmerBall, AcidBallSplatter, AcidDamageEffect, ExplosionDamageEffect,
-//    ExplosiveSwarmerEffect, SniperTellEffect, SniperLaserEffect, SniperBulletImpact
-//}
-
 //Create Asset Menu allows us to turn this scriptable object into an asset to be used in the game.
 [CreateAssetMenu(menuName ="SO AV Effects/New SO AV Effect")]
 public class SOEffects : ScriptableObject {
@@ -22,8 +10,6 @@ public class SOEffects : ScriptableObject {
     private GameObject _effectPrefab;
     [SerializeField]
     private SpriterDotNetUnity.SpriterData _effectData;
-    [SerializeField]
-    private Vector2 _offset;
 
     //This is the primary function which will be called in many scripts. An EffectEnum must be given so the correct prefab is instantiated.
     //It is give a position + the offset, and optionally (priamrily for the weapons) the angle.
@@ -39,7 +25,7 @@ public class SOEffects : ScriptableObject {
 
             GameObject instance = Instantiate(_effectPrefab, position, Quaternion.identity) as GameObject;
 
-            instance.transform.position = new Vector3(position.x + _offset.x, position.y + _offset.y, -1.0f);
+            instance.transform.position = new Vector3(position.x, position.y, -1.0f);
 
             instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, angle);
 

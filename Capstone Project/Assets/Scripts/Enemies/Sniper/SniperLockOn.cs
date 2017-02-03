@@ -13,7 +13,7 @@ public class SniperLockOn : MonoBehaviour {
 
     [SerializeField]
     private float _shotDelay;
-    private Transform _playerPos;
+    private BoxCollider2D _playerPos;
     private Vector3 _direction;
     private Vector3 _localScale;
 
@@ -22,7 +22,7 @@ public class SniperLockOn : MonoBehaviour {
     private GameObject _tellEffect;
 
     private void Awake() {
-        _playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        _playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
     }
 
     private void OnEnable() {
@@ -36,7 +36,7 @@ public class SniperLockOn : MonoBehaviour {
 
     private void Update() {
 
-        _direction = (_playerPos.position - transform.position);
+        _direction = (_playerPos.bounds.center - transform.position);
         _localScale = transform.localScale;
         transform.localScale = _direction.x > 0 ? new Vector3(0.12f, _localScale.y, _localScale.z)
             : new Vector3(-0.12f, _localScale.y, _localScale.z);

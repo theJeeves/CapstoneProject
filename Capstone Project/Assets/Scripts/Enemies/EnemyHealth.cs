@@ -1,6 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// WHEN TALKING ABOUT THE EFFECTS THE THREE DIFFERNT TYPES OF SWARMERS WILL HAVE,
+/// THE LAST ELEMENT IN THE ARRAY WILL ALWAYS BE THE DEATH EFFECT. THE ONES BEFORE IT
+/// WILL BE THE ATTACKS.
+/// </summary>
+
 public enum EnemyType {
     Sniper,
     Swarmer,
@@ -25,6 +31,8 @@ public class EnemyHealth : MonoBehaviour {
     private SOEffects[] _SOEffects;
     private GameObject _effect;
 
+
+    private Transform[] _effectPositions;
     private int length = 0;
     private float _timer = 0.0f;
     private float _effectDelay = 0.0f;
@@ -40,6 +48,8 @@ public class EnemyHealth : MonoBehaviour {
         }
 
         length = _SOEffects.Length;
+
+        _effectPositions = GetComponentsInChildren<Transform>();
     }
 
     private void Start() {
@@ -57,16 +67,16 @@ public class EnemyHealth : MonoBehaviour {
         if (enemyType == EnemyType.AcidSwarmer) {
 
             if (Time.time - _timer > _effectDelay) {
-                _SOEffects[0].PlayEffect(position, transform.eulerAngles.z + 90.0f);
+                _SOEffects[0].PlayEffect(_effectPositions[1].position, transform.eulerAngles.z + 90.0f);
 
-                _SOEffects[1].PlayEffect(position);
+                _SOEffects[1].PlayEffect(_effectPositions[1].position);
                 _effectDelay = Random.Range(1.0f, 3.0f);
                 _timer = Time.time;
             }
         }
 
         else if (enemyType == EnemyType.ExplodingSwamer && _effect != null) {
-            _effect.transform.position = new Vector3(position.x, position.y + 15.0f, position.z);
+            _effect.transform.position = _effectPositions[1].position;
         }
     }
 
