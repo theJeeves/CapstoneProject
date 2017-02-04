@@ -305,7 +305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _damage: 30
   _knockBack: 7500
-  _SOEffect: {fileID: 0}
+  _SOEffect: {fileID: 11400000, guid: 4ccc6be18394ed9478eabeafcf7f1d2f, type: 2}
 --- !u!114 &114000011202414680
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -317,7 +317,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b617a75f9270c5448895f933fefd8629, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SortingLayer: Default
+  SortingLayer: Effects
   SortingOrder: 0
   ChildData:
     SpritePivots:

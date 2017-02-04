@@ -76,6 +76,7 @@ GameObject:
   - 114: {fileID: 114000013920287982}
   - 114: {fileID: 114000011971353112}
   - 114: {fileID: 114000011477222704}
+  - 61: {fileID: 61000013783603014}
   m_Layer: 9
   m_Name: MainCharacter
   m_TagString: Player
@@ -482,7 +483,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010381511670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 59.2, y: 5.5, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -731,6 +732,20 @@ BoxCollider2D:
   m_Offset: {x: 1, y: 2.8}
   serializedVersion: 2
   m_Size: {x: 2.64, y: 5.66}
+--- !u!61 &61000013783603014
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010381511670}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: -0.93, y: 2.67}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 0.34}
 --- !u!114 &114000010590434350
 MonoBehaviour:
   m_ObjectHideFlags: 1

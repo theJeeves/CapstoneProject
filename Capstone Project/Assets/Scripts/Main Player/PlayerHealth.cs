@@ -32,11 +32,10 @@ public class PlayerHealth : MonoBehaviour {
     private SOEffects _explosionDamageEffect;
     [SerializeField]
     private ScreenShakeRequest _scrnShkRequest;
-
-
     [SerializeField]
     private SOCheckpoint _SOCheckpoint;
 
+    private Transform[] _effectPositions;
     private GameObject _effect;
     private DamageEnum _damageType;
     private SpriteRenderer[] _spriteRenderer;
@@ -56,6 +55,8 @@ public class PlayerHealth : MonoBehaviour {
 
     private void OnEnable() {
         _spriteRenderer = GetComponentsInChildren<SpriteRenderer>();
+
+        _effectPositions = GetComponentsInChildren<Transform>();
     }
 
     void Start() {
@@ -110,12 +111,12 @@ public class PlayerHealth : MonoBehaviour {
 
                 if (damageType == DamageEnum.Acid) {
                     AcidDamageEffect();
-                    _effect = _acidDamageEfect.PlayEffect(transform.position);
+                    _effect = _acidDamageEfect.PlayEffect(_effectPositions[1].position);
                     _damageType = damageType;
                 }
                 else if (damageType == DamageEnum.Explosion) {
                     ExplosionDamageEffect();
-                    _effect = _explosionDamageEffect.PlayEffect(transform.position);
+                    _effect = _explosionDamageEffect.PlayEffect(_effectPositions[1].position);
                     _damageType = damageType;
                     _health -= damage;
                     _scrnShkRequest.ShakeRequest();

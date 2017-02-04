@@ -35,6 +35,7 @@ public enum Condition {
 // to change the properties for each axis. This will become more apparent if/when we do co-op.
 [System.Serializable]
 public class InputAxisState {
+
     [SerializeField]
     private string _axisName;                //Which axis will this input be looking for
     [SerializeField]
@@ -82,15 +83,47 @@ public class InputManager : MonoBehaviour {
 
     [SerializeField]
     private ControllableObject _player;             //Which GameObject we will be processing input for
+
+    [Space]
+    [Header("DUALSHOCK INPUTS")]
     [SerializeField]
-    private InputAxisState[] _inputs;               // An array of all the inputs which can be used by the player
+    private InputAxisState[] _DSInputs;               // An array of all the inputs which can be used by the player
+
+    [Space]
+    [Header("XBOX INPUTS")]
+    [SerializeField]
+    private InputAxisState[] _XBOXInputs;
+
+    private int controllerType = -1;
+
+    private void Start() {
+        // Get a list of all availabe gamepads
+        string[] inputs = Input.GetJoystickNames();
+
+        // Determine if the player is using a Dualshock or Xbox controller
+        // Stop looking after the first one is found.
+        foreach(string input in inputs) {
+            if (input != "") {
+                controllerType = input == "Wireless Controller" ? 0 : 1;
+                break;
+            }
+        }
+    }
 
     // Update is called once per frame
     void Update() {
 
-        foreach (InputAxisState input in _inputs) {
-
-            _player.SetButtonState(input.Button, input.IsPressed);
+        // Depending on the controller type, run through all the inputs and check if any of the
+        // button states has changed.
+        if (controllerType == 0) {
+            foreach (InputAxisState input in _DSInputs) {
+                _player.SetButtonState(input.Button, input.IsPressed);
+            }
+        }
+        else {
+            foreach (InputAxisState input in _XBOXInputs) {
+                _player.SetButtonState(input.Button, input.IsPressed);
+            }
         }
     }
 }

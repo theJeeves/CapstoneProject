@@ -50,7 +50,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1000013448789806
 GameObject:
   m_ObjectHideFlags: 1
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3305f66261bb8b04fa3d052ccd15c6e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SOEffect: {fileID: 0}
+  _SOEffect: {fileID: 11400000, guid: affcd954bb6b7474598215f5e90f43e2, type: 2}
   _whatToHit:
     serializedVersion: 2
     m_Bits: 27392
@@ -260,7 +260,8 @@ MonoBehaviour:
   enemyType: 0
   _maxHealth: 50
   _health: 0
-  _SOEffects: []
+  _SOEffects:
+  - {fileID: 11400000, guid: d416048b6f466474c842aebbb24bc688, type: 2}
 --- !u!114 &114000013719628914
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -272,9 +273,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bab53db10711bd4a9e6e80eab5e8f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SOEffects: {fileID: 0}
+  _SOEffects: {fileID: 11400000, guid: f377ba27b2fa7ff4ab4ec5f339c7246e, type: 2}
   _endOfBarrel: {fileID: 1000013448789806}
-  _bullet: {fileID: 1000011209798602, guid: 824999f7f8bbaef4a8cc294117a1be90, type: 2}
+  _bullet: {fileID: 1000010515563096, guid: 824999f7f8bbaef4a8cc294117a1be90, type: 2}
   _shotDelay: 3
 --- !u!120 &120000013064961946
 LineRenderer:
