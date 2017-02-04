@@ -91,7 +91,7 @@ public class ShotgunBlast : AbstractBullet {
             yield return 0;
         }
 
-        Destroy(gameObject);
+        Destroy(gameObject, 0.8f);
     }
 
     // User Raycasting on each lightning bolt to determine if a collision has occured.
