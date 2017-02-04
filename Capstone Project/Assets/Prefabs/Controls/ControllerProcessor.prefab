@@ -52,48 +52,94 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _player: {fileID: 0}
-  _inputs:
-  - _axisName: LSX
-    _altAxisName: D-Pad_H
+  _DSInputs:
+  - _axisName: DS_LEFT_ANALOG_X
+    _altAxisName: DS_DPAD_X
     _button: 0
     _offValue: 0
     _condition: 0
-  - _axisName: LSX
-    _altAxisName: D-Pad_H
+  - _axisName: DS_LEFT_ANALOG_X
+    _altAxisName: DS_DPAD_X
     _button: 1
     _offValue: 0
     _condition: 1
-  - _axisName: R1
-    _altAxisName: L1
-    _button: 3
-    _offValue: 0
-    _condition: 0
-  - _axisName: RSX
+  - _axisName: DS_RIGHT_ANALOG_X
     _altAxisName: 
     _button: 7
     _offValue: 0
     _condition: 0
-  - _axisName: RSX
+  - _axisName: DS_RIGHT_ANALOG_X
     _altAxisName: 
     _button: 6
     _offValue: 0
     _condition: 1
-  - _axisName: RSY
+  - _axisName: DS_RIGHT_ANALOG_Y
     _altAxisName: 
     _button: 4
     _offValue: 0
     _condition: 1
-  - _axisName: R2
-    _altAxisName: 
-    _button: 2
-    _offValue: -1
-    _condition: 0
-  - _axisName: RSY
+  - _axisName: DS_RIGHT_ANALOG_Y
     _altAxisName: 
     _button: 5
     _offValue: 0
     _condition: 0
-  - _axisName: Square
+  - _axisName: DS_R1
+    _altAxisName: DS_L1
+    _button: 3
+    _offValue: 0
+    _condition: 0
+  - _axisName: DS_R2
+    _altAxisName: 
+    _button: 2
+    _offValue: 0
+    _condition: 0
+  - _axisName: DS_SQUARE_BUTTON
+    _altAxisName: 
+    _button: 8
+    _offValue: 0
+    _condition: 0
+  _XBOXInputs:
+  - _axisName: XBOX_LEFT_ANALOG_X
+    _altAxisName: XBOX_DPAD_X
+    _button: 0
+    _offValue: 0
+    _condition: 0
+  - _axisName: XBOX_LEFT_ANALOG_X
+    _altAxisName: XBOX_DPAD_X
+    _button: 1
+    _offValue: 0
+    _condition: 1
+  - _axisName: XBOX_RIGHT_ANALOG_X
+    _altAxisName: 
+    _button: 7
+    _offValue: 0
+    _condition: 0
+  - _axisName: XBOX_RIGHT_ANALOG_X
+    _altAxisName: 
+    _button: 6
+    _offValue: 0
+    _condition: 1
+  - _axisName: XBOX_RIGHT_ANALOG_Y
+    _altAxisName: 
+    _button: 4
+    _offValue: 0
+    _condition: 1
+  - _axisName: XBOX_RIGHT_ANALOG_Y
+    _altAxisName: 
+    _button: 5
+    _offValue: 0
+    _condition: 0
+  - _axisName: XBOX_RIGHT_BUMPER
+    _altAxisName: XBOX_LEFT_BUMPER
+    _button: 3
+    _offValue: 0
+    _condition: 0
+  - _axisName: XBOX_RIGHT_TRIGGER
+    _altAxisName: 
+    _button: 2
+    _offValue: 0
+    _condition: 1
+  - _axisName: XBOX_X_BUTTON
     _altAxisName: 
     _button: 8
     _offValue: 0

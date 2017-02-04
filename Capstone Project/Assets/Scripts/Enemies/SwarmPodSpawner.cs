@@ -40,10 +40,6 @@ public class SwarmPodSpawner : MonoBehaviour {
     private void OnEnable() {
         _effectPositions = GetComponentsInChildren<Transform>();
 
-        for(int i = 0; i < _effectPositions.Length; ++i) {
-            Debug.Log(_effectPositions[i]);
-        }
-
         // Start the battery indication effect animation
         _podBatteryIndicatorGO = _batteryIndicatorEffect.PlayEffect(_effectPositions[1].position);
 
