@@ -18,7 +18,7 @@ public class SniperDealDamage : MonoBehaviour {
 
             if (tag == "Player") {
                 otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage);
-                Vector2 direction = new Vector2(transform.position.x, transform.position.y) - otherGO.gameObject.GetComponent<BoxCollider2D>().offset;
+                Vector2 direction = new Vector2(transform.position.x, transform.position.y) - otherGO.gameObject.GetComponent<PolygonCollider2D>().offset;
                 otherGO.gameObject.GetComponent<Rigidbody2D>().AddForce(direction.normalized * _knockBack, ForceMode2D.Impulse);
             }
 

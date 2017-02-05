@@ -144,13 +144,13 @@ public class PlayerHealth : MonoBehaviour {
 
     private void AcidDamageEffect() {
 
-        for (int i = 0; i < _spriteRenderer.Length - 1; ++i) {
+        for (int i = 0; i < _spriteRenderer.Length; ++i) {
             _spriteRenderer[i].color = Color.green;
         }
     }
 
     private void ExplosionDamageEffect() {
-        for (int i = 0; i < _spriteRenderer.Length - 1; ++i) {
+        for (int i = 0; i < _spriteRenderer.Length; ++i) {
             _spriteRenderer[i].color = new Color(0.18f, 0.18f, 0.18f);
         }
     }

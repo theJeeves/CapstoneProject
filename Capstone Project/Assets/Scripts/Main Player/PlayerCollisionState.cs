@@ -27,26 +27,40 @@ public class PlayerCollisionState : MonoBehaviour {
     [SerializeField]
     private SOEffects _SOEffect;
 
-    private BoxCollider2D _box;                             // Used to get the dimension of the collider
+    //private BoxCollider2D _box;                             // Used to get the dimension of the collider
+    private PolygonCollider2D _box;
     private Vector2[] _rayOrigin = new Vector2[2];          // Stores the left and right side of the collider's world position
     private float _distance;                                // The distance the raycast will travel will be slightly past the player's feet.
     private Vector2 _direction;                             // Only interested in what is below the player's feet.
     private bool _touchedGround;                            // Used to keep track of past states for EVENT purposes.
+    private float _baseP1position;
+    private Vector2[] _notAiming = { new Vector2(1.57f, 6.11f), new Vector2(4.35f, 3.3f),
+                                    new Vector2(2.22f, 0.0f), new Vector2(-0.34f, 0.0f),
+                                    new Vector2(-2.04f, 5.04f)};
+
+    private Vector2[] _aiming = { new Vector2(1.57f, 6.11f), new Vector2(6.35f, 3.3f),
+                                    new Vector2(2.22f, 0.0f), new Vector2(-0.34f, 0.0f),
+                                    new Vector2(-2.04f, 5.04f)};
+
+    private ControllableObject _controller;
 
     private void OnEnable() {
-        _box = GetComponent<BoxCollider2D>();
+        //_box = GetComponent<BoxCollider2D>();
+        _box = GetComponent<PolygonCollider2D>();
+        _controller = GetComponent<ControllableObject>();
 
         // The distance should just be long enough to extend outside of the collider box.
         _distance = 2.0f;
         _direction = new Vector2(0.0f, -1.0f);              // Down direction.
         _touchedGround = false;
+        _baseP1position = _box.points[1].x;
     }
 
     private void FixedUpdate() {
 
         // Get the position of the player's collider box every fixed update
-        _rayOrigin[0] = new Vector2(_box.bounds.min.x + _rayCastOffset.x, _box.bounds.min.y + 1.0f);
-        _rayOrigin[1] = new Vector2(_box.bounds.max.x - _rayCastOffset.x, _box.bounds.min.y + 1.0f);
+        _rayOrigin[0] = new Vector2(_box.bounds.center.x + 5.0f * (float)_controller.FacingDirection/*+ _rayCastOffset.x*/, _box.bounds.min.y + 1.0f);
+        _rayOrigin[1] = new Vector2(_box.bounds.center.x - 7.75f * (float)_controller.FacingDirection/*- _rayCastOffset.x*/, _box.bounds.min.y + 1.0f);
 
         // For both sides of the player, check if the Raycast is touching the floor.
         // Only check the right side if the player's left side is not touching. Most of the time, 
@@ -77,5 +91,15 @@ public class PlayerCollisionState : MonoBehaviour {
 
         _onSolidGround = _touchedGround ? true : false;         // Update the collision state.
         _touchedGround = false;                                 // Reset the collision check.
+    }
+
+    private void Update() {
+
+        if ((_controller.GetButtonPress(Buttons.AimRight) || _controller.GetButtonPress(Buttons.AimLeft)) ) {
+            _box.SetPath(0, _aiming);
+        }
+        else {
+            _box.SetPath(0, _notAiming);
+        }
     }
 }

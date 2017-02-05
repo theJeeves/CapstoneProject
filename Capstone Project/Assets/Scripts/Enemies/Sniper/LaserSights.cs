@@ -10,14 +10,14 @@ public class LaserSights : MonoBehaviour {
     [SerializeField]
     private Transform _endOfBarrel;
 
-    private BoxCollider2D _playerBox;
+    private PolygonCollider2D _playerBox;
     private Vector3 _playerPos;
     private Vector2 _obstruction;
     private LineRenderer _renderer;
     private GameObject _laserEffect;
 
     private void Awake() {
-        _playerBox = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
+        _playerBox = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
         _renderer = GetComponent<LineRenderer>();
     }
 
