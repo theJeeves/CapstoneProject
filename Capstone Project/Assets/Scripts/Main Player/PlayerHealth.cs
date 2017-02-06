@@ -159,7 +159,7 @@ public class PlayerHealth : MonoBehaviour {
 
         float t = Time.deltaTime * (1.0f / _duration);
 
-        for (int i = 0; i < _spriteRenderer.Length - 1; ++i) {
+        for (int i = 0; i < _spriteRenderer.Length; ++i) {
 
             _spriteRenderer[i].color = new Color(Mathf.Clamp01(_spriteRenderer[i].color.r + t), Mathf.Clamp01(_spriteRenderer[i].color.g + t),
                 Mathf.Clamp01(_spriteRenderer[i].color.b + t));
