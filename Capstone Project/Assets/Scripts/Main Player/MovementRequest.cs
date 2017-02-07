@@ -46,7 +46,6 @@ public class MovementRequest : ScriptableObject {
     private System.Action<float, float>[] _gunActions = new System.Action<float, float>[8];
 
     protected virtual void OnEnable() {
-        _player = GameObject.FindGameObjectWithTag("Player");
 
         if (_type == MovementType.Shotgun || _type == MovementType.MachineGun) {
             _gunActions[0] = AimRight;
@@ -109,12 +108,20 @@ public class MovementRequest : ScriptableObject {
         }
     }
 
+    private void GetPlayerReference() {
+        if (_player == null) {
+            _player = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
+
     public virtual void RequestMovement(Buttons button) {
         _button = button;
+        GetPlayerReference();
         _player.SendMessage("Enqueue", this);
     }
 
     public virtual void RequestMovement() {
+        GetPlayerReference();
         _player.SendMessage("Enqueue", this);
     }
 
