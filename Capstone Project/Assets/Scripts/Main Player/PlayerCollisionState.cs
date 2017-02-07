@@ -33,7 +33,7 @@ public class PlayerCollisionState : MonoBehaviour {
     private float _distance;                                // The distance the raycast will travel will be slightly past the player's feet.
     private Vector2 _direction;                             // Only interested in what is below the player's feet.
     private bool _touchedGround;                            // Used to keep track of past states for EVENT purposes.
-    private float _baseP1position;
+
     private Vector2[] _notAiming = { new Vector2(1.57f, 6.11f), new Vector2(4.35f, 3.3f),
                                     new Vector2(2.22f, 0.0f), new Vector2(-0.34f, 0.0f),
                                     new Vector2(-2.04f, 5.04f)};
@@ -53,7 +53,7 @@ public class PlayerCollisionState : MonoBehaviour {
         _distance = 2.0f;
         _direction = new Vector2(0.0f, -1.0f);              // Down direction.
         _touchedGround = false;
-        _baseP1position = _box.points[1].x;
+        //_baseP1position = _box.points[1].x;
     }
 
     private void FixedUpdate() {

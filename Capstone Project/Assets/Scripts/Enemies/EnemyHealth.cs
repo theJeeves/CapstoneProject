@@ -59,7 +59,7 @@ public class EnemyHealth : MonoBehaviour {
 
     private void Update() {
 
-        Vector3 position = transform.position;
+        //Vector3 position = transform.position;
 
         if (enemyType == EnemyType.AcidSwarmer) {
 
