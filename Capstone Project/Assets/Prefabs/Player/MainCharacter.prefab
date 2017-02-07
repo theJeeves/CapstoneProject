@@ -794,7 +794,7 @@ MonoBehaviour:
   _type: 1
   _moveRequest: {fileID: 11400000, guid: cdc3f595762bba34cba05b0ba046fcb3, type: 2}
   _SSRequest: {fileID: 11400000, guid: 7d55f017c234c1b4baa6e87eb8455543, type: 2}
-  _SOEffectHandler: {fileID: 11400000, guid: 53d03fba4200eb04888c57a51da3fb3c, type: 2}
+  _SOEffect: {fileID: 11400000, guid: 56a183e25558be14a9dbfcf0cf0f5312, type: 2}
   _ammoCapacity: 3
   numOfRounds: 0
   _shotDelay: 0.25
@@ -965,7 +965,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 10496
   _rayCastOffset: {x: 0.25, y: 1}
-  _SOEffectHandler: {fileID: 11400000, guid: 53d03fba4200eb04888c57a51da3fb3c, type: 2}
+  _SOEffect: {fileID: 11400000, guid: 0d27c2cf54dc36f4eb496273f853cdc0, type: 2}
 --- !u!114 &114000013190056812
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -981,7 +981,7 @@ MonoBehaviour:
   _type: 2
   _moveRequest: {fileID: 11400000, guid: ce569abef207a4548b05403932892f9c, type: 2}
   _SSRequest: {fileID: 11400000, guid: 29dc05b90d7fb594ea0a8aae772e5619, type: 2}
-  _SOEffectHandler: {fileID: 11400000, guid: 53d03fba4200eb04888c57a51da3fb3c, type: 2}
+  _SOEffect: {fileID: 11400000, guid: c8c65209c05b09247b1333b1c3b43db7, type: 2}
   _ammoCapacity: 26
   numOfRounds: 0
   _shotDelay: 0.1
@@ -990,7 +990,7 @@ MonoBehaviour:
   _barrel: {fileID: 4000011842634022}
   _initialMoveRequest: {fileID: 11400000, guid: 5ea375aa461b91c41a46e0041f2c1b00,
     type: 2}
-  _cystalBullet: {fileID: 0}
+  _cystalBullet: {fileID: 11400000, guid: a0b736c538cc9364fb1222bbb70b84fb, type: 2}
 --- !u!114 &114000013920287982
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1005,7 +1005,9 @@ MonoBehaviour:
   _maxHealth: 100
   _health: 0
   _recoveryTime: 1
-  _SOEffectHandler: {fileID: 11400000, guid: 53d03fba4200eb04888c57a51da3fb3c, type: 2}
+  _acidDamageEfect: {fileID: 11400000, guid: c31607ce780d84c419b022eb1bd84975, type: 2}
+  _explosionDamageEffect: {fileID: 11400000, guid: 2675bac7b7633d944a52b340843babba,
+    type: 2}
   _scrnShkRequest: {fileID: 11400000, guid: 8ef3faf65b3f2824bb551b6f8c073115, type: 2}
   _SOCheckpoint: {fileID: 11400000, guid: 2891e6f4f3d0a9648b35cda93f48de61, type: 2}
 --- !u!212 &212000011415763638

@@ -16,7 +16,6 @@ public class PlayerWalking : MonoBehaviour {
         _controller = GetComponent<ControllableObject>();
 
         ControllableObject.OnButton += OnButton;
-        _moveRequest.LoadMovementRequests();
     }
 
     private void OnDisable() {

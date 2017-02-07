@@ -141,14 +141,14 @@ public class MachineGun : AbstractGun {
         if (!_damaged) {
             _canShoot = false;
 
-            _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrel.transform.position, _controller.AimDirection);
+            _muzzleFlashGO = _SOEffect.PlayEffect(_barrel.transform.position, _controller.AimDirection);
             //GameObject instance = Instantiate(_bullet, _barrel.transform.position, Quaternion.identity) as GameObject;
 
             // Angle the crystal according the the angle of the gun's direction
             //instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, _controller.AimDirection);
 
 
-            _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrel.transform.position, _controller.AimDirection);
+            _cystalBullet.PlayEffect(_barrel.transform.position, _controller.AimDirection);
             _SSRequest.ShakeRequest();
 
             yield return new WaitForSeconds(_shotDelay);

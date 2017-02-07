@@ -4,7 +4,7 @@ using System.Collections;
 public class AcidBallBehavior : MonoBehaviour {
 
     [SerializeField]
-    private SOEffects _SOEffectHandler;
+    private SOEffects _SOEffect;
 
     private void OnEnable() {
         GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-75.0f, 75.0f), Random.Range(75.0f, 250.0f)), ForceMode2D.Impulse);
@@ -20,7 +20,7 @@ public class AcidBallBehavior : MonoBehaviour {
     }
 
     public void Splatter() {
-        _SOEffectHandler.PlayEffect(EffectEnums.AcidBallSplatter, transform.position, 90.0f);
+        _SOEffect.PlayEffect(transform.position, 90.0f);
         Destroy(gameObject);
     }
 }

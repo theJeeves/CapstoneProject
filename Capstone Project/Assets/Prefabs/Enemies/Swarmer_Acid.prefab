@@ -448,7 +448,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011496809480}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 98.69624, y: 53.796257, z: 0}
+  m_LocalPosition: {x: 73.7, y: 48.3, z: 0}
   m_LocalScale: {x: 6, y: 6, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -635,7 +635,10 @@ MonoBehaviour:
   enemyType: 2
   _maxHealth: 7
   _health: 0
-  _SOEffectHandler: {fileID: 11400000, guid: 53d03fba4200eb04888c57a51da3fb3c, type: 2}
+  _SOEffects:
+  - {fileID: 11400000, guid: 0dd837613988fff40baa54240765cde2, type: 2}
+  - {fileID: 11400000, guid: 2c1adb8d81e12f74eb288a4811ad30c9, type: 2}
+  - {fileID: 11400000, guid: 43d25b1418454f047ac821cd0b3c1263, type: 2}
 --- !u!114 &114000013554365962
 MonoBehaviour:
   m_ObjectHideFlags: 1

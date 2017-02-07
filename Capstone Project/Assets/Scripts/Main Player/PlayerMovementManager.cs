@@ -41,11 +41,11 @@ public class PlayerMovementManager : MonoBehaviour {
 
             switch (_moveQ.Peek().MovementType) {
                 case MovementType.Walking:
-                case MovementType.ShotgunMovement:
-                case MovementType.MachineGunMovement:
+                case MovementType.Shotgun:
+                case MovementType.MachineGun:
                     _body2d.velocity = _moveQ.Dequeue().Move(_values, _grounded, _controller.CurrentKey);
                     break;
-                case MovementType.MachineGunImpulse:
+                case MovementType.AddForce:
                     _moveQ.Dequeue().Move(Vector3.zero, false, _controller.CurrentKey);
                     break;
             }

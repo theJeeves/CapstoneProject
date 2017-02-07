@@ -23,7 +23,7 @@ public abstract class AbstractGun : MonoBehaviour {
     [SerializeField]
     protected ScreenShakeRequest _SSRequest;
     [SerializeField]
-    protected SOEffects _SOEffectHandler;
+    protected SOEffects _SOEffect;
 
     [SerializeField]
     protected int _ammoCapacity;

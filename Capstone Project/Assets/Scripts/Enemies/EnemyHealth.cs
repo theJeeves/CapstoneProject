@@ -28,7 +28,7 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     [SerializeField]
-    private SOEffects _SOEffectHandler;
+    private SOEffects[] _SOEffects;
     private GameObject _effect;
 
 
@@ -38,24 +38,26 @@ public class EnemyHealth : MonoBehaviour {
     private float _effectDelay = 0.0f;
 
     private void OnEnable() {
-        _effectPositions = GetComponentsInChildren<Transform>();
-    }
-
-    private void Start() {
 
         if (enemyType == EnemyType.AcidSwarmer) {
             _timer = Time.time;
             _effectDelay = Random.Range(1.0f, 3.0f);
         }
         else if (enemyType == EnemyType.ExplodingSwamer) {
-            _effect = _SOEffectHandler.PlayEffect(EffectEnums.SwarmerExplosionEffect, transform.position);
+            _effect = _SOEffects[0].PlayEffect(transform.position);
         }
 
+        length = _SOEffects.Length;
+
+        _effectPositions = GetComponentsInChildren<Transform>();
+    }
+
+    private void Start() {
         _health = _maxHealth;
     }
 
     private void OnDisable() {
-        _SOEffectHandler.StopEffect(_effect);
+        _SOEffects[0].StopEffect(_effect);
     }
 
     private void Update() {
@@ -65,9 +67,9 @@ public class EnemyHealth : MonoBehaviour {
         if (enemyType == EnemyType.AcidSwarmer) {
 
             if (Time.time - _timer > _effectDelay) {
-                _SOEffectHandler.PlayEffect(EffectEnums.AcidSquirt, _effectPositions[1].position, transform.eulerAngles.z + 90.0f);
+                _SOEffects[0].PlayEffect(_effectPositions[1].position, transform.eulerAngles.z + 90.0f);
 
-                _SOEffectHandler.PlayEffect(EffectEnums.AcidBall, _effectPositions[1].position);
+                _SOEffects[1].PlayEffect(_effectPositions[1].position);
                 _effectDelay = Random.Range(1.0f, 3.0f);
                 _timer = Time.time;
             }
@@ -86,12 +88,12 @@ public class EnemyHealth : MonoBehaviour {
             switch (enemyType) {
 
                 case EnemyType.Sniper:
-                    _SOEffectHandler.PlayEffect(EffectEnums.SniperDeathExplosion, transform.position); break;
+                    _SOEffects[0].PlayEffect(transform.position); break;
 
                 case EnemyType.Swarmer:
                 case EnemyType.AcidSwarmer:
                 case EnemyType.ExplodingSwamer:
-                    _SOEffectHandler.PlayEffect(EffectEnums.SwarmerDeathExplosion, transform.position); break;
+                    _SOEffects[length - 1].PlayEffect(transform.position); break;
             }
             Destroy(gameObject);
         }

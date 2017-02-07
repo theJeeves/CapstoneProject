@@ -4,7 +4,7 @@ using System.Collections;
 public class CrystalBullet : AbstractBullet {
 
     [SerializeField]
-    private SOEffects _SOEffectHandler;
+    private SOEffects _SOEffect;
 
     protected override void Start() {
         base.Start();
@@ -22,7 +22,7 @@ public class CrystalBullet : AbstractBullet {
         }
 
         if (otherGO.gameObject.tag != "Player" && otherGO != null) {
-            _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
+            _SOEffect.PlayEffect(transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }
     }
