@@ -25,7 +25,7 @@ public class PlayerCollisionState : MonoBehaviour {
     [Header("Effects")]
 
     [SerializeField]
-    private SOEffects _SOEffect;
+    private SOEffects _SOEffectHandler;
 
     //private BoxCollider2D _box;                             // Used to get the dimension of the collider
     private PolygonCollider2D _box;
@@ -77,7 +77,7 @@ public class PlayerCollisionState : MonoBehaviour {
 
         // Send out this event if the player wasn't on the ground and its status has changed.
         if (!_onSolidGround && _touchedGround) {
-            _SOEffect.PlayEffect(transform.position);
+            _SOEffectHandler.PlayEffect(EffectEnums.LandingDust, transform.position);
             if (OnHitGround != null) {
                 OnHitGround();
             }

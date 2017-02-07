@@ -4,7 +4,7 @@ using System.Collections;
 public class ShotgunBlast : AbstractBullet {
 
     [SerializeField]
-    private SOEffects _SOEffect;
+    private SOEffects _SOEffectHandler;
 
     private GameObject _endOfBarrel;
 
@@ -118,7 +118,7 @@ public class ShotgunBlast : AbstractBullet {
                     hit.collider.gameObject.GetComponent<AcidBallBehavior>().Splatter();
                 }
 
-                _SOEffect.PlayEffect(hit.point);
+                _SOEffectHandler.PlayEffect(EffectEnums.LightningImpact, hit.point);
             }
         }
     }

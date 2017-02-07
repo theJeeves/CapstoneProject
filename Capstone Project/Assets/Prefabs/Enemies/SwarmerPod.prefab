@@ -255,18 +255,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f3470bbd67d2154a9585df6bfba0bd4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _swarmPrefab: {fileID: 1000011496809480, guid: d2b0de6fcbec7b24a92ff74da403f900,
+  _swarmPrefab: {fileID: 1000010200423028, guid: d86e21edc70cfb74dbda57cfd09ad978,
     type: 2}
-  _sizeOfSwarm: 20
+  _sizeOfSwarm: 10
   _destructionDelay: 3
-  _batteryIndicatorEffect: {fileID: 11400000, guid: 677d64578560ee749a4d66b91433ff79,
-    type: 2}
-  _batteryDamageEffect: {fileID: 11400000, guid: b00fe4df7d7706a439ff5437ea91a23e,
-    type: 2}
-  _oilSpill_1_Effect: {fileID: 11400000, guid: 8f7b1a64e64131f43b01613f8e9feb6e, type: 2}
-  _oilSpill_2_Effect: {fileID: 11400000, guid: 2defb23e0fd45ec49877eee0f8755f53, type: 2}
-  _podExplosionEffect: {fileID: 11400000, guid: 2e6ddb5ef3508294fb84c50f7165a804,
-    type: 2}
+  _SOEffectHandler: {fileID: 11400000, guid: 53d03fba4200eb04888c57a51da3fb3c, type: 2}
 --- !u!212 &212000012205938362
 SpriteRenderer:
   m_ObjectHideFlags: 1

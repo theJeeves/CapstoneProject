@@ -4,12 +4,10 @@ using System.Collections;
 public class SniperLockOn : MonoBehaviour {
 
     [SerializeField]
-    private SOEffects _SOEffects;
+    private SOEffects _SOEffectHandler;
 
     [SerializeField]
     private GameObject _endOfBarrel;
-    [SerializeField]
-    private GameObject _bullet;
 
     [SerializeField]
     private float _shotDelay;
@@ -25,13 +23,13 @@ public class SniperLockOn : MonoBehaviour {
         _playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
     }
 
-    private void OnEnable() {
+    private void Start() {
         _canAttack = true;
         RestartAttack();
     }
 
     private void OnDisable() {
-        _SOEffects.StopEffect(_tellEffect);
+        _SOEffectHandler.StopEffect(_tellEffect);
     }
 
     private void Update() {
@@ -57,14 +55,15 @@ public class SniperLockOn : MonoBehaviour {
 
     private void Fire() {
         if (_canAttack) {
-            Instantiate(_bullet, _endOfBarrel.transform.position, Quaternion.identity);
+            _SOEffectHandler.PlayEffect(EffectEnums.SniperBullet, _endOfBarrel.transform.position);
+            //Instantiate(_bullet, _endOfBarrel.transform.position, Quaternion.identity);
             _canAttack = false;
         }
     }
 
     private void RestartAttack() {
         _startTime = Time.time;
-        _tellEffect = _SOEffects.PlayEffect(_endOfBarrel.transform.position);
+        _tellEffect = _SOEffectHandler.PlayEffect(EffectEnums.SniperTellEffect, _endOfBarrel.transform.position);
         _canAttack = true;
     }
 }

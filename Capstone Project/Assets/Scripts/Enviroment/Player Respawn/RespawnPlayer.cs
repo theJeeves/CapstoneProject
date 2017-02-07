@@ -6,7 +6,7 @@ public class RespawnPlayer : MonoBehaviour {
     [SerializeField]
     private SORespawn _respawnContainer;
     [SerializeField]
-    private SOEffects _SOEffect;
+    private SOEffects _SOEffectHandler;
     [SerializeField]
     private SOWeaponManager _SOWeaponManager;
 
@@ -25,7 +25,7 @@ public class RespawnPlayer : MonoBehaviour {
                 Camera.main.WorldToViewportPoint(_respawnContainer.respawnPos).x < 1.0f) {
 
                 _otherGo.GetComponent<Rigidbody2D>().gravityScale = 40.0f;
-                _SOEffect.PlayEffect(_respawnContainer.respawnPos);
+                _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _respawnContainer.respawnPos);
                 _SOWeaponManager.Reload();
                 _respawned = false;
             }

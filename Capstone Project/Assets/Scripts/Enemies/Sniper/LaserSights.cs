@@ -4,7 +4,7 @@ using System.Collections;
 public class LaserSights : MonoBehaviour {
 
     [SerializeField]
-    private SOEffects _SOEffect;
+    private SOEffects _SOEffectHandler;
     [SerializeField]
     private LayerMask _whatToHit;
     [SerializeField]
@@ -21,15 +21,15 @@ public class LaserSights : MonoBehaviour {
         _renderer = GetComponent<LineRenderer>();
     }
 
-    private void OnEnable() {
-        _laserEffect = _SOEffect.PlayEffect(_endOfBarrel.position);
-    }
-
     private void OnDisable() {
-        _SOEffect.StopEffect(_laserEffect);
+        _SOEffectHandler.StopEffect(_laserEffect);
     }
 
     private void Update() {
+
+        if (_laserEffect == null) {
+            _laserEffect = _SOEffectHandler.PlayEffect(EffectEnums.SniperLaserEffect, _endOfBarrel.position);
+        }
 
         _playerPos = new Vector2(_playerBox.bounds.center.x, _playerBox.bounds.center.y + 7.5f);
 

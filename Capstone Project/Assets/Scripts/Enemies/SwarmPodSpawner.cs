@@ -14,15 +14,7 @@ public class SwarmPodSpawner : MonoBehaviour {
     [Space]
     [Header("Effects")]
     [SerializeField]
-    private SOEffects _batteryIndicatorEffect;
-    [SerializeField]
-    private SOEffects _batteryDamageEffect;
-    [SerializeField]
-    private SOEffects _oilSpill_1_Effect;
-    [SerializeField]
-    private SOEffects _oilSpill_2_Effect;
-    [SerializeField]
-    private SOEffects _podExplosionEffect;
+    private SOEffects _SOEffectHandler;
 
     private Transform[] _effectPositions;           // Positions where the effects will play from.
     private bool _batteryDamaged = false;           //Bool to determine if the player has hit the battery already
@@ -39,9 +31,12 @@ public class SwarmPodSpawner : MonoBehaviour {
 
     private void OnEnable() {
         _effectPositions = GetComponentsInChildren<Transform>();
+    }
+
+    private void Start() {
 
         // Start the battery indication effect animation
-        _podBatteryIndicatorGO = _batteryIndicatorEffect.PlayEffect(_effectPositions[1].position);
+        _podBatteryIndicatorGO = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryIndicator, _effectPositions[1].position);
 
         _timer = Time.time;
     }
@@ -55,11 +50,11 @@ public class SwarmPodSpawner : MonoBehaviour {
 
             if (Time.time - _timer > _destructionDelay) {
 
-                _podExplosionEffect.PlayEffect(_effectPositions[5].position);
+                _SOEffectHandler.PlayEffect(EffectEnums.PodExplosion, _effectPositions[5].position);
 
-                _podExplosionEffect.StopEffect(_podBatteryDamageGO);
-                _podExplosionEffect.StopEffect(_oilSpill1);
-                _podExplosionEffect.StopEffect(_oilSpill2);
+                _SOEffectHandler.StopEffect(_podBatteryDamageGO);
+                _SOEffectHandler.StopEffect(_oilSpill1);
+                _SOEffectHandler.StopEffect(_oilSpill2);
 
                 GetComponent<SpriteRenderer>().enabled = false;
                 SpawnSwarm();
@@ -87,10 +82,10 @@ public class SwarmPodSpawner : MonoBehaviour {
         if (!_batteryDamaged) {
             _timer = Time.time;
             _batteryDamaged = true;
-            _batteryDamageEffect.StopEffect(_podBatteryIndicatorGO);
-            _podBatteryDamageGO = _batteryDamageEffect.PlayEffect(_effectPositions[2].position);
-            _oilSpill1 = _oilSpill_1_Effect.PlayEffect(_effectPositions[3].position);
-            _oilSpill2 = _oilSpill_2_Effect.PlayEffect(_effectPositions[4].position);
+            _SOEffectHandler.StopEffect(_podBatteryIndicatorGO);
+            _podBatteryDamageGO = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryDamage, _effectPositions[2].position);
+            _oilSpill1 = _SOEffectHandler.PlayEffect(EffectEnums.PodOilSpill1, _effectPositions[3].position);
+            _oilSpill2 = _SOEffectHandler.PlayEffect(EffectEnums.PodOilSpill2, _effectPositions[4].position);
         }
     }
 
