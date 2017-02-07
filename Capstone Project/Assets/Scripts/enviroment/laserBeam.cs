@@ -41,6 +41,7 @@ public class laserBeam : MonoBehaviour
     }
 
     // Update is called once per frame
+    //FIX THIS!!!!!!!!!!
     void Update()
     {
         if (_laser.gameObject.activeInHierarchy)
@@ -51,10 +52,9 @@ public class laserBeam : MonoBehaviour
             {
                 if (_hit.collider.tag == "Player")
                 {
-                    if(DecrementPlayerHealth != null)
-                    {
-                        DecrementPlayerHealth(_damage);
-                    }
+                        GameObject otherGO = GameObject.FindGameObjectWithTag("Player");
+                        otherGO.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage);
+                    
                 }
             }
         }
