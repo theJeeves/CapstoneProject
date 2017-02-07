@@ -6,6 +6,8 @@ public class FocusCamera : MonoBehaviour {
     [SerializeField]
     private ScriptedCamera _scriptedCam;
     [SerializeField]
+    private bool _moveCamera = true;
+    [SerializeField]
     private bool _rightTrigger = false;
 
     private Vector3 _boxPos;
@@ -17,7 +19,7 @@ public class FocusCamera : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D player) {
 
-        if (gameObject.GetComponent<FocusCamera>().isActiveAndEnabled) {
+        if (_moveCamera && gameObject.GetComponent<FocusCamera>().isActiveAndEnabled) {
 
             GameObject.FindGameObjectWithTag("SmartCamera").GetComponent<SmartCameraXPosition>().MovingRight = _rightTrigger ? false : true;
 
@@ -44,6 +46,10 @@ public class FocusCamera : MonoBehaviour {
                 }
             }
         }
+        else {
+            _scriptedCam.EnableScripts();
+            StopAllCoroutines();
+        }
     }
 
     private IEnumerator MoveCamera() {
@@ -55,7 +61,7 @@ public class FocusCamera : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D player) {
 
-        if (gameObject.GetComponent<FocusCamera>().isActiveAndEnabled) {
+        if (_moveCamera && gameObject.GetComponent<FocusCamera>().isActiveAndEnabled) {
 
             if (player.tag == "Player") {
 

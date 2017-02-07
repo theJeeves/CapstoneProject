@@ -8,26 +8,18 @@ public class ScriptedCameraEditor : Editor {
     private SerializedProperty toFOV;
     private SerializedProperty FOVAdjustSpeed;
 
-    private SerializedProperty adjustXPosition;
-    private SerializedProperty toXPosition;
-    private SerializedProperty XAdjustSpeed;
-
-    private SerializedProperty adjustYPosition;
-    private SerializedProperty toYPosition;
-    private SerializedProperty YAdjustSpeed;
+    private SerializedProperty adjustPosition;
+    private SerializedProperty targetPosition;
+    private SerializedProperty positionAdjustSpeed;
 
     private void OnEnable() {
         adjustFOV = serializedObject.FindProperty("_adjustFOV");
         toFOV = serializedObject.FindProperty("_toFOV");
         FOVAdjustSpeed = serializedObject.FindProperty("_FOVAdjustSpeed");
 
-        adjustXPosition = serializedObject.FindProperty("_adjustXPosition");
-        toXPosition = serializedObject.FindProperty("_toXPos");
-        XAdjustSpeed = serializedObject.FindProperty("_XAdjustSpeed");
-
-        adjustYPosition = serializedObject.FindProperty("_adjustYPosition");
-        toYPosition = serializedObject.FindProperty("_toYPos");
-        YAdjustSpeed = serializedObject.FindProperty("_YAdjustSpeed");
+        adjustPosition = serializedObject.FindProperty("_adjustPosition");
+        targetPosition = serializedObject.FindProperty("_target");
+        positionAdjustSpeed = serializedObject.FindProperty("_positionAdjustSpeed");
     }
 
     public override void OnInspectorGUI() {
@@ -44,21 +36,11 @@ public class ScriptedCameraEditor : Editor {
             EditorGUILayout.Space();
         }
 
-        EditorGUILayout.PropertyField(adjustXPosition, new GUIContent("Adjust X Position"));
-        if (adjustXPosition.boolValue == true) {
-            EditorGUILayout.PropertyField(toXPosition, new GUIContent("New X Position"));
-            EditorGUILayout.PropertyField(XAdjustSpeed, new GUIContent("X Adjust Speed"));
+        EditorGUILayout.PropertyField(adjustPosition, new GUIContent("Adjust Position"));
+        if (adjustPosition.boolValue == true) {
+            EditorGUILayout.PropertyField(targetPosition, new GUIContent("Target Position"));
+            EditorGUILayout.PropertyField(positionAdjustSpeed, new GUIContent("Position Adjust Speed"));
             EditorGUILayout.Space(); EditorGUILayout.Space();
-        }
-        else {
-            EditorGUILayout.Space();
-        }
-
-        EditorGUILayout.PropertyField(adjustYPosition, new GUIContent("Adjust Y Position"));
-        if (adjustYPosition.boolValue == true) {
-            EditorGUILayout.PropertyField(toYPosition, new GUIContent("New Y Position"));
-            EditorGUILayout.PropertyField(YAdjustSpeed, new GUIContent("Y Adjust Speed"));
-            EditorGUILayout.Space();
         }
         else {
             EditorGUILayout.Space();

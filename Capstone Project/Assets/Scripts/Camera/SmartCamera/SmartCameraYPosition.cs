@@ -58,14 +58,14 @@ public class SmartCameraYPosition : MonoBehaviour {
                     Mathf.SmoothStep(transform.position.y, _player.transform.position.y + 100.0f, (Time.time - _startTime) / _adjustSpeed), transform.position.z);
 
                 // ONCE THE PLAYER AT THIS Y POSITION, STOP ADJUSTING AND RESET THE TIMER.
-                if (_currPlayerPos.y <= 0.35f) {
+                if (_currPlayerPos.y <= 0.3f) {
                     _adjusting = false;
                     _startTime = 0.0f;
                 }
             }
         }
 
-        // WHEN THE PLAYER IS MOVING TO THE LEFT
+        // WHEN THE PLAYER IS MOVING DOWN
         else if (!_movingUp) {
 
             if (_currPlayerPos.y < 0.3f) {
@@ -87,8 +87,8 @@ public class SmartCameraYPosition : MonoBehaviour {
                 transform.position = new Vector3(transform.position.x,
                     Mathf.SmoothStep(transform.position.y, _player.transform.position.y - 100.0f, (Time.time - _startTime) / _adjustSpeed), transform.position.z);
 
-                // ONCE THE PLAYER IS IN THE CENTER, STOP ADJUSTING AND RESET THE TIMER
-                if (_currPlayerPos.y >= 0.35f) {
+                // ONCE THE PLAYER IS AT THIS Y POSITION, STOP ADJUSTING AND RESET THE TIMER
+                if (_currPlayerPos.y >= 0.25f) {
                     _adjusting = false;
                     _startTime = 0.0f;
                 }
