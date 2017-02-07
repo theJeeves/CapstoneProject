@@ -44,28 +44,31 @@ public class SOEffects : ScriptableObject {
     //It is give a position + the offset, and optionally (priamrily for the weapons) the angle.
     public GameObject PlayEffect(EffectEnums type, Vector2 position, float angle = 0.0f) {
 
-        if (_map.ContainsKey(type)) {
-
-            Effect effect = _map[type];
-
-            GameObject instance = Instantiate(effect.prefab, position, Quaternion.identity) as GameObject;
-            instance.transform.position = new Vector3(position.x, position.y, -1.0f);
-
-            instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, angle);
-
-            // If the effect does not loop, this will automatically destroy the instance after its animation has completed.
-            if (instance != null && effect.data != null && !effect.data.Spriter.Entities[0].Animations[0].Looping) {
-                Destroy(instance, effect.data.Spriter.Entities[0].Animations[0].Length * 0.001f);
+        if (!_map.ContainsKey(type)) {
+            if (type == EffectEnums.CrystalBullet || type == EffectEnums.ShotgunBlast) {
+                _map.Add(type, new Effect(Resources.Load("MainCharacter/" + type.ToString(), typeof(GameObject)) as GameObject));
             }
+            else {
+                _map.Add(type, new Effect(Resources.Load("Effects/" + type.ToString(), typeof(GameObject)) as GameObject,
+                    Resources.Load("Effects/" + type.ToString(), typeof(SpriterDotNetUnity.SpriterData)) as SpriterDotNetUnity.SpriterData));
+            }
+        }
 
-            // This returns a reference to the instance for the effects which loop. Other scripts will need to explicity call
-            // StopEffect to detroy it, otherwise the effect will loop forever.
-            return instance;
+        Effect effect = _map[type];
+
+        GameObject instance = Instantiate(effect.prefab, position, Quaternion.identity) as GameObject;
+        instance.transform.position = new Vector3(position.x, position.y, -1.0f);
+
+        instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, angle);
+
+        // If the effect does not loop, this will automatically destroy the instance after its animation has completed.
+        if (instance != null && effect.data != null && !effect.data.Spriter.Entities[0].Animations[0].Looping) {
+            Destroy(instance, effect.data.Spriter.Entities[0].Animations[0].Length * 0.001f);
         }
-        else {
-            Debug.Log("Effect is Missing for " + type.ToString());
-            return null;
-        }
+
+        // This returns a reference to the instance for the effects which loop. Other scripts will need to explicity call
+        // StopEffect to detroy it, otherwise the effect will loop forever.
+        return instance;
     }
 
     //Other scripts will call this function when they are dealing with a looping effect animation to explicity delete it when the time is right.
