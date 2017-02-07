@@ -15,8 +15,6 @@ public class MachineGun : AbstractGun {
 
     [SerializeField]
     private MovementRequest _initialMoveRequest;
-    [SerializeField]
-    private SOEffects _cystalBullet;
 
     private GameObject _muzzleFlashGO;
     private bool _canLift = true;
@@ -127,7 +125,7 @@ public class MachineGun : AbstractGun {
                 StartCoroutine(ShotDelay());
             }
         }
-        
+
         // Only call for the ammo to hide if the player has no more bullets in the clip
         // and are in the air. Otherwise, it is handle in the if statement above.
         else if (numOfRounds <= 0 && !_collisionState.OnSolidGround) {
@@ -141,14 +139,14 @@ public class MachineGun : AbstractGun {
         if (!_damaged) {
             _canShoot = false;
 
-            _muzzleFlashGO = _SOEffect.PlayEffect(_barrel.transform.position, _controller.AimDirection);
+            _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrel.transform.position, _controller.AimDirection);
             //GameObject instance = Instantiate(_bullet, _barrel.transform.position, Quaternion.identity) as GameObject;
 
             // Angle the crystal according the the angle of the gun's direction
             //instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, _controller.AimDirection);
 
 
-            _cystalBullet.PlayEffect(_barrel.transform.position, _controller.AimDirection);
+            _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrel.transform.position, _controller.AimDirection);
             _SSRequest.ShakeRequest();
 
             yield return new WaitForSeconds(_shotDelay);

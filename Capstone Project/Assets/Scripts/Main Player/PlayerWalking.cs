@@ -7,9 +7,6 @@ public class PlayerWalking : MonoBehaviour {
     private MovementRequest _moveRequest;
 
     private ControllableObject _controller;
-    //private PlayerCollisionState _collisionState;
-
-    //private bool _grounded;
 
     private void OnEnable() {
 

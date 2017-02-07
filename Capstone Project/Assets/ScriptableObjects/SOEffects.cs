@@ -2,36 +2,60 @@
 using System.Collections;
 using System.Collections.Generic;
 
+
+public enum EffectEnums {
+    AcidBall, AcidBallSplatter, AcidDamageEffect, AcidSquirt, CrystalBullet, CrystalImpact, ExplosionDamageEffect, LandingDust, LightningImpact,
+    MGMuzzleFlash, PlayerRespawn, PodBatteryDamage, PodBatteryIndicator, PodExplosion, PodOilSpill1, PodOilSpill2, ShotgunBlast, SniperBullet,
+    SniperBulletImpact, SniperDeathExplosion, SniperLaserEffect, SniperTellEffect,/* SwarmerBasicDamage,*/ SwarmerDeathExplosion, SwarmerExplosiveEffect
+}
+
 //Create Asset Menu allows us to turn this scriptable object into an asset to be used in the game.
-[CreateAssetMenu(menuName ="SO AV Effects/New SO AV Effect")]
+[CreateAssetMenu(menuName = "SO Effects/New SO Effect Handler")]
 public class SOEffects : ScriptableObject {
 
-    [SerializeField]
-    private GameObject _effectPrefab;
-    [SerializeField]
-    private SpriterDotNetUnity.SpriterData _effectData;
+
+    [System.Serializable]
+    public class Effect {
+        public Effect(GameObject go1, SpriterDotNetUnity.SpriterData go2 = null) {
+            prefab = go1;
+            data = go2;
+        }
+
+        public GameObject prefab;
+        public SpriterDotNetUnity.SpriterData data;
+    };
+
+    private Dictionary<EffectEnums, Effect> _map = new Dictionary<EffectEnums, Effect>();
+
+    public void LoadEffects() {
+
+        foreach (EffectEnums type in System.Enum.GetValues(typeof(EffectEnums))) {
+            if (type == EffectEnums.CrystalBullet || type == EffectEnums.ShotgunBlast) {
+                _map.Add(type, new Effect(Resources.Load("MainCharacter/" + type.ToString(), typeof(GameObject)) as GameObject));
+            }
+            else {
+                _map.Add(type, new Effect(Resources.Load("Effects/" + type.ToString(), typeof(GameObject)) as GameObject,
+                    Resources.Load("Effects/" + type.ToString(), typeof(SpriterDotNetUnity.SpriterData)) as SpriterDotNetUnity.SpriterData));
+            }
+        }
+    }
 
     //This is the primary function which will be called in many scripts. An EffectEnum must be given so the correct prefab is instantiated.
     //It is give a position + the offset, and optionally (priamrily for the weapons) the angle.
-    public GameObject PlayEffect(Vector2 position, float angle = 0.0f) {
+    public GameObject PlayEffect(EffectEnums type, Vector2 position, float angle = 0.0f) {
 
-        return PlayVisualEffect(position, angle);
-    }
+        if (_map.ContainsKey(type)) {
 
-    // Visual effect only. No audio.
-    private GameObject PlayVisualEffect(Vector2 position, float angle = 0.0f) {
+            Effect effect = _map[type];
 
-        if (_effectPrefab != null) {
-
-            GameObject instance = Instantiate(_effectPrefab, position, Quaternion.identity) as GameObject;
-
+            GameObject instance = Instantiate(effect.prefab, position, Quaternion.identity) as GameObject;
             instance.transform.position = new Vector3(position.x, position.y, -1.0f);
 
             instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, angle);
 
             // If the effect does not loop, this will automatically destroy the instance after its animation has completed.
-            if (_effectData != null && !_effectData.Spriter.Entities[0].Animations[0].Looping) {
-                Destroy(instance, _effectData.Spriter.Entities[0].Animations[0].Length * 0.001f);
+            if (instance != null && effect.data != null && !effect.data.Spriter.Entities[0].Animations[0].Looping) {
+                Destroy(instance, effect.data.Spriter.Entities[0].Animations[0].Length * 0.001f);
             }
 
             // This returns a reference to the instance for the effects which loop. Other scripts will need to explicity call
@@ -39,7 +63,7 @@ public class SOEffects : ScriptableObject {
             return instance;
         }
         else {
-            Debug.Log("Effect is Missing for " + name);
+            Debug.Log("Effect is Missing for " + type.ToString());
             return null;
         }
     }

@@ -68,7 +68,7 @@ public class Shotgun : AbstractGun {
         if (button == Buttons.Shoot && numOfRounds > 0 && _canShoot) {
 
             StartCoroutine(ShotDelay());
-          
+
             _moveRequest.RequestMovement();
             _SSRequest.ShakeRequest();
 
@@ -155,7 +155,7 @@ public class Shotgun : AbstractGun {
 
         if (!_damaged) {
             _canShoot = false;
-            _SOEffect.PlayEffect(_barrel.transform.position, _controller.AimDirection);
+            _SOEffectHandler.PlayEffect(EffectEnums.ShotgunBlast, _barrel.transform.position, _controller.AimDirection);
 
             yield return new WaitForSeconds(_shotDelay);
             _canShoot = true;
