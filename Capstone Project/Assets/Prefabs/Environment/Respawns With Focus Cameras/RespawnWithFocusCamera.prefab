@@ -56,7 +56,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000010122467446}
   m_Layer: 0
-  m_Name: RespawnTrigger
+  m_Name: RespawnWithFocusCamera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -225,7 +225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: 57aefc78e6cf5d141a20e3bfc3162931, type: 2}
+  _scriptedCam: {fileID: 0}
   _rightTrigger: 0
 --- !u!114 &114000012843378516
 MonoBehaviour:
@@ -238,5 +238,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: 57aefc78e6cf5d141a20e3bfc3162931, type: 2}
+  _scriptedCam: {fileID: 0}
   _rightTrigger: 1

@@ -51,7 +51,7 @@ public class ScriptedCamera : ScriptableObject {
         if (_adjustFOV && Camera.main.orthographicSize < _toFOV) {
             Camera.main.orthographicSize = Mathf.SmoothStep(fromFOV, _toFOV + 2.0f, (Time.time - _time) / _FOVAdjustSpeed);
         }
-        else { _fovDone = true; Debug.Log("fov done"); }
+        else { _fovDone = true; }
 
         //if ( (_camera.transform.position.x < _target.x - 0.5f && _camera.transform.position.x > _target.x + 0.5f) || 
         //    (_camera.transform.position.y < _target.y - 0.5f && _camera.transform.position.y > _target.y + 0.5f)) {
@@ -59,9 +59,7 @@ public class ScriptedCamera : ScriptableObject {
             _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, _target.x, (Time.time - _time) / _positionAdjustSpeed),
                 Mathf.SmoothStep(_camera.transform.position.y, _target.y, (Time.time - _time) / _positionAdjustSpeed), -10.0f);
         }
-        else {
-            _positionDone = true; Debug.Log("position done");
-        }
+        else { _positionDone = true; }
 
         return _fovDone && _positionDone ? true : false;
     }
