@@ -32,6 +32,9 @@ public class Shotgun : AbstractGun {
         PlayerCollisionState.OnHitGround += Reload;
         ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
 
+        GetComponent<AudioSource>().clip = _audioClip;
+        GetComponent<AudioSource>().Play();
+
         _reloading = false;
         _canShoot = true;
 

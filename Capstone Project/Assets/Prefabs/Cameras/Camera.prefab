@@ -22,7 +22,6 @@ GameObject:
   - 20: {fileID: 20000011514934458}
   - 92: {fileID: 92000013415228214}
   - 124: {fileID: 124000013508198118}
-  - 81: {fileID: 81000011266322252}
   - 114: {fileID: 114000013607701442}
   - 114: {fileID: 114000013621115262}
   - 114: {fileID: 114000013248320574}
@@ -112,13 +111,6 @@ Camera:
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
   m_StereoMirrorMode: 0
---- !u!81 &81000011266322252
-AudioListener:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010316609078}
-  m_Enabled: 1
 --- !u!92 &92000013415228214
 Behaviour:
   m_ObjectHideFlags: 1
@@ -187,7 +179,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _minCamSize: 150
   _maxCamSize: 250
-  _adjustSpeed: 20
+  _adjustSpeed: 10
 --- !u!114 &114000013908755744
 MonoBehaviour:
   m_ObjectHideFlags: 1

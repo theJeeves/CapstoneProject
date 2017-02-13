@@ -7,6 +7,7 @@ public abstract class ReloadAnimation : MonoBehaviour {
     protected Image _ammoImage;
     private float _timer = 0.0f;
     private bool _canAnimate;
+    private bool _playAudio;
 
     protected virtual void Awake() {
         _ammoImage = GetComponent<Image>();
@@ -27,11 +28,16 @@ public abstract class ReloadAnimation : MonoBehaviour {
         }
         else if (_canAnimate && _ammoImage.fillAmount >= 1) {
             _canAnimate = false;
+            if (_playAudio) {
+                _playAudio = false;
+                GetComponent<AudioSource>().Play();
+            }
         }
     }
 
     protected virtual void Reload(float reloadTime) {
 
+        _playAudio = true;
         _ammoImage.fillAmount = 0;
         _timer = reloadTime;
         _canAnimate = true;

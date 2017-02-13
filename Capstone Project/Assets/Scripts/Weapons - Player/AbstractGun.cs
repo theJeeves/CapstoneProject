@@ -13,10 +13,11 @@ public abstract class AbstractGun : MonoBehaviour {
     public delegate void AbstractGunEvent2();
     public delegate void AbstractGunEvent3(float reloadTime);
 
-    [SerializeField]
-    protected SOWeaponManager _weaponManager;
+
     [SerializeField]
     protected WeaponType _type;
+    [SerializeField]
+    protected SOWeaponManager _weaponManager;
 
     [SerializeField]
     protected MovementRequest _moveRequest;
@@ -24,6 +25,10 @@ public abstract class AbstractGun : MonoBehaviour {
     protected ScreenShakeRequest _SSRequest;
     [SerializeField]
     protected SOEffects _SOEffectHandler;
+    [SerializeField]
+    protected AudioClip _audioClip;
+
+    protected AudioSource _audioSource;
 
     [SerializeField]
     protected int _ammoCapacity;

@@ -46,6 +46,7 @@ public class laserBeam : MonoBehaviour
     {
         if (_laser.gameObject.activeInHierarchy)
         {
+            GetComponentInChildren<AudioSource>().Play();
             Debug.DrawLine(start.position, end.position, Color.red);
             _hit = Physics2D.Raycast(start.position, (end.position - start.position).normalized, (end.position - start.position).magnitude, _whatToHit);
             if (_hit.collider != null)
@@ -60,6 +61,7 @@ public class laserBeam : MonoBehaviour
         }
         else if (!_laser.gameObject.activeInHierarchy && _delayFinished)
         {
+            GetComponentInChildren<AudioSource>().Stop();
             StartCoroutine(LaserOnOff());
         }
 

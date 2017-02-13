@@ -33,6 +33,7 @@ public class CheckpointBehavior : MonoBehaviour {
             _animator.Play(GetAnimation(1));
             _SOCheckpoint.checkpointPosition = transform.position;
             _SOCheckpoint.checkpointGO = gameObject;
+            GetComponent<AudioSource>().Play();
         }
     }
 
