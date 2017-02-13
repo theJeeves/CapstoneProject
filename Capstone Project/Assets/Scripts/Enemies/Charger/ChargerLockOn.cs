@@ -55,6 +55,7 @@ public class ChargerLockOn : MonoBehaviour {
 
             // Raycast to determine if we are in range of the player. Continually walk toward the player if not.
             _direction = (_player.position - transform.position).normalized;
+            _direction = new Vector2(_direction.x, 0.0f);
             _hit = Physics2D.Raycast(transform.position, _direction, _attackRange, _whatToHit);
             Debug.DrawLine(transform.position, transform.position + (Vector3.right * _attackRange * _direction.x), Color.yellow);
             _body2d.velocity = new Vector2(_walkSpeed * _direction.x, _body2d.velocity.y);

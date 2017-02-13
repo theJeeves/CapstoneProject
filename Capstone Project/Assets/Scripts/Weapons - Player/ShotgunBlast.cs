@@ -21,7 +21,7 @@ public class ShotgunBlast : AbstractBullet {
     protected LayerMask _whatToHit;
 
     private DigitalRuby.LightningBolt.LightningBoltScript[] _lightning = new DigitalRuby.LightningBolt.LightningBoltScript[5];
-    private float[] _magnitudes = new float[5];
+    protected float[] _magnitudes = new float[5];
     private Vector2[] _directions = new Vector2[5];
 
     protected override void Start() {
@@ -73,7 +73,6 @@ public class ShotgunBlast : AbstractBullet {
 
         CheckCollisions();
 
-        // ASK THE GROUP IF THEY LIKE THIS LOOK BETTER
         for (int i = 0; i < _lightning.Length; ++i) {
             float magnitude = _magnitudes[i];
             _lightning[i].EndPosition += new Vector3(_directions[i].x * magnitude, _directions[i].y * magnitude, 0.0f);
@@ -104,14 +103,15 @@ public class ShotgunBlast : AbstractBullet {
             if (hit.collider != null) {
                 string hitTagName = hit.collider.gameObject.tag;
 
+                Debug.Log(hitTagName);
+
                 if (hitTagName == "Enemy") {
                     hit.collider.gameObject.GetComponentInParent<EnemyHealth>().DecrementHealth(_damageAmount);
                 }
-                else if (hitTagName == "SolidGround") {
-                    //_magnitudes[i] = Mathf.Sqrt(Mathf.Pow(hit.point.x - _start.x, 2.0f) + Mathf.Pow(hit.point.y - _start.y, 2.0f));
+                else {
                     _magnitudes[i] = Vector3.Magnitude(hit.point - _start);
                 }
-                else if (hitTagName == "SwarmerPodBattery") {
+                if (hitTagName == "SwarmerPodBattery") {
                     hit.collider.gameObject.GetComponentInParent<SwarmPodSpawner>().DestroyPod();
                 }
                 else if (hitTagName == "AcidBall") {
