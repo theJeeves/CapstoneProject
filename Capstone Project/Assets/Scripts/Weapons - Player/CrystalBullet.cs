@@ -26,4 +26,12 @@ public class CrystalBullet : AbstractBullet {
             Destroy(gameObject);
         }
     }
+
+    private void OnTriggerEnter2D(Collider2D otherGO) {
+
+        if (otherGO.gameObject.tag == "Block") {
+            _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
+            Destroy(gameObject);
+        }
+    }
 }

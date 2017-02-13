@@ -54,7 +54,9 @@ public class EnemyHealth : MonoBehaviour {
     }
 
     private void OnDisable() {
-        _SOEffectHandler.StopEffect(_effect);
+        if (_SOEffectHandler != null) {
+            _SOEffectHandler.StopEffect(_effect);
+        }
     }
 
     private void Update() {
