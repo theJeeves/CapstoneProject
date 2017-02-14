@@ -62,6 +62,10 @@ public class AimDirection {
     }
 }
 
+
+/// <summary>
+/// MAIN CLASS
+/// </summary>
 public class ControllableObject : MonoBehaviour {
 
     // Events are like broadcasting a message. Other scripts which are looking for specific events
@@ -90,6 +94,14 @@ public class ControllableObject : MonoBehaviour {
     private short _aimDirection;
     public short AimDirection {
         get { return _aimDirection; }
+    }
+
+    private bool _canTakeInput = true;
+    public bool TakeInput {
+        set {
+            _canTakeInput = value;
+            StartCoroutine(StunDelay());
+        }
     }
 
     // Other Action scripts will used this dictionary to query a button's state.
@@ -143,7 +155,6 @@ public class ControllableObject : MonoBehaviour {
             }
             buttonStates[button].PressTime += Time.deltaTime;
         }
-
         // Update the status of the input
         buttonStates[button].IsPressed = isPressed;
     }
@@ -169,5 +180,10 @@ public class ControllableObject : MonoBehaviour {
 
     private short GetAimDirectionAngle(byte key) {
         return _aimDirections[key];
+    }
+
+    private IEnumerator StunDelay() {
+        yield return new WaitForSeconds(0.25f);
+        _canTakeInput = true;
     }
 }

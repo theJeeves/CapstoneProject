@@ -30,7 +30,7 @@ public class Shotgun : AbstractGun {
     private void OnEnable() {
         ControllableObject.OnButtonDown += OnButtonDown;
         PlayerCollisionState.OnHitGround += Reload;
-        ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
+        //ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
 
         GetComponent<AudioSource>().clip = _audioClip;
         GetComponent<AudioSource>().Play();
@@ -59,7 +59,7 @@ public class Shotgun : AbstractGun {
     private void OnDisable() {
         ControllableObject.OnButtonDown -= OnButtonDown;
         PlayerCollisionState.OnHitGround -= Reload;
-        ChargerDealDamage.DecrementPlayerHealth -= DamageReceived;
+        //ChargerDealDamage.DecrementPlayerHealth -= DamageReceived;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
 
@@ -156,12 +156,10 @@ public class Shotgun : AbstractGun {
 
     private IEnumerator ShotDelay() {
 
-        if (!_damaged) {
-            _canShoot = false;
-            _SOEffectHandler.PlayEffect(EffectEnums.ShotgunBlast, _barrel.transform.position, _controller.AimDirection);
+        _canShoot = false;
+        _SOEffectHandler.PlayEffect(EffectEnums.ShotgunBlast, _barrel.transform.position, _controller.AimDirection);
 
-            yield return new WaitForSeconds(_shotDelay);
-            _canShoot = true;
-        }
+        yield return new WaitForSeconds(_shotDelay);
+        _canShoot = true;
     }
 }

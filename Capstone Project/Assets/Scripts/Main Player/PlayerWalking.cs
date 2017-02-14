@@ -22,8 +22,7 @@ public class PlayerWalking : MonoBehaviour {
 
     private void OnButton(Buttons button) {
 
-        //_grounded = _collisionState.OnSolidGround;
-
+        Debug.Log("second");
         //AS LONG AS THE PLAYER IS NOT AIMING IN A DOWN DIRECTION AND FIRING, THEY CAN WALK
         // THIS IS TO PREVENT THE WALKING SCRIPT FROM OVERRIDING THE WEAPON RECOIL MOVEMENT
         if (_controller.GetButtonPress(Buttons.AimDown) && _controller.GetButtonPress(Buttons.Shoot)) {

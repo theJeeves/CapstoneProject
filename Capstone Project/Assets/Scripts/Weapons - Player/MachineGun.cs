@@ -33,7 +33,7 @@ public class MachineGun : AbstractGun {
     private void OnEnable() {
         ControllableObject.OnButtonDown += OnButtonDown;
         PlayerCollisionState.OnHitGround += Reload;
-        ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
+        //ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
 
         GetComponent<AudioSource>().clip = _audioClip;
         GetComponent<AudioSource>().Play();
@@ -66,7 +66,7 @@ public class MachineGun : AbstractGun {
     private void OnDisable() {
         ControllableObject.OnButtonDown -= OnButtonDown;
         PlayerCollisionState.OnHitGround -= Reload;
-        ChargerDealDamage.DecrementPlayerHealth -= DamageReceived;
+        //ChargerDealDamage.DecrementPlayerHealth -= DamageReceived;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
 
@@ -139,22 +139,20 @@ public class MachineGun : AbstractGun {
     }
 
     private IEnumerator ShotDelay() {
-        if (!_damaged) {
-            _canShoot = false;
+        _canShoot = false;
 
-            _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrel.transform.position, _controller.AimDirection);
-            //GameObject instance = Instantiate(_bullet, _barrel.transform.position, Quaternion.identity) as GameObject;
+        _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrel.transform.position, _controller.AimDirection);
+        //GameObject instance = Instantiate(_bullet, _barrel.transform.position, Quaternion.identity) as GameObject;
 
-            // Angle the crystal according the the angle of the gun's direction
-            //instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, _controller.AimDirection);
+        // Angle the crystal according the the angle of the gun's direction
+        //instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, _controller.AimDirection);
 
 
-            _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrel.transform.position, _controller.AimDirection);
-            _SSRequest.ShakeRequest();
+        _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrel.transform.position, _controller.AimDirection);
+        _SSRequest.ShakeRequest();
 
-            yield return new WaitForSeconds(_shotDelay);
-            _canShoot = true;
-        }
+        yield return new WaitForSeconds(_shotDelay);
+        _canShoot = true;
     }
 
     private void Reload() {
