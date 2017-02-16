@@ -13,10 +13,19 @@ public class WeaponSelect : MonoBehaviour {
     private Image _shotgunAmmo;
     [SerializeField]
     private Image _machineGunAmmo;
+    [SerializeField]
+    private bool _MGAvailable = true;
+    public bool MGAvailable {
+        set { _MGAvailable = value; }
+    }
+    [SerializeField]
+    private bool _SGAvailable = false;
+    public bool SGAvailable {
+        set { _SGAvailable = value; }
+    }
 
     private Shotgun _shotgun;
     private MachineGun _machineGun;
-    //private SpriteRenderer _renderer;
 
     private void OnEnable() {
         ControllableObject.OnButtonDown += OnButtonDown;
@@ -24,7 +33,8 @@ public class WeaponSelect : MonoBehaviour {
         _shotgun = GetComponent<Shotgun>();
         _machineGun = GetComponent<MachineGun>();
 
-        EnableShotgun();
+        //EnableShotgun();
+        EnableMachineGun();
     }
 
     private void OnDisable() {
@@ -37,10 +47,10 @@ public class WeaponSelect : MonoBehaviour {
         
         if (button == Buttons.WeaponSwap) {
 
-            if (_shotgun.isActiveAndEnabled) {
+            if (_shotgun.isActiveAndEnabled && _MGAvailable) {
                 EnableMachineGun();
             }
-            else if (_machineGun.isActiveAndEnabled) {
+            else if (_machineGun.isActiveAndEnabled && _SGAvailable) {
                 EnableShotgun();
             }
         }

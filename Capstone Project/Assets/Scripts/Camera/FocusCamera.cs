@@ -6,7 +6,11 @@ public class FocusCamera : MonoBehaviour {
     [SerializeField]
     private ScriptedCamera _scriptedCam;
     [SerializeField]
+    private bool _basic = false;
+    [SerializeField]
     private bool _rightTrigger = false;
+    [SerializeField]
+    private bool _resetOnDeath = false;
 
     private Vector3 _boxPos;
 
@@ -23,24 +27,30 @@ public class FocusCamera : MonoBehaviour {
 
             if (player.tag == "Player") {
 
-                _scriptedCam.IsRightTrigger = _rightTrigger;
+                if (!_basic) {
+                    _scriptedCam.IsRightTrigger = _rightTrigger;
 
-                switch (_rightTrigger) {
-                    case true:
+                    switch (_rightTrigger) {
+                        case true:
 
-                        if (player.transform.position.x >= _boxPos.x) {
-                            _scriptedCam.DisableScripts();
-                            StartCoroutine(MoveCamera());
-                        }
-                        break;
+                            if (player.transform.position.x >= _boxPos.x) {
+                                _scriptedCam.DisableScripts();
+                                StartCoroutine(MoveCamera());
+                            }
+                            break;
 
-                    case false:
+                        case false:
 
-                        if (player.transform.position.x <= _boxPos.x) {
-                            _scriptedCam.DisableScripts();
-                            StartCoroutine(MoveCamera());
-                        }
-                        break;
+                            if (player.transform.position.x <= _boxPos.x) {
+                                _scriptedCam.DisableScripts();
+                                StartCoroutine(MoveCamera());
+                            }
+                            break;
+                    }
+                }
+                else if (_basic) {
+                    _scriptedCam.DisableScripts();
+                    StartCoroutine(MoveCamera());
                 }
             }
         }
@@ -65,20 +75,22 @@ public class FocusCamera : MonoBehaviour {
 
                 _scriptedCam.IsRightTrigger = _rightTrigger;
 
-                switch (_rightTrigger) {
-                    case true:
-                        if (player.transform.position.x > _boxPos.x || player.transform.position.y < _boxPos.y) {
-                            _scriptedCam.EnableScripts();
-                            StopAllCoroutines();
-                        }
-                        break;
+                if (!_basic) {
+                    switch (_rightTrigger) {
+                        case true:
+                            if (player.transform.position.x > _boxPos.x || player.transform.position.y < _boxPos.y) {
+                                _scriptedCam.EnableScripts();
+                                StopAllCoroutines();
+                            }
+                            break;
 
-                    case false:
-                        if (player.transform.position.x < _boxPos.x) {
-                            _scriptedCam.EnableScripts();
-                            StopAllCoroutines();
-                        }
-                        break;
+                        case false:
+                            if (player.transform.position.x < _boxPos.x) {
+                                _scriptedCam.EnableScripts();
+                                StopAllCoroutines();
+                            }
+                            break;
+                    }
                 }
             }
         }

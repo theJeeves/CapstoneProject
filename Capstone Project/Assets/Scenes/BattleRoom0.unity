@@ -206,8 +206,14 @@ Prefab:
         type: 2}
     - target: {fileID: 1000013236426126, guid: 1ad56079f747b0c49baaa8b54abb10ae, type: 2}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012149717824, guid: 1ad56079f747b0c49baaa8b54abb10ae,
+        type: 2}
+      propertyPath: _swarmPrefab
+      value: 
+      objectReference: {fileID: 1000010200423028, guid: d86e21edc70cfb74dbda57cfd09ad978,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1ad56079f747b0c49baaa8b54abb10ae, type: 2}
   m_IsPrefabParent: 0
@@ -940,6 +946,10 @@ Prefab:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1000011832098926, guid: dd2600a65717d5042ab10c4eb1188329, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 114000012702195058, guid: dd2600a65717d5042ab10c4eb1188329, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: dd2600a65717d5042ab10c4eb1188329, type: 2}
@@ -1262,14 +1272,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 114000012503201822, guid: 63cfe9ff7d7330b4fa9a1c27845aef42,
         type: 2}
+      propertyPath: _SGAvailable
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000012503201822, guid: 63cfe9ff7d7330b4fa9a1c27845aef42,
+        type: 2}
       propertyPath: _shotgunAmmo
       value: 
-      objectReference: {fileID: 1514239598}
+      objectReference: {fileID: 1969457499}
     - target: {fileID: 114000012503201822, guid: 63cfe9ff7d7330b4fa9a1c27845aef42,
         type: 2}
       propertyPath: _machineGunAmmo
       value: 
-      objectReference: {fileID: 1969457499}
+      objectReference: {fileID: 1514239598}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
   m_IsPrefabParent: 0

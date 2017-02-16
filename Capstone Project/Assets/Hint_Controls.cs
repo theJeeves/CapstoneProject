@@ -11,9 +11,12 @@ public class Hint_Controls : MonoBehaviour {
     [SerializeField]
     private string _hint;
     [SerializeField]
+    private bool _basic = false;
+    [SerializeField]
     private bool _rightTrigger = false;
 
     private Vector3 _boxPos;
+    private bool _isDirty = false;
 
     private void OnEnable() {
         _boxPos.x = _rightTrigger ? transform.position.x + GetComponent<BoxCollider2D>().size.x / 2 :
@@ -21,41 +24,59 @@ public class Hint_Controls : MonoBehaviour {
     }
 
     private void OnTriggerEnter2D(Collider2D player) {
-    
-        if (player.gameObject.tag == "Player" && DisplayHint != null) {
-            switch (_rightTrigger) {
-                case true:
 
-                    if (player.transform.position.x >= _boxPos.x) {
-                        DisplayHint(_hint);
+        if (!_isDirty) {
+            if (player.gameObject.tag == "Player" && DisplayHint != null) {
+                if (!_basic) {
+                    switch (_rightTrigger) {
+                        case true:
+
+                            if (player.transform.position.x >= _boxPos.x) {
+                                DisplayHint(_hint);
+                            }
+                            break;
+
+                        case false:
+
+                            if (player.transform.position.x <= _boxPos.x) {
+                                DisplayHint(_hint);
+                            }
+                            break;
                     }
-                    break;
-
-                case false:
-
-                    if (player.transform.position.x <= _boxPos.x) {
-                        DisplayHint(_hint);
-                    }
-                    break;
+                }
+                else {
+                    DisplayHint(_hint);
+                }
             }
         }
     }
 
     private void OnTriggerExit2D(Collider2D player) {
 
-        if (player.gameObject.tag == "Player" && HideHint != null) {
-            switch (_rightTrigger) {
-                case true:
-                    if (player.transform.position.x > _boxPos.x || player.transform.position.y < _boxPos.y) {
-                        HideHint();
-                    }
-                    break;
+        if (!_isDirty) {
+            if (player.gameObject.tag == "Player" && HideHint != null) {
 
-                case false:
-                    if (player.transform.position.x < _boxPos.x) {
-                        HideHint();
+                if (!_basic) {
+                    switch (_rightTrigger) {
+                        case true:
+                            if (player.transform.position.x > _boxPos.x || player.transform.position.y < _boxPos.y) {
+                                HideHint();
+                            }
+                            break;
+
+                        case false:
+                            if (player.transform.position.x < _boxPos.x) {
+                                HideHint();
+                            }
+                            break;
                     }
-                    break;
+
+                    _isDirty = true;
+                }
+                else {
+                    HideHint();
+                    _isDirty = true;
+                }
             }
         }
     }
