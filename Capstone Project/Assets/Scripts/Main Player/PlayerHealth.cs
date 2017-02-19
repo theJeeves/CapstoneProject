@@ -29,7 +29,7 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     private ScreenShakeRequest _scrnShkRequest;         // Screenshake request to show damage has been done to the player.
     [SerializeField]
-    private SOCheckpoint _SOCheckpoint;                 // Reference to the checkpoint system. This is where the player will respawn on death.
+    private SOCheckpoint _SOCheckpointHandler;                 // Reference to the checkpoint system. This is where the player will respawn on death.
 
     private Transform[] _effectPositions;           // Positions where effects will be played.
     private GameObject _effect;                     // GameObject to reference a called effect. This is so the effect may be manipulated.
@@ -65,9 +65,20 @@ public class PlayerHealth : MonoBehaviour {
 
     private void Update() {
 
-        // if the player dies.
+        // if the player dies, stop any velocity the player had, place them at the last checkpoint, and reset their health to 100%.
         if (_health <= 0) {
-            PlayerDeath();
+            GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            transform.position = _SOCheckpointHandler.checkpointPosition;
+
+            if (Camera.main.WorldToViewportPoint(_SOCheckpointHandler.checkpointPosition).x > 0.0f &&
+                Camera.main.WorldToViewportPoint(_SOCheckpointHandler.checkpointPosition).x < 1.0f) {
+
+                GetComponent<Rigidbody2D>().gravityScale = 40.0f;
+                _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _SOCheckpointHandler.checkpointPosition);
+                _health = _maxHealth;
+                UpdateHealth(_health);
+            }
         }
 
         // if there is any type of effect associated with the player, ensure it is following them with a slight offset.
@@ -96,14 +107,6 @@ public class PlayerHealth : MonoBehaviour {
                 _SOEffectHandler.StopEffect(_effect);
             }
         }
-    }
-
-    // When the player dies, stop any velocity the player had, place them at the last checkpoint, and reset their health to 100%.
-    private void PlayerDeath() {
-        GetComponent<Rigidbody2D>().velocity = Vector3.zero;
-        gameObject.transform.position = _SOCheckpoint.checkpointPosition;
-        _health = _maxHealth;
-        UpdateHealth(_health);
     }
 
     /// <summary>

@@ -20,6 +20,9 @@ public class SmartCameraXPosition : MonoBehaviour {
     private void OnEnable() {
         _player = GameObject.FindGameObjectWithTag("Player");
         _startTime = Time.time;
+
+        if (Camera.main.WorldToViewportPoint(_player.transform.position).x > 0.5f) _movingRight = false;
+        else if (Camera.main.WorldToViewportPoint(_player.transform.position).x < 0.5f) _movingRight = true;
     }
 
     private void LateUpdate() {

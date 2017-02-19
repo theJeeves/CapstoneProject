@@ -20,6 +20,10 @@ public class CrystalBullet : AbstractBullet {
         if (otherGO.gameObject.tag == "Enemy") {
             otherGO.gameObject.GetComponentInParent<EnemyHealth>().DecrementHealth(_damageAmount);
         }
+        if (otherGO.collider.gameObject.tag == "SwarmerPodBattery") {
+            Debug.Log("hello");
+            otherGO.gameObject.GetComponentInParent<SwarmPodSpawner>().DestroyPod();
+        }
 
         if (otherGO.gameObject.tag != "Player" && otherGO != null) {
             _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);

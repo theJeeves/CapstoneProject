@@ -86,7 +86,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011729373378}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4044.1938, y: 1205.8925, z: 0}
+  m_LocalPosition: {x: -133.97119, y: -222.96503, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -187,7 +187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hint: Right Analog to Aim NL Right Trigger to Shoot
+  _hint: Aim Left-Down + Shoot NL To Glide
+  _basic: 0
   _rightTrigger: 0
 --- !u!114 &114000011949609406
 MonoBehaviour:
@@ -200,7 +201,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _hint: Right Analog to Aim NL Right Trigger to Shoot
+  _hint: Aim Left-Down + Shoot NL To Glide
+  _basic: 0
   _rightTrigger: 1
 --- !u!114 &114000012549561252
 MonoBehaviour:
@@ -213,7 +215,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e405114f07ca68247980481bb260c6d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _respawnContainer: {fileID: 11400000, guid: b12c6c53b48ee4248b0ac62872aad9ca, type: 2}
+  _SOCheckpointHandler: {fileID: 11400000, guid: 2891e6f4f3d0a9648b35cda93f48de61,
+    type: 2}
   _SOEffectHandler: {fileID: 11400000, guid: e39803050b195f549bce9a8efa402b78, type: 2}
   _SOWeaponManager: {fileID: 11400000, guid: fcec17c53c3b960458e7557822f929b5, type: 2}
 --- !u!114 &114000013569770744

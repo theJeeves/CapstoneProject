@@ -23,6 +23,7 @@ public class SwarmPodSpawner : MonoBehaviour {
     // Since these two effect animations are "looping", the effects manager will never stop or destroy them automatically.
     //Therefore, we need to have a reference to their instance at manually tell the SOEffectHandler when to destroy them.
     private GameObject _podBatteryIndicatorGO;
+    private GameObject _podBatteryIndicatorGO1;
     private GameObject _podBatteryDamageGO;
     private GameObject _oilSpill1;
     private GameObject _oilSpill2;
@@ -34,6 +35,8 @@ public class SwarmPodSpawner : MonoBehaviour {
 
         // Start the battery indication effect animation
         _podBatteryIndicatorGO = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryIndicator, _effectPositions[1].position);
+        _podBatteryIndicatorGO1 = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryIndicator, _effectPositions[6].position);
+
 
         _timer = Time.time;
     }
@@ -80,6 +83,7 @@ public class SwarmPodSpawner : MonoBehaviour {
             _timer = Time.time;
             _batteryDamaged = true;
             _SOEffectHandler.StopEffect(_podBatteryIndicatorGO);
+            _SOEffectHandler.StopEffect(_podBatteryIndicatorGO1);
             _podBatteryDamageGO = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryDamage, _effectPositions[2].position);
             _oilSpill1 = _SOEffectHandler.PlayEffect(EffectEnums.PodOilSpill1, _effectPositions[3].position);
             _oilSpill2 = _SOEffectHandler.PlayEffect(EffectEnums.PodOilSpill2, _effectPositions[4].position);

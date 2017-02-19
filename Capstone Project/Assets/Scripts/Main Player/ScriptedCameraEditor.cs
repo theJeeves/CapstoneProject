@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEditor;
 
-[CustomEditor(typeof(ScriptedCamera))]
+//[CustomEditor(typeof(ScriptedCamera))]
 public class ScriptedCameraEditor : Editor {
 
     private SerializedProperty adjustFOV;

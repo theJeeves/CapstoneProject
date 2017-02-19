@@ -4,7 +4,7 @@ using System.Collections;
 public class RespawnPlayer : MonoBehaviour {
 
     [SerializeField]
-    private SORespawn _respawnContainer;
+    private SOCheckpoint _SOCheckpointHandler;
     [SerializeField]
     private SOEffects _SOEffectHandler;
     [SerializeField]
@@ -19,13 +19,13 @@ public class RespawnPlayer : MonoBehaviour {
 
             _otherGo.GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             _otherGo.GetComponent<Rigidbody2D>().gravityScale = 0.0f;
-            _otherGo.transform.position = _respawnContainer.respawnPos;
+            _otherGo.transform.position = _SOCheckpointHandler.checkpointPosition;
 
-            if (Camera.main.WorldToViewportPoint(_respawnContainer.respawnPos).x > 0.0f &&
-                Camera.main.WorldToViewportPoint(_respawnContainer.respawnPos).x < 1.0f) {
+            if (Camera.main.WorldToViewportPoint(_SOCheckpointHandler.checkpointPosition).x > 0.0f &&
+                Camera.main.WorldToViewportPoint(_SOCheckpointHandler.checkpointPosition).x < 1.0f) {
 
                 _otherGo.GetComponent<Rigidbody2D>().gravityScale = 40.0f;
-                _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _respawnContainer.respawnPos);
+                _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _SOCheckpointHandler.checkpointPosition);
                 _SOWeaponManager.Reload();
                 _respawned = false;
             }

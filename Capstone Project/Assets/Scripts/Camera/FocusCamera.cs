@@ -5,93 +5,54 @@ public class FocusCamera : MonoBehaviour {
 
     [SerializeField]
     private ScriptedCamera _scriptedCam;
+
     [SerializeField]
-    private bool _basic = false;
+    private bool _leftAndRight;
     [SerializeField]
-    private bool _rightTrigger = false;
+    private bool _upAndDown;
+
     [SerializeField]
-    private bool _resetOnDeath = false;
+    private Transform[] _triggerPoints;
+    [SerializeField]
+    private Vector3[] _cameraPositions;
 
-    private Vector3 _boxPos;
+    private Vector2 playerPos = Vector2.zero;
+    private int length = 0;
 
-    private void OnEnable() {
-        _boxPos.x = _rightTrigger ? transform.position.x + GetComponent<BoxCollider2D>().size.x / 2 :
-            transform.position.x - GetComponent<BoxCollider2D>().size.x / 2;
-    }
+    private void OnTriggerStay2D(Collider2D otherGO) {
 
-    private void OnTriggerEnter2D(Collider2D player) {
+        if (otherGO.tag == "Player") {
 
-        if (gameObject.GetComponent<FocusCamera>().isActiveAndEnabled) {
+            playerPos = otherGO.transform.position;
+            length = _triggerPoints.Length;
 
-            GameObject.FindGameObjectWithTag("SmartCamera").GetComponent<SmartCameraXPosition>().MovingRight = _rightTrigger ? false : true;
+            if (length > 1) {
+                for (int i = 0; i < length - 1; ++i) {
 
-            if (player.tag == "Player") {
-
-                if (!_basic) {
-                    _scriptedCam.IsRightTrigger = _rightTrigger;
-
-                    switch (_rightTrigger) {
-                        case true:
-
-                            if (player.transform.position.x >= _boxPos.x) {
-                                _scriptedCam.DisableScripts();
-                                StartCoroutine(MoveCamera());
-                            }
-                            break;
-
-                        case false:
-
-                            if (player.transform.position.x <= _boxPos.x) {
-                                _scriptedCam.DisableScripts();
-                                StartCoroutine(MoveCamera());
-                            }
-                            break;
+                    if (_leftAndRight) {
+                        if (playerPos.x > _triggerPoints[i].position.x && playerPos.x < _triggerPoints[i + 1].position.x) {
+                            _scriptedCam.MoveCamera(_cameraPositions[i]);
+                        }
                     }
-                }
-                else if (_basic) {
-                    _scriptedCam.DisableScripts();
-                    StartCoroutine(MoveCamera());
+                    if (_upAndDown) {
+                        if (playerPos.y > _triggerPoints[i].position.y && playerPos.y < _triggerPoints[i + 1].position.y) {
+                            _scriptedCam.MoveCamera(_cameraPositions[i]);
+                        }
+                    }
                 }
             }
-        }
-        else {
-            _scriptedCam.EnableScripts();
-            StopAllCoroutines();
-        }
-    }
-
-    private IEnumerator MoveCamera() {
-
-        while (!_scriptedCam.MoveCamera(_boxPos)) {
-            yield return 0;
+            else if (length == 0) {
+                _scriptedCam.MoveCamera(_cameraPositions[0]);
+            }
         }
     }
 
-    private void OnTriggerExit2D(Collider2D player) {
+    private void OnTriggerExit2D(Collider2D otherGO) {
 
-        if (gameObject.GetComponent<FocusCamera>().isActiveAndEnabled) {
+        if (gameObject.GetComponent<FocusCamera>().enabled) {
 
-            if (player.tag == "Player") {
-
-                _scriptedCam.IsRightTrigger = _rightTrigger;
-
-                if (!_basic) {
-                    switch (_rightTrigger) {
-                        case true:
-                            if (player.transform.position.x > _boxPos.x || player.transform.position.y < _boxPos.y) {
-                                _scriptedCam.EnableScripts();
-                                StopAllCoroutines();
-                            }
-                            break;
-
-                        case false:
-                            if (player.transform.position.x < _boxPos.x) {
-                                _scriptedCam.EnableScripts();
-                                StopAllCoroutines();
-                            }
-                            break;
-                    }
-                }
+            if (otherGO.tag == "Player") {
+                _scriptedCam.Reset();
             }
         }
     }

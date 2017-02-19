@@ -402,7 +402,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000011779886232}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 6769, y: 125.26781, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2.5, y: 2.5, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -498,7 +498,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010381511670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5337, y: 132, z: 0}
+  m_LocalPosition: {x: -5207, y: 87, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1086,7 +1086,8 @@ MonoBehaviour:
   _recoveryTime: 1
   _SOEffectHandler: {fileID: 11400000, guid: e39803050b195f549bce9a8efa402b78, type: 2}
   _scrnShkRequest: {fileID: 11400000, guid: 8ef3faf65b3f2824bb551b6f8c073115, type: 2}
-  _SOCheckpoint: {fileID: 11400000, guid: 2891e6f4f3d0a9648b35cda93f48de61, type: 2}
+  _SOCheckpointHandler: {fileID: 11400000, guid: 2891e6f4f3d0a9648b35cda93f48de61,
+    type: 2}
 --- !u!212 &212000011415763638
 SpriteRenderer:
   m_ObjectHideFlags: 1

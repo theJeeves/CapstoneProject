@@ -10,6 +10,8 @@ public class CheckpointBehavior : MonoBehaviour {
     private bool _activated = false;                // Determines if the player has reached hit a given checkpoint
     [SerializeField]
     private SOCheckpoint _SOCheckpoint;             // Reference to the checkpoint manager to set and get values from it.
+    [SerializeField]
+    private Transform _respawnPoint;
 
     private void Update() {
         // Keep looking for the animator component unit it is found.
@@ -31,7 +33,7 @@ public class CheckpointBehavior : MonoBehaviour {
         if (!_activated && otherGo.gameObject.tag == "Player") {
             _activated = true;
             _animator.Play(GetAnimation(1));
-            _SOCheckpoint.checkpointPosition = transform.position;
+            _SOCheckpoint.checkpointPosition = _respawnPoint.position;
             _SOCheckpoint.checkpointGO = gameObject;
             GetComponent<AudioSource>().Play();
         }
