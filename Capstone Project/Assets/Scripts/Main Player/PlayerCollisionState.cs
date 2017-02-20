@@ -43,17 +43,18 @@ public class PlayerCollisionState : MonoBehaviour {
                                     new Vector2(-2.04f, 5.04f)};
 
     private ControllableObject _controller;
+    private Rigidbody2D _body2d;
 
     private void OnEnable() {
-        //_box = GetComponent<BoxCollider2D>();
+
         _box = GetComponent<PolygonCollider2D>();
         _controller = GetComponent<ControllableObject>();
+        _body2d = GetComponent<Rigidbody2D>();
 
         // The distance should just be long enough to extend outside of the collider box.
         _distance = 2.0f;
         _direction = new Vector2(0.0f, -1.0f);              // Down direction.
         _touchedGround = false;
-        //_baseP1position = _box.points[1].x;
     }
 
     private void FixedUpdate() {
@@ -70,7 +71,8 @@ public class PlayerCollisionState : MonoBehaviour {
             hit = Physics2D.Raycast(_rayOrigin[i], _direction, _distance, _whatToHit);
             if (hit.collider != null) {
                 Debug.DrawRay(_rayOrigin[i], new Vector3(0.0f, -1.0f * _distance, 0.0f), Color.white);
-                _touchedGround = true;
+
+                _touchedGround = _body2d.velocity.y <= 5.0f ? true : false;
                 break;
             }
         }

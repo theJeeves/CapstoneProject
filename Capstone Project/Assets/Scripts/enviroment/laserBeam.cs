@@ -32,7 +32,7 @@ public class laserBeam : MonoBehaviour
 
 
     // Use this for initialization
-    void Start()
+    private void OnEnable()
     {
         _lr = GetComponentInChildren<LineRenderer>();
         _laser = transform.GetChild(0);
@@ -72,6 +72,7 @@ public class laserBeam : MonoBehaviour
         _lr.SetPosition(0, start.position);
         //_lr.SetPosition(1, start.position);
         _lr.SetWidth(5.0f, 5.0f);
+        _lr.SetColors(Color.red, Color.red);
         _laser.gameObject.SetActive(false);
     }
 
@@ -93,6 +94,5 @@ public class laserBeam : MonoBehaviour
         _delayFinished = false;
         yield return new WaitForSeconds(_startDelay);
         _delayFinished = true;
-        StartCoroutine(LaserOnOff());
     }
 }

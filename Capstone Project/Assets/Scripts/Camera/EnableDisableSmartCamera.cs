@@ -24,12 +24,12 @@ public class EnableDisableSmartCamera : MonoBehaviour {
     [SerializeField]
     private bool _YDisableOnExit = false;
 
-    [Space]
-    [Header("Field Of View")]
-    [SerializeField]
-    private bool _FOVDisableOnEnter = false;
-    [SerializeField]
-    private bool _FOVEnableOnExit = false;
+    //[Space]
+    //[Header("Field Of View")]
+    //[SerializeField]
+    //private bool _FOVDisableOnEnter = false;
+    //[SerializeField]
+    //private bool _FOVEnableOnExit = false;
 
     private GameObject _camera;       // Reference to the main Camera
 
@@ -55,9 +55,9 @@ public class EnableDisableSmartCamera : MonoBehaviour {
                 _camera.GetComponent<SmartCameraYPosition>().enabled = true;
             }
 
-            if (_FOVDisableOnEnter) {
-                _camera.GetComponent<SmartCameraFOV>().enabled = false;
-            }
+            //if (_FOVDisableOnEnter) {
+            //    _camera.GetComponent<SmartCameraFOV>().enabled = false;
+            //}
         }
     }
 
@@ -79,9 +79,9 @@ public class EnableDisableSmartCamera : MonoBehaviour {
                 _camera.GetComponent<SmartCameraYPosition>().enabled = false;
             }
 
-            if (_FOVEnableOnExit) {
-                _camera.GetComponent<SmartCameraFOV>().enabled = true;
-            }
+            //if (_FOVEnableOnExit) {
+            //    _camera.GetComponent<SmartCameraFOV>().enabled = true;
+            //}
         }
     }
 }
