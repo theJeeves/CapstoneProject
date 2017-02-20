@@ -6,12 +6,9 @@ public class ScriptedCamera : ScriptableObject {
 
     //The speed at which the FOV will adjust
     [SerializeField]
-    protected float _FOVAdjustSpeed = 10.0f;
+    protected float _adjustSpeed = 10.0f;
 
     private bool largerFOV = false;
-
-    [SerializeField]
-    protected float _positionAdjustSpeed = 7.0f;
 
     protected GameObject _camera;       // Reference to the main Camera
     protected float _time = 0.0f;       // Used for timing and delay purposes
@@ -38,17 +35,17 @@ public class ScriptedCamera : ScriptableObject {
 
         // Using a smooth transition, keep adjusting the fov until the target number has been reached.
         if (largerFOV && Camera.main.orthographicSize < target.z) {
-            Camera.main.orthographicSize = Mathf.SmoothStep(fromFOV, target.z + 2.0f, (Time.time - _time) / _FOVAdjustSpeed);
+            Camera.main.orthographicSize = Mathf.SmoothStep(fromFOV, target.z + 2.0f, (Time.time - _time) / _adjustSpeed);
         }
         else if (!largerFOV && Camera.main.orthographicSize > target.z) {
-            Camera.main.orthographicSize = Mathf.SmoothStep(fromFOV, target.z - 2.0f, (Time.time - _time) / _FOVAdjustSpeed);
+            Camera.main.orthographicSize = Mathf.SmoothStep(fromFOV, target.z - 2.0f, (Time.time - _time) / _adjustSpeed);
         }
 
         //if ( (_camera.transform.position.x < _target.x - 0.5f && _camera.transform.position.x > _target.x + 0.5f) || 
         //    (_camera.transform.position.y < _target.y - 0.5f && _camera.transform.position.y > _target.y + 0.5f)) {
         if ((Vector2)_camera.transform.position != (Vector2)target) { 
-            _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, target.x, (Time.time - _time) / _positionAdjustSpeed),
-                Mathf.SmoothStep(_camera.transform.position.y, target.y, (Time.time - _time) / _positionAdjustSpeed), -10.0f);
+            _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, target.x, (Time.time - _time) / _adjustSpeed),
+                Mathf.SmoothStep(_camera.transform.position.y, target.y, (Time.time - _time) / _adjustSpeed), -10.0f);
         }
     }
 
