@@ -4,8 +4,6 @@ using System.Collections;
 public class laserBeam : MonoBehaviour
 {
     public delegate void LaserDealDamageEvent(int damage);
-    public static event LaserDealDamageEvent DecrementPlayerHealth;
-
 
     private LineRenderer _lr;
     private Transform _laser;

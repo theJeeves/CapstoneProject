@@ -18,7 +18,7 @@ public class CrystalBullet : AbstractBullet {
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
         if (otherGO.gameObject.tag == "Enemy") {
-            otherGO.gameObject.GetComponentInParent<EnemyHealth>().DecrementHealth(_damageAmount);
+            otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
         }
         if (otherGO.collider.gameObject.tag == "SwarmerPodBattery") {
             Debug.Log("hello");
@@ -34,6 +34,11 @@ public class CrystalBullet : AbstractBullet {
     private void OnTriggerEnter2D(Collider2D otherGO) {
 
         if (otherGO.gameObject.tag == "Block") {
+            _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
+            Destroy(gameObject);
+        }
+        else if (otherGO.gameObject.tag == "Enemy") {
+            otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
             _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }

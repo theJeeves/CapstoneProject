@@ -60,7 +60,7 @@ public class SwarmerBehavior : MonoBehaviour {
     private void OnEnable() {
         _GOBox = GetComponent<BoxCollider2D>();
         _body = GetComponent<Rigidbody2D>();
-        _enemyType = GetComponent<EnemyHealth>().enemyType;
+        _enemyType = GetComponent<EnemyBasicBehaviors>().enemyType;
 
         _body.AddForce(new Vector2(Random.Range(_xMinVelocity, _xMaxVelocity), Random.Range(_yMinVelocity, _yMaxVelocity)), ForceMode2D.Impulse);
         _walkingSpeed = Random.Range(_walkingSpeedRange.Min, _walkingSpeedRange.Max);
@@ -119,7 +119,7 @@ public class SwarmerBehavior : MonoBehaviour {
         }
         else if (_enemyType == EnemyType.ExplodingSwamer && otherGO.gameObject.tag == "Player") {
             otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(15, 3.0f, DamageEnum.Explosion);
-            GetComponent<EnemyHealth>().DecrementHealth(100);
+            GetComponent<EnemyBasicBehaviors>().DecrementHealth(100);
         }
     }
 

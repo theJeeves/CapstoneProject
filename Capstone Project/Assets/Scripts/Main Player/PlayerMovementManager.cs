@@ -12,13 +12,6 @@ public class PlayerMovementManager : MonoBehaviour {
     private Vector3 _values;
     private float _timer = 0.0f;
 
-    private bool _canWalk = true;
-    public bool CanWalk {
-        set {
-            _canWalk = value;
-            StartCoroutine(StunDelay());
-        }
-    }
 
     // The key is whether or not the movement should be additive or override the current movement.
     private Queue<MovementRequest> _moveQ = new Queue<MovementRequest>();
@@ -48,12 +41,7 @@ public class PlayerMovementManager : MonoBehaviour {
 
             switch (_moveQ.Peek().MovementType) {
                 case MovementType.Walking:
-                    if (_canWalk) {
-                        _body2d.velocity = _moveQ.Dequeue().Move(_values, _grounded, _controller.CurrentKey);
-                    }
-                    else {
-                        _moveQ.Dequeue().Move(_values, _grounded, _controller.CurrentKey);
-                    }
+                    _body2d.velocity = _moveQ.Dequeue().Move(_values, _grounded, _controller.CurrentKey);
                     break;
                 case MovementType.Shotgun:
                 case MovementType.MachineGun:
@@ -75,8 +63,7 @@ public class PlayerMovementManager : MonoBehaviour {
         _body2d.AddForce(force, ForceMode2D.Impulse);
     }
 
-    private IEnumerator StunDelay() {
-        yield return new WaitForSeconds(0.25f);
-        _canWalk = true;
+    public void ClearQueue() {
+        _moveQ.Clear();
     }
 }

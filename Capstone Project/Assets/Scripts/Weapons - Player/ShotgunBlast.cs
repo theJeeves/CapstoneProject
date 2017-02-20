@@ -106,7 +106,7 @@ public class ShotgunBlast : AbstractBullet {
 
 
                 if (hitTagName == "Enemy") {
-                    hit.collider.gameObject.GetComponentInParent<EnemyHealth>().DecrementHealth(_damageAmount);
+                    hit.collider.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
                 }
                 else {
                     _magnitudes[i] = Vector3.Magnitude(hit.point - _start);

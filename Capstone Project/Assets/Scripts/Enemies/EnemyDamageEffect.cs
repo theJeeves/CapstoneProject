@@ -9,6 +9,7 @@ public class EnemyDamageEffect : MonoBehaviour {
     private SpriterDotNetUnity.ChildData _entity;
 
     private void OnEnable() {
+        // CHECK TO SEE IF THE ENEMY IS COMPOSED OF A SINGLE SPRITE OR WAS IMPORTED IN FROM SPRITER PRO
         if (gameObject.GetComponent<SpriteRenderer>() != null) {
             _sprite = GetComponent<SpriteRenderer>();
         }

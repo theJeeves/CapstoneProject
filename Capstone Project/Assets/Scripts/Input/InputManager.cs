@@ -95,6 +95,10 @@ public class InputManager : MonoBehaviour {
     private InputAxisState[] _XBOXInputs;
 
     private int controllerType = -1;
+    private bool _canTakeInput = true;
+    private float _pauseDuration = 0.0f;
+    private float _timer = 0.0f;
+
 
     private void Start() {
         // Get a list of all availabe gamepads
@@ -113,17 +117,41 @@ public class InputManager : MonoBehaviour {
     // Update is called once per frame
     void Update() {
 
+        if (!_canTakeInput) {
+            _timer = _timer > 0.0f ? _timer : Time.time;
+
+            if (Time.time - _timer > _pauseDuration) {
+                _canTakeInput = true;
+                _timer = 0.0f;
+            }
+        }
+
         // Depending on the controller type, run through all the inputs and check if any of the
         // button states has changed.
         if (controllerType == 0) {
             foreach (InputAxisState input in _DSInputs) {
-                _player.SetButtonState(input.Button, input.IsPressed);
+                if (_canTakeInput) {
+                    _player.SetButtonState(input.Button, input.IsPressed);
+                }
+                else {
+                    _player.SetButtonState(input.Button, false);
+                }
             }
         }
         else {
             foreach (InputAxisState input in _XBOXInputs) {
-                _player.SetButtonState(input.Button, input.IsPressed);
+                if (_canTakeInput) {
+                    _player.SetButtonState(input.Button, input.IsPressed);
+                }
+                else {
+                    _player.SetButtonState(input.Button, false);
+                }
             }
         }
+    }
+
+    public void PauseInput(float pauseDuration) {
+        _pauseDuration = pauseDuration;
+        _canTakeInput = false;
     }
 }

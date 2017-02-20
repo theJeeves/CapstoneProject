@@ -16,7 +16,7 @@ public enum EnemyType {
     Flying
 }
 
-public class EnemyHealth : MonoBehaviour {
+public class EnemyBasicBehaviors : MonoBehaviour {
 
     public EnemyType enemyType;
     [SerializeField]
@@ -83,6 +83,21 @@ public class EnemyHealth : MonoBehaviour {
         }
         else if (_effectPositions != null && enemyType == EnemyType.Flying) {
             _effect.transform.position = new Vector3(_effectPositions[1].position.x, _effectPositions[1].position.y, 1.0f);
+        }
+    }
+
+    // IN THIS CASE, COLLISIONS ARE PRIMARILY USED TO SEE IF CERTAIN TYPES OF ENEMIES SHOULD
+    // DAMAGE THE PLAYER.
+    private void OnCollisionEnter2D(Collision2D otherGO) {
+
+        if (otherGO.gameObject.tag == "Player") { 
+
+            if (enemyType == EnemyType.Flying) {
+
+                otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(7);
+                int direction = (int)otherGO.gameObject.GetComponent<ControllableObject>().FacingDirection;
+                otherGO.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(150.0f * direction, 0.0f);
+            }
         }
     }
 

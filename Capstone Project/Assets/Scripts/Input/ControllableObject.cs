@@ -96,14 +96,6 @@ public class ControllableObject : MonoBehaviour {
         get { return _aimDirection; }
     }
 
-    private bool _canTakeInput = true;
-    public bool TakeInput {
-        set {
-            _canTakeInput = value;
-            StartCoroutine(StunDelay());
-        }
-    }
-
     // Other Action scripts will used this dictionary to query a button's state.
     private Dictionary<Buttons, ButtonState> buttonStates = new Dictionary<Buttons, ButtonState>();
 
@@ -184,6 +176,5 @@ public class ControllableObject : MonoBehaviour {
 
     private IEnumerator StunDelay() {
         yield return new WaitForSeconds(0.25f);
-        _canTakeInput = true;
     }
 }

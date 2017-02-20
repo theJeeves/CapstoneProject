@@ -40,6 +40,9 @@ public class PlayerHealth : MonoBehaviour {
     private int _damageReceived = 0;                // How much damage has the player received.
     private float _duration = 0.0f;                 // Duration for an effect to last.
 
+    private InputManager _inputManager;
+    private PlayerMovementManager _movementManager;
+
     // Getter/Setter for other scripts to refernce the player's health.
     public int Health {
         get { return _health; }
@@ -53,6 +56,9 @@ public class PlayerHealth : MonoBehaviour {
     private void OnEnable() {
         _spriteRenderer = GetComponentsInChildren<SpriteRenderer>();
         _effectPositions = GetComponentsInChildren<Transform>();
+
+        _inputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<InputManager>();
+        _movementManager = GetComponent<PlayerMovementManager>();
     }
 
     void Start() {
@@ -118,10 +124,18 @@ public class PlayerHealth : MonoBehaviour {
 
         if (_canTakeDamage) {
 
+            // Tell the input manager to stop taking in input for 0.5 seconds
+            // To ensure there are no conflicting movement requests, clear the player movement queue of all requests.
+            _inputManager.PauseInput(0.5f);
+            _movementManager.ClearQueue();
+
+
+            // If duration is passed in for damages which last for X amount of time
             if (duration > 0.0f) {
                 _damageReceived = damage;
                 _duration = duration;
 
+                // For each of the damage effects, call the appropriate functions to give the selected effect.
                 if (damageType == DamageEnum.Acid) {
                     AcidDamageEffect();
                     _effect = _SOEffectHandler.PlayEffect(EffectEnums.AcidDamageEffect, _effectPositions[1].position);
@@ -135,6 +149,8 @@ public class PlayerHealth : MonoBehaviour {
                     _scrnShkRequest.ShakeRequest();
                     StartCoroutine(RecoveryDelay());
 
+
+                    // UPDATE HEALTH UI
                     if (UpdateHealth != null) {
                         UpdateHealth(_health);
                     }
