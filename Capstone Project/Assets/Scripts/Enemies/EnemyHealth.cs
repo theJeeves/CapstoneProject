@@ -12,7 +12,8 @@ public enum EnemyType {
     Swarmer,
     AcidSwarmer,
     ExplodingSwamer,
-    Charger
+    Charger,
+    Flying
 }
 
 public class EnemyHealth : MonoBehaviour {
@@ -45,6 +46,9 @@ public class EnemyHealth : MonoBehaviour {
         else if (enemyType == EnemyType.ExplodingSwamer) {
             _effect = _SOEffectHandler.PlayEffect(EffectEnums.SwarmerExplosiveEffect, transform.position);
         }
+        else if (enemyType == EnemyType.Flying) {
+            _effect = _SOEffectHandler.PlayEffect(EffectEnums.Flying_Swarmer_Exhaust, transform.position);
+        }
 
         _effectPositions = GetComponentsInChildren<Transform>();
     }
@@ -74,8 +78,11 @@ public class EnemyHealth : MonoBehaviour {
             }
         }
 
-        else if (enemyType == EnemyType.ExplodingSwamer && _effect != null) {
+        else if (_effect != null && enemyType == EnemyType.ExplodingSwamer) {
             _effect.transform.position = _effectPositions[1].position;
+        }
+        else if (_effectPositions != null && enemyType == EnemyType.Flying) {
+            _effect.transform.position = new Vector3(_effectPositions[1].position.x, _effectPositions[1].position.y, 1.0f);
         }
     }
 
@@ -92,6 +99,7 @@ public class EnemyHealth : MonoBehaviour {
                 case EnemyType.Swarmer:
                 case EnemyType.AcidSwarmer:
                 case EnemyType.ExplodingSwamer:
+                case EnemyType.Flying:
                     _SOEffectHandler.PlayEffect(EffectEnums.SwarmerDeathExplosion, transform.position); break;
             }
             Destroy(gameObject);

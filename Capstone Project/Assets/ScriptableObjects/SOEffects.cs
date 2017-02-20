@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public enum EffectEnums {
     AcidBall, AcidBallSplatter, AcidDamageEffect, AcidSquirt, CrystalBullet, CrystalImpact, ExplosionDamageEffect, LandingDust, LightningImpact,
     MGMuzzleFlash, PlayerRespawn, PodBatteryDamage, PodBatteryIndicator, PodExplosion, PodOilSpill1, PodOilSpill2, ShotgunBlast, SniperBullet,
-    SniperBulletImpact, SniperDeathExplosion, SniperLaserEffect, SniperTellEffect,/* SwarmerBasicDamage,*/ SwarmerDeathExplosion, SwarmerExplosiveEffect
+    SniperBulletImpact, SniperDeathExplosion, SniperLaserEffect, SniperTellEffect,/* SwarmerBasicDamage,*/ SwarmerDeathExplosion, SwarmerExplosiveEffect,
+    Flying_Swarmer_Exhaust
 }
 
 //Create Asset Menu allows us to turn this scriptable object into an asset to be used in the game.
