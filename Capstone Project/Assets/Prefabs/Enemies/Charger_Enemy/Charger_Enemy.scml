@@ -8,7 +8,7 @@
         <file id="4" name="shieldbot_torso.png" width="618" height="660" pivot_x="0" pivot_y="1"/>
         <file id="5" name="shieldbot_shield.png" width="403" height="780" pivot_x="0" pivot_y="1"/>
     </folder>
-    <entity id="0" name="entity_000">
+    <entity id="0" name="Charger_Enemy">
         <obj_info name="bone_000" type="bone" w="391.727" h="10"/>
         <obj_info name="bone_001" type="bone" w="228.521" h="10"/>
         <obj_info name="bone_002" type="bone" w="287.448" h="10"/>
@@ -74,7 +74,7 @@
             </timeline>
             <timeline id="8" obj="2" name="bone_002" object_type="bone">
                 <key id="0" spin="0">
-                    <bone x="-56.2603" y="-0.23438"/>
+                    <bone x="-56.2603" y="-0.23438" angle="0"/>
                 </key>
             </timeline>
             <timeline id="9" obj="3" name="bone_003" object_type="bone">
@@ -89,7 +89,7 @@
             </timeline>
             <timeline id="11" obj="5" name="bone_005" object_type="bone">
                 <key id="0" spin="0">
-                    <bone x="-53.683481" y="-0.262318"/>
+                    <bone x="-53.683481" y="-0.262318" angle="0"/>
                 </key>
             </timeline>
         </animation>
@@ -224,10 +224,10 @@
             </timeline>
             <timeline id="8" obj="2" name="bone_002" object_type="bone">
                 <key id="0" spin="0">
-                    <bone x="-56.2603" y="-0.23438"/>
+                    <bone x="-56.2603" y="-0.23438" angle="0"/>
                 </key>
                 <key id="1" time="500">
-                    <bone x="194.7397" y="-0.23438"/>
+                    <bone x="194.7397" y="-0.23438" angle="0"/>
                 </key>
                 <key id="2" time="750" spin="-1">
                     <bone x="194.7397" y="-0.23438" angle="90"/>
@@ -254,10 +254,10 @@
             </timeline>
             <timeline id="11" obj="5" name="bone_005" object_type="bone">
                 <key id="0" spin="0">
-                    <bone x="-53.683481" y="-0.262318"/>
+                    <bone x="-53.683481" y="-0.262318" angle="0"/>
                 </key>
                 <key id="1" time="500">
-                    <bone x="197.316519" y="-0.262318"/>
+                    <bone x="197.316519" y="-0.262318" angle="0"/>
                 </key>
                 <key id="2" time="750" spin="-1">
                     <bone x="197.316519" y="-0.262318" angle="84.921607"/>
@@ -330,7 +330,7 @@
                     <bone x="21.126761" y="115.492958" angle="84.842873"/>
                 </key>
                 <key id="1" time="375" spin="0">
-                    <bone x="21.126761" y="100" angle="84.842873"/>
+                    <bone x="21.126761" y="150" angle="84.842873"/>
                 </key>
             </timeline>
             <timeline id="7" obj="1" name="bone_001" object_type="bone">
@@ -550,10 +550,10 @@
                     <bone x="197.316519" y="-0.262318" angle="85"/>
                 </key>
                 <key id="1" time="250" spin="0">
-                    <bone x="197.316519" y="-0.262318"/>
+                    <bone x="197.316519" y="-0.262318" angle="0"/>
                 </key>
                 <key id="2" time="750">
-                    <bone x="197.316519" y="-0.262318"/>
+                    <bone x="197.316519" y="-0.262318" angle="0"/>
                 </key>
                 <key id="3" time="999" spin="0">
                     <bone x="197.316519" y="-0.262318" angle="85"/>

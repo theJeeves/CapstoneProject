@@ -7,7 +7,6 @@ public class EnableDisable : MonoBehaviour {
     private GameObject _object;
 
     private Vector3 _GOpos;
-    private bool _enable = true;
 
     private void OnEnable() {
         StartCoroutine(CheckIfOffScreen());

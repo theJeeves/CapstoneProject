@@ -3,9 +3,6 @@ using System.Collections;
 
 public class ChargerDealDamage : MonoBehaviour {
 
-    public delegate void ChargerDealDamageEvent(int damage);
-    public static event ChargerDealDamageEvent DecrementPlayerHealth;
-
     private float _direction;
 
     [SerializeField]

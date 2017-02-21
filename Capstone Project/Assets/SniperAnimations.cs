@@ -28,7 +28,7 @@ public class SniperAnimations : MonoBehaviour {
             _GOpos = Camera.main.WorldToViewportPoint(transform.position);
 
             // KEEP CHECKING IF THE SNIPER IS WITHIN THE SCREEN TO ENSURE THE PLAYER SEES THE DEPLOY ANIMATION
-            if (_GOpos.x > 0.1f && _GOpos.x < 0.9f && _GOpos.y > 0.1 && _GOpos.y < 0.9F) {
+            if (_GOpos.x > 0.1f && _GOpos.x < 1.0f && _GOpos.y > 0.1 && _GOpos.y < 1.0F) {
                 StartCoroutine(DeployDelay());
                 _deployed = true;
             }
