@@ -49,6 +49,9 @@ public class EnemyBasicBehaviors : MonoBehaviour {
         else if (enemyType == EnemyType.Flying) {
             _effect = _SOEffectHandler.PlayEffect(EffectEnums.Flying_Swarmer_Exhaust, transform.position);
         }
+        else if (enemyType == EnemyType.Charger) {
+            _effect = _SOEffectHandler.PlayEffect(EffectEnums.ChargerExhaust, transform.position);
+        }
 
         _effectPositions = GetComponentsInChildren<Transform>();
     }
@@ -64,8 +67,6 @@ public class EnemyBasicBehaviors : MonoBehaviour {
     }
 
     private void Update() {
-
-        //Vector3 position = transform.position;
 
         if (enemyType == EnemyType.AcidSwarmer) {
 
@@ -83,6 +84,11 @@ public class EnemyBasicBehaviors : MonoBehaviour {
         }
         else if (_effectPositions != null && enemyType == EnemyType.Flying) {
             _effect.transform.position = new Vector3(_effectPositions[1].position.x, _effectPositions[1].position.y, 1.0f);
+        }
+        else if (_effectPositions != null && enemyType == EnemyType.Charger) {
+
+            _effect.transform.position = new Vector3(_effectPositions[2].position.x, _effectPositions[2].position.y, 1.0f);
+            _effect.transform.localEulerAngles = new Vector3(0.0f, 0.0f, -13.5f * _effectPositions[1].localScale.x);
         }
     }
 
@@ -109,6 +115,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
             switch (enemyType) {
 
                 case EnemyType.Sniper:
+                case EnemyType.Charger:
                     _SOEffectHandler.PlayEffect(EffectEnums.SniperDeathExplosion, transform.position); break;
 
                 case EnemyType.Swarmer:
