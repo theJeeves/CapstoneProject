@@ -6,7 +6,7 @@ public class EnableDisable : MonoBehaviour {
     [SerializeField]
     private GameObject _object;
 
-    Vector3 _GOpos;
+    private Vector3 _GOpos;
 
     private void OnEnable() {
         StartCoroutine(CheckIfOffScreen());
@@ -14,11 +14,12 @@ public class EnableDisable : MonoBehaviour {
 
     private IEnumerator CheckIfOnScreen() {
 
-        _GOpos = Camera.main.WorldToViewportPoint(_object.transform.position);
+        _GOpos = Camera.main.WorldToViewportPoint(transform.position);
+        _object.SetActive(false);
 
-        while (_GOpos.x < -0.15f || _GOpos.x > 1.15f || _GOpos.y < -0.15f || _GOpos.y > 1.0f) {
+        while (_GOpos.x < -0.25f || _GOpos.x > 1.25f || _GOpos.y < -0.25f || _GOpos.y > 1.25f) {
 
-            _GOpos = Camera.main.WorldToViewportPoint(_object.transform.position);
+            _GOpos = Camera.main.WorldToViewportPoint(transform.position);
             yield return 0;
         }
 
@@ -28,11 +29,12 @@ public class EnableDisable : MonoBehaviour {
 
     private IEnumerator CheckIfOffScreen() {
 
-        _GOpos = Camera.main.WorldToViewportPoint(_object.transform.position);
+        _GOpos = Camera.main.WorldToViewportPoint(transform.position);
+        _object.SetActive(true);
 
-        while (_GOpos.x > -0.15f && _GOpos.x < 1.15f && _GOpos.y > -0.15f && _GOpos.y < 1.0f) {
+        while (_GOpos.x > -0.25f && _GOpos.x < 1.25f && _GOpos.y > -0.25f && _GOpos.y < 1.25f) {
 
-            _GOpos = Camera.main.WorldToViewportPoint(_object.transform.position);
+            _GOpos = Camera.main.WorldToViewportPoint(transform.position);
             yield return 0;
         }
 

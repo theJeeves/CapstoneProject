@@ -28,10 +28,13 @@ public class ChargerLockOn : MonoBehaviour {
     private Transform _player;
     private Vector2 _direction;
 
+    private ChargerAnimations _animationManager;
+
     private void OnEnable() {
-        _body2d = GetComponent<Rigidbody2D>();
+        _body2d = GetComponentInParent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _hit = Physics2D.Raycast(transform.position, _direction, _attackRange, _whatToHit);
+        _animationManager = GetComponentInParent<ChargerAnimations>();
 
         StartCoroutine(LockOn());
     }
@@ -42,13 +45,16 @@ public class ChargerLockOn : MonoBehaviour {
 
             if (_hit.collider != null && _hit.collider.tag == "Player") {
 
+                _animationManager.Play(3);
                 _body2d.velocity = Vector2.zero;
                 //Start the "tell" animation for this enemy.
                 if (RocketAnim != null) {
                     RocketAnim(_timer);
                 }
                 yield return new WaitForSeconds(_timer);
+
                 // Charge toward the player.
+                _animationManager.Play(4);
                 _body2d.AddForce(Vector2.right * _chargeSpeed * _direction.x, ForceMode2D.Impulse);
                 break;
             }
@@ -62,8 +68,8 @@ public class ChargerLockOn : MonoBehaviour {
 
             // Correct facing direction while walking toward the player
             Vector3 localScale = transform.localScale;
-            transform.localScale = _direction.x > 0 ? new Vector3(-0.12f, localScale.y, localScale.z)
-                : new Vector3(0.12f, localScale.y, localScale.z);
+            transform.localScale = _direction.x > 0 ? new Vector3(1.0f, localScale.y, localScale.z)
+                : new Vector3(-1.0f, localScale.y, localScale.z);
 
             yield return 0;
         }
@@ -80,6 +86,7 @@ public class ChargerLockOn : MonoBehaviour {
             ResetRockets();
         }
 
+        _animationManager.Play(2);
         StartCoroutine(LockOn());
     }
 

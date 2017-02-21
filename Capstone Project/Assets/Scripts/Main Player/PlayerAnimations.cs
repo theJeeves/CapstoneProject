@@ -78,7 +78,7 @@ public class PlayerAnimations : MonoBehaviour {
     }
 
     private void Play(int index) {
-        _spriterAnimator.Play(_animationList[(int)index]);
+        _spriterAnimator.Play(_animationList[index]);
     }
 }
 
