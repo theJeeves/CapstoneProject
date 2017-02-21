@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public enum DamageEnum {
     None,
     Acid,
@@ -34,7 +35,8 @@ public class PlayerHealth : MonoBehaviour {
     private Transform[] _effectPositions;           // Positions where effects will be played.
     private GameObject _effect;                     // GameObject to reference a called effect. This is so the effect may be manipulated.
     private DamageEnum _damageType;                 // Type of damage so this script can call different effect types.
-    private SpriteRenderer[] _spriteRenderer;       // Refernece to all the sprites associated with the player for acid and explosion effects.
+    //private SpriteRenderer[] _spriteRenderer;       // Refernece to all the sprites associated with the player for acid and explosion effects.
+    private SpriterDotNetUnity.ChildData _entity;
     private bool _canTakeDamage;                    // Bool determining if the player is able to take damage or not. Tied with _recoveryTime.
     private float _timer = 0.0f;                    // Timer is used to determine how much time has passed for effect durations.
     private int _damageReceived = 0;                // How much damage has the player received.
@@ -54,7 +56,7 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void OnEnable() {
-        _spriteRenderer = GetComponentsInChildren<SpriteRenderer>();
+        //_spriteRenderer = GetComponentsInChildren<SpriteRenderer>();
         _effectPositions = GetComponentsInChildren<Transform>();
 
         _inputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<InputManager>();
@@ -70,6 +72,10 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void Update() {
+
+        if (_entity == null) {
+            _entity = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>().ChildData;
+        }
 
         // if the player dies, stop any velocity the player had, place them at the last checkpoint, and reset their health to 100%.
         if (_health <= 0) {
@@ -175,16 +181,22 @@ public class PlayerHealth : MonoBehaviour {
     // for an acid damage effect.
     private void AcidDamageEffect() {
 
-        for (int i = 0; i < _spriteRenderer.Length; ++i) {
-            _spriteRenderer[i].color = Color.green;
+        //for (int i = 0; i < _spriteRenderer.Length; ++i) {
+        //    _spriteRenderer[i].color = Color.green;
+        //}
+        foreach (GameObject sprite in _entity.Sprites) {
+            sprite.GetComponent<SpriteRenderer>().color = Color.green;
         }
     }
 
     // Go through all the sprites for the player and render them
     // dark grey for an explosion effect
     private void ExplosionDamageEffect() {
-        for (int i = 0; i < _spriteRenderer.Length; ++i) {
-            _spriteRenderer[i].color = new Color(0.18f, 0.18f, 0.18f);
+        //for (int i = 0; i < _spriteRenderer.Length; ++i) {
+        //    _spriteRenderer[i].color = new Color(0.18f, 0.18f, 0.18f);
+        //}
+        foreach (GameObject sprite in _entity.Sprites) {
+            sprite.GetComponent<SpriteRenderer>().color = new Color(0.18f, 0.18f, 0.18f);
         }
     }
 
@@ -195,27 +207,46 @@ public class PlayerHealth : MonoBehaviour {
 
         float t = Time.deltaTime * (1.0f / _duration);
 
-        for (int i = 0; i < _spriteRenderer.Length; ++i) {
+        //for (int i = 0; i < _spriteRenderer.Length; ++i) {
 
-            _spriteRenderer[i].color = new Color(Mathf.Clamp01(_spriteRenderer[i].color.r + t), Mathf.Clamp01(_spriteRenderer[i].color.g + t),
-                Mathf.Clamp01(_spriteRenderer[i].color.b + t));
+        //    _spriteRenderer[i].color = new Color(Mathf.Clamp01(_spriteRenderer[i].color.r + t), Mathf.Clamp01(_spriteRenderer[i].color.g + t),
+        //        Mathf.Clamp01(_spriteRenderer[i].color.b + t));
+        //}
+
+        foreach (GameObject sprite in _entity.Sprites) {
+            Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
+            sprite.GetComponent<SpriteRenderer>().color = new Color(Mathf.Clamp01(spriteColor.r + t), 
+                Mathf.Clamp01(spriteColor.g + t), Mathf.Clamp01(spriteColor.b + t));
         }
     }
 
     private IEnumerator RecoveryDelay() {
         _canTakeDamage = false;
 
-        float timer = 0.0f;
-        while (timer < _recoveryTime) {
-
-            //_damageAnimation.PlayAnimation();
-            yield return new WaitForSeconds(_recoveryTime / 10.0f);
-            //_damageAnimation.StopAnimation();
-            yield return new WaitForSeconds(_recoveryTime / 10.0f);
-
-            timer += _recoveryTime / 5.0f;
-        }
+        yield return new WaitForSeconds(_recoveryTime);
 
         _canTakeDamage = true;
+
+        //float timer = 0.0f;
+        //while (timer < _recoveryTime) {
+
+        //    // GO THROUGH EACH OF THE SPRITE WHICH MAKE UP THE CHARACTER AND TURN OFF THEIR ALPHAS
+        //    foreach (GameObject sprite in _entity.Sprites) {
+        //        Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
+        //        sprite.GetComponent<SpriteRenderer>().color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, 0.0f);
+        //    }
+
+        //    yield return new WaitForSeconds(0.1f);
+
+        //    // AFTER A BRIEF PAUSE, GO THROUGH EACH OF THE SPRITE WHICH MAKE UP THE CHARACTER AND TURN ON THEIR ALPHAS
+        //    //foreach (GameObject sprite in _entity.Sprites) {
+        //    //    Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
+        //    //    sprite.GetComponent<SpriteRenderer>().color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, 1.0f);
+        //    //}
+
+        //    yield return new WaitForSeconds(0.1f);
+
+        //    timer += _recoveryTime / 5.0f;
+        //}
     }
 }

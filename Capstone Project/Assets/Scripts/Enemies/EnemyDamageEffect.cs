@@ -3,8 +3,9 @@ using System.Collections;
 
 public class EnemyDamageEffect : MonoBehaviour {
 
-    private float _effectDuration = 0.7f;
+    private float _effectDuration = 0.25f;
 
+    private float _dividen = 5.0f;
     private SpriteRenderer _sprite;
     private SpriterDotNetUnity.ChildData _entity;
 
@@ -29,11 +30,11 @@ public class EnemyDamageEffect : MonoBehaviour {
             float timer = 0.0f;
             while (timer < _effectDuration) {
                 _sprite.color = Color.red;
-                yield return new WaitForSeconds(_effectDuration / 7.0f);
+                yield return new WaitForSeconds(_effectDuration / _dividen);
                 _sprite.color = Color.white;
-                yield return new WaitForSeconds(_effectDuration / 7.0f);
+                yield return new WaitForSeconds(_effectDuration / _dividen);
 
-                timer += _effectDuration / 7.0f;
+                timer += _effectDuration / _dividen;
             }
         }
 
@@ -45,14 +46,14 @@ public class EnemyDamageEffect : MonoBehaviour {
                 foreach (GameObject sprite in _entity.Sprites) {
                     sprite.GetComponent<SpriteRenderer>().color = Color.red;
                 }
-                yield return new WaitForSeconds(_effectDuration / 7.0f);
+                yield return new WaitForSeconds(_effectDuration / _dividen);
 
                 foreach (GameObject sprite in _entity.Sprites) {
                     sprite.GetComponent<SpriteRenderer>().color = Color.white;
                 }
-                yield return new WaitForSeconds(_effectDuration / 7.0f);
+                yield return new WaitForSeconds(_effectDuration / _dividen);
 
-                timer += _effectDuration / 7.0f;
+                timer += _effectDuration / _dividen;
             }
         }
     }
