@@ -24,21 +24,6 @@ public class PlayerHintsDisplay : MonoBehaviour {
 
         hint = hint.Replace(" NL ", "\n");
         _hints.text = hint;
-        //int numOfHints = hint.Length;
-
-        //if (numOfHints == 1) {
-        //    _hints.text = hint[0].ToString();
-        //}
-        //else if (numOfHints > 1) {
-        //    for (int i = 0; i < numOfHints; ++i) {
-        //        if (i == numOfHints - 1) {
-        //            _hints.text += hint[i].ToString();
-        //        }
-        //        else {
-        //            _hints.text += hint[i].ToString() + " + ";
-        //        }
-        //    }
-        //}
     }
 
     private void HideHint() {

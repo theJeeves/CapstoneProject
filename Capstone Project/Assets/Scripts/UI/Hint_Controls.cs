@@ -32,14 +32,18 @@ public class Hint_Controls : MonoBehaviour {
                         case true:
 
                             if (player.transform.position.x >= _boxPos.x) {
-                                DisplayHint(_hint);
+                                if (DisplayHint != null) {
+                                    DisplayHint(_hint);
+                                }
                             }
                             break;
 
                         case false:
 
                             if (player.transform.position.x <= _boxPos.x) {
-                                DisplayHint(_hint);
+                                if (DisplayHint != null) {
+                                    DisplayHint(_hint);
+                                }
                             }
                             break;
                     }
@@ -60,13 +64,17 @@ public class Hint_Controls : MonoBehaviour {
                     switch (_rightTrigger) {
                         case true:
                             if (player.transform.position.x > _boxPos.x || player.transform.position.y < _boxPos.y) {
-                                HideHint();
+                                if (HideHint != null) {
+                                    HideHint();
+                                }
                             }
                             break;
 
                         case false:
                             if (player.transform.position.x < _boxPos.x) {
-                                HideHint();
+                                if (HideHint != null) {
+                                    HideHint();
+                                }
                             }
                             break;
                     }
@@ -74,7 +82,9 @@ public class Hint_Controls : MonoBehaviour {
                     _isDirty = true;
                 }
                 else {
-                    HideHint();
+                    if (HideHint != null) {
+                        HideHint();
+                    }
                     _isDirty = true;
                 }
             }
