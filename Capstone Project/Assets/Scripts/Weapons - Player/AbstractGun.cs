@@ -67,19 +67,5 @@ public abstract class AbstractGun : MonoBehaviour {
         _collisionState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollisionState>();
     }
 
-    //// The player cannot attack for a brief amount of time after they have received damage.
-    //protected virtual void DamageReceived(int ignore) {
-    //    StartCoroutine(DamageDelay());
-    //}
-
-    //protected virtual IEnumerator DamageDelay() {
-
-    //    _damaged = true;
-    //    _canShoot = false;
-    //    yield return new WaitForSeconds(1.0f);
-    //    _damaged = false;
-    //    _canShoot = true;
-    //}
-
     protected abstract void OnButtonDown(Buttons button);
 }

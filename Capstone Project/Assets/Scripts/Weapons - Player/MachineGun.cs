@@ -18,6 +18,9 @@ public class MachineGun : AbstractGun {
 
     private GameObject _muzzleFlashGO;
     private bool _canLift = true;
+    private float _timer = 0.0f;
+    private Vector2 _direction = Vector2.zero;
+    private Transform _end;
 
     protected override void Awake() {
         base.Awake();
@@ -33,7 +36,6 @@ public class MachineGun : AbstractGun {
     private void OnEnable() {
         ControllableObject.OnButtonDown += OnButtonDown;
         PlayerCollisionState.OnHitGround += Reload;
-        //ChargerDealDamage.DecrementPlayerHealth += DamageReceived;
 
         GetComponent<AudioSource>().clip = _audioClip;
         GetComponent<AudioSource>().Play();
@@ -61,12 +63,13 @@ public class MachineGun : AbstractGun {
         ControllableObject.OnButton += OnButton;
 
         _canLift = _collisionState.OnSolidGround ? true : false;
+
+        _end = GameObject.FindGameObjectWithTag("End").transform;
     }
 
     private void OnDisable() {
         ControllableObject.OnButtonDown -= OnButtonDown;
         PlayerCollisionState.OnHitGround -= Reload;
-        //ChargerDealDamage.DecrementPlayerHealth -= DamageReceived;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
 
@@ -77,6 +80,9 @@ public class MachineGun : AbstractGun {
     private void Update() {
         if (_muzzleFlashGO != null) {
             _muzzleFlashGO.transform.position = _barrel.transform.position;
+        }
+        if (!_canShoot && Time.time - _timer >= _shotDelay) {
+            _canShoot = true;
         }
     }
 
@@ -106,7 +112,6 @@ public class MachineGun : AbstractGun {
             if (!_reloading) {
 
                 _moveRequest.RequestMovement();
-
                 _grounded = false;
             }
             if (_canShoot & !_reloading) {
@@ -125,7 +130,7 @@ public class MachineGun : AbstractGun {
                     UpdateNumOfRounds(numOfRounds);
                 }
 
-                StartCoroutine(ShotDelay());
+                Fire();
             }
         }
 
@@ -138,21 +143,55 @@ public class MachineGun : AbstractGun {
         }
     }
 
-    private IEnumerator ShotDelay() {
-        _canShoot = false;
+    private void Fire() {
+        // Set can shoot to false for a delay between shots, ask for the muzzle flash, ask for the crystal bullet, and request a screen shake.
+        // Lastly, start the timer for the shot delay
+        if (_canShoot) {
+            _canShoot = false;
+            _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrel.transform.position, FiringAngle());
+            _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrel.transform.position, FiringAngle());
+            _SSRequest.ShakeRequest();
+            _timer = Time.time;
+        }
+    }
 
-        _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrel.transform.position, _controller.AimDirection);
-        //GameObject instance = Instantiate(_bullet, _barrel.transform.position, Quaternion.identity) as GameObject;
+    private int FiringAngle() {
 
-        // Angle the crystal according the the angle of the gun's direction
-        //instance.transform.localEulerAngles = new Vector3(0.0f, 0.0f, _controller.AimDirection);
+        _direction = (_end.position - _barrel.position).normalized;
+        _direction = new Vector2(Mathf.Round(_direction.x), Mathf.Round(_direction.y));
+        Debug.Log(_direction.x + " " + _direction.y);
 
-
-        _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrel.transform.position, _controller.AimDirection);
-        _SSRequest.ShakeRequest();
-
-        yield return new WaitForSeconds(_shotDelay);
-        _canShoot = true;
+        if (_direction.x == 1.0f && _direction.y == 0.0f) {
+            Debug.Log(0);
+            return 0;
+        }
+        else if (_direction.x == 1.0f && _direction.y == 1.0f) {
+            Debug.Log(45);
+            return 45;
+        }
+        else if (_direction.x == 0.0f && _direction.y == 1.0f) {
+            Debug.Log(90);
+            return 90;
+        }
+        else if (_direction.x == -1.0f && _direction.y == 1.0f) {
+            return 135;
+        }
+        else if (_direction.x == -1.0f && _direction.y == 0.0f) {
+            return 180;
+        }
+        else if (_direction.x == -1.0f && _direction.y == -1.0f) {
+            return 225;
+        }
+        else if (_direction.x == 0.0f && _direction.y == -1.0f) {
+            return 270;
+        }
+        else if (_direction.x == 1.0f && _direction.y == -1.0f) {
+            return 315;
+        }
+        else {
+            Debug.Log(-1);
+            return -1;
+        }
     }
 
     private void Reload() {

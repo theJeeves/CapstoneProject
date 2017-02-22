@@ -115,7 +115,7 @@ public class InputManager : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    private void Update() {
 
         if (!_canTakeInput) {
             _timer = _timer > 0.0f ? _timer : Time.time;

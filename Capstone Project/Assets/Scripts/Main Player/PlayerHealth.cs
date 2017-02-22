@@ -40,7 +40,6 @@ public class PlayerHealth : MonoBehaviour {
     private SpriterDotNetUnity.ChildData _entity;
     private bool _canTakeDamage;                    // Bool determining if the player is able to take damage or not. Tied with _recoveryTime.
     private float _timer = 0.0f;                    // Timer is used to determine how much time has passed for effect durations.
-    private float _respawnDelay = 0.0f;             // Timer used to wait a fraction of second so players can see the death effects.
     private int _damageReceived = 0;                // How much damage has the player received.
     private float _duration = 0.0f;                 // Duration for an effect to last.
     private bool _deathAnimationPlayed = false;     // Bool to ensure the death explosions only play once per death.
@@ -88,7 +87,6 @@ public class PlayerHealth : MonoBehaviour {
 
                 _playerBody.SetActive(false);
                 _inputManager.PauseInput(60.0f);
-                _respawnDelay = Time.time;
 
                 if (!_collisionState.OnSolidGround) {
                     _SOEffectHandler.PlayEffect(EffectEnums.Player_Death00, transform.position);

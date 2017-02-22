@@ -69,10 +69,8 @@ GameObject:
   - 60: {fileID: 60000010528345676}
   - 50: {fileID: 50000014053097008}
   - 114: {fileID: 114000011920427564}
-  - 114: {fileID: 114000011596732186}
   - 114: {fileID: 114000013143753702}
-  - 114: {fileID: 114000012788783044}
-  - 114: {fileID: 114000012186466020}
+  - 114: {fileID: 114000012407105984}
   - 114: {fileID: 114000013920287982}
   - 114: {fileID: 114000011971353112}
   - 114: {fileID: 114000011477222704}
@@ -498,7 +496,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010381511670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5321, y: 234, z: 0}
+  m_LocalPosition: {x: 913, y: -1026, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -958,17 +956,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab8fa7db49d912245895f19a445a96e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000011596732186
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010381511670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b7c33537a83c904ebdb951aceb474ad, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000011920427564
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -991,7 +978,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a64de9cb12cc4d643a7af5d55008896a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000012186466020
+--- !u!114 &114000012407105984
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -999,7 +986,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1000010381511670}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b9520bfa54f89949bff03e184b875e1, type: 3}
+  m_Script: {fileID: 11500000, guid: 77853a1e0a1cae74ebe241f1a046ff4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _moveRequest: {fileID: 11400000, guid: 56780ea444e542549b065f7efafada77, type: 2}
@@ -1018,17 +1005,6 @@ MonoBehaviour:
   _machineGunAmmo: {fileID: 0}
   _MGAvailable: 1
   _SGAvailable: 1
---- !u!114 &114000012788783044
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000010381511670}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e74db917e7c9ec3429c488f399be7140, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114000013143753702
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -91,8 +91,8 @@ public class ControllableObject : MonoBehaviour {
     public int CurrentKey {
         get { return _currentKey; }
     }
-    private short _aimDirection;
-    public short AimDirection {
+    private int _aimDirection;
+    public int AimDirection {
         get { return _aimDirection; }
     }
 
