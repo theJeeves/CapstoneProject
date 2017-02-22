@@ -35,15 +35,16 @@ public class PlayerHealth : MonoBehaviour {
     private Transform[] _effectPositions;           // Positions where effects will be played.
     private GameObject _effect;                     // GameObject to reference a called effect. This is so the effect may be manipulated.
     private DamageEnum _damageType;                 // Type of damage so this script can call different effect types.
-    //private SpriteRenderer[] _spriteRenderer;       // Refernece to all the sprites associated with the player for acid and explosion effects.
     private SpriterDotNetUnity.ChildData _entity;
     private bool _canTakeDamage;                    // Bool determining if the player is able to take damage or not. Tied with _recoveryTime.
     private float _timer = 0.0f;                    // Timer is used to determine how much time has passed for effect durations.
     private int _damageReceived = 0;                // How much damage has the player received.
     private float _duration = 0.0f;                 // Duration for an effect to last.
+    private bool _deathAnimationPlayed = false;     // Bool to ensure the death explosions only play once per death.
 
     private InputManager _inputManager;
     private PlayerMovementManager _movementManager;
+    private PlayerCollisionState _collisionState;
 
     // Getter/Setter for other scripts to refernce the player's health.
     public int Health {
@@ -56,11 +57,11 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void OnEnable() {
-        //_spriteRenderer = GetComponentsInChildren<SpriteRenderer>();
         _effectPositions = GetComponentsInChildren<Transform>();
 
         _inputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<InputManager>();
         _movementManager = GetComponent<PlayerMovementManager>();
+        _collisionState = GetComponent<PlayerCollisionState>();
     }
 
     void Start() {
@@ -79,6 +80,17 @@ public class PlayerHealth : MonoBehaviour {
 
         // if the player dies, stop any velocity the player had, place them at the last checkpoint, and reset their health to 100%.
         if (_health <= 0) {
+
+            if (!_deathAnimationPlayed) {
+                if (!_collisionState.OnSolidGround) {
+                    _SOEffectHandler.PlayEffect(EffectEnums.Player_Death00, transform.position);
+                }
+                else {
+                    _SOEffectHandler.PlayEffect(EffectEnums.Player_Death01, transform.position);
+                }
+                _deathAnimationPlayed = true;
+            }
+
             GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             GetComponent<Rigidbody2D>().gravityScale = 0.0f;
             transform.position = _SOCheckpointHandler.checkpointPosition;
@@ -90,6 +102,7 @@ public class PlayerHealth : MonoBehaviour {
                 _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _SOCheckpointHandler.checkpointPosition);
                 _health = _maxHealth;
                 UpdateHealth(_health);
+                _deathAnimationPlayed = false;
             }
         }
 
