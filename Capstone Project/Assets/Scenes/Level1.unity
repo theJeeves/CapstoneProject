@@ -99,7 +99,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -127,7 +127,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_RootOrder
-      value: 66
+      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_Name
@@ -144,7 +144,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -154,7 +154,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 0.7
+      value: 0.35
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -252,7 +252,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -280,7 +280,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_RootOrder
-      value: 67
+      value: 66
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_Name
@@ -297,7 +297,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -307,7 +307,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 0.8
+      value: 0.4
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -2957,7 +2957,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -3002,7 +3002,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -3352,10 +3352,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: a8e583825c48bdb4e87221a043894a3d, type: 2}
-  _basic: 1
-  _rightTrigger: 0
-  _resetOnDeath: 0
+  _scriptedCam: {fileID: 0}
+  _leftAndRight: 0
+  _upAndDown: 0
+  _triggerPoints: []
+  _cameraPositions: []
 --- !u!61 &342930213
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -4929,6 +4930,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45ffbf6fd374404cacd955557fee2c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _XEnableOnEnter: 0
+  _XDisableOnEnter: 0
+  _XEnableOnExit: 0
+  _XDisableOnExit: 0
+  _YEnableOnEnter: 0
+  _YDisableOnEnter: 0
+  _YEnableOnExit: 0
+  _YDisableOnExit: 0
 --- !u!4 &531852704 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000013499194950, guid: 3044ecc060150944faa2cab9340db781,
@@ -5976,7 +5985,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -6004,7 +6013,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_RootOrder
-      value: 71
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_Name
@@ -6021,7 +6030,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -6031,7 +6040,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 1.2
+      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -6251,9 +6260,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: ca5256f8a6232874594b1fa79ba36b7a, type: 2}
-  _basic: 0
-  _rightTrigger: 0
-  _resetOnDeath: 0
+  _leftAndRight: 0
+  _upAndDown: 0
+  _triggerPoints: []
+  _cameraPositions: []
 --- !u!61 &662135384
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6531,7 +6541,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e405114f07ca68247980481bb260c6d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _respawnContainer: {fileID: 11400000, guid: b12c6c53b48ee4248b0ac62872aad9ca, type: 2}
+  _SOCheckpointHandler: {fileID: 0}
   _SOEffectHandler: {fileID: 11400000, guid: e39803050b195f549bce9a8efa402b78, type: 2}
   _SOWeaponManager: {fileID: 11400000, guid: fcec17c53c3b960458e7557822f929b5, type: 2}
 --- !u!61 &714034170
@@ -6623,7 +6633,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -6651,7 +6661,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_RootOrder
-      value: 73
+      value: 72
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_Name
@@ -6668,7 +6678,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -6678,7 +6688,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 1.4
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -6977,11 +6987,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010871843298, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -263
+      value: -5164
       objectReference: {fileID: 0}
     - target: {fileID: 4000010871843298, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -1109
+      value: 115
       objectReference: {fileID: 0}
     - target: {fileID: 4000010871843298, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
       propertyPath: m_LocalPosition.z
@@ -7080,6 +7090,11 @@ Prefab:
       propertyPath: m_Points.m_Paths.Array.data[1].Array.data[3].y
       value: 3.69
       objectReference: {fileID: 0}
+    - target: {fileID: 114000012503201822, guid: 63cfe9ff7d7330b4fa9a1c27845aef42,
+        type: 2}
+      propertyPath: _SGAvailable
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
   m_IsPrefabParent: 0
@@ -7116,7 +7131,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -7144,7 +7159,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_RootOrder
-      value: 69
+      value: 68
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_Name
@@ -7161,7 +7176,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -7171,7 +7186,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 1
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -7483,7 +7498,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -7511,7 +7526,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_RootOrder
-      value: 68
+      value: 67
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_Name
@@ -7528,7 +7543,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -7538,7 +7553,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 0.9
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -8204,9 +8219,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: 31788e86ad468eb4f9ed761f813544e3, type: 2}
-  _basic: 0
-  _rightTrigger: 0
-  _resetOnDeath: 0
+  _leftAndRight: 0
+  _upAndDown: 0
+  _triggerPoints: []
+  _cameraPositions: []
 --- !u!61 &945834237
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8460,7 +8476,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -8505,7 +8521,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -8515,7 +8531,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 0.5
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -8608,7 +8624,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -8653,7 +8669,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -8663,7 +8679,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 0.3
+      value: 0.15
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -9189,7 +9205,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -9234,7 +9250,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -9244,7 +9260,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 0.6
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -10878,7 +10894,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -10923,6 +10939,11 @@ Prefab:
     - target: {fileID: 4000013883105948, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
       value: -4.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
+        type: 2}
+      propertyPath: _startDelay
+      value: 0.1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d267883f8e350644bad5de366b381480, type: 2}
@@ -11743,7 +11764,6 @@ Transform:
   - {fileID: 1400381294}
   - {fileID: 403365061}
   - {fileID: 1476346508}
-  - {fileID: 1710272657}
   - {fileID: 1721185205}
   - {fileID: 482689239}
   - {fileID: 1207409855}
@@ -11752,6 +11772,7 @@ Transform:
   - {fileID: 20807626}
   - {fileID: 1056112390}
   - {fileID: 999411126}
+  - {fileID: 1710272657}
   - {fileID: 1317795103}
   - {fileID: 531852704}
   - {fileID: 1664170980}
@@ -11948,10 +11969,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: d1d7a26e41ae41d4bbdd661a5b350c20, type: 2}
-  _basic: 1
-  _rightTrigger: 0
-  _resetOnDeath: 0
+  _scriptedCam: {fileID: 0}
+  _leftAndRight: 0
+  _upAndDown: 0
+  _triggerPoints: []
+  _cameraPositions: []
 --- !u!61 &1425542214
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -13762,6 +13784,16 @@ Prefab:
       propertyPath: m_RootOrder
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 212000011338994764, guid: d267883f8e350644bad5de366b381480,
+        type: 2}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 919577bfe6a8df34aa0489282f40e726,
+        type: 3}
+    - target: {fileID: 4000013171123210, guid: d267883f8e350644bad5de366b381480, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 43.06
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d267883f8e350644bad5de366b381480, type: 2}
   m_IsPrefabParent: 0
@@ -14621,7 +14653,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1398396656}
-  m_RootOrder: 65
+  m_RootOrder: 73
 --- !u!212 &1710272658
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14678,7 +14710,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -14723,7 +14755,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -14733,7 +14765,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 0.1
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -15405,6 +15437,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c45ffbf6fd374404cacd955557fee2c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _XEnableOnEnter: 0
+  _XDisableOnEnter: 0
+  _XEnableOnExit: 0
+  _XDisableOnExit: 0
+  _YEnableOnEnter: 0
+  _YDisableOnEnter: 0
+  _YEnableOnExit: 0
+  _YDisableOnExit: 0
 --- !u!61 &1764841126
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -17899,7 +17939,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -17927,7 +17967,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_RootOrder
-      value: 72
+      value: 71
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_Name
@@ -17944,7 +17984,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -17954,7 +17994,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 1.3
+      value: 0.65
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -18148,7 +18188,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -18176,7 +18216,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_RootOrder
-      value: 70
+      value: 69
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_Name
@@ -18193,7 +18233,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -18203,7 +18243,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 1.1
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
@@ -18641,10 +18681,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: 97dc2f11fc4f0fd4fa49fe3c9477db8e, type: 2}
-  _basic: 1
-  _rightTrigger: 0
-  _resetOnDeath: 0
+  _scriptedCam: {fileID: 0}
+  _leftAndRight: 0
+  _upAndDown: 0
+  _triggerPoints: []
+  _cameraPositions: []
 --- !u!61 &2022840386
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -18738,7 +18779,7 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 26.7
+      value: 30.35
       objectReference: {fileID: 0}
     - target: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_LocalPosition.y
@@ -18783,7 +18824,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -18793,7 +18834,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _startDelay
-      value: 0.4
+      value: 0.2
       objectReference: {fileID: 0}
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_IsActive
