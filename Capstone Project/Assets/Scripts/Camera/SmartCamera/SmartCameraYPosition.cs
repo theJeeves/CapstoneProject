@@ -82,7 +82,6 @@ public class SmartCameraYPosition : MonoBehaviour {
         // EACH FRAME, DETERMINE THE PLAYER'S POSITION ON THE SCREEN TO PROPERLY ADJUST THE CAMERA.
         _currPlayerPos = Camera.main.WorldToViewportPoint(_player.transform.position);
 
-        //Debug.Log("Moving Up: " + _movingUp + " " + _currPlayerPos.y);
 
         // WHEN THE PLAYER IS MOVING UP
         if (_movingUp) {
@@ -151,8 +150,7 @@ public class SmartCameraYPosition : MonoBehaviour {
                 _startYAdjustment = true;
                 _diff = transform.position.y - _player.transform.position.y;
             }
-
-            transform.position = new Vector3(transform.position.x, _diff + _player.transform.position.y, transform.position.z);
+                transform.position = new Vector3(transform.position.x, _diff + _player.transform.position.y, transform.position.z);
         }
         else {
             _startYAdjustment = false;

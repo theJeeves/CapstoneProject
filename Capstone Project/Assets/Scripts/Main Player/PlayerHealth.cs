@@ -26,6 +26,8 @@ public class PlayerHealth : MonoBehaviour {
     [Header("Effects")]
 
     [SerializeField]
+    private GameObject _playerBody;
+    [SerializeField]
     private SOEffects _SOEffectHandler;                 // Reference to the SOEffectHandler so this gameobject can request effects.
     [SerializeField]
     private ScreenShakeRequest _scrnShkRequest;         // Screenshake request to show damage has been done to the player.
@@ -38,6 +40,7 @@ public class PlayerHealth : MonoBehaviour {
     private SpriterDotNetUnity.ChildData _entity;
     private bool _canTakeDamage;                    // Bool determining if the player is able to take damage or not. Tied with _recoveryTime.
     private float _timer = 0.0f;                    // Timer is used to determine how much time has passed for effect durations.
+    private float _respawnDelay = 0.0f;             // Timer used to wait a fraction of second so players can see the death effects.
     private int _damageReceived = 0;                // How much damage has the player received.
     private float _duration = 0.0f;                 // Duration for an effect to last.
     private bool _deathAnimationPlayed = false;     // Bool to ensure the death explosions only play once per death.
@@ -82,6 +85,11 @@ public class PlayerHealth : MonoBehaviour {
         if (_health <= 0) {
 
             if (!_deathAnimationPlayed) {
+
+                _playerBody.SetActive(false);
+                _inputManager.PauseInput(60.0f);
+                _respawnDelay = Time.time;
+
                 if (!_collisionState.OnSolidGround) {
                     _SOEffectHandler.PlayEffect(EffectEnums.Player_Death00, transform.position);
                 }
@@ -91,16 +99,22 @@ public class PlayerHealth : MonoBehaviour {
                 _deathAnimationPlayed = true;
             }
 
+        // Add a small delay so players get to see the death effects
             GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+
             transform.position = _SOCheckpointHandler.checkpointPosition;
 
-            if (Camera.main.WorldToViewportPoint(_SOCheckpointHandler.checkpointPosition).x > 0.0f &&
-                Camera.main.WorldToViewportPoint(_SOCheckpointHandler.checkpointPosition).x < 1.0f) {
+            if (Camera.main.WorldToViewportPoint(_SOCheckpointHandler.checkpointPosition).x > 0.1f &&
+                Camera.main.WorldToViewportPoint(_SOCheckpointHandler.checkpointPosition).x < 0.9f) {
 
+                // Delay the player from any input for 1.5 seconds to ensure they do not immediate fly to their death
+                // Call the respawn effect and restore all the default values for the player.
+                _inputManager.PauseInput(1.5f);
                 GetComponent<Rigidbody2D>().gravityScale = 40.0f;
                 _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _SOCheckpointHandler.checkpointPosition);
                 _health = _maxHealth;
+                _playerBody.SetActive(true);
                 UpdateHealth(_health);
                 _deathAnimationPlayed = false;
             }
@@ -193,10 +207,6 @@ public class PlayerHealth : MonoBehaviour {
     // Go through all the sprites for the player and render them green
     // for an acid damage effect.
     private void AcidDamageEffect() {
-
-        //for (int i = 0; i < _spriteRenderer.Length; ++i) {
-        //    _spriteRenderer[i].color = Color.green;
-        //}
         foreach (GameObject sprite in _entity.Sprites) {
             sprite.GetComponent<SpriteRenderer>().color = Color.green;
         }
@@ -205,9 +215,6 @@ public class PlayerHealth : MonoBehaviour {
     // Go through all the sprites for the player and render them
     // dark grey for an explosion effect
     private void ExplosionDamageEffect() {
-        //for (int i = 0; i < _spriteRenderer.Length; ++i) {
-        //    _spriteRenderer[i].color = new Color(0.18f, 0.18f, 0.18f);
-        //}
         foreach (GameObject sprite in _entity.Sprites) {
             sprite.GetComponent<SpriteRenderer>().color = new Color(0.18f, 0.18f, 0.18f);
         }
@@ -219,12 +226,6 @@ public class PlayerHealth : MonoBehaviour {
     private void ReturnToNormalColor() {
 
         float t = Time.deltaTime * (1.0f / _duration);
-
-        //for (int i = 0; i < _spriteRenderer.Length; ++i) {
-
-        //    _spriteRenderer[i].color = new Color(Mathf.Clamp01(_spriteRenderer[i].color.r + t), Mathf.Clamp01(_spriteRenderer[i].color.g + t),
-        //        Mathf.Clamp01(_spriteRenderer[i].color.b + t));
-        //}
 
         foreach (GameObject sprite in _entity.Sprites) {
             Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
@@ -239,27 +240,5 @@ public class PlayerHealth : MonoBehaviour {
         yield return new WaitForSeconds(_recoveryTime);
 
         _canTakeDamage = true;
-
-        //float timer = 0.0f;
-        //while (timer < _recoveryTime) {
-
-        //    // GO THROUGH EACH OF THE SPRITE WHICH MAKE UP THE CHARACTER AND TURN OFF THEIR ALPHAS
-        //    foreach (GameObject sprite in _entity.Sprites) {
-        //        Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
-        //        sprite.GetComponent<SpriteRenderer>().color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, 0.0f);
-        //    }
-
-        //    yield return new WaitForSeconds(0.1f);
-
-        //    // AFTER A BRIEF PAUSE, GO THROUGH EACH OF THE SPRITE WHICH MAKE UP THE CHARACTER AND TURN ON THEIR ALPHAS
-        //    //foreach (GameObject sprite in _entity.Sprites) {
-        //    //    Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
-        //    //    sprite.GetComponent<SpriteRenderer>().color = new Color(spriteColor.r, spriteColor.g, spriteColor.b, 1.0f);
-        //    //}
-
-        //    yield return new WaitForSeconds(0.1f);
-
-        //    timer += _recoveryTime / 5.0f;
-        //}
     }
 }
