@@ -20,7 +20,6 @@ public class MachineGun : AbstractGun {
     private bool _canLift = true;
     private float _timer = 0.0f;
     private Vector2 _direction = Vector2.zero;
-    private Transform _end;
 
     protected override void Awake() {
         base.Awake();
@@ -63,8 +62,6 @@ public class MachineGun : AbstractGun {
         ControllableObject.OnButton += OnButton;
 
         _canLift = _collisionState.OnSolidGround ? true : false;
-
-        _end = GameObject.FindGameObjectWithTag("End").transform;
     }
 
     private void OnDisable() {
@@ -157,8 +154,9 @@ public class MachineGun : AbstractGun {
 
     private int FiringAngle() {
 
-        _direction = (_end.position - _barrel.position).normalized;
+        _direction = (GameObject.FindGameObjectWithTag("End").transform.position - _barrel.position).normalized;
         _direction = new Vector2(Mathf.Round(_direction.x), Mathf.Round(_direction.y));
+
         Debug.Log(_direction.x + " " + _direction.y);
 
         if (_direction.x == 1.0f && _direction.y == 0.0f) {
@@ -174,18 +172,23 @@ public class MachineGun : AbstractGun {
             return 90;
         }
         else if (_direction.x == -1.0f && _direction.y == 1.0f) {
+            Debug.Log(135);
             return 135;
         }
         else if (_direction.x == -1.0f && _direction.y == 0.0f) {
+            Debug.Log(180);
             return 180;
         }
         else if (_direction.x == -1.0f && _direction.y == -1.0f) {
+            Debug.Log(225);
             return 225;
         }
         else if (_direction.x == 0.0f && _direction.y == -1.0f) {
+            Debug.Log(270);
             return 270;
         }
         else if (_direction.x == 1.0f && _direction.y == -1.0f) {
+            Debug.Log(315);
             return 315;
         }
         else {
