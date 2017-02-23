@@ -103,7 +103,6 @@ public class PlayerHealth : MonoBehaviour {
                 BodyParts();
             }
 
-        // Add a small delay so players get to see the death effects
             GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             GetComponent<Rigidbody2D>().gravityScale = 0.0f;
 
