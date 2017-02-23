@@ -39,7 +39,7 @@ public class RespawnPlayer : MonoBehaviour {
                 _otherGo.GetComponent<Rigidbody2D>().gravityScale = 40.0f;
                 _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _SOCheckpointHandler.checkpointPosition);
                 _SOWeaponManager.Reload();
-                _inputManager.PauseInput(1.5f);
+                _inputManager.PauseInput(1.25f);
                 _respawned = false;
             }
         }

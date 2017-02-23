@@ -60,8 +60,14 @@ public class PlayerCollisionState : MonoBehaviour {
     private void FixedUpdate() {
 
         // Get the position of the player's collider box every fixed update
-        _rayOrigin[0] = new Vector2(_box.bounds.center.x + 5.0f * (float)_controller.FacingDirection/*+ _rayCastOffset.x*/, _box.bounds.min.y + 1.0f);
-        _rayOrigin[1] = new Vector2(_box.bounds.center.x - 7.75f * (float)_controller.FacingDirection/*- _rayCastOffset.x*/, _box.bounds.min.y + 1.0f);
+        if ((_controller.GetButtonPress(Buttons.AimRight) || _controller.GetButtonPress(Buttons.AimLeft))) {
+            _rayOrigin[0] = new Vector2(_box.bounds.center.x * -(float)_controller.FacingDirection, _box.bounds.min.y + 1.0f);
+            _rayOrigin[1] = new Vector2(_box.bounds.center.x + 13.5f * -(float)_controller.FacingDirection, _box.bounds.min.y + 1.0f);
+        }
+        else {
+            _rayOrigin[0] = new Vector2(_box.bounds.center.x + 5.0f * (float)_controller.FacingDirection, _box.bounds.min.y + 1.0f);
+            _rayOrigin[1] = new Vector2(_box.bounds.center.x - 7.75f * (float)_controller.FacingDirection, _box.bounds.min.y + 1.0f);
+        }
 
         // For both sides of the player, check if the Raycast is touching the floor.
         // Only check the right side if the player's left side is not touching. Most of the time, 

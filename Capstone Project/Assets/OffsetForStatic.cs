@@ -11,6 +11,7 @@ public class OffsetForStatic : MonoBehaviour {
 
     private void OnEnable() {
         _image = GetComponent<Image>();
+        _image.material.mainTextureOffset = new Vector2(0.0f, 0.0f);
     }
 
     private void Update() {

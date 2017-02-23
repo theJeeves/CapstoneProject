@@ -11,22 +11,18 @@ public class PlayerHintsDisplay : MonoBehaviour {
     }
 
     private void OnEnable() {
-        Hint_Controls.DisplayHint += DisplayHint;
-        Hint_Controls.HideHint += HideHint;
+        InstructionText.DisplayHint += DisplayHint;
+        //InstructionText.HideHint += HideHint;
     }
 
     private void OnDisable() {
-        Hint_Controls.DisplayHint -= DisplayHint;
-        Hint_Controls.HideHint -= HideHint;
+        InstructionText.DisplayHint -= DisplayHint;
+        //InstructionText.HideHint -= HideHint;
     }
 
     private void DisplayHint(string hint) {
 
         hint = hint.Replace(" NL ", "\n");
         _hints.text = hint;
-    }
-
-    private void HideHint() {
-        _hints.text = "";
     }
 }

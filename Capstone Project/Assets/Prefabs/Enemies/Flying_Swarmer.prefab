@@ -83,6 +83,7 @@ GameObject:
   - 114: {fileID: 114000012639156274}
   - 60: {fileID: 60000013879290882}
   - 114: {fileID: 114000011376067238}
+  - 114: {fileID: 114000010882235440}
   m_Layer: 10
   m_Name: Flying_Swarmer
   m_TagString: Enemy
@@ -354,6 +355,17 @@ PolygonCollider2D:
       - {x: 0.66, y: -3.3}
       - {x: -0.5, y: -3.3}
       - {x: -6.3, y: 0.73}
+--- !u!114 &114000010882235440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000011772029358}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 605b282057b1c8b4db3cd67b3707e6ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114000011376067238
 MonoBehaviour:
   m_ObjectHideFlags: 1

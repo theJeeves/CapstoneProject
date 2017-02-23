@@ -84,6 +84,7 @@ public class SwarmerBehavior : MonoBehaviour {
 
             if (Time.time - _timer > _landingDuration && _timer != 0.0f) {
                 _animator.Play(GetAnimation(2));
+                GetComponent<AudioSource>().Play();
                 _timer = 0.0f;
             }
 

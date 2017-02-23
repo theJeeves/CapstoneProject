@@ -10,15 +10,15 @@ public class CallTextHUD : MonoBehaviour {
     private RectTransform _transform;
 
 	private void OnEnable() {
-        Hint_Controls.DisplayHint += DisplayHint;
-        Hint_Controls.HideHint += HideHint;
+        InstructionText.DisplayHint += DisplayHint;
+        InstructionText.HideHint += HideHint;
 
         _transform = GetComponent<RectTransform>();
     }
 
     private void OnDisable() {
-        Hint_Controls.DisplayHint -= DisplayHint;
-        Hint_Controls.HideHint -= HideHint;
+        InstructionText.DisplayHint -= DisplayHint;
+        InstructionText.HideHint -= HideHint;
     }
 
     private void Update() {

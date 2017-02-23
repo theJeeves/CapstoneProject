@@ -108,7 +108,7 @@ public class PlayerHealth : MonoBehaviour {
 
                 // Delay the player from any input for 1.5 seconds to ensure they do not immediate fly to their death
                 // Call the respawn effect and restore all the default values for the player.
-                _inputManager.PauseInput(1.5f);
+                _inputManager.PauseInput(1.25f);
                 GetComponent<Rigidbody2D>().gravityScale = 40.0f;
                 _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _SOCheckpointHandler.checkpointPosition);
                 _health = _maxHealth;

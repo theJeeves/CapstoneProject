@@ -81,12 +81,13 @@ public class MachineGun : AbstractGun {
         if (!_canShoot && Time.time - _timer >= _shotDelay) {
             _canShoot = true;
         }
+
+        _grounded = _collisionState.OnSolidGround;
     }
 
     protected override void OnButtonDown(Buttons button) {
 
-        if (button == Buttons.Shoot && _canShoot && _collisionState.OnSolidGround && numOfRounds > 0) {
-
+        if (button == Buttons.Shoot && _canShoot && _grounded && numOfRounds > 0) {
             _initialMoveRequest.RequestMovement();
             _canLift = false;
         }
@@ -99,12 +100,11 @@ public class MachineGun : AbstractGun {
     private void OnButton(Buttons button) {
 
         if (button == Buttons.Shoot && numOfRounds > 0) {
-
             if (_canLift && _controller.GetButtonPress(Buttons.AimDown)) {
                 OnButtonDown(button);
             }
 
-            _canLift = _collisionState.OnSolidGround ? true : false;
+            //_canLift = _grounded ? true : false;
 
             if (!_reloading) {
 
@@ -120,7 +120,7 @@ public class MachineGun : AbstractGun {
                     }
 
                     // Determine if the player was on the ground when they shot the last round in the chamber.
-                    _grounded = _collisionState.OnSolidGround ? true : false;
+                    //_grounded = _collisionState.OnSolidGround ? true : false;
                     Reload();
                 }
                 if (UpdateNumOfRounds != null) {
@@ -133,7 +133,7 @@ public class MachineGun : AbstractGun {
 
         // Only call for the ammo to hide if the player has no more bullets in the clip
         // and are in the air. Otherwise, it is handle in the if statement above.
-        else if (numOfRounds <= 0 && !_collisionState.OnSolidGround) {
+        else if (numOfRounds <= 0 && !_grounded) {
             if (EmptyClip != null) {
                 EmptyClip();
             }
@@ -157,42 +157,31 @@ public class MachineGun : AbstractGun {
         _direction = (GameObject.FindGameObjectWithTag("End").transform.position - _barrel.position).normalized;
         _direction = new Vector2(Mathf.Round(_direction.x), Mathf.Round(_direction.y));
 
-        Debug.Log(_direction.x + " " + _direction.y);
-
         if (_direction.x == 1.0f && _direction.y == 0.0f) {
-            Debug.Log(0);
             return 0;
         }
         else if (_direction.x == 1.0f && _direction.y == 1.0f) {
-            Debug.Log(45);
             return 45;
         }
         else if (_direction.x == 0.0f && _direction.y == 1.0f) {
-            Debug.Log(90);
             return 90;
         }
         else if (_direction.x == -1.0f && _direction.y == 1.0f) {
-            Debug.Log(135);
             return 135;
         }
         else if (_direction.x == -1.0f && _direction.y == 0.0f) {
-            Debug.Log(180);
             return 180;
         }
         else if (_direction.x == -1.0f && _direction.y == -1.0f) {
-            Debug.Log(225);
             return 225;
         }
         else if (_direction.x == 0.0f && _direction.y == -1.0f) {
-            Debug.Log(270);
             return 270;
         }
         else if (_direction.x == 1.0f && _direction.y == -1.0f) {
-            Debug.Log(315);
             return 315;
         }
         else {
-            Debug.Log(-1);
             return -1;
         }
     }
@@ -212,7 +201,7 @@ public class MachineGun : AbstractGun {
     }
 
     private void ManualReload() {
-        if (!_reloading && numOfRounds < _ammoCapacity && _collisionState.OnSolidGround) {
+        if (!_reloading && numOfRounds < _ammoCapacity && _grounded) {
             _grounded = true;
             StartCoroutine(ReloadDelay());
         }
@@ -234,7 +223,7 @@ public class MachineGun : AbstractGun {
             _reloadTime = _fastReloadTime;
 
             // Prevent the gun from reloading until the player is back on the ground.
-            while (!_collisionState.OnSolidGround) {
+            while (!_grounded) {
                 yield return 0;
             }
         }
