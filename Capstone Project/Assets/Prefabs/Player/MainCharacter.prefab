@@ -496,7 +496,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010381511670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 913, y: -1026, z: 0}
+  m_LocalPosition: {x: 1109, y: 73, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -1065,6 +1065,15 @@ MonoBehaviour:
   _scrnShkRequest: {fileID: 11400000, guid: 8ef3faf65b3f2824bb551b6f8c073115, type: 2}
   _SOCheckpointHandler: {fileID: 11400000, guid: 2891e6f4f3d0a9648b35cda93f48de61,
     type: 2}
+  _bodyParts:
+  - {fileID: 1000010164026762, guid: 5728fb320be1e37409bc14a66a403db1, type: 2}
+  - {fileID: 1000012434623780, guid: 9b5c03a49ba67414faf072cd569821af, type: 2}
+  - {fileID: 1000011536745670, guid: 694fe285ac1cbac4d9ea669b093056f9, type: 2}
+  - {fileID: 1000011829188220, guid: 15cacc368bf5e0e498d5c533b53e3bc0, type: 2}
+  - {fileID: 1000010346489462, guid: 0b9545e7910912d46a71f083a680cd74, type: 2}
+  - {fileID: 1000010131883226, guid: 676de4f9dca0bcb4f9963196266272cd, type: 2}
+  - {fileID: 1000013146272230, guid: 92f6641e1869c9649b00a4542eb41fc0, type: 2}
+  - {fileID: 1000010963450340, guid: 02dbaf4e0a61df1428c9b9b9be72c237, type: 2}
 --- !u!212 &212000011415763638
 SpriteRenderer:
   m_ObjectHideFlags: 1

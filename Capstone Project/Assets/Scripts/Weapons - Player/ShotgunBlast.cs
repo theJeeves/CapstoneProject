@@ -117,6 +117,9 @@ public class ShotgunBlast : AbstractBullet {
                 else if (hitTagName == "AcidBall") {
                     hit.collider.gameObject.GetComponent<AcidBallBehavior>().Splatter();
                 }
+                else if (hitTagName == "SniperBullet") {
+                    hit.collider.gameObject.GetComponent<SniperDealDamage>().Destroy();
+                }
 
                 _SOEffectHandler.PlayEffect(EffectEnums.LightningImpact, hit.point);
             }

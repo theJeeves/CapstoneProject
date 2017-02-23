@@ -24,4 +24,9 @@ public class SniperDealDamage : MonoBehaviour {
         _SOEffectHandler.PlayEffect(EffectEnums.SniperBulletImpact, transform.position);
         Destroy(gameObject);
     }
+
+    public void Destroy() {
+        _SOEffectHandler.PlayEffect(EffectEnums.SniperBulletImpact, transform.position);
+        Destroy(gameObject);
+    }
 }
