@@ -34,6 +34,11 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField]
     private SOCheckpoint _SOCheckpointHandler;                 // Reference to the checkpoint system. This is where the player will respawn on death.
 
+    [Space]
+    [Header("Body Parts")]
+    [SerializeField]
+    private GameObject[] _bodyParts;
+
     private Transform[] _effectPositions;           // Positions where effects will be played.
     private GameObject _effect;                     // GameObject to reference a called effect. This is so the effect may be manipulated.
     private DamageEnum _damageType;                 // Type of damage so this script can call different effect types.
@@ -95,6 +100,7 @@ public class PlayerHealth : MonoBehaviour {
                     _SOEffectHandler.PlayEffect(EffectEnums.Player_Death01, transform.position);
                 }
                 _deathAnimationPlayed = true;
+                BodyParts();
             }
 
         // Add a small delay so players get to see the death effects
@@ -238,5 +244,15 @@ public class PlayerHealth : MonoBehaviour {
         yield return new WaitForSeconds(_recoveryTime);
 
         _canTakeDamage = true;
+    }
+
+    private void BodyParts() {
+
+        foreach(GameObject bodyPart in _bodyParts) {
+            GameObject instance = Instantiate(bodyPart, transform.position, Quaternion.identity) as GameObject;
+            instance.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(0, 10);
+            instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-75.0f, 75.0f), Random.Range(200.0f, 400.0f)), ForceMode2D.Impulse );
+            instance.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-500.0f, 500.0f));
+        }
     }
 }
