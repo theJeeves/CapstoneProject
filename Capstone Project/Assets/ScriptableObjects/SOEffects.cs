@@ -43,7 +43,7 @@ public class SOEffects : ScriptableObject {
 
     //This is the primary function which will be called in many scripts. An EffectEnum must be given so the correct prefab is instantiated.
     //It is give a position + the offset, and optionally (priamrily for the weapons) the angle.
-    public GameObject PlayEffect(EffectEnums type, Vector2 position, float angle = 0.0f) {
+    public GameObject PlayEffect(EffectEnums type, Vector2 position, float angle = 0.0f, float X_direction = 0.0f, float Y_direction = 0.0f) {
 
         if (!_map.ContainsKey(type)) {
             if (type == EffectEnums.CrystalBullet || type == EffectEnums.ShotgunBlast) {
@@ -65,6 +65,11 @@ public class SOEffects : ScriptableObject {
         // If the effect does not loop, this will automatically destroy the instance after its animation has completed.
         if (instance != null && effect.data != null && !effect.data.Spriter.Entities[0].Animations[0].Looping) {
             Destroy(instance, effect.data.Spriter.Entities[0].Animations[0].Length * 0.001f);
+        }
+
+        // SPECIAL INSTRUCTIONS FOR THE BULLETS (CRYSTALS AND LIGHTNING)
+        if (type == EffectEnums.CrystalBullet || type == EffectEnums.ShotgunBlast) {
+            instance.GetComponent<AbstractBullet>().Fire(new Vector2(X_direction, Y_direction));
         }
 
         // This returns a reference to the instance for the effects which loop. Other scripts will need to explicity call

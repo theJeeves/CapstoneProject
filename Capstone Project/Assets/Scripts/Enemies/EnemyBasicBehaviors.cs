@@ -100,13 +100,12 @@ public class EnemyBasicBehaviors : MonoBehaviour {
     // DAMAGE THE PLAYER.
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
-        if (otherGO.gameObject.tag == "Player") { 
+        if (otherGO.gameObject.tag == "Player") {
 
             if (enemyType == EnemyType.Flying) {
-
                 otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(7);
-                int direction = (int)otherGO.gameObject.GetComponent<ControllableObject>().FacingDirection;
-                otherGO.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(150.0f * direction, 0.0f);
+                int direction = otherGO.gameObject.transform.position.x > transform.position.x ? 1 : -1;
+                otherGO.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(175.0f * direction, 100.0f);
             }
         }
     }

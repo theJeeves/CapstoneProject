@@ -51,7 +51,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013544609632}
   m_Layer: 9
-  m_Name: Direction
+  m_Name: EndAlt
   m_TagString: End
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -278,7 +278,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000011842634022}
   m_Layer: 9
-  m_Name: Barrel
+  m_Name: BarrelNorm
   m_TagString: Start
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -342,7 +342,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000012708005994}
   m_Layer: 9
-  m_Name: Direction
+  m_Name: EndNorm
   m_TagString: End
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -372,7 +372,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 4000013172761228}
   m_Layer: 9
-  m_Name: Barrel
+  m_Name: BarrelAlt
   m_TagString: Start
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -496,7 +496,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1000010381511670}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1109, y: 73, z: 0}
+  m_LocalPosition: {x: -5268, y: 78, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
@@ -875,7 +875,10 @@ MonoBehaviour:
   _shotDelay: 0.25
   _normReloadTime: 0.9
   _fastReloadTime: 0.25
-  _barrel: {fileID: 4000011842634022}
+  _barrelNorm: {fileID: 4000011842634022}
+  _endNorm: {fileID: 4000012708005994}
+  _barrelAlt: {fileID: 4000013172761228}
+  _endAlt: {fileID: 4000013544609632}
 --- !u!114 &114000010669638132
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1004,7 +1007,7 @@ MonoBehaviour:
   _shotgunAmmo: {fileID: 0}
   _machineGunAmmo: {fileID: 0}
   _MGAvailable: 1
-  _SGAvailable: 1
+  _SGAvailable: 0
 --- !u!114 &114000013143753702
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1043,7 +1046,10 @@ MonoBehaviour:
   _shotDelay: 0.1
   _normReloadTime: 1
   _fastReloadTime: 0.3
-  _barrel: {fileID: 4000011842634022}
+  _barrelNorm: {fileID: 4000011842634022}
+  _endNorm: {fileID: 4000012708005994}
+  _barrelAlt: {fileID: 4000013172761228}
+  _endAlt: {fileID: 4000013544609632}
   _initialMoveRequest: {fileID: 11400000, guid: 5ea375aa461b91c41a46e0041f2c1b00,
     type: 2}
 --- !u!114 &114000013920287982
@@ -1087,7 +1093,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 11f9887b4973bf1488dbb6856b2a2f7f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1120,7 +1126,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 11f9887b4973bf1488dbb6856b2a2f7f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1153,7 +1159,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 11f9887b4973bf1488dbb6856b2a2f7f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1186,7 +1192,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 11f9887b4973bf1488dbb6856b2a2f7f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1219,7 +1225,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 11f9887b4973bf1488dbb6856b2a2f7f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1252,7 +1258,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 11f9887b4973bf1488dbb6856b2a2f7f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}
@@ -1285,7 +1291,7 @@ SpriteRenderer:
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 11f9887b4973bf1488dbb6856b2a2f7f, type: 2}
   m_SubsetIndices: 
   m_StaticBatchRoot: {fileID: 0}
   m_ProbeAnchor: {fileID: 0}

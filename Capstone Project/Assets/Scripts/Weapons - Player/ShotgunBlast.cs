@@ -24,9 +24,9 @@ public class ShotgunBlast : AbstractBullet {
     protected float[] _magnitudes = new float[5];
     private Vector2[] _directions = new Vector2[5];
 
-    protected override void Start() {
+    public override void Fire(Vector2 direction) {
 
-        base.Start();
+        base.Fire(direction);
 
         //Get all the prefab lightning bolts into one array
         _lightning = GetComponentsInChildren<DigitalRuby.LightningBolt.LightningBoltScript>();

@@ -100,7 +100,7 @@ public class PlayerHealth : MonoBehaviour {
                     _SOEffectHandler.PlayEffect(EffectEnums.Player_Death01, transform.position);
                 }
                 _deathAnimationPlayed = true;
-                BodyParts();
+                DeployBodyParts();
             }
 
             GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
@@ -245,7 +245,7 @@ public class PlayerHealth : MonoBehaviour {
         _canTakeDamage = true;
     }
 
-    private void BodyParts() {
+    private void DeployBodyParts() {
 
         foreach(GameObject bodyPart in _bodyParts) {
             GameObject instance = Instantiate(bodyPart, transform.position, Quaternion.identity) as GameObject;

@@ -6,8 +6,9 @@ public class CrystalBullet : AbstractBullet {
     [SerializeField]
     private SOEffects _SOEffectHandler;
 
-    protected override void Start() {
-        base.Start();
+    public override void Fire(Vector2 direction) {
+
+        base.Fire(direction);
 
         // Have the crystals fire out from the MG at slightly off directions to give a more chaotic feel.
         _direction += new Vector2(Random.Range(_directionRange.Min, _directionRange.Max), Random.Range(_directionRange.Min, _directionRange.Max));

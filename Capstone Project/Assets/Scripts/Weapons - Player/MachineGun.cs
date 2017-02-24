@@ -33,7 +33,6 @@ public class MachineGun : AbstractGun {
     }
 
     private void OnEnable() {
-        ControllableObject.OnButtonDown += OnButtonDown;
         PlayerCollisionState.OnHitGround += Reload;
 
         GetComponent<AudioSource>().clip = _audioClip;
@@ -65,7 +64,6 @@ public class MachineGun : AbstractGun {
     }
 
     private void OnDisable() {
-        ControllableObject.OnButtonDown -= OnButtonDown;
         PlayerCollisionState.OnHitGround -= Reload;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
@@ -76,7 +74,7 @@ public class MachineGun : AbstractGun {
 
     private void Update() {
         if (_muzzleFlashGO != null) {
-            _muzzleFlashGO.transform.position = _barrel.transform.position;
+            _muzzleFlashGO.transform.position = _barrelNorm.transform.position;
         }
         if (!_canShoot && Time.time - _timer >= _shotDelay) {
             _canShoot = true;
@@ -145,8 +143,15 @@ public class MachineGun : AbstractGun {
         // Lastly, start the timer for the shot delay
         if (_canShoot) {
             _canShoot = false;
-            _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrel.transform.position, FiringAngle());
-            _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrel.transform.position, FiringAngle());
+            _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrelNorm.transform.position, FiringAngle());
+            int firingAngle = FiringAngle();
+
+            if (firingAngle == 270) {
+                _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrelAlt.transform.position, firingAngle, _direction.x, _direction.y);
+            }
+            else {
+                _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrelNorm.transform.position, firingAngle, _direction.x, _direction.y);
+            }
             _SSRequest.ShakeRequest();
             _timer = Time.time;
         }
@@ -154,36 +159,28 @@ public class MachineGun : AbstractGun {
 
     private int FiringAngle() {
 
-        _direction = (GameObject.FindGameObjectWithTag("End").transform.position - _barrel.position).normalized;
-        _direction = new Vector2(Mathf.Round(_direction.x), Mathf.Round(_direction.y));
-
-        if (_direction.x == 1.0f && _direction.y == 0.0f) {
-            return 0;
-        }
-        else if (_direction.x == 1.0f && _direction.y == 1.0f) {
-            return 45;
-        }
-        else if (_direction.x == 0.0f && _direction.y == 1.0f) {
-            return 90;
-        }
-        else if (_direction.x == -1.0f && _direction.y == 1.0f) {
-            return 135;
-        }
-        else if (_direction.x == -1.0f && _direction.y == 0.0f) {
-            return 180;
-        }
-        else if (_direction.x == -1.0f && _direction.y == -1.0f) {
-            return 225;
-        }
-        else if (_direction.x == 0.0f && _direction.y == -1.0f) {
-            return 270;
-        }
-        else if (_direction.x == 1.0f && _direction.y == -1.0f) {
-            return 315;
+        if (_controller.GetButtonPress(Buttons.AimDown)) {
+            if (_controller.GetButtonPress(Buttons.AimRight) || _controller.GetButtonPress(Buttons.AimLeft)) {
+                _direction = (_endNorm.position - _barrelNorm.position).normalized;
+            }
+            else {
+                _direction = (_endAlt.position - _barrelAlt.position).normalized;
+            }
         }
         else {
-            return -1;
+            _direction = (_endNorm.position - _barrelNorm.position).normalized;
         }
+        _direction = new Vector2(Mathf.Round(_direction.x), Mathf.Round(_direction.y));
+
+        if (_direction.x == 1.0f && _direction.y == 0.0f)           return 0;
+        else if (_direction.x == 1.0f && _direction.y == 1.0f)      return 45;
+        else if (_direction.x == 0.0f && _direction.y == 1.0f)      return 90;
+        else if (_direction.x == -1.0f && _direction.y == 1.0f)     return 135;
+        else if (_direction.x == -1.0f && _direction.y == 0.0f)     return 180;
+        else if (_direction.x == -1.0f && _direction.y == -1.0f)    return 225;
+        else if (_direction.x == 0.0f && _direction.y == -1.0f)     return 270;
+        else if (_direction.x == 1.0f && _direction.y == -1.0f)     return 315;
+        else return -1;
     }
 
     private void Reload() {

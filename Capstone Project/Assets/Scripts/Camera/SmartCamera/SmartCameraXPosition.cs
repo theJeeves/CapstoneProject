@@ -8,7 +8,6 @@ public class SmartCameraXPosition : MonoBehaviour {
 
     private GameObject _player;
     private Vector3 _currPlayerPos;
-    private PlayerHealth _playerHealth;
     private float _movementDelay = 0.5f;
     private float _movementTimer = 0.0f;
 
@@ -25,7 +24,6 @@ public class SmartCameraXPosition : MonoBehaviour {
         PlayerHealth.UpdateHealth += UponDeath;
 
         _player = GameObject.FindGameObjectWithTag("Player");
-        _playerHealth = _player.GetComponent<PlayerHealth>();
         _startTime = Time.time;
 
         if (Camera.main.WorldToViewportPoint(_player.transform.position).x > 0.5f) _movingRight = false;

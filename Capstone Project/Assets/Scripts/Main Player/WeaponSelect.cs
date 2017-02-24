@@ -33,8 +33,12 @@ public class WeaponSelect : MonoBehaviour {
         _shotgun = GetComponent<Shotgun>();
         _machineGun = GetComponent<MachineGun>();
 
-        //EnableShotgun();
-        EnableMachineGun();
+        if (_shotgun.enabled) {
+            EnableShotgun();
+        }
+        else if (_machineGun.enabled) {
+            EnableMachineGun();
+        }
     }
 
     private void OnDisable() {

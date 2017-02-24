@@ -34,12 +34,14 @@ public abstract class AbstractBullet : MonoBehaviour {
     }
 
     protected virtual void Start() {
-        _start = GameObject.FindGameObjectWithTag("Start").transform.position;
-        _end = GameObject.FindGameObjectWithTag("End").transform.position;
-        _direction = (_end - _start).normalized;
+        //_direction = (_end - _start).normalized;
     }
 
     protected virtual IEnumerator Shoot() {
         yield return 0;
+    }
+
+    public virtual void Fire(Vector2 direction) {
+        _direction = direction;
     }
 }

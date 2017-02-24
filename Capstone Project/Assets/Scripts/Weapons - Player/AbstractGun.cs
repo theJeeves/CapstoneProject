@@ -56,10 +56,19 @@ public abstract class AbstractGun : MonoBehaviour {
     protected ControllableObject _controller;
     protected PlayerCollisionState _collisionState;
 
-    //[SerializeField]
-    //protected GameObject _bullet;
+    [Space]
+    [Header("Bullet Direction")]
+    [Header("Not Aiming 270")]
     [SerializeField]
-    protected Transform _barrel;
+    protected Transform _barrelNorm;
+    [SerializeField]
+    protected Transform _endNorm;
+
+    [Header("Aiming 270")]
+    [SerializeField]
+    protected Transform _barrelAlt;
+    [SerializeField]
+    protected Transform _endAlt;
 
     protected virtual void Awake() {
 
