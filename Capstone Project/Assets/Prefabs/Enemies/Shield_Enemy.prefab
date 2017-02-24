@@ -640,7 +640,7 @@ MonoBehaviour:
     BoxTransforms: []
     PointTransforms: []
   EntityIndex: 0
-  SpriterData: {fileID: 11400000, guid: 7a1dfe47430367246b252b5c17a7301e, type: 2}
+  SpriterData: {fileID: 0}
   UseNativeTags: 1
 --- !u!114 &114000011312841880
 MonoBehaviour:
@@ -679,6 +679,7 @@ MonoBehaviour:
   _maxHealth: 150
   _health: 0
   _SOEffectHandler: {fileID: 11400000, guid: e39803050b195f549bce9a8efa402b78, type: 2}
+  _SOBodyParts: {fileID: 0}
 --- !u!114 &114000014021059026
 MonoBehaviour:
   m_ObjectHideFlags: 1

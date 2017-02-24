@@ -21,7 +21,6 @@ public class CrystalBullet : AbstractBullet {
             otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
         }
         if (otherGO.collider.gameObject.tag == "SwarmerPodBattery") {
-            Debug.Log("hello");
             otherGO.gameObject.GetComponentInParent<SwarmPodSpawner>().DestroyPod();
         }
 

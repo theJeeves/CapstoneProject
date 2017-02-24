@@ -32,6 +32,10 @@ public class EnemyBasicBehaviors : MonoBehaviour {
     private SOEffects _SOEffectHandler;
     private GameObject _effect;
 
+    [Header("Body Parts")]
+    [SerializeField]
+    private SOEnemyBodyParts _SOBodyParts;
+
 
     private Transform[] _effectPositions;
     private float _timer = 0.0f;
@@ -116,7 +120,8 @@ public class EnemyBasicBehaviors : MonoBehaviour {
 
                 case EnemyType.Sniper:
                 case EnemyType.Charger:
-                    _SOEffectHandler.PlayEffect(EffectEnums.SniperDeathExplosion, transform.position); break;
+                    _SOEffectHandler.PlayEffect(EffectEnums.SniperDeathExplosion, transform.position);
+                    break;
 
                 case EnemyType.Swarmer:
                 case EnemyType.AcidSwarmer:
@@ -124,10 +129,21 @@ public class EnemyBasicBehaviors : MonoBehaviour {
                 case EnemyType.Flying:
                     _SOEffectHandler.PlayEffect(EffectEnums.SwarmerDeathExplosion, transform.position); break;
             }
+      
+            DeployBodyParts();
             Destroy(gameObject);
         }
         else {
             GetComponentInChildren<EnemyDamageEffect>().DamageEffect();
+        }
+    }
+
+    private void DeployBodyParts() {
+
+        for (int i = 0; i < _SOBodyParts.bodyParts.Length; ++i) {
+            GameObject instance = Instantiate(_SOBodyParts.bodyParts[i], transform.position, Quaternion.identity) as GameObject;
+            instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-275.0f, 275.0f), Random.Range(100.0f, 300.0f)), ForceMode2D.Impulse);
+            instance.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-500.0f, 500.0f));
         }
     }
 }
