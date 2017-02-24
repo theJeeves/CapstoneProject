@@ -18,10 +18,20 @@ public class FocusCamera : MonoBehaviour {
 
     private Vector2 playerPos = Vector2.zero;
     private int length = 0;
+    private float _movementTimer = 0.0f;
+    private float _movementDelay = 0.5f;
+
+    private void OnEnable() {
+        PlayerHealth.UpdateHealth += UponDeath;
+    }
+
+    private void OnDisable() {
+        PlayerHealth.UpdateHealth -= UponDeath;
+    }
 
     private void OnTriggerStay2D(Collider2D otherGO) {
 
-        if (otherGO.tag == "Player") {
+        if (otherGO.tag == "Player" &&  Time.time - _movementTimer > _movementDelay) {
 
             playerPos = otherGO.transform.position;
             length = _triggerPoints.Length;
@@ -54,6 +64,12 @@ public class FocusCamera : MonoBehaviour {
             if (otherGO.tag == "Player") {
                 _scriptedCam.Reset();
             }
+        }
+    }
+
+    private void UponDeath(int health) {
+        if (health <= 0) {
+            _movementTimer = Time.time;
         }
     }
 }

@@ -78,7 +78,7 @@ public class PlayerCollisionState : MonoBehaviour {
             if (hit.collider != null) {
                 Debug.DrawRay(_rayOrigin[i], new Vector3(0.0f, -1.0f * _distance, 0.0f), Color.white);
 
-                _touchedGround = _body2d.velocity.y <= 5.0f ? true : false;
+                _touchedGround = _body2d.velocity.y <= 2.0f ? true : false;
                 break;
             }
         }

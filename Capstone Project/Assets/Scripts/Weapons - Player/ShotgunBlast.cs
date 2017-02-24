@@ -103,8 +103,6 @@ public class ShotgunBlast : AbstractBullet {
             if (hit.collider != null) {
                 string hitTagName = hit.collider.gameObject.tag;
 
-                Debug.Log(hitTagName);
-
                 if (hitTagName == "Enemy") {
                     hit.collider.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
                 }
