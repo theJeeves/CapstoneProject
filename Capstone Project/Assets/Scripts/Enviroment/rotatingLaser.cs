@@ -14,6 +14,12 @@ public class rotatingLaser : MonoBehaviour
     [SerializeField]
     private GameObject startBarrel;
 
+    [SerializeField]
+    private int _damage;
+
+    [SerializeField]
+    private LayerMask _whatToHit;
+
 
     // Use this for initialization
     void Start()
@@ -26,7 +32,7 @@ public class rotatingLaser : MonoBehaviour
     {
         _direction = endBarrel.transform.position - startBarrel.transform.position;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, _direction);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, _direction, Mathf.Infinity, _whatToHit);
         if (hit.collider != null)
         {
                 Vector2 laserEnd = new Vector2(hit.point.x, hit.point.y);
@@ -35,6 +41,11 @@ public class rotatingLaser : MonoBehaviour
                 //float _distance = Mathf.Sqrt((_height * _height) + (_width * _width));
                 _lr.SetPosition(0, transform.position);
                 _lr.SetPosition(1, laserEnd);
+            if(hit.collider.tag == "Player")
+            {
+                GameObject otherGO = GameObject.FindGameObjectWithTag("Player");
+                otherGO.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage);
+            }
 
 
         }
