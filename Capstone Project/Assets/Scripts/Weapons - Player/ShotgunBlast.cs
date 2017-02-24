@@ -28,6 +28,8 @@ public class ShotgunBlast : AbstractBullet {
 
         base.Fire(direction);
 
+        _endOfBarrel = _direction.x == 0.0f && _direction.y == -1.0f ? GameObject.FindGameObjectWithTag("StartAlt") : GameObject.FindGameObjectWithTag("StartNorm");
+
         //Get all the prefab lightning bolts into one array
         _lightning = GetComponentsInChildren<DigitalRuby.LightningBolt.LightningBoltScript>();
 
@@ -39,8 +41,6 @@ public class ShotgunBlast : AbstractBullet {
         GenLengthsAndHeights();
 
         StartCoroutine(Shoot());
-
-        _endOfBarrel = GameObject.FindGameObjectWithTag("Start");
     }
 
     private void Update() {
@@ -98,18 +98,18 @@ public class ShotgunBlast : AbstractBullet {
 
         for (int i = 0; i < _lightning.Length; ++i) {
 
-            RaycastHit2D hit = Physics2D.Raycast(_start, _directions[i], _magnitudes[i], _whatToHit);
+            RaycastHit2D hit = Physics2D.Raycast((Vector2)_endOfBarrel.transform.position, _directions[i], _magnitudes[i], _whatToHit);
 
             if (hit.collider != null) {
                 string hitTagName = hit.collider.gameObject.tag;
 
-
+                Debug.Log(hitTagName);
 
                 if (hitTagName == "Enemy") {
                     hit.collider.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
                 }
                 else {
-                    _magnitudes[i] = Vector3.Magnitude(hit.point - _start);
+                    _magnitudes[i] = Vector3.Magnitude(hit.point - (Vector2)_endOfBarrel.transform.position);
                 }
                 if (hitTagName == "SwarmerPodBattery") {
                     hit.collider.gameObject.GetComponentInParent<SwarmPodSpawner>().DestroyPod();

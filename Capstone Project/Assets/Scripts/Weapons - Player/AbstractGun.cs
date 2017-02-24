@@ -70,6 +70,8 @@ public abstract class AbstractGun : MonoBehaviour {
     [SerializeField]
     protected Transform _endAlt;
 
+    protected Vector2 _direction = Vector2.zero;
+
     protected virtual void Awake() {
 
         _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();

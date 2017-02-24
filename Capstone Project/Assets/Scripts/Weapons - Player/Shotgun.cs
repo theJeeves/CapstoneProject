@@ -73,8 +73,6 @@ public class Shotgun : AbstractGun {
             _moveRequest.RequestMovement();
             _SSRequest.ShakeRequest();
 
-            //_SOEffect.PlayEffect(EffectEnum.SGMuzzleFlash, _barrel.transform.position, _controller.AimDirection - 90.0f);
-
             _grounded = false;
 
             // Make the ammo sprite disappear when the ammo is depleted while in the air.
@@ -155,7 +153,21 @@ public class Shotgun : AbstractGun {
     private IEnumerator ShotDelay() {
 
         _canShoot = false;
-        _SOEffectHandler.PlayEffect(EffectEnums.ShotgunBlast, _barrelNorm.transform.position, _controller.AimDirection);
+
+        if (_controller.GetButtonPress(Buttons.AimDown)) {
+            if (_controller.GetButtonPress(Buttons.AimRight) || _controller.GetButtonPress(Buttons.AimLeft)) {
+                _direction = (_endNorm.position - _barrelNorm.position).normalized;
+            }
+            else {
+                _direction = (_endAlt.position - _barrelAlt.position).normalized;
+            }
+        }
+        else {
+            _direction = (_endNorm.position - _barrelNorm.position).normalized;
+        }
+        //_direction = new Vector2(Mathf.Round(_direction.x), Mathf.Round(_direction.y));
+
+        _SOEffectHandler.PlayEffect(EffectEnums.ShotgunBlast, _barrelNorm.transform.position, _controller.AimDirection, _direction.x, _direction.y);
 
         yield return new WaitForSeconds(_shotDelay);
         _canShoot = true;

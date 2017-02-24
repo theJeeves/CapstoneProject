@@ -12815,7 +12815,17 @@ Prefab:
       propertyPath: _SGAvailable
       value: 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 1000013835814140, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
+      propertyPath: m_TagString
+      value: StartAlt
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000012399729896, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
+      propertyPath: m_TagString
+      value: StartNorm
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 114000010590434350, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
+    - {fileID: 114000010669638132, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
   m_IsPrefabParent: 0
 --- !u!1001 &1549817732

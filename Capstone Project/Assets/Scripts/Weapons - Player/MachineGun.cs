@@ -19,7 +19,6 @@ public class MachineGun : AbstractGun {
     private GameObject _muzzleFlashGO;
     private bool _canLift = true;
     private float _timer = 0.0f;
-    private Vector2 _direction = Vector2.zero;
 
     protected override void Awake() {
         base.Awake();
