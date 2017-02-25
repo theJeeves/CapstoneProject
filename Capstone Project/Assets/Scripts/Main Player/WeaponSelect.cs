@@ -29,6 +29,7 @@ public class WeaponSelect : MonoBehaviour {
 
     private void OnEnable() {
         ControllableObject.OnButtonDown += OnButtonDown;
+        PlayerHealth.UpdateHealth += ShowHideIcon;
 
         _shotgun = GetComponent<Shotgun>();
         _machineGun = GetComponent<MachineGun>();
@@ -43,6 +44,7 @@ public class WeaponSelect : MonoBehaviour {
 
     private void OnDisable() {
         ControllableObject.OnButtonDown -= OnButtonDown;
+        PlayerHealth.UpdateHealth -= ShowHideIcon;
     }
 
     // Only perform the weapon swap one per button press.
@@ -74,5 +76,24 @@ public class WeaponSelect : MonoBehaviour {
 
         _machineGun.enabled = true;
         _machineGunAmmo.enabled = true;
+    }
+
+    private void ShowHideIcon(int health) {
+        if (health > 0) {
+            if (_shotgun.isActiveAndEnabled && _MGAvailable) {
+                _shotgunAmmo.enabled = true;
+            }
+            else if (_machineGun.isActiveAndEnabled && _SGAvailable) {
+                _machineGunAmmo.enabled = true;
+            }
+        }
+        else {
+            if (_shotgun.isActiveAndEnabled && _MGAvailable) {
+                _shotgunAmmo.enabled = false;
+            }
+            else if (_machineGun.isActiveAndEnabled && _SGAvailable) {
+                _machineGunAmmo.enabled = false;
+            }
+        }
     }
 }

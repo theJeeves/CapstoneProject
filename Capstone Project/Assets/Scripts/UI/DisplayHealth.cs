@@ -21,5 +21,12 @@ public class DisplayHealth : MonoBehaviour {
     private void UpdateText(int num) {
 
         _healthText.text = string.Format("{0}", num);
+
+        if (num > 0) {
+            _healthText.enabled = true;
+        }
+        else {
+            _healthText.enabled = false;
+        }
     }
 }

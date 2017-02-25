@@ -33,6 +33,7 @@ public class MachineGun : AbstractGun {
 
     private void OnEnable() {
         PlayerCollisionState.OnHitGround += Reload;
+        ControllableObject.OnButtonDown += ManualReload;
 
         GetComponent<AudioSource>().clip = _audioClip;
         GetComponent<AudioSource>().Play();
@@ -59,11 +60,12 @@ public class MachineGun : AbstractGun {
 
         ControllableObject.OnButton += OnButton;
 
-        _canLift = _collisionState.OnSolidGround ? true : false;
+        //_canLift = _collisionState.OnSolidGround ? true : false;
     }
 
     private void OnDisable() {
         PlayerCollisionState.OnHitGround -= Reload;
+        ControllableObject.OnButtonDown -= ManualReload;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
 
@@ -82,26 +84,17 @@ public class MachineGun : AbstractGun {
         _grounded = _collisionState.OnSolidGround;
     }
 
-    protected override void OnButtonDown(Buttons button) {
+    private void Lift() {
 
-        if (button == Buttons.Shoot && _canShoot && _grounded && numOfRounds > 0) {
+        if (_canLift && _direction.y == -1.0f) {
             _initialMoveRequest.RequestMovement();
             _canLift = false;
-        }
-
-        if (button == Buttons.Reload) {
-            ManualReload();
         }
     }
 
     private void OnButton(Buttons button) {
 
         if (button == Buttons.Shoot && numOfRounds > 0) {
-            if (_canLift && _controller.GetButtonPress(Buttons.AimDown)) {
-                OnButtonDown(button);
-            }
-
-            //_canLift = _grounded ? true : false;
 
             if (!_reloading) {
 
@@ -151,6 +144,7 @@ public class MachineGun : AbstractGun {
             else {
                 _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrelNorm.transform.position, firingAngle, _direction.x, _direction.y);
             }
+            Lift();
             _SSRequest.ShakeRequest();
             _timer = Time.time;
         }
@@ -184,6 +178,8 @@ public class MachineGun : AbstractGun {
 
     private void Reload() {
 
+        Debug.Log("reload called");
+
         // This ensures the player will be lifted by the initial shot every time.
         // Machine Gun specific.
         _canLift = true;
@@ -196,8 +192,9 @@ public class MachineGun : AbstractGun {
         }
     }
 
-    private void ManualReload() {
-        if (!_reloading && numOfRounds < _ammoCapacity && _grounded) {
+    private void ManualReload(Buttons button) {
+
+        if (button == Buttons.Reload && !_reloading && numOfRounds < _ammoCapacity && _grounded) {
             _grounded = true;
             StartCoroutine(ReloadDelay());
         }
@@ -243,5 +240,6 @@ public class MachineGun : AbstractGun {
         // The player can now fire again.
         _reloading = false;
         _canShoot = true;
+        _canLift = true;
     }
 }

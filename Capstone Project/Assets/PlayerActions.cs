@@ -17,14 +17,26 @@ public class PlayerActions : MonoBehaviour {
 
     private void OnEnable() {
         ControllableObject.OnButton += OnButton;
-        ControllableObject.OnButtonUp += OnButtonUp;
 
         _controller = GetComponent<ControllableObject>();
     }
 
     private void OnDisable() {
         ControllableObject.OnButton -= OnButton;
-        ControllableObject.OnButtonUp -= OnButtonUp;
+    }
+
+    private void Update() {
+
+        if (!_controller.GetButtonPress(Buttons.AimDown) && !_controller.GetButtonPress(Buttons.AimUp) &&
+            !_controller.GetButtonPress(Buttons.AimLeft) && !_controller.GetButtonPress(Buttons.AimRight)) {
+
+            if (_controller.FacingDirection == Facing.Right) {
+                _controller.SetAimDirection(0);
+            }
+            else if (_controller.FacingDirection == Facing.Left) {
+                _controller.SetAimDirection(4);
+            }
+        }
     }
 
     private void OnButton(Buttons button) {
@@ -87,54 +99,36 @@ public class PlayerActions : MonoBehaviour {
         if (button == Buttons.AimDown || button == Buttons.AimLeft ||
             button == Buttons.AimRight || button == Buttons.AimUp) {
 
-            // Aiming down and possibly another direciton
-            if (_controller.GetButtonPress(Buttons.AimDown) && _controller.GetButtonPress(Buttons.AimRight)) {
-                value = 7;
-            }
-            else if (_controller.GetButtonPress(Buttons.AimDown) && _controller.GetButtonPress(Buttons.AimLeft)) {
-                value = 5;
-            }
-            else if (_controller.GetButtonPress(Buttons.AimDown)) {
-                value = 6;
-            }
-
-            // Aiming up and possibly another direction
-            else if (_controller.GetButtonPress(Buttons.AimUp) && _controller.GetButtonPress(Buttons.AimRight)) {
-                value = 1;
-            }
-            else if (_controller.GetButtonPress(Buttons.AimUp) && _controller.GetButtonPress(Buttons.AimLeft)) {
-                value = 3;
+            if (_controller.GetButtonPress(Buttons.AimDown)) {
+                if (_controller.GetButtonPress(Buttons.AimRight)) {
+                    value = 7;
+                }
+                else if (_controller.GetButtonPress(Buttons.AimLeft)) {
+                    value = 5;
+                }
+                else {
+                    value = 6;
+                }
             }
             else if (_controller.GetButtonPress(Buttons.AimUp)) {
-                value = 2;
+                if (_controller.GetButtonPress(Buttons.AimRight)) {
+                    value = 1;
+                }
+                else if (_controller.GetButtonPress(Buttons.AimLeft)) {
+                    value = 3;
+                }
+                else {
+                    value = 2;
+                }
             }
-
-            // Aiming Right
+            else if (_controller.GetButtonPress(Buttons.AimLeft)) {
+                value = 4;
+            }
             else if (_controller.GetButtonPress(Buttons.AimRight)) {
                 value = 0;
             }
 
-            // Aiming Left
-            else if (_controller.GetButtonPress(Buttons.AimLeft)) {
-                value = 4;
-            }
-
             _controller.SetAimDirection(value);
-        }
-    }
-
-    private void OnButtonUp(Buttons button) {
-
-        /*
-        * SET AIM DIRECTION
-        */
-        if (button != Buttons.Shoot) {
-            if (_controller.FacingDirection == Facing.Right) {
-                _controller.SetAimDirection(0);
-            }
-            else if (_controller.FacingDirection == Facing.Left) {
-                _controller.SetAimDirection(4);
-            }
         }
     }
 }
