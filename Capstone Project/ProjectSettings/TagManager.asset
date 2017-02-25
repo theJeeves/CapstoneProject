@@ -18,6 +18,7 @@ TagManager:
   - SniperBullet
   - Ignore
   - StartAlt
+  - Start
   layers:
   - Default
   - TransparentFX
@@ -55,12 +56,27 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background World Objects
+    uniqueID: 3559661181
+    locked: 0
+  - name: Main World Object
+    uniqueID: 75039419
+    locked: 0
+  - name: Enemies
+    uniqueID: 508758275
+    locked: 0
   - name: Player
     uniqueID: 777899571
+    locked: 0
+  - name: UI
+    uniqueID: 960412473
     locked: 0
   - name: Effects
     uniqueID: 4102216409
     locked: 0
-  - name: Enemies
-    uniqueID: 508758275
+  - name: Foreground World Objects
+    uniqueID: 1726647307
+    locked: 0
+  - name: Text UI
+    uniqueID: 1937888195
     locked: 0

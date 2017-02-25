@@ -49,7 +49,8 @@ public class LaserSights : MonoBehaviour {
         }
 
         //Set the width of the line renderer
-        _renderer.SetWidth(1.0f, 1.0f);
+        _renderer.SetWidth(2.5f, 2.5f);
+        _renderer.SetColors(Color.red, Color.red);
     }
 
     private void CheckCollisions() {
