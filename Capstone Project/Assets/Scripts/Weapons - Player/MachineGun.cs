@@ -178,8 +178,6 @@ public class MachineGun : AbstractGun {
 
     private void Reload() {
 
-        Debug.Log("reload called");
-
         // This ensures the player will be lifted by the initial shot every time.
         // Machine Gun specific.
         _canLift = true;
