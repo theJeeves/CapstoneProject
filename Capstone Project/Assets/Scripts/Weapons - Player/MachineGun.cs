@@ -60,7 +60,7 @@ public class MachineGun : AbstractGun {
 
         ControllableObject.OnButton += OnButton;
 
-        //_canLift = _collisionState.OnSolidGround ? true : false;
+        _canLift = _collisionState.OnSolidGround ? true : false;
     }
 
     private void OnDisable() {
