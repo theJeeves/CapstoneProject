@@ -44,7 +44,7 @@ public class SmartCameraXPosition : MonoBehaviour {
             // WHEN THE PLAYER IS MOVING TO THE RIGHT
             if (_movingRight) {
                 // CHECK IF THE PLAYER IS CLOSE TO THE LEFT SIDE OF THE SCREEN
-                if (_currPlayerPos.x <= 0.3f) {
+                if (_currPlayerPos.x <= 0.35f) {
                     _movingRight = false;
                     _adjusting = true;
                     _startTime = 0.0f;
