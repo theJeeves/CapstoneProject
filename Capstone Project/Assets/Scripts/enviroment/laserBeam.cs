@@ -26,7 +26,7 @@ public class laserBeam : MonoBehaviour
     private float _startDelay;
 
     private bool _delayFinished;
-
+    private bool _laserActive = false;
 
 
     // Use this for initialization
@@ -51,18 +51,20 @@ public class laserBeam : MonoBehaviour
             {
                 if (_hit.collider.tag == "Player")
                 {
-                        GameObject otherGO = GameObject.FindGameObjectWithTag("Player");
-                        otherGO.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage);
-                    
+                    _hit.collider.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage);
+
                 }
             }
         }
         else if (!_laser.gameObject.activeInHierarchy && _delayFinished)
         {
             GetComponentInChildren<AudioSource>().Stop();
-            StartCoroutine(LaserOnOff());
+            if (!_laserActive)
+            {
+                StartCoroutine(LaserOnOff());
+                _laserActive = true;
+            }
         }
-
         
     }
     void drawLaser()
@@ -76,15 +78,16 @@ public class laserBeam : MonoBehaviour
 
     IEnumerator LaserOnOff()
     {
-        
-        yield return new WaitForSeconds(_laserTimer);
-        _laser.gameObject.SetActive(true);
-        _lr.SetPosition(1, end.position);
+        while (true)
+        {
+            yield return new WaitForSeconds(_laserTimer);
+            _laser.gameObject.SetActive(true);
+            _lr.SetPosition(1, end.position);
 
-        yield return new WaitForSeconds(_laserTimer);
-        _lr.SetPosition(1, start.position);
-        _laser.gameObject.SetActive(false);
-
+            yield return new WaitForSeconds(_laserTimer);
+            _lr.SetPosition(1, start.position);
+            _laser.gameObject.SetActive(false);
+        }
     }
 
     IEnumerator Delay()
