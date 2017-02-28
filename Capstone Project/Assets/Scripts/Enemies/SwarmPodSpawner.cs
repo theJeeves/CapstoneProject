@@ -3,13 +3,18 @@ using System.Collections;
 
 public class SwarmPodSpawner : MonoBehaviour {
 
+    public delegate void SwarmPodEvent(GameObject[] enemies);
+    public static event SwarmPodEvent AllClear;
+
     [Header("Swarmer Pod Variables")]
     [SerializeField]
     private GameObject _swarmPrefab;                //Prefab of the Pod sprite and its scripts
-    [SerializeField]
-    private int _sizeOfSwarm = 0;                   //The number of swarmers the developer wants to spawn from this instance.
+
+    public int sizeOfSwarm = 0;                   //The number of swarmers the developer wants to spawn from this instance.
     [SerializeField]
     private float _destructionDelay = 0.0f;         //How long the pod should remain in a damaged state.
+
+    private GameObject[] _swarm;
 
     [Space]
     [Header("Effects")]
@@ -37,7 +42,7 @@ public class SwarmPodSpawner : MonoBehaviour {
         _podBatteryIndicatorGO = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryIndicator, _effectPositions[1].position);
         _podBatteryIndicatorGO1 = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryIndicator, _effectPositions[6].position);
 
-
+        _swarm = new GameObject[sizeOfSwarm];
         _timer = Time.time;
     }
 
@@ -92,12 +97,15 @@ public class SwarmPodSpawner : MonoBehaviour {
 
     public void SpawnSwarm() {
 
-        // Instantiate as many swarmers as the developer has requested in the inspector.
-        for (int i = 0; i < _sizeOfSwarm; ++i) {
-            Instantiate(_swarmPrefab, transform.position, Quaternion.identity);
-        }
-
         // Destroy the pod object
+        if (AllClear != null) {
+            AllClear(_swarm);
+        }
         Destroy(gameObject);
+
+        // Instantiate as many swarmers as the developer has requested in the inspector.
+        for (int i = 0; i < sizeOfSwarm; ++i) {
+            _swarm[i] = Instantiate(_swarmPrefab, transform.position, Quaternion.identity) as GameObject;
+        }
     }
 }

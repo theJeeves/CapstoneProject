@@ -121,8 +121,6 @@ public class SmartCameraYPosition : MonoBehaviour {
 
                 if (_player.GetComponent<Rigidbody2D>().velocity.y <= -200.0f) {
 
-                    Debug.Log(_currPlayerPos.y);
-
                     if (!_startYAdjustment) {
                         _startYAdjustment = true;
                         _diff = transform.position.y - _player.transform.position.y;
