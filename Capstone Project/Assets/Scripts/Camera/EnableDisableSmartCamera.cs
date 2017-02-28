@@ -3,6 +3,10 @@ using System.Collections;
 
 public class EnableDisableSmartCamera : MonoBehaviour {
 
+    [SerializeField]
+    private bool _oneTimeUse = false;
+    [Space]
+
     [Header("Smart Camera X")]
     [SerializeField]
     private bool _XEnableOnEnter = false;
@@ -77,6 +81,10 @@ public class EnableDisableSmartCamera : MonoBehaviour {
             }
             else if (_YDisableOnExit) {
                 _camera.GetComponent<SmartCameraYPosition>().enabled = false;
+            }
+
+            if (_oneTimeUse) {
+                GetComponent<BoxCollider2D>().enabled = false;
             }
 
             //if (_FOVEnableOnExit) {
