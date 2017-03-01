@@ -145,7 +145,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -340,7 +340,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -2536,6 +2536,11 @@ Prefab:
     - target: {fileID: 1000013298984622, guid: d267883f8e350644bad5de366b381480, type: 2}
       propertyPath: m_Name
       value: Updated_Laser (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
+        type: 2}
+      propertyPath: _laserTimer
+      value: 1.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d267883f8e350644bad5de366b381480, type: 2}
@@ -6398,7 +6403,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -6818,7 +6823,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -7102,7 +7107,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -7705,7 +7710,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -8706,7 +8711,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -8789,7 +8794,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -9504,7 +9509,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -11063,9 +11068,9 @@ MonoBehaviour:
   _XDisableOnEnter: 0
   _XEnableOnExit: 0
   _XDisableOnExit: 0
-  _YEnableOnEnter: 1
+  _YEnableOnEnter: 0
   _YDisableOnEnter: 0
-  _YEnableOnExit: 0
+  _YEnableOnExit: 1
   _YDisableOnExit: 0
 --- !u!114 &1230027274
 MonoBehaviour:
@@ -11613,7 +11618,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d267883f8e350644bad5de366b381480, type: 2}
@@ -13853,11 +13858,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000010871843298, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -5281
+      value: 3406
       objectReference: {fileID: 0}
     - target: {fileID: 4000010871843298, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 78
+      value: -1610
       objectReference: {fileID: 0}
     - target: {fileID: 4000010871843298, guid: 63cfe9ff7d7330b4fa9a1c27845aef42, type: 2}
       propertyPath: m_LocalPosition.z
@@ -16288,7 +16293,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -20473,7 +20478,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -20734,7 +20739,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
@@ -21222,7 +21227,7 @@ Prefab:
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
       propertyPath: _laserTimer
-      value: 1
+      value: 1.4
       objectReference: {fileID: 0}
     - target: {fileID: 114000013736611972, guid: d267883f8e350644bad5de366b381480,
         type: 2}
