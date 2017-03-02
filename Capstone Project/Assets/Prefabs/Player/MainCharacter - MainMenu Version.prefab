@@ -116,7 +116,6 @@ GameObject:
   - 50: {fileID: 50000012078923554}
   - 114: {fileID: 114000010501547268}
   - 114: {fileID: 114000010134356494}
-  - 114: {fileID: 114000011369941908}
   - 114: {fileID: 114000014127182276}
   - 114: {fileID: 114000010474887192}
   - 114: {fileID: 114000012762583538}
@@ -875,18 +874,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b51eedac05b939a408ed31840bb8e286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114000011369941908
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000011917182888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 77853a1e0a1cae74ebe241f1a046ff4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _moveRequest: {fileID: 11400000, guid: 56780ea444e542549b065f7efafada77, type: 2}
 --- !u!114 &114000011376323976
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -967,7 +954,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a66dda4a2edda6408b9797ddce9fef0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SOMovementHandler: {fileID: 11400000, guid: 8a26a837dd690c642a71cd5261cbb6e8, type: 2}
+  _walkingMovementRequest: {fileID: 11400000, guid: 8a26a837dd690c642a71cd5261cbb6e8,
+    type: 2}
 --- !u!114 &114000013719743094
 MonoBehaviour:
   m_ObjectHideFlags: 1

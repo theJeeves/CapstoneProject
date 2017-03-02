@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class StartWindow : GenericWindow {
 
@@ -25,5 +26,9 @@ public class StartWindow : GenericWindow {
         }
 
         base.Open();
+    }
+
+    public void NewGame() {
+        SceneManager.LoadScene(1);
     }
 }

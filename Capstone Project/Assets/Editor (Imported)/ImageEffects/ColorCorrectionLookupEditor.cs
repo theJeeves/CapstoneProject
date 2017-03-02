@@ -1,4 +1,5 @@
 using System;
+#if UNITY_EDITOR
 using UnityEditor;
 using UnityEngine;
 
@@ -88,3 +89,4 @@ namespace UnityStandardAssets.ImageEffects
         }
     }
 }
+#endif

@@ -7,7 +7,7 @@ using System.Linq;
 public class PlayerOnMainMenu : MonoBehaviour {
 
     [SerializeField]
-    private MovementRequest _SOMovementHandler;
+    private MovementRequest _walkingMovementRequest;
 
     private ControllableObject _controller;
     private PlayerCollisionState _collisionState;
@@ -34,8 +34,9 @@ public class PlayerOnMainMenu : MonoBehaviour {
         if (_collisionState.OnSolidGround) {
 
             if (Time.time - _timer > 1.0f) {
+
                 _controller.SetButtonPressTime(Buttons.MoveRight);
-                _SOMovementHandler.RequestMovement(Buttons.MoveRight);
+                _walkingMovementRequest.RequestMovement(Buttons.MoveRight);
                 if (_currentIndex != _previousIndex) {
                     Play(_currentIndex);
                     _previousIndex = _currentIndex;

@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using SpriterDotNetUnity;
+using UnityEngine.SceneManagement;
 
 public class PlayerCollisionState : MonoBehaviour {
 
@@ -86,7 +87,7 @@ public class PlayerCollisionState : MonoBehaviour {
         // Send out this event if the player wasn't on the ground and its status has changed.
         if (!_onSolidGround && _touchedGround) {
 
-            if (UnityEditor.EditorApplication.currentScene == "Assets/Scenes/Main Menu.unity") {
+            if (SceneManager.GetActiveScene().name == "Main Menu") {
                 GameObject instance = _SOEffectHandler.PlayEffect(EffectEnums.LandingDust, new Vector2(transform.position.x, transform.position.y - 1.0f));
                 instance.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
             }
