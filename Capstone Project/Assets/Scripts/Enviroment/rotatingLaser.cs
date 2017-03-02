@@ -36,11 +36,15 @@ public class rotatingLaser : MonoBehaviour
         if (hit.collider != null)
         {
                 Vector2 laserEnd = new Vector2(hit.point.x, hit.point.y);
-                //float _height = Mathf.Abs(hit.point.y - transform.position.y);
-                //float _width = Mathf.Abs(hit.point.x - transform.position.x);
-                //float _distance = Mathf.Sqrt((_height * _height) + (_width * _width));
-                _lr.SetPosition(0, transform.position);
-                _lr.SetPosition(1, laserEnd);
+            //float _height = Mathf.Abs(hit.point.y - transform.position.y);
+            //float _width = Mathf.Abs(hit.point.x - transform.position.x);
+            //float _distance = Mathf.Sqrt((_height * _height) + (_width * _width));
+            _lr.SetWidth(2.5f, 2.5f);
+
+
+            _lr.SetColors(Color.red, Color.red);
+            _lr.SetPosition(0, transform.position);
+             _lr.SetPosition(1, laserEnd);
             if(hit.collider.tag == "Player")
             {
                 GameObject otherGO = GameObject.FindGameObjectWithTag("Player");
