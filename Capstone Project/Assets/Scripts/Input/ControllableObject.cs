@@ -170,11 +170,15 @@ public class ControllableObject : MonoBehaviour {
         }
     }
 
-    private short GetAimDirectionAngle(byte key) {
-        return _aimDirections[key];
+    // THIS FUNCTION IS ONLY SUPPPOSED TO BE USED IN THE MAIN MENU.
+    // DO NOT USE IT ANY OTHER TIME!!!
+    public void SetButtonPressTime(Buttons button) {
+        if (buttonStates.ContainsKey(button)) {
+            buttonStates[button].PressTime = 1.0f;
+        }
     }
 
-    private IEnumerator StunDelay() {
-        yield return new WaitForSeconds(0.25f);
+    private short GetAimDirectionAngle(byte key) {
+        return _aimDirections[key];
     }
 }

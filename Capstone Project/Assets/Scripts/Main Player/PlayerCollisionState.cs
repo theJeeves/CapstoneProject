@@ -85,7 +85,14 @@ public class PlayerCollisionState : MonoBehaviour {
 
         // Send out this event if the player wasn't on the ground and its status has changed.
         if (!_onSolidGround && _touchedGround) {
-            _SOEffectHandler.PlayEffect(EffectEnums.LandingDust, transform.position);
+
+            if (UnityEditor.EditorApplication.currentScene == "Assets/Scenes/Main Menu.unity") {
+                GameObject instance = _SOEffectHandler.PlayEffect(EffectEnums.LandingDust, new Vector2(transform.position.x, transform.position.y - 1.0f));
+                instance.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
+            }
+            else {
+                _SOEffectHandler.PlayEffect(EffectEnums.LandingDust, transform.position);
+            }
             if (OnHitGround != null) {
                 OnHitGround();
             }

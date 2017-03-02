@@ -38,6 +38,7 @@ public class PlayerMovementManager : MonoBehaviour {
             _values = new Vector3(_body2d.velocity.x, _body2d.velocity.y, _controller.GetButtonPressTime(_moveQ.Peek().Button));
 
             switch (_moveQ.Peek().MovementType) {
+                case MovementType.MainMenuWalking:
                 case MovementType.Walking:
                     _body2d.velocity = _moveQ.Dequeue().Move(_values, _grounded, _controller.CurrentKey);
                     break;

@@ -6,7 +6,8 @@ public enum MovementType {
     Walking,
     Shotgun,
     MachineGun,
-    AddForce
+    AddForce,
+    MainMenuWalking
 }
 
 [CreateAssetMenu(menuName ="Movement Request/New Movement")]
@@ -102,6 +103,9 @@ public class MovementRequest : ScriptableObject {
                     _player.SendMessage("AddImpulseForce", _forceRequest);
                 }
                 return new Vector2(0.0f, 0.0f);
+
+            case MovementType.MainMenuWalking:
+                return new Vector2(5.0f, values.y);
 
             default:
                 return new Vector2(values.x, values.y);
