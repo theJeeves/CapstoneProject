@@ -17,7 +17,7 @@ public class LaserSights : MonoBehaviour {
     private GameObject _laserEffect;
 
     private void Awake() {
-        _playerBox = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
+        //_playerBox = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
         _renderer = GetComponent<LineRenderer>();
     }
 
@@ -30,6 +30,10 @@ public class LaserSights : MonoBehaviour {
     }
 
     private void Update() {
+
+        if (_playerBox == null) {
+            _playerBox = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
+        }
 
         _playerPos = new Vector2(_playerBox.bounds.center.x, _playerBox.bounds.center.y + 7.5f);
 

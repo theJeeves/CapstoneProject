@@ -117,6 +117,10 @@ public class InputManager : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
 
+        if (_player == null) {
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+        }
+
         if (!_canTakeInput) {
             _timer = _timer > 0.0f ? _timer : Time.time;
 

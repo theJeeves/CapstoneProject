@@ -21,7 +21,7 @@ public class SniperLockOn : MonoBehaviour {
     private SniperAnimations _animationManager;
 
     private void Awake() {
-        _playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
+        //_playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
         _animationManager = GetComponentInParent<SniperAnimations>();
     }
 
@@ -35,6 +35,10 @@ public class SniperLockOn : MonoBehaviour {
     }
 
     private void Update() {
+
+        if (_playerPos == null) {
+            _playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
+        }
 
         _direction = (_playerPos.bounds.center - transform.position);
         _localScale = transform.localScale;

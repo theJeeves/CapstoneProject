@@ -9,10 +9,9 @@ using UnityEngine.UI;
 
 public class WeaponSelect : MonoBehaviour {
 
-    [SerializeField]
     private Image _shotgunAmmo;
-    [SerializeField]
     private Image _machineGunAmmo;
+
     [SerializeField]
     private bool _MGAvailable = true;
     public bool MGAvailable {
@@ -30,6 +29,9 @@ public class WeaponSelect : MonoBehaviour {
     private void OnEnable() {
         ControllableObject.OnButtonDown += OnButtonDown;
         PlayerHealth.UpdateHealth += ShowHideIcon;
+
+        _shotgunAmmo = GameObject.Find("SGAmmoType").GetComponent<Image>();
+        _machineGunAmmo = GameObject.Find("MGAmmoType").GetComponent<Image>();
 
         _shotgun = GetComponent<Shotgun>();
         _machineGun = GetComponent<MachineGun>();

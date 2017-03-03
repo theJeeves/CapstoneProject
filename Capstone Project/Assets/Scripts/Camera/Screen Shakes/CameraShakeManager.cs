@@ -14,7 +14,13 @@ public class CameraShakeManager : MonoBehaviour {
     private Vector3 _defaultPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
     private void OnEnable() {
-        _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+        //_controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+    }
+
+    private void Update() {
+        if (_controller == null) {
+            _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+        }
     }
 
     private void LateUpdate() {

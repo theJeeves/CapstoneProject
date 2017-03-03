@@ -22,7 +22,7 @@ public class Shotgun : AbstractGun {
         _weaponManager.SetAmmoCapacity(_type, _ammoCapacity);
 
         numOfRounds = _weaponManager.GetNumOfRounds(_type);
-        if (numOfRounds > 0) {
+        if (numOfRounds > 0 && DisplayAmmo != null) {
             DisplayAmmo();
         }
     }

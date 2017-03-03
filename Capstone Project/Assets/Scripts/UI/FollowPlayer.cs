@@ -10,6 +10,12 @@ public class FollowPlayer : MonoBehaviour {
         _player = GameObject.FindGameObjectWithTag("Player");
     }
 
+    private void Update() {
+        if (_player == null) {
+            _player = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
+
     private void LateUpdate() {
         if (_player.transform.localScale.x > 0) {
             transform.position = _player.transform.position + new Vector3(0, 50, 0);
