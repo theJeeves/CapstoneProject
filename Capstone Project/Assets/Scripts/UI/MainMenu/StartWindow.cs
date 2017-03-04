@@ -28,7 +28,7 @@ public class StartWindow : GenericWindow {
 
     public override void Open() {
 
-        bool canContinue = _GM.SOSaveHandler.SOCheckpointHandler.checkPointReached;
+        bool canContinue = _GM.SOSaveHandler.currentLevel > 1 || _GM.SOSaveHandler.checkpointID > 0 ? true : false;
         _continueButton.gameObject.SetActive(canContinue);
 
         if (_continueButton.gameObject.activeSelf) {

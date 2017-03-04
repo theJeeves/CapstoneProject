@@ -117,18 +117,9 @@ public class Shotgun : AbstractGun {
         _reloading = true;
         _canShoot = false;
 
-        // The player will have the same reload time if they stay on the ground or if they
-        // shot themselves up into the air. The reload times balance out.
-        if (_grounded) {
-            _reloadTime = _normReloadTime;
-        }
-        else {
-            _reloadTime = _fastReloadTime;
-
-            // Prevent the gun from reloading until the player is back on the ground.
-            while (!_collisionState.OnSolidGround) {
-                yield return 0;
-            }
+        // Prevent the gun from reloading until the player is back on the ground.
+        while (!_collisionState.OnSolidGround) {
+            yield return 0;
         }
 
         if (StartReloadAnimation != null) {

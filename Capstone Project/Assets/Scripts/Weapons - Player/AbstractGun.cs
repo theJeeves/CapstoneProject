@@ -38,10 +38,6 @@ public abstract class AbstractGun : MonoBehaviour {
     [SerializeField]
     protected float _shotDelay;
     [SerializeField]
-    protected float _normReloadTime;
-    [SerializeField]
-    protected float _fastReloadTime;
-
     protected float _reloadTime;
 
     protected bool _reloading = false;

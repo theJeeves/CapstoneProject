@@ -40,7 +40,7 @@ GameObject:
   - 82: {fileID: 82000013734356758}
   m_Layer: 2
   m_Name: Checkpoint
-  m_TagString: Untagged
+  m_TagString: Checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -377,7 +377,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1ea93eb23675634b95d129e3386002a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _SOCheckpoint: {fileID: 11400000, guid: 2891e6f4f3d0a9648b35cda93f48de61, type: 2}
+  currentLevel: 0
+  ID: 0
+  _saveFileHandler: {fileID: 11400000, guid: c545bace2bff4004c952e2fab9f354e4, type: 2}
   _respawnPoint: {fileID: 4000010480907156}
 --- !u!114 &114000013475032456
 MonoBehaviour:

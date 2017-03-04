@@ -6,21 +6,33 @@ using System.Linq;
 
 public class CheckpointBehavior : MonoBehaviour {
 
-    private UnityAnimator _animator;                // Refernce to the SpriterDotNetUnity animator to animate the checkpoint
-    private bool _activated = false;                // Determines if the player has reached hit a given checkpoint
+    [Header("Checkpoint Properties")]
+    public int currentLevel = 0;
+    public int ID = 0;
+
+    [Space]
+    [Header("Tools")]
+
     [SerializeField]
-    private SOCheckpoint _SOCheckpoint;             // Reference to the checkpoint manager to set and get values from it.
+    private SOSaveFile _saveFileHandler;             // Reference to the save file to set and get values from it.
     [SerializeField]
     private Transform _respawnPoint;
+
+
+    private UnityAnimator _animator;                // Refernce to the SpriterDotNetUnity animator to animate the checkpoint
+    private bool _activated = false;                // Determines if the player has reached hit a given checkpoint
 
     private void Update() {
         // Keep looking for the animator component unit it is found.
         if (_animator == null) {
             _animator = GetComponent<SpriterDotNetBehaviour>().Animator;
+            if (_activated) {
+                Activate();
+            }
         }
 
         // If a player has reached a new checkpoint, reset the old checkpoint to a ready state (not a checked state)
-        if (_activated && _SOCheckpoint.checkpointGO != gameObject) {
+        if (_activated && _saveFileHandler.checkpointID != ID) {
             _activated = false;
             _animator.Play(GetAnimation(-1));
         }
@@ -28,15 +40,8 @@ public class CheckpointBehavior : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D otherGo) {
 
-        // If the player has reached a new checkpoint, set the checkpoint to a checked state and record their position.
-        // Also, record which checkpoint the player has just reached.
         if (!_activated && otherGo.gameObject.tag == "Player") {
-            _activated = true;
-            _animator.Play(GetAnimation(1));
-            _SOCheckpoint.checkpointPosition = _respawnPoint.position;
-            _SOCheckpoint.checkpointGO = gameObject;
-            _SOCheckpoint.checkPointReached = true;
-            GetComponent<AudioSource>().Play();
+            Activate();
         }
     }
 
@@ -46,11 +51,28 @@ public class CheckpointBehavior : MonoBehaviour {
     // correct animation.
     private string GetAnimation(int offset) {
 
-        List<string> animations = _animator.GetAnimations().ToList();
-        int index = animations.IndexOf(_animator.CurrentAnimation.Name);
-        index += offset;
-        if (index >= animations.Count) index = 0;
-        if (index < 0) index = animations.Count - 1;
-        return animations[index];
+        if (_animator != null) {
+            List<string> animations = _animator.GetAnimations().ToList();
+            int index = animations.IndexOf(_animator.CurrentAnimation.Name);
+            index += offset;
+            if (index >= animations.Count) index = 0;
+            if (index < 0) index = animations.Count - 1;
+            return animations[index];
+        }
+
+        return "error";
+    }
+
+    // If the player has reached a new checkpoint, set the checkpoint to a checked state and record their position.
+    // Also, record which checkpoint the player has just reached.
+    public void Activate() {
+        _activated = true;
+
+        if (_animator != null) {
+            _animator.Play(GetAnimation(1));
+            _saveFileHandler.checkpointPosition = _respawnPoint.position;
+            _saveFileHandler.checkpointID = ID;
+            GetComponent<AudioSource>().Play();
+        }
     }
 }

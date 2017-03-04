@@ -6,6 +6,9 @@ public class GameManager : MonoBehaviour {
     public SOSaveFile SOSaveHandler;
     public SOEffects SOEffectHandler;
 
+    private GameObject _player;
+    private bool _inGame = false;
+
     private void OnEnable() {
         StartWindow.OnNewGame += OnNewGame;
     }
@@ -20,20 +23,28 @@ public class GameManager : MonoBehaviour {
 
     private void OnLevelWasLoaded(int level) {
         if (level == 1) {
-            if (SOSaveHandler.SOCheckpointHandler.checkpointGO == null) {
-
-                GameObject player = Instantiate( Resources.Load("MainCharacter/MainCharacter", typeof(GameObject)) as GameObject, transform.position, Quaternion.identity) as GameObject;
-                SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, SOSaveHandler.SOCheckpointHandler.checkpointPosition);
-                player.transform.position = SOSaveHandler.SOCheckpointHandler.checkpointPosition;
+            if (SOSaveHandler.checkpointID == 0) {
+                SpawnPlayer();
             }
             else {
-                GameObject player = Instantiate(Resources.Load("MainCharacter/MainCharacter", typeof(GameObject)) as GameObject, transform.position, Quaternion.identity) as GameObject;
-                SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, SOSaveHandler.SOCheckpointHandler.checkpointPosition);
-                player.transform.position = SOSaveHandler.SOCheckpointHandler.checkpointPosition;
+                SpawnPlayer();
+                GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+                foreach(GameObject ckpt in checkpoints) {
+
+                    if (ckpt.GetComponent<CheckpointBehavior>().ID == SOSaveHandler.checkpointID) {
+                        ckpt.GetComponent<CheckpointBehavior>().Activate();
+                    }
+                }
             }
         }
         else if (level == 2) {
 
         }
+    }
+
+    private void SpawnPlayer() {
+        GameObject _player = Instantiate(Resources.Load("MainCharacter/MainCharacter", typeof(GameObject)) as GameObject, transform.position, Quaternion.identity) as GameObject;
+        SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, SOSaveHandler.checkpointPosition);
+        _player.transform.position = SOSaveHandler.checkpointPosition;
     }
 }

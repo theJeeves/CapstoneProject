@@ -44,6 +44,10 @@ public class SniperAnimations : MonoBehaviour {
     public void Play(int index) {
         _currentIndex = index;
         _spriterAnimator.Play(_animationList[_currentIndex]);
+
+        if (index == 1) {
+            GetComponent<AudioSource>().Play();
+        }
     }
 
     private IEnumerator DeployDelay() {

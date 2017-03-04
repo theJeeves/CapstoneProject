@@ -22,7 +22,6 @@ public class PlayerHealth : MonoBehaviour {
     private float _recoveryTime;            // How long before the player can receive damage again.
 
     [Space]
-
     [Header("Effects")]
 
     [SerializeField]
@@ -31,8 +30,13 @@ public class PlayerHealth : MonoBehaviour {
     private SOEffects _SOEffectHandler;                 // Reference to the SOEffectHandler so this gameobject can request effects.
     [SerializeField]
     private ScreenShakeRequest _scrnShkRequest;         // Screenshake request to show damage has been done to the player.
+
+    [Space]
+    [Header("Save File")]
     [SerializeField]
-    private SOCheckpoint _SOCheckpointHandler;                 // Reference to the checkpoint system. This is where the player will respawn on death.
+    private SOSaveFile _SOSaveHandler;                 // Reference to the checkpoint system. This is where the player will respawn on death.
+    [SerializeField]
+    private SOWeaponManager _SOWeaponManager;
 
     [Space]
     [Header("Body Parts")]
@@ -101,25 +105,31 @@ public class PlayerHealth : MonoBehaviour {
                 }
                 _deathAnimationPlayed = true;
                 DeployBodyParts();
+                _timer = Time.time;
             }
 
             GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             GetComponent<Rigidbody2D>().gravityScale = 0.0f;
 
-            transform.position = _SOCheckpointHandler.checkpointPosition;
+            if (Time.time - _timer > 1.0f) {
 
-            if (Camera.main.WorldToViewportPoint(_SOCheckpointHandler.checkpointPosition).x > 0.1f &&
-                Camera.main.WorldToViewportPoint(_SOCheckpointHandler.checkpointPosition).x < 0.9f) {
+                transform.position = _SOSaveHandler.checkpointPosition;
+                GetComponent<PlayerMovementManager>().ClearQueue();
 
-                // Delay the player from any input for 1.5 seconds to ensure they do not immediate fly to their death
-                // Call the respawn effect and restore all the default values for the player.
-                _inputManager.PauseInput(1.25f);
-                GetComponent<Rigidbody2D>().gravityScale = 40.0f;
-                _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _SOCheckpointHandler.checkpointPosition);
-                _health = _maxHealth;
-                _playerBody.SetActive(true);
-                UpdateHealth(_health);
-                _deathAnimationPlayed = false;
+                if (Camera.main.WorldToViewportPoint(_SOSaveHandler.checkpointPosition).x > 0.1f &&
+                    Camera.main.WorldToViewportPoint(_SOSaveHandler.checkpointPosition).x < 0.9f) {
+
+                    // Delay the player from any input for 1.5 seconds to ensure they do not immediate fly to their death
+                    // Call the respawn effect and restore all the default values for the player.
+                    _inputManager.PauseInput(1.25f);
+                    GetComponent<Rigidbody2D>().gravityScale = 40.0f;
+                    _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _SOSaveHandler.checkpointPosition);
+                    _SOWeaponManager.Reload();
+                    _health = _maxHealth;
+                    _playerBody.SetActive(true);
+                    UpdateHealth(_health);
+                    _deathAnimationPlayed = false;
+                }
             }
         }
 
@@ -249,7 +259,6 @@ public class PlayerHealth : MonoBehaviour {
 
         foreach(GameObject bodyPart in _bodyParts) {
             GameObject instance = Instantiate(bodyPart, transform.position, Quaternion.identity) as GameObject;
-            instance.GetComponent<SpriteRenderer>().sortingOrder = Random.Range(0, 10);
             instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-75.0f, 75.0f), Random.Range(200.0f, 400.0f)), ForceMode2D.Impulse );
             instance.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-500.0f, 500.0f));
         }

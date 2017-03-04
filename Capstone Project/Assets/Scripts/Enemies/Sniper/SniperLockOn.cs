@@ -15,17 +15,20 @@ public class SniperLockOn : MonoBehaviour {
     private Vector3 _direction;
     private Vector3 _localScale;
 
+    private AudioSource _audioSource;
+
     private bool _canAttack;
     private float _startTime;
     private GameObject _tellEffect;
     private SniperAnimations _animationManager;
 
     private void Awake() {
-        //_playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
         _animationManager = GetComponentInParent<SniperAnimations>();
     }
 
     private void OnEnable() {
+
+        _audioSource = GetComponent<AudioSource>();
         _canAttack = true;
         RestartAttack();
     }
@@ -62,6 +65,8 @@ public class SniperLockOn : MonoBehaviour {
     private void Fire() {
         if (_canAttack) {
             _SOEffectHandler.PlayEffect(EffectEnums.SniperBullet, _endOfBarrel.transform.position);
+            _audioSource.pitch = Random.Range(0.75f, 1.5f);
+            _audioSource.Play();
             _animationManager.Play(3);
             _canAttack = false;
         }
