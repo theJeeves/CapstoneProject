@@ -29,6 +29,7 @@ public class Shotgun : AbstractGun {
 
     private void OnEnable() {
         ControllableObject.OnButtonDown += OnButtonDown;
+        PlayerActions.ButtonPressed += OnPlayerActionButtonPress;
         PlayerCollisionState.OnHitGround += Reload;
 
         GetComponent<AudioSource>().clip = _audioClip;
@@ -57,6 +58,7 @@ public class Shotgun : AbstractGun {
 
     private void OnDisable() {
         ControllableObject.OnButtonDown -= OnButtonDown;
+        PlayerActions.ButtonPressed -= OnPlayerActionButtonPress;
         PlayerCollisionState.OnHitGround -= Reload;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
@@ -64,8 +66,7 @@ public class Shotgun : AbstractGun {
         StopAllCoroutines();
     }
 
-    protected override void OnButtonDown(Buttons button) {
-
+    private void OnPlayerActionButtonPress(Buttons button) {
         if (button == Buttons.Shoot && numOfRounds > 0 && _canShoot) {
 
             StartCoroutine(ShotDelay());
@@ -91,10 +92,10 @@ public class Shotgun : AbstractGun {
                 UpdateNumOfRounds(numOfRounds);
             }
         }
+    }
 
-        if (button == Buttons.Reload) {
-            ManualReload();
-        }
+    protected override void OnButtonDown(Buttons button) {
+        if (button == Buttons.Reload) { ManualReload(); }
     }
 
     private void Reload() {
@@ -156,7 +157,6 @@ public class Shotgun : AbstractGun {
         else {
             _direction = (_endNorm.position - _barrelNorm.position).normalized;
         }
-        //_direction = new Vector2(Mathf.Round(_direction.x), Mathf.Round(_direction.y));
 
         _SOEffectHandler.PlayEffect(EffectEnums.ShotgunBlast, _barrelNorm.transform.position, _controller.AimDirection, _direction.x, _direction.y);
 

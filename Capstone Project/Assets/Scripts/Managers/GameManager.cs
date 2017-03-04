@@ -9,6 +9,11 @@ public class GameManager : MonoBehaviour {
     private GameObject _player;
     private bool _inGame = false;
 
+    private void Awake() {
+        DontDestroyOnLoad(gameObject);
+        SOEffectHandler.LoadEffects();
+    }
+
     private void OnEnable() {
         StartWindow.OnNewGame += OnNewGame;
     }

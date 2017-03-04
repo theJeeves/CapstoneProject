@@ -3,6 +3,9 @@ using System.Collections;
 
 public class PlayerActions : MonoBehaviour {
 
+    public delegate void PlayerActionEvent(Buttons button);
+    public static event PlayerActionEvent ButtonPressed;
+    
     [Header("Walking")]
     [SerializeField]
     private MovementRequest _moveRequest;
@@ -27,6 +30,7 @@ public class PlayerActions : MonoBehaviour {
 
     private void Update() {
 
+        // THIS IS HERE TO ENSURE THE MUZZLE FIRE ON THE MACHINE GUN ALWAYS PLAYS IN THE CORRECT DIRECTION
         if (!_controller.GetButtonPress(Buttons.AimDown) && !_controller.GetButtonPress(Buttons.AimUp) &&
             !_controller.GetButtonPress(Buttons.AimLeft) && !_controller.GetButtonPress(Buttons.AimRight)) {
 
@@ -130,5 +134,33 @@ public class PlayerActions : MonoBehaviour {
 
             _controller.SetAimDirection(value);
         }
+
+
+        // THIS STATEMENT IS TO MITIGATE A SMALL DELAY BETWEEN WHEN THE PLAYER SHOOTS AND THE CHARACTER MOVING INTO A AIMING POSITION
+        // WITHOUT THE PLAYER ACTUALLY AIMING.
+        if (button == Buttons.Shoot && !_controller.GetButtonPress(Buttons.AimDown) && !_controller.GetButtonPress(Buttons.AimUp) &&
+            !_controller.GetButtonPress(Buttons.AimLeft) && !_controller.GetButtonPress(Buttons.AimRight)) {
+
+            if (_controller.FacingDirection == Facing.Right) {
+                _controller.SetButtonPressed(Buttons.AimRight);
+            }
+            else if (_controller.FacingDirection == Facing.Left) {
+                _controller.SetButtonPressed(Buttons.AimLeft);
+            }
+
+            StartCoroutine(Delay());
+        }
+        // IF THE PLAYER IS AIMING, THEN THERE IS NO NEED FOR THE SMALL DELAY AND FIRE IMMEDIATELY.
+        else if (button == Buttons.Shoot && (_controller.GetButtonPress(Buttons.AimDown) || _controller.GetButtonPress(Buttons.AimUp) ||
+            _controller.GetButtonPress(Buttons.AimLeft) || _controller.GetButtonPress(Buttons.AimRight)) ) {
+
+            if (ButtonPressed != null) { ButtonPressed(Buttons.Shoot); }
+        }
+    }
+
+    // EXTREMELY SMALL DELAY SO IT LOOKS INSTANT
+    private IEnumerator Delay() {
+        yield return new WaitForSeconds(0.01f);
+        if (ButtonPressed != null) { ButtonPressed(Buttons.Shoot); }
     }
 }

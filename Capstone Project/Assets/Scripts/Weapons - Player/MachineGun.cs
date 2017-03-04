@@ -58,7 +58,7 @@ public class MachineGun : AbstractGun {
             UpdateNumOfRounds(numOfRounds);
         }
 
-        ControllableObject.OnButton += OnButton;
+        PlayerActions.ButtonPressed += OnPlayerActionButtonPress;
 
         _canLift = _collisionState.OnSolidGround ? true : false;
     }
@@ -70,7 +70,7 @@ public class MachineGun : AbstractGun {
         _grounded = _collisionState.OnSolidGround ? true : false;
 
         StopAllCoroutines();
-        ControllableObject.OnButton -= OnButton;
+        PlayerActions.ButtonPressed -= OnPlayerActionButtonPress;
     }
 
     private void Update() {
@@ -86,38 +86,36 @@ public class MachineGun : AbstractGun {
 
     private void Lift() {
 
-        if (_canLift && _direction.y == -1.0f) {
+        if (_canLift && _controller.GetButtonPress(Buttons.AimDown) && _direction.y == -1.0f) {
             _initialMoveRequest.RequestMovement();
             _canLift = false;
         }
     }
 
-    private void OnButton(Buttons button) {
+    private void OnPlayerActionButtonPress(Buttons button) {
 
         if (button == Buttons.Shoot && numOfRounds > 0) {
 
             if (!_reloading) {
 
                 _moveRequest.RequestMovement();
-                _grounded = false;
-            }
-            if (_canShoot & !_reloading) {
 
-                // If the last round has gone out, send out the event to hide the ammo type display.
-                if (--numOfRounds <= 0) {
-                    if (EmptyClip != null) {
-                        EmptyClip();
+                if (_canShoot) {
+                    Fire();
+                    // If the last round has gone out, send out the event to hide the ammo type display.
+                    if (--numOfRounds <= 0) {
+                        if (EmptyClip != null) {
+                            EmptyClip();
+                        }
+
+                        // Determine if the player was on the ground when they shot the last round in the chamber.
+                        //_grounded = _collisionState.OnSolidGround ? true : false;
+                        Reload();
                     }
-
-                    // Determine if the player was on the ground when they shot the last round in the chamber.
-                    //_grounded = _collisionState.OnSolidGround ? true : false;
-                    Reload();
+                    if (UpdateNumOfRounds != null) {
+                        UpdateNumOfRounds(numOfRounds);
+                    }
                 }
-                if (UpdateNumOfRounds != null) {
-                    UpdateNumOfRounds(numOfRounds);
-                }
-
-                Fire();
             }
         }
 
@@ -135,8 +133,10 @@ public class MachineGun : AbstractGun {
         // Lastly, start the timer for the shot delay
         if (_canShoot) {
             _canShoot = false;
-            _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrelNorm.transform.position, FiringAngle());
+
             int firingAngle = FiringAngle();
+
+            _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrelNorm.transform.position, firingAngle);
 
             if (firingAngle == 270) {
                 _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrelAlt.transform.position, firingAngle, _direction.x, _direction.y);
@@ -153,6 +153,7 @@ public class MachineGun : AbstractGun {
     private int FiringAngle() {
 
         if (_controller.GetButtonPress(Buttons.AimDown)) {
+
             if (_controller.GetButtonPress(Buttons.AimRight) || _controller.GetButtonPress(Buttons.AimLeft)) {
                 _direction = (_endNorm.position - _barrelNorm.position).normalized;
             }
@@ -227,6 +228,8 @@ public class MachineGun : AbstractGun {
         // The player can now fire again.
         _reloading = false;
         _canShoot = true;
+        // This ensures the player will be lifted by the initial shot every time.
+        // Machine Gun specific.
         _canLift = true;
     }
 }
