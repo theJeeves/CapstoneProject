@@ -20,6 +20,9 @@ public class rotatingLaser : MonoBehaviour
     [SerializeField]
     private LayerMask _whatToHit;
 
+    private Color[] _colorArray = { Color.blue, Color.cyan, Color.green, Color.magenta, Color.red, Color.yellow };
+
+
 
     // Use this for initialization
     void Start()
@@ -42,7 +45,7 @@ public class rotatingLaser : MonoBehaviour
             _lr.SetWidth(2.5f, 2.5f);
 
 
-            _lr.SetColors(Color.red, Color.red);
+            _lr.SetColors(_colorArray[Random.Range(0, 5)], _colorArray[Random.Range(0, 5)]);
             _lr.SetPosition(0, transform.position);
              _lr.SetPosition(1, laserEnd);
             if(hit.collider.tag == "Player")
