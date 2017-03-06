@@ -14,13 +14,17 @@ public class CheckpointBehavior : MonoBehaviour {
     [Header("Tools")]
 
     [SerializeField]
-    private SOSaveFile _saveFileHandler;             // Reference to the save file to set and get values from it.
+    private GameManager _GM;             // Reference to the save file to set and get values from it.
     [SerializeField]
     private Transform _respawnPoint;
 
 
     private UnityAnimator _animator;                // Refernce to the SpriterDotNetUnity animator to animate the checkpoint
     private bool _activated = false;                // Determines if the player has reached hit a given checkpoint
+
+    private void OnEnable() {
+        _GM = GameManager.Instance;
+    }
 
     private void Update() {
         // Keep looking for the animator component unit it is found.
@@ -32,7 +36,7 @@ public class CheckpointBehavior : MonoBehaviour {
         }
 
         // If a player has reached a new checkpoint, reset the old checkpoint to a ready state (not a checked state)
-        if (_activated && _saveFileHandler.checkpointID != ID) {
+        if (_activated && _GM.SOSaveHandler.CheckpointID != ID) {
             _activated = false;
             _animator.Play(GetAnimation(-1));
         }
@@ -70,8 +74,8 @@ public class CheckpointBehavior : MonoBehaviour {
 
         if (_animator != null) {
             _animator.Play(GetAnimation(1));
-            _saveFileHandler.checkpointPosition = _respawnPoint.position;
-            _saveFileHandler.checkpointID = ID;
+            _GM.SOSaveHandler.CheckpointPosition = _respawnPoint.position;
+            _GM.SOSaveHandler.CheckpointID = ID;
             GetComponent<AudioSource>().Play();
         }
     }

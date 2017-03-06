@@ -178,6 +178,12 @@ public class ControllableObject : MonoBehaviour {
         }
     }
 
+    public void SetButtonPressed(Buttons button) {
+        if (buttonStates.ContainsKey(button)) {
+            buttonStates[button].IsPressed = true;
+        }
+    }
+
     private short GetAimDirectionAngle(byte key) {
         return _aimDirections[key];
     }

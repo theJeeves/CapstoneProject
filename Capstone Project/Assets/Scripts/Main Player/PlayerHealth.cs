@@ -32,11 +32,10 @@ public class PlayerHealth : MonoBehaviour {
     private ScreenShakeRequest _scrnShkRequest;         // Screenshake request to show damage has been done to the player.
 
     [Space]
-    [Header("Save File")]
-    [SerializeField]
-    private SOSaveFile _SOSaveHandler;                 // Reference to the checkpoint system. This is where the player will respawn on death.
+    [Header("Game State")]
     [SerializeField]
     private SOWeaponManager _SOWeaponManager;
+    private GameManager _GM;                 // Reference to the checkpoint system. This is where the player will respawn on death.
 
     [Space]
     [Header("Body Parts")]
@@ -68,6 +67,7 @@ public class PlayerHealth : MonoBehaviour {
     }
 
     private void OnEnable() {
+        _GM = GameManager.Instance;
         _effectPositions = GetComponentsInChildren<Transform>();
 
         _inputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<InputManager>();
@@ -113,17 +113,17 @@ public class PlayerHealth : MonoBehaviour {
 
             if (Time.time - _timer > 1.0f) {
 
-                transform.position = _SOSaveHandler.checkpointPosition;
+                transform.position = _GM.SOSaveHandler.CheckpointPosition;
                 GetComponent<PlayerMovementManager>().ClearQueue();
 
-                if (Camera.main.WorldToViewportPoint(_SOSaveHandler.checkpointPosition).x > 0.1f &&
-                    Camera.main.WorldToViewportPoint(_SOSaveHandler.checkpointPosition).x < 0.9f) {
+                if (Camera.main.WorldToViewportPoint(_GM.SOSaveHandler.CheckpointPosition).x > 0.1f &&
+                    Camera.main.WorldToViewportPoint(_GM.SOSaveHandler.CheckpointPosition).x < 0.9f) {
 
                     // Delay the player from any input for 1.5 seconds to ensure they do not immediate fly to their death
                     // Call the respawn effect and restore all the default values for the player.
                     _inputManager.PauseInput(1.25f);
                     GetComponent<Rigidbody2D>().gravityScale = 40.0f;
-                    _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _SOSaveHandler.checkpointPosition);
+                    _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _GM.SOSaveHandler.CheckpointPosition);
                     _SOWeaponManager.Reload();
                     _health = _maxHealth;
                     _playerBody.SetActive(true);

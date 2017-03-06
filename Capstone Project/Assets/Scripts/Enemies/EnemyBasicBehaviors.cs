@@ -18,6 +18,9 @@ public enum EnemyType {
 
 public class EnemyBasicBehaviors : MonoBehaviour {
 
+    public delegate void EnemyBasicBehaviorEvent(EnemyType type);
+    public static event EnemyBasicBehaviorEvent OnDeath;
+
     public EnemyType enemyType;
     [SerializeField]
     private float _maxHealth;
@@ -129,6 +132,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
                     _SOEffectHandler.PlayEffect(EffectEnums.SwarmerDeathExplosion, transform.position); break;
             }
       
+            if (OnDeath != null) { OnDeath(enemyType); }
             DeployBodyParts();
             Destroy(gameObject);
         }
