@@ -9,12 +9,6 @@ public class EndOfLevel : MonoBehaviour {
     [SerializeField]
     private int _nextLevel = -1;
 
-    private SOSaveFile _SOSaveHandler;
-
-    private void OnEnable() {
-        _SOSaveHandler = Resources.Load("ScriptableObjects/PlayerSaveFile", typeof(SOSaveFile)) as SOSaveFile;
-    }
-
     private void OnTriggerEnter2D(Collider2D otherGO) {
 
         if (otherGO.tag == "Player") {

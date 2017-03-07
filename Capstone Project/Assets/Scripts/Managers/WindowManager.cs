@@ -42,6 +42,7 @@ public class WindowManager : Singleton<WindowManager> {
 
         // In Game
         EndOfLevel.OnLevelComplete += ToggleWindows;
+        EndLevelWindow.OnContinue += ToggleWindows;
     }
 
     private void OnDisable() {
@@ -62,6 +63,7 @@ public class WindowManager : Singleton<WindowManager> {
 
         // In Game
         EndOfLevel.OnLevelComplete -= ToggleWindows;
+        EndLevelWindow.OnContinue -= ToggleWindows;
     }
 
     private void Update() {
@@ -78,7 +80,7 @@ public class WindowManager : Singleton<WindowManager> {
         else if (close == WindowIDs.StatsWindow && open == WindowIDs.StartWindow) { StartCoroutine(StatsToStartTransition()); }
 
         // CHECK TO SEE WHEN THE TITLE SHOULD BE DISPLAYED OR NOT
-        if (open == WindowIDs.None) { _title.enabled = false; }
+        if (open == WindowIDs.None || open == WindowIDs.EndOfLevelWindow) { _title.enabled = false; }
         else { if (!_title.enabled) _title.enabled = true; }
 
 

@@ -7,8 +7,8 @@ public enum WindowIDs {
     LevelSelectWindow = 1,
     StatsWindow = 2,
     CreditsWindow = 3,
-    QuitWindow = 4,
-    EndOfLevelWindow = 5,
+    EndOfLevelWindow = 4,
+    QuitWindow = 5,
     None = -1
 }
 

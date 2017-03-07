@@ -79,25 +79,28 @@ public class InputAxisState {
     }
 }
 
-public class InputManager : MonoBehaviour {
+public class InputManager : Singleton<InputManager> {
 
     [SerializeField]
     private ControllableObject _player;             //Which GameObject we will be processing input for
-
-    [Space]
-    [Header("DUALSHOCK INPUTS")]
     [SerializeField]
-    private InputAxisState[] _DSInputs;               // An array of all the inputs which can be used by the player
-
-    [Space]
-    [Header("XBOX INPUTS")]
+    private SOInputType _DS4Inputs;
     [SerializeField]
-    private InputAxisState[] _XBOXInputs;
+    private SOInputType _XBOXInputs;
 
     private int controllerType = -1;
     private bool _canTakeInput = true;
+    private bool _limitedTime = true;
     private float _pauseDuration = 0.0f;
     private float _timer = 0.0f;
+
+    protected override void Awake() {
+
+        _DS4Inputs = Resources.Load("Inputs/DualShock 4", typeof(SOInputType)) as SOInputType;
+        _XBOXInputs = Resources.Load("Inputs/Xbox One", typeof(SOInputType)) as SOInputType;
+
+        base.Awake();
+    }
 
 
     private void Start() {
@@ -117,11 +120,11 @@ public class InputManager : MonoBehaviour {
     // Update is called once per frame
     private void Update() {
 
-        if (_player == null) {
+        if (GameObject.FindGameObjectWithTag("Player") != null) {
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
         }
 
-        if (!_canTakeInput) {
+        if (!_canTakeInput && _limitedTime) {
             _timer = _timer > 0.0f ? _timer : Time.time;
 
             if (Time.time - _timer > _pauseDuration) {
@@ -130,25 +133,27 @@ public class InputManager : MonoBehaviour {
             }
         }
 
-        // Depending on the controller type, run through all the inputs and check if any of the
-        // button states has changed.
-        if (controllerType == 0) {
-            foreach (InputAxisState input in _DSInputs) {
-                if (_canTakeInput) {
-                    _player.SetButtonState(input.Button, input.IsPressed);
-                }
-                else {
-                    _player.SetButtonState(input.Button, false);
+        if (_player != null) {
+            // Depending on the controller type, run through all the inputs and check if any of the
+            // button states has changed.
+            if (controllerType == 0) {
+                foreach (InputAxisState input in _DS4Inputs.inputs) {
+                    if (_canTakeInput) {
+                        _player.SetButtonState(input.Button, input.IsPressed);
+                    }
+                    else {
+                        _player.SetButtonState(input.Button, false);
+                    }
                 }
             }
-        }
-        else {
-            foreach (InputAxisState input in _XBOXInputs) {
-                if (_canTakeInput) {
-                    _player.SetButtonState(input.Button, input.IsPressed);
-                }
-                else {
-                    _player.SetButtonState(input.Button, false);
+            else {
+                foreach (InputAxisState input in _XBOXInputs.inputs) {
+                    if (_canTakeInput) {
+                        _player.SetButtonState(input.Button, input.IsPressed);
+                    }
+                    else {
+                        _player.SetButtonState(input.Button, false);
+                    }
                 }
             }
         }
@@ -156,6 +161,17 @@ public class InputManager : MonoBehaviour {
 
     public void PauseInput(float pauseDuration) {
         _pauseDuration = pauseDuration;
+        _limitedTime = true;
         _canTakeInput = false;
+    }
+
+    public void StopInput() {
+        _canTakeInput = false;
+        _limitedTime = false;
+    }
+
+    public void StartInput() {
+        _canTakeInput = true;
+        _limitedTime = true;
     }
 }

@@ -4,6 +4,9 @@ using System.Collections;
 [CreateAssetMenu(menuName ="SO Save File/New SO Save File")]
 public class SOSaveFile : ScriptableObject {
 
+    [SerializeField]
+    private Vector3[] _startingPositions;
+
     public int CurrentLevel {
        get { return PlayerPrefs.GetInt("currentLevel"); }
         set { PlayerPrefs.SetInt("currentLevel", value); }
@@ -85,7 +88,7 @@ public class SOSaveFile : ScriptableObject {
     public void NewGame() {
         CurrentLevel = 1;
         CheckpointID = 0;
-        CheckpointPosition = new Vector3(-5350.0f, 95.0f, 0.0f);
+        CheckpointPosition = _startingPositions[0];
         DeathCount = 0;
         CurrentDeathCount = 0;
         CurrentShotsFired = 0;
@@ -96,5 +99,13 @@ public class SOSaveFile : ScriptableObject {
         FlyingVectorsKilled = 0;
         SnipersKilled = 0;
         ChargersKilled = 0;
+    }
+
+    public void NextLevel() {
+        CurrentLevel += 1;
+        CheckpointID = 0;
+        CheckpointPosition = _startingPositions[CurrentLevel - 1];
+        CurrentDeathCount = 0;
+        CurrentShotsFired = 0;
     }
 }

@@ -72,7 +72,7 @@ public class PlayerHealth : MonoBehaviour {
         _GM = GameManager.Instance;
         _effectPositions = GetComponentsInChildren<Transform>();
 
-        _inputManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<InputManager>();
+        _inputManager = InputManager.Instance;
         _movementManager = GetComponent<PlayerMovementManager>();
         _collisionState = GetComponent<PlayerCollisionState>();
     }
