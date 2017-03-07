@@ -8,8 +8,8 @@ public class WindowManager : Singleton<WindowManager> {
     private Image _title;
     [SerializeField]
     private WindowIDs _defaultWindowID;
-    [SerializeField]
-    private WindowIDs _currentWindowID;
+
+    public WindowIDs currentWindowID;
 
     [SerializeField]
     private GenericWindow[] windows;
@@ -20,7 +20,7 @@ public class WindowManager : Singleton<WindowManager> {
     protected override void Awake() {
         _GM = GameManager.Instance;
         _camera = Camera.main;
-        ToggleWindows(WindowIDs.None, WindowIDs.StartWindow);
+        currentWindowID = WindowIDs.None;
         DontDestroyOnLoad(gameObject);
     }
 
@@ -70,7 +70,7 @@ public class WindowManager : Singleton<WindowManager> {
         
     }
 
-    private void ToggleWindows(WindowIDs close, WindowIDs open) {
+    public void ToggleWindows(WindowIDs close, WindowIDs open) {
 
         // Stop all coroutines so there is no ambiguity as to which window should be shown
         StopAllCoroutines();
@@ -86,9 +86,9 @@ public class WindowManager : Singleton<WindowManager> {
 
         // ACTUAL OPENING CLOSING WINDOWS
         if (close != WindowIDs.None) { windows[(int)close].Close(); }
-        _currentWindowID = open;
+        currentWindowID = open;
 
-        if (_currentWindowID != WindowIDs.None) { windows[(int)_currentWindowID].Open(); }
+        if (currentWindowID != WindowIDs.None) { windows[(int)currentWindowID].Open(); }
     }
 
     private IEnumerator StartToStatsTransition() {
