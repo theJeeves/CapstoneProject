@@ -1,8 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
 
 public class WindowManager : Singleton<WindowManager> {
 
+    [SerializeField]
+    private Image _title;
     [SerializeField]
     private WindowIDs _defaultWindowID;
     [SerializeField]
@@ -18,6 +21,7 @@ public class WindowManager : Singleton<WindowManager> {
         _GM = GameManager.Instance;
         _camera = Camera.main;
         ToggleWindows(WindowIDs.None, WindowIDs.StartWindow);
+        DontDestroyOnLoad(gameObject);
     }
 
     private void OnEnable() {
@@ -35,6 +39,9 @@ public class WindowManager : Singleton<WindowManager> {
         StatsWindow.OnBack += ToggleWindows;
 
         // Credits
+
+        // In Game
+        EndOfLevel.OnLevelComplete += ToggleWindows;
     }
 
     private void OnDisable() {
@@ -52,6 +59,9 @@ public class WindowManager : Singleton<WindowManager> {
         StatsWindow.OnBack -= ToggleWindows;
 
         // Credits
+
+        // In Game
+        EndOfLevel.OnLevelComplete -= ToggleWindows;
     }
 
     private void Update() {
@@ -67,6 +77,12 @@ public class WindowManager : Singleton<WindowManager> {
         if (close == WindowIDs.StartWindow && open == WindowIDs.StatsWindow) { StartCoroutine(StartToStatsTransition()); }
         else if (close == WindowIDs.StatsWindow && open == WindowIDs.StartWindow) { StartCoroutine(StatsToStartTransition()); }
 
+        // CHECK TO SEE WHEN THE TITLE SHOULD BE DISPLAYED OR NOT
+        if (open == WindowIDs.None) { _title.enabled = false; }
+        else { if (!_title.enabled) _title.enabled = true; }
+
+
+        // ACTUAL OPENING CLOSING WINDOWS
         if (close != WindowIDs.None) { windows[(int)close].Close(); }
         _currentWindowID = open;
 

@@ -15,6 +15,8 @@ public class StartWindow : GenericWindow {
     [SerializeField]
     private Button _continueButton;
 
+    public Image _title;
+
     protected override void OnEnable() {
         base.OnEnable();
     }
@@ -32,6 +34,10 @@ public class StartWindow : GenericWindow {
         }
 
         base.Open();
+    }
+
+    public override void Close() {
+        base.Close();
     }
 
     public void Continue() {

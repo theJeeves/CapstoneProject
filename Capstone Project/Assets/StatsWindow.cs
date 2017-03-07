@@ -10,9 +10,6 @@ public class StatsWindow : GenericWindow {
     private SOSaveFile _SOSaveHandler;
     private Text[] _stats;
 
-    private GameObject _statsBox1;
-    private GameObject _statsBox2;
-
     protected override void OnEnable() {
         base.OnEnable();
 

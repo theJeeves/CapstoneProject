@@ -7,6 +7,7 @@ public class GameManager : Singleton<GameManager> {
     public SOSaveFile SOSaveHandler;
     public SOEffects SOEffectHandler;
 
+    private WindowManager _WM;
     private GameObject _player;
     private bool _inGame = false;
 
@@ -35,6 +36,9 @@ public class GameManager : Singleton<GameManager> {
 
         // Enemy Death Events
         EnemyBasicBehaviors.OnDeath += OnEnemyDeath;
+
+        // LEVEL COMPLETED
+        //EndOfLevel.OnLevelComplete += OnLevelComplete;
     }
 
     private void OnDisable() {
@@ -51,6 +55,9 @@ public class GameManager : Singleton<GameManager> {
 
         // Enemy Death Events
         EnemyBasicBehaviors.OnDeath -= OnEnemyDeath;
+
+        // LEVEL COMPLETED
+        //EndOfLevel.OnLevelComplete -= OnLevelComplete;
     }
 
     private void OnContinue(WindowIDs ignore1, WindowIDs ignore2) {
@@ -60,6 +67,9 @@ public class GameManager : Singleton<GameManager> {
     private void OnNewGame(WindowIDs ignore1, WindowIDs ignore2) {
         SOSaveHandler.NewGame();
         SceneManager.LoadScene(1);
+    }
+
+    private void OnLevelComplete() {
     }
 
     private void OnLevelWasLoaded(int level) {
@@ -91,7 +101,7 @@ public class GameManager : Singleton<GameManager> {
 
     // Add to the counter for every time the player dies
     private void OnPlayerDeath() {
-        SOSaveHandler.DeathCount += 1;
+        SOSaveHandler.CurrentDeathCount += 1;
     }
 
     // Add to the counter for every kill the player makes
@@ -112,9 +122,11 @@ public class GameManager : Singleton<GameManager> {
 
     private void OnShotgunFired() {
         SOSaveHandler.JouleShots += 1;
+        SOSaveHandler.CurrentShotsFired += 1;
     }
 
     private void OnMachineGunFired() {
         SOSaveHandler.PersuaderShots += 1;
+        SOSaveHandler.CurrentShotsFired += 1;
     }
 }

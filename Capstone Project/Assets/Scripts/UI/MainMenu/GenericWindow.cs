@@ -8,6 +8,7 @@ public enum WindowIDs {
     StatsWindow = 2,
     CreditsWindow = 3,
     QuitWindow = 4,
+    EndOfLevelWindow = 5,
     None = -1
 }
 

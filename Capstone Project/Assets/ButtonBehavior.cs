@@ -3,7 +3,7 @@ using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandler, IPointerEnterHandler, IPointerExitHandler {
+public class ButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandler/*, IPointerEnterHandler, IPointerExitHandler*/ {
 
     private Text _text;
 
@@ -19,11 +19,11 @@ public class ButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandler, I
         _text.color = Color.black;
     }
 
-    public void OnPointerEnter(PointerEventData data) {
-        _text.color = Color.cyan;
-    }
+    //public void OnPointerEnter(PointerEventData data) {
+    //    _text.color = Color.cyan;
+    //}
 
-    public void OnPointerExit(PointerEventData data) {
-        _text.color = Color.black;
-    }
+    //public void OnPointerExit(PointerEventData data) {
+    //    _text.color = Color.black;
+    //}
 }
