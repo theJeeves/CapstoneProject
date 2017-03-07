@@ -12,6 +12,7 @@ public class MachineGun : AbstractGun {
     public static event AbstractGunEvent3 StartReloadAnimation;
     public static event AbstractGunEvent UpdateNumOfRounds;
     public static event AbstractGunEvent2 DisplayAmmo;
+    public static event AbstractGunEvent2 ShotFired;
 
     [SerializeField]
     private MovementRequest _initialMoveRequest;
@@ -147,6 +148,8 @@ public class MachineGun : AbstractGun {
             Lift();
             _SSRequest.ShakeRequest();
             _timer = Time.time;
+
+            if (ShotFired != null) { ShotFired(); }     // this is here to tell the save file another shot is fired and to record it.
         }
     }
 

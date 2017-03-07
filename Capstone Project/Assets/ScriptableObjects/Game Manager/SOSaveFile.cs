@@ -38,7 +38,7 @@ public class SOSaveFile : ScriptableObject {
     }
 
     public int TotalShotsFired {
-        get { return PlayerPrefs.GetInt("persuaderShots") + PlayerPrefs.GetInt("restrikerShots"); }
+        get { return PlayerPrefs.GetInt("persuaderShots") + PlayerPrefs.GetInt("jouleShots"); }
     }
 
     public int AcidVectorsKilled {
@@ -64,6 +64,12 @@ public class SOSaveFile : ScriptableObject {
     public int ChargersKilled {
         get { return PlayerPrefs.GetInt("chargersKilled"); }
         set { PlayerPrefs.SetInt("chargersKilled", value); }
+    }
+
+    public int TotalEnemiesKilled {
+        get { return PlayerPrefs.GetInt("acidVectorsKilled") + PlayerPrefs.GetInt("explosiveVectorsKilled") + PlayerPrefs.GetInt("flyingVectorsKilled") +
+                PlayerPrefs.GetInt("snipersKilled") + PlayerPrefs.GetInt("chargersKilled");
+        }
     }
 
     public void NewGame() {

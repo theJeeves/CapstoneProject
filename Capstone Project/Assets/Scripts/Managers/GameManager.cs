@@ -26,6 +26,13 @@ public class GameManager : Singleton<GameManager> {
         StartWindow.OnContinue += OnContinue;
         StartWindow.OnNewGame += OnNewGame;
 
+        // Player Death Event
+        PlayerHealth.OnPlayerDeath += OnPlayerDeath;
+
+        // Gun Events
+        Shotgun.ShotFired += OnShotgunFired;
+        MachineGun.ShotFired += OnMachineGunFired;
+
         // Enemy Death Events
         EnemyBasicBehaviors.OnDeath += OnEnemyDeath;
     }
@@ -34,6 +41,13 @@ public class GameManager : Singleton<GameManager> {
         // Start Window Events
         StartWindow.OnContinue -= OnContinue;
         StartWindow.OnNewGame -= OnNewGame;
+
+        // Player Death Event
+        PlayerHealth.OnPlayerDeath -= OnPlayerDeath;
+
+        // Gun Events
+        Shotgun.ShotFired -= OnShotgunFired;
+        MachineGun.ShotFired -= OnMachineGunFired;
 
         // Enemy Death Events
         EnemyBasicBehaviors.OnDeath -= OnEnemyDeath;
@@ -75,19 +89,32 @@ public class GameManager : Singleton<GameManager> {
         _player.transform.position = SOSaveHandler.CheckpointPosition;
     }
 
+    // Add to the counter for every time the player dies
+    private void OnPlayerDeath() {
+        SOSaveHandler.DeathCount += 1;
+    }
+
     // Add to the counter for every kill the player makes
     private void OnEnemyDeath(EnemyType type) {
         switch (type) {
             case EnemyType.AcidSwarmer:
-                SOSaveHandler.AcidVectorsKilled = SOSaveHandler.AcidVectorsKilled + 1; break;
+                SOSaveHandler.AcidVectorsKilled += 1; break;
             case EnemyType.ExplodingSwamer:
-                SOSaveHandler.ExplosiveVectorsKilled = SOSaveHandler.ExplosiveVectorsKilled + 1; break;
+                SOSaveHandler.ExplosiveVectorsKilled += 1; break;
             case EnemyType.Flying:
-                SOSaveHandler.FlyingVectorsKilled = SOSaveHandler.FlyingVectorsKilled + 1; break;
+                SOSaveHandler.FlyingVectorsKilled += 1; break;
             case EnemyType.Sniper:
-                SOSaveHandler.SnipersKilled = SOSaveHandler.SnipersKilled + 1; break;
+                SOSaveHandler.SnipersKilled += 1; break;
             case EnemyType.Charger:
-                SOSaveHandler.ChargersKilled = SOSaveHandler.ChargersKilled + 1; break;
+                SOSaveHandler.ChargersKilled += 1; break;
         }
+    }
+
+    private void OnShotgunFired() {
+        SOSaveHandler.JouleShots += 1;
+    }
+
+    private void OnMachineGunFired() {
+        SOSaveHandler.PersuaderShots += 1;
     }
 }

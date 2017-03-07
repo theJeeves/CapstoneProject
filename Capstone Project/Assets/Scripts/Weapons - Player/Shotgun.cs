@@ -15,6 +15,7 @@ public class Shotgun : AbstractGun {
     public static event AbstractGunEvent3 StartReloadAnimation;
     public static event AbstractGunEvent UpdateNumOfRounds;
     public static event AbstractGunEvent2 DisplayAmmo;
+    public static event AbstractGunEvent2 ShotFired;
 
     protected override void Awake() {
         base.Awake();
@@ -159,6 +160,8 @@ public class Shotgun : AbstractGun {
         }
 
         _SOEffectHandler.PlayEffect(EffectEnums.ShotgunBlast, _barrelNorm.transform.position, _controller.AimDirection, _direction.x, _direction.y);
+
+        if (ShotFired != null) { ShotFired(); }     // this is here to tell the save file another shot is fired and to record it.
 
         yield return new WaitForSeconds(_shotDelay);
         _canShoot = true;

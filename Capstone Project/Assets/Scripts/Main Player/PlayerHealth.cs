@@ -11,7 +11,9 @@ public enum DamageEnum {
 public class PlayerHealth : MonoBehaviour {
 
     public delegate void PlayerHealthEvent(int _health);
+    public delegate void PlayerHealthEvent1();
     public static event PlayerHealthEvent UpdateHealth;
+    public static event PlayerHealthEvent1 OnPlayerDeath;
 
     [Header("Health Variables")]
     [SerializeField]
@@ -106,6 +108,7 @@ public class PlayerHealth : MonoBehaviour {
                 _deathAnimationPlayed = true;
                 DeployBodyParts();
                 _timer = Time.time;
+                if (OnPlayerDeath != null) { OnPlayerDeath(); }     // This tells the save file to add to the number of deaths.
             }
 
             GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
