@@ -20,8 +20,6 @@ public class GameManager : Singleton<GameManager> {
         SOSaveHandler = Resources.Load("ScriptableObjects/PlayerSaveFile", typeof(SOSaveFile)) as SOSaveFile;
         SOEffectHandler = Resources.Load("ScriptableObjects/SOEffectHandler", typeof(SOEffects)) as SOEffects;
 
-        _IM = InputManager.Instance;
-
         SOEffectHandler.LoadEffects();
     }
 
@@ -80,6 +78,9 @@ public class GameManager : Singleton<GameManager> {
 
     // Things to do when a level is loaded
     private void OnLevelWasLoaded(int level) {
+
+        if (level > 0) { _IM = InputManager.Instance; }
+        else { Destroy(_IM); }
 
         if (SOSaveHandler.CheckpointID == 0) {
             SpawnPlayer();

@@ -71,8 +71,6 @@ public class PlayerHealth : MonoBehaviour {
     private void OnEnable() {
         _GM = GameManager.Instance;
         _effectPositions = GetComponentsInChildren<Transform>();
-
-        _inputManager = InputManager.Instance;
         _movementManager = GetComponent<PlayerMovementManager>();
         _collisionState = GetComponent<PlayerCollisionState>();
     }
@@ -95,6 +93,8 @@ public class PlayerHealth : MonoBehaviour {
         if (_health <= 0) {
 
             if (!_deathAnimationPlayed) {
+
+                if (_inputManager == null) { _inputManager = InputManager.Instance; }
 
                 _playerBody.SetActive(false);
                 _inputManager.PauseInput(60.0f);
@@ -175,6 +175,7 @@ public class PlayerHealth : MonoBehaviour {
 
             // Tell the input manager to stop taking in input for 0.5 seconds
             // To ensure there are no conflicting movement requests, clear the player movement queue of all requests.
+            if (_inputManager == null) { _inputManager = InputManager.Instance; }
             _inputManager.PauseInput(0.5f);
             _movementManager.ClearQueue();
 
