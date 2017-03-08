@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class WindowManager : Singleton<WindowManager> {
 
@@ -8,20 +9,47 @@ public class WindowManager : Singleton<WindowManager> {
     private Image _title;
     [SerializeField]
     private WindowIDs _defaultWindowID;
-    [SerializeField]
-    private WindowIDs _currentWindowID;
+
+    public WindowIDs currentWindowID;
 
     [SerializeField]
     private GenericWindow[] windows;
 
     private GameManager _GM;
     private Camera _camera;
+    private int controllerType = -1;
 
     protected override void Awake() {
         _GM = GameManager.Instance;
         _camera = Camera.main;
-        ToggleWindows(WindowIDs.None, WindowIDs.StartWindow);
+        currentWindowID = WindowIDs.None;
         DontDestroyOnLoad(gameObject);
+
+        // Get a list of all availabe gamepads
+        string[] inputs = Input.GetJoystickNames();
+
+        // Determine if the player is using a Dualshock or Xbox controller
+        // Stop looking after the first one is found.
+        foreach (string input in inputs) {
+            if (input != "") {
+                controllerType = input == "Wireless Controller" ? 0 : 1;
+                break;
+            }
+        }
+
+        StandaloneInputModule eventSystem = GameObject.Find("EventSystem").GetComponent<StandaloneInputModule>();
+        if (controllerType == 0) {
+            eventSystem.horizontalAxis = "DS_DPAD_X";
+            eventSystem.verticalAxis = "DS_DPAD_Y";
+            eventSystem.submitButton = "DS_X";
+        }
+        else {
+            eventSystem.horizontalAxis = "XBOX_DPAD_X";
+            eventSystem.verticalAxis = "XBOX_DPAD_Y";
+            eventSystem.submitButton = "XBOX_A";
+        }
+
+        DontDestroyOnLoad(eventSystem);
     }
 
     private void OnEnable() {
@@ -70,7 +98,7 @@ public class WindowManager : Singleton<WindowManager> {
         
     }
 
-    private void ToggleWindows(WindowIDs close, WindowIDs open) {
+    public void ToggleWindows(WindowIDs close, WindowIDs open) {
 
         // Stop all coroutines so there is no ambiguity as to which window should be shown
         StopAllCoroutines();
@@ -86,9 +114,9 @@ public class WindowManager : Singleton<WindowManager> {
 
         // ACTUAL OPENING CLOSING WINDOWS
         if (close != WindowIDs.None) { windows[(int)close].Close(); }
-        _currentWindowID = open;
+        currentWindowID = open;
 
-        if (_currentWindowID != WindowIDs.None) { windows[(int)_currentWindowID].Open(); }
+        if (currentWindowID != WindowIDs.None) { windows[(int)currentWindowID].Open(); }
     }
 
     private IEnumerator StartToStatsTransition() {

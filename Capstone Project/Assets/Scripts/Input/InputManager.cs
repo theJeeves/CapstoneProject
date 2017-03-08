@@ -124,35 +124,37 @@ public class InputManager : Singleton<InputManager> {
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
         }
 
-        if (!_canTakeInput && _limitedTime) {
-            _timer = _timer > 0.0f ? _timer : Time.time;
+        if (Application.loadedLevel > 0) {
+            if (!_canTakeInput && _limitedTime) {
+                _timer = _timer > 0.0f ? _timer : Time.time;
 
-            if (Time.time - _timer > _pauseDuration) {
-                _canTakeInput = true;
-                _timer = 0.0f;
-            }
-        }
-
-        if (_player != null) {
-            // Depending on the controller type, run through all the inputs and check if any of the
-            // button states has changed.
-            if (controllerType == 0) {
-                foreach (InputAxisState input in _DS4Inputs.inputs) {
-                    if (_canTakeInput) {
-                        _player.SetButtonState(input.Button, input.IsPressed);
-                    }
-                    else {
-                        _player.SetButtonState(input.Button, false);
-                    }
+                if (Time.time - _timer > _pauseDuration) {
+                    _canTakeInput = true;
+                    _timer = 0.0f;
                 }
             }
-            else {
-                foreach (InputAxisState input in _XBOXInputs.inputs) {
-                    if (_canTakeInput) {
-                        _player.SetButtonState(input.Button, input.IsPressed);
+
+            if (_player != null) {
+                // Depending on the controller type, run through all the inputs and check if any of the
+                // button states has changed.
+                if (controllerType == 0) {
+                    foreach (InputAxisState input in _DS4Inputs.inputs) {
+                        if (_canTakeInput) {
+                            _player.SetButtonState(input.Button, input.IsPressed);
+                        }
+                        else {
+                            _player.SetButtonState(input.Button, false);
+                        }
                     }
-                    else {
-                        _player.SetButtonState(input.Button, false);
+                }
+                else {
+                    foreach (InputAxisState input in _XBOXInputs.inputs) {
+                        if (_canTakeInput) {
+                            _player.SetButtonState(input.Button, input.IsPressed);
+                        }
+                        else {
+                            _player.SetButtonState(input.Button, false);
+                        }
                     }
                 }
             }
