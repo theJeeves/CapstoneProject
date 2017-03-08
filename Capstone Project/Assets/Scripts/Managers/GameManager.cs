@@ -110,6 +110,7 @@ public class GameManager : Singleton<GameManager> {
         GameObject _player = Instantiate(Resources.Load("MainCharacter/MainCharacter", typeof(GameObject)) as GameObject, transform.position, Quaternion.identity) as GameObject;
         SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, SOSaveHandler.CheckpointPosition);
         _player.transform.position = SOSaveHandler.CheckpointPosition;
+        _IM.AssignPlayer(_player);
     }
 
     // Add to the counter for every time the player dies

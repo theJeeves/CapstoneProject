@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// This script allows a developer to define which buttons will be relavant to each Controllable GameObject.
@@ -99,6 +100,9 @@ public class InputManager : Singleton<InputManager> {
         _DS4Inputs = Resources.Load("Inputs/DualShock 4", typeof(SOInputType)) as SOInputType;
         _XBOXInputs = Resources.Load("Inputs/Xbox One", typeof(SOInputType)) as SOInputType;
 
+        _canTakeInput = Application.loadedLevel == 0 ? false : true;
+        _limitedTime = _canTakeInput;
+
         base.Awake();
     }
 
@@ -120,45 +124,45 @@ public class InputManager : Singleton<InputManager> {
     // Update is called once per frame
     private void Update() {
 
-        if (GameObject.FindGameObjectWithTag("Player") != null) {
-            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+        if (!_canTakeInput && _limitedTime) {
+            _timer = _timer > 0.0f ? _timer : Time.time;
+
+            if (Time.time - _timer > _pauseDuration) {
+                _canTakeInput = true;
+                _timer = 0.0f;
+            }
         }
 
-        if (Application.loadedLevel > 0) {
-            if (!_canTakeInput && _limitedTime) {
-                _timer = _timer > 0.0f ? _timer : Time.time;
-
-                if (Time.time - _timer > _pauseDuration) {
-                    _canTakeInput = true;
-                    _timer = 0.0f;
-                }
-            }
-
-            if (_player != null) {
-                // Depending on the controller type, run through all the inputs and check if any of the
-                // button states has changed.
-                if (controllerType == 0) {
-                    foreach (InputAxisState input in _DS4Inputs.inputs) {
-                        if (_canTakeInput) {
-                            _player.SetButtonState(input.Button, input.IsPressed);
-                        }
-                        else {
-                            _player.SetButtonState(input.Button, false);
-                        }
+        if (_player != null) {
+            // Depending on the controller type, run through all the inputs and check if any of the
+            // button states has changed.
+            if (controllerType == 0) {
+                foreach (InputAxisState input in _DS4Inputs.inputs) {
+                    if (_canTakeInput) {
+                        _player.SetButtonState(input.Button, input.IsPressed);
+                    }
+                    else {
+                        _player.SetButtonState(input.Button, false);
                     }
                 }
-                else {
-                    foreach (InputAxisState input in _XBOXInputs.inputs) {
-                        if (_canTakeInput) {
-                            _player.SetButtonState(input.Button, input.IsPressed);
-                        }
-                        else {
-                            _player.SetButtonState(input.Button, false);
-                        }
+            }
+            else {
+                foreach (InputAxisState input in _XBOXInputs.inputs) {
+                    if (_canTakeInput) {
+                        _player.SetButtonState(input.Button, input.IsPressed);
+                    }
+                    else {
+                        _player.SetButtonState(input.Button, false);
                     }
                 }
             }
         }
+    }
+
+    public void AssignPlayer(GameObject player) {
+        _player = player.GetComponent<ControllableObject>();
+        _canTakeInput = true;
+        _limitedTime = true;
     }
 
     public void PauseInput(float pauseDuration) {
