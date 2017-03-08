@@ -28,8 +28,8 @@ public class Singleton<Type> : MonoBehaviour where Type : MonoBehaviour {
             _instance = this as Type;
             DontDestroyOnLoad(gameObject);
         }
-        else {
-            Destroy(gameObject);
-        }
+        //else {
+        //    Destroy(gameObject);
+        //}
     }
 }
