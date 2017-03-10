@@ -29,6 +29,6 @@ public class EndLevelWindow : GenericWindow {
     }
 
     public void BackToMainButton() {
-        if (OnBackToMain != null) { OnBackToMain(WindowIDs.EndOfLevelWindow, WindowIDs.None); }
+        if (OnBackToMain != null) { OnBackToMain(WindowIDs.EndOfLevelWindow, WindowIDs.StartWindow); }
     }
 }

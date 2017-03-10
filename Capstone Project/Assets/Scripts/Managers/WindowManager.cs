@@ -20,7 +20,7 @@ public class WindowManager : Singleton<WindowManager> {
     private int controllerType = -1;
 
     protected override void Awake() {
-        _GM = GameManager.Instance;
+        _GM = GameManager.Instance.GetComponent<GameManager>(); ;
         _camera = Camera.main;
         currentWindowID = WindowIDs.None;
         DontDestroyOnLoad(gameObject);
@@ -37,7 +37,7 @@ public class WindowManager : Singleton<WindowManager> {
             }
         }
 
-        StandaloneInputModule eventSystem = GameObject.Find("EventSystem").GetComponent<StandaloneInputModule>();
+        StandaloneInputModule eventSystem = EventSystemSingleton.Instance.GetComponent<StandaloneInputModule>();
         if (controllerType == 0) {
             eventSystem.horizontalAxis = "DS_DPAD_X";
             eventSystem.verticalAxis = "DS_DPAD_Y";
@@ -121,6 +121,8 @@ public class WindowManager : Singleton<WindowManager> {
 
     private IEnumerator StartToStatsTransition() {
         float _timer = Time.time;
+        if (_camera == null) { _camera = Camera.main; }
+
         while(_camera.transform.position.y > -17.0f) {
             _camera.transform.position = new Vector3(_camera.transform.position.x, Mathf.SmoothStep(_camera.transform.position.y, -17.0f, (Time.time - _timer) / 2.5f), _camera.transform.position.z);
             yield return 0;
@@ -129,6 +131,8 @@ public class WindowManager : Singleton<WindowManager> {
 
     private IEnumerator StatsToStartTransition() {
         float _timer = Time.time;
+        if (_camera == null) { _camera = Camera.main; }
+
         while (_camera.transform.position.y < 0.0f) {
             _camera.transform.position = new Vector3(_camera.transform.position.x, Mathf.SmoothStep(_camera.transform.position.y, 0.0f, (Time.time - _timer) / 2.5f), _camera.transform.position.z);
             yield return 0;

@@ -238,7 +238,7 @@ GameObject:
   - 114: {fileID: 114000013919374066}
   m_Layer: 5
   m_Name: WindowManager
-  m_TagString: Untagged
+  m_TagString: WindowManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3435,7 +3435,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _title: {fileID: 114000012290595930}
   _defaultWindowID: 0
-  _currentWindowID: 0
+  currentWindowID: 0
   windows:
   - {fileID: 114000012145844580}
   - {fileID: 114000010037178842}

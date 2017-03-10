@@ -22,9 +22,9 @@ public class GenericWindow : MonoBehaviour {
     protected EventSystem _ES;
 
     protected virtual void OnEnable() {
-        _GM = GameManager.Instance;
-        _WM = WindowManager.Instance;
-        _ES = GameObject.Find("EventSystem").GetComponent<EventSystem>();
+        _GM = GameManager.Instance.GetComponent<GameManager>();
+        _WM = WindowManager.Instance.GetComponent<WindowManager>();
+        _ES = EventSystemSingleton.Instance.GetComponent<EventSystem>();
     }
 
     public virtual void Select() {

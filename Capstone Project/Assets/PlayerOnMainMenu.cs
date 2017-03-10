@@ -22,6 +22,11 @@ public class PlayerOnMainMenu : MonoBehaviour {
     private void OnEnable() {
         _collisionState = GetComponent<PlayerCollisionState>();
         _controller = GetComponent<ControllableObject>();
+
+        // START THE GAME MANAGER, WINDOW MANAGER, AND THE EVENT SYSTEM
+        GameManager GM = GameManager.Instance.GetComponent<GameManager>() ;
+        WindowManager WM = WindowManager.Instance.GetComponent<WindowManager>();
+        EventSystemSingleton ESS = EventSystemSingleton.Instance.GetComponent<EventSystemSingleton>();
     }
 
     private void Update() {

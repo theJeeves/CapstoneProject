@@ -3,18 +3,17 @@ using System.Collections;
 
 public class Singleton<Type> : MonoBehaviour where Type : MonoBehaviour {
 
-    private static Type _instance;
+    private static GameObject _instance;
 
-    public static Type Instance {
+    public static GameObject Instance {
         get {
             // If the instance is null, look to see if there is already an instance in the scene.
             if (_instance == null) {
-                _instance = GameObject.FindObjectOfType<Type>();
-
+                _instance = GameObject.FindGameObjectWithTag(typeof(Type).Name);
+           
                 // If an instance could not be found, create one.
                 if (_instance == null) {
-                    GameObject singleton = new GameObject(typeof(Type).Name);
-                    _instance = singleton.AddComponent<Type>();
+                    _instance = Instantiate(Resources.Load("Managers/" + typeof(Type).Name, typeof(GameObject)) as GameObject, Vector3.zero, Quaternion.identity) as GameObject;
                 }
             }
             return _instance;
@@ -25,11 +24,8 @@ public class Singleton<Type> : MonoBehaviour where Type : MonoBehaviour {
 
         // If there is already an instance in the scene, destory everything else.
         if (_instance == null) {
-            _instance = this as Type;
+            _instance = GameObject.FindGameObjectWithTag(typeof(Type).Name);
             DontDestroyOnLoad(gameObject);
         }
-        //else {
-        //    Destroy(gameObject);
-        //}
     }
 }

@@ -23,7 +23,7 @@ public class CheckpointBehavior : MonoBehaviour {
     private bool _activated = false;                // Determines if the player has reached hit a given checkpoint
 
     private void OnEnable() {
-        _GM = GameManager.Instance;
+        _GM = GameManager.Instance.GetComponent<GameManager>();
     }
 
     private void Update() {
@@ -76,6 +76,7 @@ public class CheckpointBehavior : MonoBehaviour {
             _animator.Play(GetAnimation(1));
             _GM.SOSaveHandler.CheckpointPosition = _respawnPoint.position;
             _GM.SOSaveHandler.CheckpointID = ID;
+            _GM.SOSaveHandler.CurrentLevel = currentLevel;
             GetComponent<AudioSource>().Play();
         }
     }

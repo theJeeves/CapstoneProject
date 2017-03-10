@@ -20,8 +20,8 @@ public class GameManager : Singleton<GameManager> {
         SOSaveHandler = Resources.Load("ScriptableObjects/PlayerSaveFile", typeof(SOSaveFile)) as SOSaveFile;
         SOEffectHandler = Resources.Load("ScriptableObjects/SOEffectHandler", typeof(SOEffects)) as SOEffects;
 
-        _IM = InputManager.Instance;
-        _WM = WindowManager.Instance;
+        _IM = InputManager.Instance.GetComponent<InputManager>();
+        _WM = WindowManager.Instance.GetComponent<WindowManager>();
 
         SOEffectHandler.LoadEffects();
 
@@ -48,6 +48,7 @@ public class GameManager : Singleton<GameManager> {
         // LEVEL COMPLETED
         EndOfLevel.OnLevelComplete += OnLevelComplete;
         EndLevelWindow.OnContinue += OnLoadNextLevel;
+        EndLevelWindow.OnBackToMain += OnBackToMain;
     }
 
     private void OnDisable() {
@@ -68,6 +69,7 @@ public class GameManager : Singleton<GameManager> {
         // LEVEL COMPLETED
         EndOfLevel.OnLevelComplete -= OnLevelComplete;
         EndLevelWindow.OnContinue -= OnLoadNextLevel;
+        EndLevelWindow.OnBackToMain += OnBackToMain;
     }
 
     private void OnContinue(WindowIDs ignore1, WindowIDs ignore2) {
@@ -83,19 +85,31 @@ public class GameManager : Singleton<GameManager> {
         _IM.StopInput();
     }
 
+    private void OnBackToMain(WindowIDs close, WindowIDs open ) {
+
+        _WM.ToggleWindows(close, open);
+        SceneManager.LoadScene(0);
+    }
+
     // Things to do when a level is loaded
     private void OnLevelWasLoaded(int level) {
 
-        if (SOSaveHandler.CheckpointID == 0) {
-            SpawnPlayer();
+        if (level == 0) {
+            _WM.ToggleWindows(WindowIDs.None, WindowIDs.StartWindow);
         }
-        else {
-            SpawnPlayer();
-            GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
-            foreach(GameObject ckpt in checkpoints) {
 
-                if (ckpt.GetComponent<CheckpointBehavior>().ID == SOSaveHandler.CheckpointID) {
-                    ckpt.GetComponent<CheckpointBehavior>().Activate();
+        if (level != 0) {
+            if (SOSaveHandler.CheckpointID == 0) {
+                SpawnPlayer();
+            }
+            else {
+                SpawnPlayer();
+                GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+                foreach (GameObject ckpt in checkpoints) {
+
+                    if (ckpt.GetComponent<CheckpointBehavior>().ID == SOSaveHandler.CheckpointID) {
+                        ckpt.GetComponent<CheckpointBehavior>().Activate();
+                    }
                 }
             }
         }
