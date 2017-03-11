@@ -90,7 +90,7 @@ public class InputManager : Singleton<InputManager> {
     private SOInputType _XBOXInputs;
 
     private int controllerType = -1;
-    private bool _canTakeInput = true;
+    public bool _canTakeInput = true;
     private bool _limitedTime = true;
     private float _pauseDuration = 0.0f;
     private float _timer = 0.0f;
@@ -123,6 +123,10 @@ public class InputManager : Singleton<InputManager> {
 
     // Update is called once per frame
     private void Update() {
+
+        if (_player == null) {
+            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+        }
 
         if (!_canTakeInput && _limitedTime) {
             _timer = _timer > 0.0f ? _timer : Time.time;
