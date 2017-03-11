@@ -40,18 +40,22 @@ public class SOSaveFile : ScriptableObject {
         set { PlayerPrefs.SetInt("persuaderShots", value); }
     }
 
+    public int InProgressPersuaderShots {
+        get { return PlayerPrefs.GetInt("inprogresspersuaderShots"); }
+        set { PlayerPrefs.SetInt("inprogresspersuaderShots", value); }
+    }
+
     public int JouleShots {
         get { return PlayerPrefs.GetInt("jouleShots"); }
         set { PlayerPrefs.SetInt("jouleShots", value); }
     }
+    public int InProgressJouleShots {
+        get { return PlayerPrefs.GetInt("inprogressjouleShots"); }
+        set { PlayerPrefs.SetInt("inprogressjouleShots", value); }
+    }
 
     public int TotalShotsFired {
         get { return PlayerPrefs.GetInt("persuaderShots") + PlayerPrefs.GetInt("jouleShots"); }
-    }
-
-    public int CurrentShotsFired {
-        get { return PlayerPrefs.GetInt("currentShotsFired"); }
-        set { PlayerPrefs.SetInt("currentShotsFired", value); }
     }
 
     public int AcidVectorsKilled {
@@ -91,9 +95,10 @@ public class SOSaveFile : ScriptableObject {
         CheckpointPosition = _startingPositions[0];
         DeathCount = 0;
         CurrentDeathCount = 0;
-        CurrentShotsFired = 0;
         PersuaderShots = 0;
+        InProgressPersuaderShots = 0;
         JouleShots = 0;
+        InProgressJouleShots = 0;
         AcidVectorsKilled = 0;
         ExplosiveVectorsKilled = 0;
         FlyingVectorsKilled = 0;
@@ -106,6 +111,7 @@ public class SOSaveFile : ScriptableObject {
         CheckpointID = 0;
         CheckpointPosition = _startingPositions[CurrentLevel - 1];
         CurrentDeathCount = 0;
-        CurrentShotsFired = 0;
+        InProgressPersuaderShots = 0;
+        InProgressJouleShots = 0;
     }
 }

@@ -84,9 +84,14 @@ public class GameManager : Singleton<GameManager> {
     private void OnLevelComplete(WindowIDs ignore1, WindowIDs ignore) {
         _IM.StopInput();
     }
+    private void OnLoadNextLevel(WindowIDs ignore1, WindowIDs ignore2) {
+        SOSaveHandler.NextLevel();
+        SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
+    }
 
     private void OnBackToMain(WindowIDs close, WindowIDs open ) {
 
+        SOSaveHandler.NextLevel();
         _WM.ToggleWindows(close, open);
         SceneManager.LoadScene(0);
     }
@@ -115,11 +120,6 @@ public class GameManager : Singleton<GameManager> {
         }
     }
 
-    private void OnLoadNextLevel(WindowIDs ignore1, WindowIDs ignore2) {
-        SOSaveHandler.NextLevel();
-        SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
-    }
-
     private void SpawnPlayer() {
         GameObject _player = Instantiate(Resources.Load("MainCharacter/MainCharacter", typeof(GameObject)) as GameObject, transform.position, Quaternion.identity) as GameObject;
         SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, SOSaveHandler.CheckpointPosition);
@@ -130,6 +130,7 @@ public class GameManager : Singleton<GameManager> {
     // Add to the counter for every time the player dies
     private void OnPlayerDeath() {
         SOSaveHandler.CurrentDeathCount += 1;
+        SOSaveHandler.DeathCount += 1;
     }
 
     // Add to the counter for every kill the player makes
@@ -149,12 +150,12 @@ public class GameManager : Singleton<GameManager> {
     }
 
     private void OnShotgunFired() {
+        SOSaveHandler.InProgressJouleShots += 1;
         SOSaveHandler.JouleShots += 1;
-        SOSaveHandler.CurrentShotsFired += 1;
     }
 
     private void OnMachineGunFired() {
+        SOSaveHandler.InProgressPersuaderShots += 1;
         SOSaveHandler.PersuaderShots += 1;
-        SOSaveHandler.CurrentShotsFired += 1;
     }
 }
