@@ -124,7 +124,7 @@ public class InputManager : Singleton<InputManager> {
     // Update is called once per frame
     private void Update() {
 
-        if (_player == null) {
+        if (_player == null && GameObject.FindGameObjectWithTag("Player") != null) {
             _player = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
         }
 
@@ -183,5 +183,11 @@ public class InputManager : Singleton<InputManager> {
     public void StartInput() {
         _canTakeInput = true;
         _limitedTime = true;
+    }
+
+    public void OnLevelWasLoaded(int level) {
+        if (level > 0) {
+            _player = null;
+        }
     }
 }

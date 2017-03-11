@@ -35,6 +35,8 @@ public class StartWindow : GenericWindow {
 
         if (_GM == null) { _GM = GameManager.Instance.GetComponent<GameManager>(); }
 
+        _title.enabled = true;
+
         // IF A SAVE FILE IS FOUND, DISPLAY THE CONTINUE BUTTON
         bool canContinue = _GM.SOSaveHandler.CurrentLevel > 1 || _GM.SOSaveHandler.CheckpointID > 0 ? true : false;
         _continueButton.gameObject.SetActive(canContinue);
