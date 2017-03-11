@@ -1,0 +1,771 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd4016cde4e2bc4ea2f88cf390d0ad5, type: 3}
+  m_Name: SniperTellEffect
+  m_EditorClassIdentifier: 
+  Spriter:
+    Folders:
+    - Id: 0
+      Name: player shots
+      Files:
+      - Id: 0
+        Name: player shots/Yellow_Shot1.png
+        Type: 0
+        PivotX: 0.66
+        PivotY: 0.5
+        Width: 130
+        Height: 51
+      - Id: 1
+        Name: player shots/Yellow_Impact3.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 108
+        Height: 108
+      - Id: 2
+        Name: player shots/Yellow_Impact2.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 108
+        Height: 108
+      - Id: 3
+        Name: player shots/Yellow_Impact1.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 108
+        Height: 108
+      - Id: 4
+        Name: player shots/Blue_Shot2.png
+        Type: 0
+        PivotX: 0.8
+        PivotY: 0.5
+        Width: 143
+        Height: 88
+      - Id: 5
+        Name: player shots/Blue_Shot1.png
+        Type: 0
+        PivotX: 0.8
+        PivotY: 0.5
+        Width: 143
+        Height: 88
+      - Id: 6
+        Name: player shots/Blue_Impact4.png
+        Type: 0
+        PivotX: 0.9
+        PivotY: 0.5
+        Width: 118
+        Height: 172
+      - Id: 7
+        Name: player shots/Blue_Impact3.png
+        Type: 0
+        PivotX: 0.9
+        PivotY: 0.5
+        Width: 118
+        Height: 172
+      - Id: 8
+        Name: player shots/Blue_Impact2.png
+        Type: 0
+        PivotX: 0.9
+        PivotY: 0.5
+        Width: 118
+        Height: 164
+      - Id: 9
+        Name: player shots/Blue_Impact1.png
+        Type: 0
+        PivotX: 0.9
+        PivotY: 0.5
+        Width: 91
+        Height: 114
+    - Id: 1
+      Name: enemy shots
+      Files:
+      - Id: 0
+        Name: enemy shots/Redshot1.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 80
+        Height: 80
+      - Id: 1
+        Name: enemy shots/Redshot_strike5.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 20
+        Height: 30
+      - Id: 2
+        Name: enemy shots/Redshot_strike4.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 20
+        Height: 46
+      - Id: 3
+        Name: enemy shots/Redshot_strike3.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 20
+        Height: 58
+      - Id: 4
+        Name: enemy shots/Redshot_strike2.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 20
+        Height: 60
+      - Id: 5
+        Name: enemy shots/Redshot_strike1.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 20
+        Height: 75
+      - Id: 6
+        Name: enemy shots/Redshot_Impact5.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 140
+        Height: 140
+      - Id: 7
+        Name: enemy shots/Redshot_Impact4.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 140
+        Height: 140
+      - Id: 8
+        Name: enemy shots/Redshot_Impact3.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 140
+        Height: 140
+      - Id: 9
+        Name: enemy shots/Redshot_Impact2.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 140
+        Height: 140
+      - Id: 10
+        Name: enemy shots/Redshot_Impact1.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 140
+        Height: 140
+      - Id: 11
+        Name: enemy shots/Redshot2.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 80
+        Height: 80
+      - Id: 12
+        Name: enemy shots/fireball_0.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 59
+        Height: 57
+      - Id: 13
+        Name: enemy shots/fireball_1.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 59
+        Height: 57
+      - Id: 14
+        Name: enemy shots/pre-flame_0.png
+        Type: 0
+        PivotX: 0.537879
+        PivotY: 0.467811
+        Width: 262
+        Height: 231
+      - Id: 15
+        Name: enemy shots/pre-flame_1.png
+        Type: 0
+        PivotX: 0.541667
+        PivotY: 0.484979
+        Width: 262
+        Height: 231
+    Entities:
+    - Id: 0
+      Name: SniperTellEffect
+      ObjectInfos: []
+      CharacterMaps: []
+      Animations:
+      - Id: 0
+        Name: SniperTellEffect
+        Length: 3000
+        Looping: 0
+        MainlineKeys:
+        - Id: 0
+          Name: 
+          Time: 0
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 0
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 1
+            KeyId: 0
+            ZIndex: 1
+        - Id: 1
+          Name: 
+          Time: 525
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 1
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 2
+            KeyId: 0
+            ZIndex: 1
+          - Id: 2
+            Name: 
+            ParentId: -1
+            TimelineId: 1
+            KeyId: 1
+            ZIndex: 2
+        - Id: 2
+          Name: 
+          Time: 540
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 1
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 2
+            KeyId: 1
+            ZIndex: 1
+        - Id: 3
+          Name: 
+          Time: 1810
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 2
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 2
+            KeyId: 2
+            ZIndex: 1
+        - Id: 4
+          Name: 
+          Time: 2150
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 3
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 2
+            KeyId: 3
+            ZIndex: 1
+        Timelines:
+        - Id: 0
+          Name: pre-flame_0_000
+          ObjectType: 0
+          ObjectId: 0
+          Keys:
+          - Id: 0
+            Name: 
+            Time: 0
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 1.151631
+              Y: -0.191939
+              Angle: 0
+              ScaleX: 1.772682
+              ScaleY: 1.777953
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 1
+              FileId: 14
+              PivotX: 0.537879
+              PivotY: 0.467811
+              T: 0
+          - Id: 1
+            Name: 
+            Time: 525
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 1.151631
+              Y: -0.191939
+              Angle: 0
+              ScaleX: 0.568871
+              ScaleY: 0.568871
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 1
+              FileId: 14
+              PivotX: 0.537879
+              PivotY: 0.467811
+              T: 0
+          - Id: 2
+            Name: 
+            Time: 1810
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 0.821598
+              Y: -0.191939
+              Angle: 0
+              ScaleX: 1.848317
+              ScaleY: 1.859287
+              Alpha: 0
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 1
+              FileId: 14
+              PivotX: 0.537879
+              PivotY: 0.467811
+              T: 0
+          - Id: 3
+            Name: 
+            Time: 2150
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 0.821598
+              Y: -0.521972
+              Angle: 0
+              ScaleX: 1.848317
+              ScaleY: 1.859287
+              Alpha: 0
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 1
+              FileId: 14
+              PivotX: 0.537879
+              PivotY: 0.467811
+              T: 0
+          Meta:
+            Varlines: []
+            Tagline:
+              Keys: []
+        - Id: 1
+          Name: pre-flame_1
+          ObjectType: 0
+          ObjectId: 0
+          Keys:
+          - Id: 0
+            Name: 
+            Time: 0
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 1.754439
+              Y: -0.191939
+              Angle: 0
+              ScaleX: 0.542638
+              ScaleY: 0.570536
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 1
+              FileId: 15
+              PivotX: 0.541667
+              PivotY: 0.484979
+              T: 0
+          - Id: 1
+            Name: 
+            Time: 525
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 0.191939
+              Y: -0.191939
+              Angle: 0
+              ScaleX: 0.076155
+              ScaleY: 0.088797
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 1
+              FileId: 15
+              PivotX: 0.541667
+              PivotY: 0.484979
+              T: 0
+          Meta:
+            Varlines: []
+            Tagline:
+              Keys: []
+        - Id: 2
+          Name: fireball_1_000
+          ObjectType: 0
+          ObjectId: 0
+          Keys:
+          - Id: 0
+            Name: 
+            Time: 525
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 0.330033
+              Y: -0.990099
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 1
+              FileId: 13
+              PivotX: 0.5
+              PivotY: 0.5
+              T: 0
+          - Id: 1
+            Name: 
+            Time: 540
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 1
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 0.330033
+              Y: -0.990099
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 1
+              FileId: 13
+              PivotX: 0.5
+              PivotY: 0.5
+              T: 0
+          - Id: 2
+            Name: 
+            Time: 1810
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 1
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 0.330033
+              Y: -0.990099
+              Angle: 107.66764
+              ScaleX: 2.992299
+              ScaleY: 2.992299
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 1
+              FileId: 13
+              PivotX: 0.5
+              PivotY: 0.5
+              T: 0
+          - Id: 3
+            Name: 
+            Time: 2150
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 1
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 0.330033
+              Y: -0.990099
+              Angle: 187.8971
+              ScaleX: 2.992299
+              ScaleY: 2.992299
+              Alpha: 0
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 1
+              FileId: 13
+              PivotX: 0.5
+              PivotY: 0.5
+              T: 0
+          Meta:
+            Varlines: []
+            Tagline:
+              Keys: []
+        Eventlines: []
+        Soundlines: []
+        Meta:
+          Varlines: []
+          Tagline:
+            Keys: []
+      Variables: []
+    Tags: []
+  FileEntries:
+  - FolderId: 0
+    FileId: 0
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 1
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 2
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 3
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 4
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 5
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 6
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 7
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 8
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 9
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 0
+    Sprite: {fileID: 21300000, guid: ddc8b8d3407e255439336af1c705f4d2, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 1
+    Sprite: {fileID: 21300000, guid: c3ca32f83a85f8a44a0b076376ff17eb, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 2
+    Sprite: {fileID: 21300000, guid: 304d31104c0b2ec4bbb6c3ca3b19af1a, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 3
+    Sprite: {fileID: 21300000, guid: fb29bbbe89fb4b64e808c81a2432d695, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 4
+    Sprite: {fileID: 21300000, guid: ff0e303ab60cfce498a8a95e4f6b6f9b, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 5
+    Sprite: {fileID: 21300000, guid: 7def94ee64bcdba43931af29562416c0, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 6
+    Sprite: {fileID: 21300000, guid: 63d3c7f628e90af43aeac19c008287f9, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 7
+    Sprite: {fileID: 21300000, guid: 3647d0d964294ed44be666c8c033023c, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 8
+    Sprite: {fileID: 21300000, guid: a4a1b24566220ec40b09acb0ebdcdd03, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 9
+    Sprite: {fileID: 21300000, guid: dc3fc15e900046c45b887bd4fa4c5302, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 10
+    Sprite: {fileID: 21300000, guid: aace8c9e0b3b39a48bf65f4614b4eb3d, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 11
+    Sprite: {fileID: 21300000, guid: a38a7c99efa76ae429e39f7bcbae7ca5, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 12
+    Sprite: {fileID: 21300000, guid: 3588590c603a2784b8e13e6584629ed8, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 13
+    Sprite: {fileID: 21300000, guid: be1db0efdcda5974e82987247918dfcb, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 14
+    Sprite: {fileID: 21300000, guid: d62df2df8a0a1b748bd3012dbabe4f8e, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 15
+    Sprite: {fileID: 21300000, guid: a5e847ec6d632834ba959e0c470d87be, type: 3}
+    Sound: {fileID: 0}

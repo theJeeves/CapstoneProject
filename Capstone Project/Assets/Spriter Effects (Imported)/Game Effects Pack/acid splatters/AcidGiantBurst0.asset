@@ -1,0 +1,1418 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd4016cde4e2bc4ea2f88cf390d0ad5, type: 3}
+  m_Name: AcidGiantBurst0
+  m_EditorClassIdentifier: 
+  Spriter:
+    Folders:
+    - Id: 0
+      Name: explosion_0
+      Files:
+      - Id: 0
+        Name: explosion_0/glow_yellow.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 1
+        Name: explosion_0/ball_white.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 2
+        Name: explosion_0/puff_white.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 3
+        Name: explosion_0/puff_orange_a.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 4
+        Name: explosion_0/glow_red.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 5
+        Name: explosion_0/puff_red.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 6
+        Name: explosion_0/puff_red_a.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 7
+        Name: explosion_0/puff_brown.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 8
+        Name: explosion_0/puff_brown_a.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 9
+        Name: explosion_0/puff_black.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 10
+        Name: explosion_0/puff_grey.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 11
+        Name: explosion_0/puff_grey_a.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 12
+        Name: explosion_0/puff_black_a.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 180
+        Height: 180
+      - Id: 13
+        Name: explosion_0/Oexplosiona_0.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 232
+        Height: 218
+      - Id: 14
+        Name: explosion_0/Oexplosion_0.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 282
+        Height: 266
+      - Id: 15
+        Name: explosion_0/Oexplosiona_1.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 232
+        Height: 218
+      - Id: 16
+        Name: explosion_0/Oexplosion_1.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 282
+        Height: 266
+      - Id: 17
+        Name: explosion_0/Oexplosiona_2.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 232
+        Height: 218
+      - Id: 18
+        Name: explosion_0/Oexplosion_3.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 282
+        Height: 266
+      - Id: 19
+        Name: explosion_0/Oexplosiona_3.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 232
+        Height: 218
+      - Id: 20
+        Name: explosion_0/Oexplosion_4.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 282
+        Height: 266
+      - Id: 21
+        Name: explosion_0/Oexplosiona_5.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 232
+        Height: 218
+      - Id: 22
+        Name: explosion_0/Oexplosion_5.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 282
+        Height: 266
+      - Id: 23
+        Name: explosion_0/Oexplosiona_6.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 232
+        Height: 218
+      - Id: 24
+        Name: explosion_0/Oexplosion_6.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 282
+        Height: 266
+      - Id: 25
+        Name: explosion_0/Oexplosiona_7.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 232
+        Height: 218
+      - Id: 26
+        Name: explosion_0/Oexplosion_7.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 282
+        Height: 266
+      - Id: 27
+        Name: explosion_0/Oexplosiona_8.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 232
+        Height: 218
+      - Id: 28
+        Name: explosion_0/Oexplosion_8.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 282
+        Height: 266
+      - Id: 29
+        Name: explosion_0/Oexplosiona_9.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 232
+        Height: 218
+      - Id: 30
+        Name: explosion_0/Oexplosion_9.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 282
+        Height: 266
+      - Id: 31
+        Name: explosion_0/Oexplosion_2.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 282
+        Height: 266
+      - Id: 32
+        Name: explosion_0/SmokeBoomA0.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 190
+        Height: 145
+      - Id: 33
+        Name: explosion_0/SmokeBoomA1.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 182
+        Height: 207
+      - Id: 34
+        Name: explosion_0/boom_0.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 245
+        Height: 174
+      - Id: 35
+        Name: explosion_0/SmokeBoomA3.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 173
+        Height: 208
+      - Id: 36
+        Name: explosion_0/SmokeBoomA4.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 174
+        Height: 226
+      - Id: 37
+        Name: explosion_0/SmokeBoomA5.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 174
+        Height: 226
+      - Id: 38
+        Name: explosion_0/boom_top_z.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 435
+        Height: 439
+      - Id: 39
+        Name: explosion_0/boom_top_0.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 435
+        Height: 439
+      - Id: 40
+        Name: explosion_0/boom_top_1.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 435
+        Height: 439
+      - Id: 41
+        Name: explosion_0/boom_top_2.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 435
+        Height: 439
+      - Id: 42
+        Name: explosion_0/boom_top_3.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 435
+        Height: 439
+    - Id: 1
+      Name: impacts
+      Files:
+      - Id: 0
+        Name: impacts/SmokeBoom0.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 190
+        Height: 145
+      - Id: 1
+        Name: impacts/SmokeBoom1.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 182
+        Height: 207
+      - Id: 2
+        Name: impacts/SmokeBoom3.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 173
+        Height: 208
+      - Id: 3
+        Name: impacts/SmokeBoom4.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 174
+        Height: 226
+      - Id: 4
+        Name: impacts/SmokeBoom5.png
+        Type: 0
+        PivotX: 0
+        PivotY: 1
+        Width: 174
+        Height: 226
+    - Id: 2
+      Name: splatters
+      Files:
+      - Id: 0
+        Name: splatters/blood_splat_0.png
+        Type: 0
+        PivotX: 0.1
+        PivotY: 0.444444
+        Width: 128
+        Height: 61
+      - Id: 1
+        Name: splatters/blood_splat_1.png
+        Type: 0
+        PivotX: 0.1
+        PivotY: 0.444444
+        Width: 128
+        Height: 61
+      - Id: 2
+        Name: splatters/blood_splat_2.png
+        Type: 0
+        PivotX: 0.1
+        PivotY: 0.444444
+        Width: 128
+        Height: 61
+      - Id: 3
+        Name: splatters/blood_splat_3.png
+        Type: 0
+        PivotX: 0.1
+        PivotY: 0.444444
+        Width: 128
+        Height: 61
+      - Id: 4
+        Name: splatters/blood_splat_4.png
+        Type: 0
+        PivotX: 0.1
+        PivotY: 0.444444
+        Width: 128
+        Height: 61
+      - Id: 5
+        Name: splatters/blood_splat_a.png
+        Type: 0
+        PivotX: 0.079646
+        PivotY: 0.350515
+        Width: 111
+        Height: 95
+      - Id: 6
+        Name: splatters/blood_splat_b.png
+        Type: 0
+        PivotX: 0.079646
+        PivotY: 0.350515
+        Width: 111
+        Height: 95
+      - Id: 7
+        Name: splatters/blood_splat_c.png
+        Type: 0
+        PivotX: 0.079646
+        PivotY: 0.350515
+        Width: 111
+        Height: 95
+      - Id: 8
+        Name: splatters/blood_splat_d.png
+        Type: 0
+        PivotX: 0.079646
+        PivotY: 0.350515
+        Width: 111
+        Height: 95
+      - Id: 9
+        Name: splatters/blood_squirt_0.png
+        Type: 0
+        PivotX: 0.141304
+        PivotY: 0.08
+        Width: 90
+        Height: 73
+      - Id: 10
+        Name: splatters/blood_squirt_1.png
+        Type: 0
+        PivotX: 0.141304
+        PivotY: 0.08
+        Width: 90
+        Height: 73
+      - Id: 11
+        Name: splatters/blood_squirt_2.png
+        Type: 0
+        PivotX: 0.141304
+        PivotY: 0.08
+        Width: 90
+        Height: 73
+      - Id: 12
+        Name: splatters/blood_squirt_3.png
+        Type: 0
+        PivotX: 0.141304
+        PivotY: 0.08
+        Width: 90
+        Height: 73
+      - Id: 13
+        Name: splatters/blood_squirt_4.png
+        Type: 0
+        PivotX: 0.141304
+        PivotY: 0.08
+        Width: 90
+        Height: 73
+      - Id: 14
+        Name: splatters/blood_slash_0.png
+        Type: 0
+        PivotX: 0.18595
+        PivotY: 0.336585
+        Width: 240
+        Height: 203
+      - Id: 15
+        Name: splatters/blood_slash_1.png
+        Type: 0
+        PivotX: 0.18595
+        PivotY: 0.336585
+        Width: 240
+        Height: 203
+      - Id: 16
+        Name: splatters/blood_slash_2.png
+        Type: 0
+        PivotX: 0.18595
+        PivotY: 0.336585
+        Width: 240
+        Height: 203
+      - Id: 17
+        Name: splatters/blood_slash_3.png
+        Type: 0
+        PivotX: 0.18595
+        PivotY: 0.336585
+        Width: 240
+        Height: 203
+      - Id: 18
+        Name: splatters/blood_slash_4.png
+        Type: 0
+        PivotX: 0.18595
+        PivotY: 0.336585
+        Width: 240
+        Height: 203
+      - Id: 19
+        Name: splatters/Blood_ribon_0.png
+        Type: 0
+        PivotX: 0.146893
+        PivotY: 0.230216
+        Width: 175
+        Height: 137
+      - Id: 20
+        Name: splatters/Blood_ribon_1.png
+        Type: 0
+        PivotX: 0.146893
+        PivotY: 0.230216
+        Width: 175
+        Height: 137
+      - Id: 21
+        Name: splatters/Blood_ribon_2.png
+        Type: 0
+        PivotX: 0.146893
+        PivotY: 0.230216
+        Width: 175
+        Height: 137
+      - Id: 22
+        Name: splatters/Blood_ribon_3.png
+        Type: 0
+        PivotX: 0.146893
+        PivotY: 0.230216
+        Width: 175
+        Height: 137
+    Entities:
+    - Id: 0
+      Name: AcidGiantBurst
+      ObjectInfos: []
+      CharacterMaps: []
+      Animations:
+      - Id: 0
+        Name: AcidGiantBurst
+        Length: 400
+        Looping: 0
+        MainlineKeys:
+        - Id: 0
+          Name: 
+          Time: 0
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 0
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 1
+            KeyId: 0
+            ZIndex: 1
+        - Id: 1
+          Name: 
+          Time: 64
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 1
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 1
+            KeyId: 1
+            ZIndex: 1
+        - Id: 2
+          Name: 
+          Time: 120
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 2
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 1
+            KeyId: 2
+            ZIndex: 1
+        - Id: 3
+          Name: 
+          Time: 180
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 3
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 1
+            KeyId: 3
+            ZIndex: 1
+        - Id: 4
+          Name: 
+          Time: 240
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 4
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 1
+            KeyId: 4
+            ZIndex: 1
+        - Id: 5
+          Name: 
+          Time: 320
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 5
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 1
+            KeyId: 5
+            ZIndex: 1
+        - Id: 6
+          Name: 
+          Time: 399
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 6
+            ZIndex: 0
+          - Id: 1
+            Name: 
+            ParentId: -1
+            TimelineId: 1
+            KeyId: 6
+            ZIndex: 1
+        Timelines:
+        - Id: 0
+          Name: blood_slash_0_000
+          ObjectType: 0
+          ObjectId: 0
+          Keys:
+          - Id: 0
+            Name: 
+            Time: 0
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: -2.173913
+              Y: 10
+              Angle: 33.146996
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 14
+              PivotX: 0.18595
+              PivotY: 0.336585
+              T: 0
+          - Id: 1
+            Name: 
+            Time: 64
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: -2.173913
+              Y: 10
+              Angle: 33.146996
+              ScaleX: 1.123379
+              ScaleY: 1.123379
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 15
+              PivotX: 0.18595
+              PivotY: 0.336585
+              T: 0
+          - Id: 2
+            Name: 
+            Time: 120
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: -2.173913
+              Y: 10
+              Angle: 33.146996
+              ScaleX: 1.231336
+              ScaleY: 1.231336
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 16
+              PivotX: 0.18595
+              PivotY: 0.336585
+              T: 0
+          - Id: 3
+            Name: 
+            Time: 180
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: -2.173913
+              Y: 10
+              Angle: 33.146996
+              ScaleX: 1.347003
+              ScaleY: 1.347003
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 17
+              PivotX: 0.18595
+              PivotY: 0.336585
+              T: 0
+          - Id: 4
+            Name: 
+            Time: 240
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: -2.173913
+              Y: 10
+              Angle: 33.146996
+              ScaleX: 1.462671
+              ScaleY: 1.462671
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 18
+              PivotX: 0.18595
+              PivotY: 0.336585
+              T: 0
+          - Id: 5
+            Name: 
+            Time: 320
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: -2.173913
+              Y: 10
+              Angle: 33.146996
+              ScaleX: 1.616895
+              ScaleY: 1.616895
+              Alpha: 0.5
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 18
+              PivotX: 0.18595
+              PivotY: 0.336585
+              T: 0
+          - Id: 6
+            Name: 
+            Time: 399
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: -2.173913
+              Y: 10
+              Angle: 33.146996
+              ScaleX: 1.769191
+              ScaleY: 1.769191
+              Alpha: 0
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 18
+              PivotX: 0.18595
+              PivotY: 0.336585
+              T: 0
+          Meta:
+            Varlines: []
+            Tagline:
+              Keys: []
+        - Id: 1
+          Name: Blood_ribon_0_000
+          ObjectType: 0
+          ObjectId: 0
+          Keys:
+          - Id: 0
+            Name: 
+            Time: 0
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 4.347826
+              Y: -17.173912
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 19
+              PivotX: 0.146893
+              PivotY: 0.230216
+              T: 0
+          - Id: 1
+            Name: 
+            Time: 64
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 4.347826
+              Y: -17.173912
+              Angle: 0
+              ScaleX: 1.209728
+              ScaleY: 1.209728
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 20
+              PivotX: 0.146893
+              PivotY: 0.230216
+              T: 0
+          - Id: 2
+            Name: 
+            Time: 120
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 4.347826
+              Y: -17.173912
+              Angle: 0
+              ScaleX: 1.393239
+              ScaleY: 1.393239
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 21
+              PivotX: 0.146893
+              PivotY: 0.230216
+              T: 0
+          - Id: 3
+            Name: 
+            Time: 180
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 4.347826
+              Y: -17.173912
+              Angle: 0
+              ScaleX: 1.589859
+              ScaleY: 1.589859
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 22
+              PivotX: 0.146893
+              PivotY: 0.230216
+              T: 0
+          - Id: 4
+            Name: 
+            Time: 240
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 4.347826
+              Y: -28.064323
+              Angle: 0
+              ScaleX: 1.786479
+              ScaleY: 1.786479
+              Alpha: 0.726027
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 22
+              PivotX: 0.146893
+              PivotY: 0.230216
+              T: 0
+          - Id: 5
+            Name: 
+            Time: 320
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 4.347826
+              Y: -39.0377
+              Angle: 0
+              ScaleX: 2.048638
+              ScaleY: 2.048638
+              Alpha: 0.360731
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 22
+              PivotX: 0.146893
+              PivotY: 0.230216
+              T: 0
+          - Id: 6
+            Name: 
+            Time: 399
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 4.347826
+              Y: -44.173912
+              Angle: 0
+              ScaleX: 2.307521
+              ScaleY: 2.307521
+              Alpha: 0
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 2
+              FileId: 22
+              PivotX: 0.146893
+              PivotY: 0.230216
+              T: 0
+          Meta:
+            Varlines: []
+            Tagline:
+              Keys: []
+        Eventlines: []
+        Soundlines: []
+        Meta:
+          Varlines: []
+          Tagline:
+            Keys: []
+      Variables: []
+    Tags: []
+  FileEntries:
+  - FolderId: 0
+    FileId: 0
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 1
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 2
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 3
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 4
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 5
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 6
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 7
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 8
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 9
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 10
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 11
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 12
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 13
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 14
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 15
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 16
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 17
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 18
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 19
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 20
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 21
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 22
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 23
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 24
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 25
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 26
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 27
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 28
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 29
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 30
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 31
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 32
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 33
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 34
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 35
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 36
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 37
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 38
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 39
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 40
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 41
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 42
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 0
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 1
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 2
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 3
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 1
+    FileId: 4
+    Sprite: {fileID: 0}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 0
+    Sprite: {fileID: 21300000, guid: a69e63a90f0c4be4a8c182e992211463, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 1
+    Sprite: {fileID: 21300000, guid: aa2c61c67a0b55f4b9f6a837cccc9306, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 2
+    Sprite: {fileID: 21300000, guid: fdd3cfe3c838eaa43b9fb5a6ff9c66a8, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 3
+    Sprite: {fileID: 21300000, guid: 435d9b9704509f649b2598b777f95008, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 4
+    Sprite: {fileID: 21300000, guid: f95d5b9ce8b26784f9487622e5f9177d, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 5
+    Sprite: {fileID: 21300000, guid: ec853fd95ea336149a34843ca4070c1d, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 6
+    Sprite: {fileID: 21300000, guid: b285fa98c8435a045bce7dad9f60b99f, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 7
+    Sprite: {fileID: 21300000, guid: 8bca02aae58f35f4c906110808ec3b43, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 8
+    Sprite: {fileID: 21300000, guid: ba93826751f99994981ea98452ea52fc, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 9
+    Sprite: {fileID: 21300000, guid: cbd29e0cdd6700f4cb8eb63cdb065a29, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 10
+    Sprite: {fileID: 21300000, guid: ad918cd8e271443479e851692ac39f2d, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 11
+    Sprite: {fileID: 21300000, guid: 3eba3ef6500ce5245b5c5a5ef4639ad9, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 12
+    Sprite: {fileID: 21300000, guid: 167768be54747ea47a7bcd1112cdf43a, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 13
+    Sprite: {fileID: 21300000, guid: 9421637bf58edce46a73c25299bc18ff, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 14
+    Sprite: {fileID: 21300000, guid: 633976897b1182742854609a69fedb45, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 15
+    Sprite: {fileID: 21300000, guid: 8b38137580543be429111db637d16026, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 16
+    Sprite: {fileID: 21300000, guid: 046aef146486c70448073fecbc45a0d1, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 17
+    Sprite: {fileID: 21300000, guid: 229f068309d03324a88a31bbcc46cb7f, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 18
+    Sprite: {fileID: 21300000, guid: 9f624ccab2a21c241ab06635953f8a71, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 19
+    Sprite: {fileID: 21300000, guid: 51301075e3309c246abfc65fc5fafd9d, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 20
+    Sprite: {fileID: 21300000, guid: ad703bd959edbca479a2bece114e0fd9, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 21
+    Sprite: {fileID: 21300000, guid: 3bd82357329c47d44aa1be75b3ef8555, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 2
+    FileId: 22
+    Sprite: {fileID: 21300000, guid: da39019320a00054d88e55d570b749c9, type: 3}
+    Sound: {fileID: 0}

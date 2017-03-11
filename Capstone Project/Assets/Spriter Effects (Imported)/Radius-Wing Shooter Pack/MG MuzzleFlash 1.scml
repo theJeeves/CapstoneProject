@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r10">
+    <folder id="0">
+        <file id="0" name="Angle_0.png" width="39" height="76" pivot_x="0.5" pivot_y="0"/>
+        <file id="1" name="Angle_0y.png" width="39" height="76" pivot_x="0.5" pivot_y="0"/>
+        <file id="2" name="Angle_1.png" width="39" height="110" pivot_x="0.5" pivot_y="0"/>
+        <file id="3" name="Angle_1y.png" width="39" height="110" pivot_x="0.5" pivot_y="0"/>
+        <file id="4" name="Angle_2.png" width="39" height="216" pivot_x="0.5" pivot_y="0"/>
+        <file id="5" name="Angle_2y.png" width="39" height="216" pivot_x="0.5" pivot_y="0"/>
+        <file id="6" name="Arrow_0.png" width="45" height="62" pivot_x="0.5" pivot_y="0"/>
+        <file id="7" name="Arrow_0y.png" width="45" height="62" pivot_x="0.5" pivot_y="0"/>
+        <file id="8" name="Arrow_1.png" width="45" height="109" pivot_x="0.5" pivot_y="0"/>
+        <file id="9" name="Arrow_1y.png" width="45" height="109" pivot_x="0.5" pivot_y="0"/>
+        <file id="10" name="Arrow_2.png" width="45" height="212" pivot_x="0.5" pivot_y="0"/>
+        <file id="11" name="Arrow_2y.png" width="45" height="212" pivot_x="0.5" pivot_y="0"/>
+        <file id="12" name="ColorCircle.png" width="261" height="239" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="13" name="rect_0.png" width="45" height="63" pivot_x="0.5" pivot_y="0"/>
+        <file id="14" name="rect_0y.png" width="45" height="63" pivot_x="0.5" pivot_y="0"/>
+        <file id="15" name="rect_1.png" width="45" height="101" pivot_x="0.5" pivot_y="0"/>
+        <file id="16" name="rect_1y.png" width="45" height="101" pivot_x="0.5" pivot_y="0"/>
+        <file id="17" name="rect_2.png" width="45" height="207" pivot_x="0.5" pivot_y="0"/>
+        <file id="18" name="rect_2y.png" width="45" height="207" pivot_x="0.5" pivot_y="0"/>
+        <file id="19" name="round_0.png" width="45" height="62" pivot_x="0.5" pivot_y="0"/>
+        <file id="20" name="round_0y.png" width="45" height="62" pivot_x="0.5" pivot_y="0"/>
+        <file id="21" name="round_1.png" width="46" height="112" pivot_x="0.5" pivot_y="0"/>
+        <file id="22" name="round_1y.png" width="46" height="112" pivot_x="0.5" pivot_y="0"/>
+        <file id="23" name="round_2.png" width="45" height="199" pivot_x="0.5" pivot_y="0"/>
+        <file id="24" name="round_2y.png" width="45" height="199" pivot_x="0.5" pivot_y="0"/>
+        <file id="25" name="shard_0.png" width="59" height="86" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="26" name="shard_0y.png" width="59" height="86" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="27" name="shard_1.png" width="61" height="51" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="28" name="shard_1y.png" width="61" height="51" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="29" name="shard_2.png" width="65" height="75" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="30" name="shard_2y.png" width="65" height="75" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="31" name="WhiteCircle.png" width="212" height="197" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="32" name="MuzzleFlash.png" width="233" height="288" pivot_x="0.497854" pivot_y="0.100694"/>
+    </folder>
+    <entity id="0" name="MG Muzzle Flash 1">
+        <animation id="0" name="MG Muzzle Flash 1" length="200" interval="100" looping="false">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                </key>
+                <key id="1" time="33">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                </key>
+                <key id="2" time="112">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                </key>
+                <key id="3" time="200">
+                    <object_ref id="0" timeline="0" key="3" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="MuzzleFlash">
+                <key id="0" spin="0">
+                    <object folder="0" file="32" x="1" y="-1" angle="270" scale_y="0.61657"/>
+                </key>
+                <key id="1" time="33" spin="0">
+                    <object folder="0" file="32" x="1" y="-1" angle="270" scale_x="1.174468" scale_y="0.801541"/>
+                </key>
+                <key id="2" time="112" spin="0">
+                    <object folder="0" file="32" x="1" y="-1" angle="270" scale_x="0.743687" scale_y="1.027586"/>
+                </key>
+                <key id="3" time="200" spin="0">
+                    <object folder="0" file="32" x="1" y="-1" angle="270" scale_x="0.26383" scale_y="1.279383" a="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>
