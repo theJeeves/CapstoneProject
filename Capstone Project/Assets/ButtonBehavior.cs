@@ -11,6 +11,10 @@ public class ButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandler/*,
         _text = GetComponentInChildren<Text>();
     }
 
+    private void OnDisable() {
+        _text.color = Color.black;
+    }
+
     public void OnSelect(BaseEventData eventData) {
         _text.color = Color.cyan;
     }
