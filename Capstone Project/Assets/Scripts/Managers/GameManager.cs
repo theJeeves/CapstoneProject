@@ -1,16 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 public class GameManager : Singleton<GameManager> {
 
     public SOSaveFile SOSaveHandler;
     public SOEffects SOEffectHandler;
+    public bool inGame = false;
 
-    private WindowManager _WM;
     private InputManager _IM;
+    private WindowManager _WM;
+    StandaloneInputModule eventSystem;
     private GameObject _player;
+
     private bool _inGame = false;
+    private bool _paused = false;
+    private float _defaultTimeScale = 1.0f;
 
     protected override void Awake() {
         // CALL BASE AWAKE TO ENSURE THERE ARE NO OTHER INSTANCES OF THE GAME MANAGER IN THE SCENE
@@ -22,12 +28,9 @@ public class GameManager : Singleton<GameManager> {
 
         _IM = InputManager.Instance.GetComponent<InputManager>();
         _WM = WindowManager.Instance.GetComponent<WindowManager>();
+        eventSystem = EventSystemSingleton.Instance.GetComponent<StandaloneInputModule>();
 
         SOEffectHandler.LoadEffects();
-
-        if (Application.loadedLevel == 0) {
-            _WM.ToggleWindows(WindowIDs.None, WindowIDs.StartWindow);
-        }
     }
 
     private void OnEnable() {
@@ -49,6 +52,11 @@ public class GameManager : Singleton<GameManager> {
         EndOfLevel.OnLevelComplete += OnLevelComplete;
         EndLevelWindow.OnContinue += OnLoadNextLevel;
         EndLevelWindow.OnBackToMain += OnBackToMain;
+
+        // PAUSE WINDOW
+        PauseWindow.OnContinueButton += OnPauseContinue;
+
+        PauseWindow.OnBackToMainButton += OnPauseBackToMain;
     }
 
     private void OnDisable() {
@@ -66,44 +74,130 @@ public class GameManager : Singleton<GameManager> {
         // Enemy Death Events
         EnemyBasicBehaviors.OnDeath -= OnEnemyDeath;
 
-        // LEVEL COMPLETED
+        // LEVEL COMPLETED Events
         EndOfLevel.OnLevelComplete -= OnLevelComplete;
         EndLevelWindow.OnContinue -= OnLoadNextLevel;
-        EndLevelWindow.OnBackToMain += OnBackToMain;
+        EndLevelWindow.OnBackToMain -= OnBackToMain;
+
+        // PAUSE WINDOW
+        PauseWindow.OnContinueButton -= OnPauseContinue;
+
+        PauseWindow.OnBackToMainButton -= OnPauseBackToMain;
     }
 
+    private void Update() {
+        if (_inGame && ( _IM.controllerType == 0 ? Input.GetButtonDown("DS_OPTIONS") : Input.GetButtonDown("XBOX_START")) ) {
+
+            if (!_paused) {
+                _paused = true;
+                Time.timeScale = 0.0f;
+                _WM.ToggleWindows(WindowIDs.None, WindowIDs.PauseWindow);
+            }
+            else if (_paused) {
+                _paused = false;
+                Time.timeScale = _defaultTimeScale;
+                _WM.ToggleWindows(WindowIDs.PauseWindow, WindowIDs.None);
+            }
+        }
+    }
+
+    //
+    // Start Window Events
+    //
     private void OnContinue(WindowIDs ignore1, WindowIDs ignore2) {
         SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
+        _inGame = true;
     }
 
     private void OnNewGame(WindowIDs ignore1, WindowIDs ignore2) {
         SOSaveHandler.NewGame();
         SceneManager.LoadScene(1);
+        _inGame = true;
     }
 
+    //
+    // Player Death Event
+    //
+    // Add to the counter for every time the player dies
+    private void OnPlayerDeath() {
+        SOSaveHandler.CurrentDeathCount += 1;
+        SOSaveHandler.DeathCount += 1;
+    }
+
+    //
+    /// Gun Events
+    //
+    private void OnShotgunFired() {
+        SOSaveHandler.InProgressJouleShots += 1;
+        SOSaveHandler.JouleShots += 1;
+    }
+
+    private void OnMachineGunFired() {
+        SOSaveHandler.InProgressPersuaderShots += 1;
+        SOSaveHandler.PersuaderShots += 1;
+    }
+
+    //
+    // Enemy Death Events
+    //
+    // Add to the counter for every kill the player makes
+    private void OnEnemyDeath(EnemyType type) {
+        switch (type) {
+            case EnemyType.AcidSwarmer:
+                SOSaveHandler.AcidVectorsKilled += 1; break;
+            case EnemyType.ExplodingSwamer:
+                SOSaveHandler.ExplosiveVectorsKilled += 1; break;
+            case EnemyType.Flying:
+                SOSaveHandler.FlyingVectorsKilled += 1; break;
+            case EnemyType.Sniper:
+                SOSaveHandler.SnipersKilled += 1; break;
+            case EnemyType.Charger:
+                SOSaveHandler.ChargersKilled += 1; break;
+        }
+    }
+
+    //
+    // LEVEL COMPLETED Events
+    //
     private void OnLevelComplete(WindowIDs ignore1, WindowIDs ignore) {
         _IM.StopInput();
+        _inGame = false;
+        Time.timeScale = 0.0f;
     }
+
     private void OnLoadNextLevel(WindowIDs ignore1, WindowIDs ignore2) {
         SOSaveHandler.NextLevel();
         SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
+        _inGame = true;
     }
 
-    private void OnBackToMain(WindowIDs close, WindowIDs open ) {
+    private void OnBackToMain(WindowIDs close, WindowIDs open) {
 
+        inGame = false;
+        _paused = false;
         SOSaveHandler.NextLevel();
-        _WM.ToggleWindows(close, open);
         SceneManager.LoadScene(0);
+        Time.timeScale = _defaultTimeScale;
+    }
+
+    private void OnPauseContinue(WindowIDs ignore1, WindowIDs ignore2) {
+        _paused = false;
+        Time.timeScale = _defaultTimeScale;
+    }
+
+    private void OnPauseBackToMain(WindowIDs ignore1, WindowIDs ignore2) {
+        inGame = false;
+        _paused = false;
+        SceneManager.LoadScene(0);
+        Time.timeScale = _defaultTimeScale;
     }
 
     // Things to do when a level is loaded
     private void OnLevelWasLoaded(int level) {
 
-        if (level == 0) {
-            _WM.ToggleWindows(WindowIDs.None, WindowIDs.StartWindow);
-        }
-
         if (level != 0) {
+            inGame = true;
+
             if (SOSaveHandler.CheckpointID == 0) {
                 SpawnPlayer();
             }
@@ -125,37 +219,5 @@ public class GameManager : Singleton<GameManager> {
         SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, SOSaveHandler.CheckpointPosition);
         _player.transform.position = SOSaveHandler.CheckpointPosition;
         _IM.AssignPlayer(_player);
-    }
-
-    // Add to the counter for every time the player dies
-    private void OnPlayerDeath() {
-        SOSaveHandler.CurrentDeathCount += 1;
-        SOSaveHandler.DeathCount += 1;
-    }
-
-    // Add to the counter for every kill the player makes
-    private void OnEnemyDeath(EnemyType type) {
-        switch (type) {
-            case EnemyType.AcidSwarmer:
-                SOSaveHandler.AcidVectorsKilled += 1; break;
-            case EnemyType.ExplodingSwamer:
-                SOSaveHandler.ExplosiveVectorsKilled += 1; break;
-            case EnemyType.Flying:
-                SOSaveHandler.FlyingVectorsKilled += 1; break;
-            case EnemyType.Sniper:
-                SOSaveHandler.SnipersKilled += 1; break;
-            case EnemyType.Charger:
-                SOSaveHandler.ChargersKilled += 1; break;
-        }
-    }
-
-    private void OnShotgunFired() {
-        SOSaveHandler.InProgressJouleShots += 1;
-        SOSaveHandler.JouleShots += 1;
-    }
-
-    private void OnMachineGunFired() {
-        SOSaveHandler.InProgressPersuaderShots += 1;
-        SOSaveHandler.PersuaderShots += 1;
     }
 }

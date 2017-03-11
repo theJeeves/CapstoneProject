@@ -4,8 +4,7 @@ using UnityEngine.UI;
 
 public class StatsWindow : GenericWindow {
 
-    public delegate void StatsWindowEvent(WindowIDs close, WindowIDs open);
-    public static event StatsWindowEvent OnBack;
+    public static event GenericWindowEvent OnBack;
 
     private SOSaveFile _SOSaveHandler;
     private Text[] _stats;

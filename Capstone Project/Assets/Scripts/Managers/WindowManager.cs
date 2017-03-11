@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
 public class WindowManager : Singleton<WindowManager> {
@@ -25,6 +26,10 @@ public class WindowManager : Singleton<WindowManager> {
         currentWindowID = WindowIDs.None;
         DontDestroyOnLoad(gameObject);
 
+        if (Application.loadedLevel == 0) {
+            ToggleWindows(WindowIDs.None, WindowIDs.StartWindow);
+        }
+
         // Get a list of all availabe gamepads
         string[] inputs = Input.GetJoystickNames();
 
@@ -42,11 +47,13 @@ public class WindowManager : Singleton<WindowManager> {
             eventSystem.horizontalAxis = "DS_DPAD_X";
             eventSystem.verticalAxis = "DS_DPAD_Y";
             eventSystem.submitButton = "DS_X";
+            eventSystem.cancelButton = "DS_OPTIONS";
         }
         else {
             eventSystem.horizontalAxis = "XBOX_DPAD_X";
             eventSystem.verticalAxis = "XBOX_DPAD_Y";
             eventSystem.submitButton = "XBOX_A";
+            eventSystem.cancelButton = "XBOX_START";
         }
 
         DontDestroyOnLoad(eventSystem);
@@ -71,6 +78,12 @@ public class WindowManager : Singleton<WindowManager> {
         // In Game
         EndOfLevel.OnLevelComplete += ToggleWindows;
         EndLevelWindow.OnContinue += ToggleWindows;
+        EndLevelWindow.OnBackToMain += ToggleWindows;
+
+        // Pause Menu
+        PauseWindow.OnContinueButton += ToggleWindows;
+        //PauseWindow.OnResartLevelButton += ToggleWindows;
+        PauseWindow.OnBackToMainButton += ToggleWindows;
     }
 
     private void OnDisable() {
@@ -92,10 +105,12 @@ public class WindowManager : Singleton<WindowManager> {
         // In Game
         EndOfLevel.OnLevelComplete -= ToggleWindows;
         EndLevelWindow.OnContinue -= ToggleWindows;
-    }
+        EndLevelWindow.OnBackToMain -= ToggleWindows;
 
-    private void Update() {
-        
+        // Pause Menu
+        PauseWindow.OnContinueButton -= ToggleWindows;
+        //PauseWindow.OnResartLevelButton -= ToggleWindows;
+        PauseWindow.OnBackToMainButton -= ToggleWindows;
     }
 
     public void ToggleWindows(WindowIDs close, WindowIDs open) {
@@ -117,6 +132,14 @@ public class WindowManager : Singleton<WindowManager> {
         currentWindowID = open;
 
         if (currentWindowID != WindowIDs.None) { windows[(int)currentWindowID].Open(); }
+    }
+
+    // Things to do when a level is loaded
+    private void OnLevelWasLoaded(int level) {
+
+        if (level == 0) {
+            ToggleWindows(WindowIDs.None, WindowIDs.StartWindow);
+        }
     }
 
     private IEnumerator StartToStatsTransition() {

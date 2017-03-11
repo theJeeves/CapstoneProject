@@ -45,7 +45,6 @@ public class PlayerActions : MonoBehaviour {
 
     private void OnButton(Buttons button) {
 
-
         /*
          * PLAYER WALKING
          */

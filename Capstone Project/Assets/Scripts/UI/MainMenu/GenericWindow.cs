@@ -8,11 +8,14 @@ public enum WindowIDs {
     StatsWindow = 2,
     CreditsWindow = 3,
     EndOfLevelWindow = 4,
-    QuitWindow = 5,
+    PauseWindow = 5,
+    QuitWindow = 6,
     None = -1
 }
 
 public class GenericWindow : MonoBehaviour {
+
+    public delegate void GenericWindowEvent(WindowIDs close, WindowIDs open);
 
     [SerializeField]
     protected GameObject firstSelected;

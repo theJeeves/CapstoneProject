@@ -23,6 +23,12 @@ public class ButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandler/*,
         _text.color = Color.black;
     }
 
+    public void HighlightButton() {
+
+        if (_text == null) { _text = GetComponentInChildren<Text>(); }
+        _text.color = Color.cyan;
+    }
+
     //public void OnPointerEnter(PointerEventData data) {
     //    _text.color = Color.cyan;
     //}

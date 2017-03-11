@@ -4,9 +4,8 @@ using UnityEngine.UI;
 
 public class EndLevelWindow : GenericWindow {
 
-    public delegate void EndLevelWindowEvent(WindowIDs close, WindowIDs open);
-    public static event EndLevelWindowEvent OnContinue;
-    public static event EndLevelWindowEvent OnBackToMain;
+    public static event GenericWindowEvent OnContinue;
+    public static event GenericWindowEvent OnBackToMain;
 
     private SOSaveFile _SOSaveHandler;
     private Text[] _stats;

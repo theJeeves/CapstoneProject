@@ -4,13 +4,12 @@ using UnityEngine.UI;
 
 public class StartWindow : GenericWindow {
 
-    public delegate void StartWindowEvent(WindowIDs close, WindowIDs open);
-    public static event StartWindowEvent OnContinue;
-    public static event StartWindowEvent OnNewGame;
-    public static event StartWindowEvent OnLevelSelect;
-    public static event StartWindowEvent OnStats;
-    public static event StartWindowEvent OnCredits;
-    public static event StartWindowEvent OnQuit;
+    public static event GenericWindowEvent OnContinue;
+    public static event GenericWindowEvent OnNewGame;
+    public static event GenericWindowEvent OnLevelSelect;
+    public static event GenericWindowEvent OnStats;
+    public static event GenericWindowEvent OnCredits;
+    public static event GenericWindowEvent OnQuit;
 
     [SerializeField]
     private Button _continueButton;
