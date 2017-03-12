@@ -29,6 +29,6 @@ public class StatsWindow : GenericWindow {
     }
 
     public void Back() {
-        OnBack(WindowIDs.StatsWindow, WindowIDs.StartWindow);
+        if (OnBack != null) { OnBack(WindowIDs.StatsWindow, WindowIDs.StartWindow); }
     }
 }

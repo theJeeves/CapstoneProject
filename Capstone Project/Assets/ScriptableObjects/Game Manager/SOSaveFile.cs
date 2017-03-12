@@ -122,4 +122,13 @@ public class SOSaveFile : ScriptableObject {
         InProgressPersuaderShots = 0;
         InProgressJouleShots = 0;
     }
+
+    public void LoadLevel(int level) {
+        CheckpointID = 0;
+        CurrentLevel = level;
+        CheckpointPosition = _startingPositions[CurrentLevel - 1];
+        CurrentDeathCount = 0;
+        InProgressPersuaderShots = 0;
+        InProgressJouleShots = 0;
+    }
 }

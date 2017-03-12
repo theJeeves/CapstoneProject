@@ -38,6 +38,9 @@ public class GameManager : Singleton<GameManager> {
         StartWindow.OnContinue += OnContinue;
         StartWindow.OnNewGame += OnNewGame;
 
+        // LEVEL SELECT
+        LevelSelectButtons.SelectLevel += OnSelectLevel;
+
         // Player Death Event
         PlayerHealth.OnPlayerDeath += OnPlayerDeath;
 
@@ -63,6 +66,9 @@ public class GameManager : Singleton<GameManager> {
         // Start Window Events
         StartWindow.OnContinue -= OnContinue;
         StartWindow.OnNewGame -= OnNewGame;
+
+        // LEVEL SELECT
+        LevelSelectButtons.SelectLevel += OnSelectLevel;
 
         // Player Death Event
         PlayerHealth.OnPlayerDeath -= OnPlayerDeath;
@@ -113,6 +119,17 @@ public class GameManager : Singleton<GameManager> {
         SOSaveHandler.NewGame();
         SceneManager.LoadScene(1);
         _inGame = true;
+    }
+
+    //
+    // LEVEL SELECT
+    //
+    private void OnSelectLevel(int level) {
+        SOSaveHandler.LoadLevel(level);
+        SceneManager.LoadScene(level);
+        Time.timeScale = _defaultTimeScale;
+        _inGame = true;
+        _paused = false;
     }
 
     //
