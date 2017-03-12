@@ -183,6 +183,25 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 122199509}
+--- !u!1 &125627374 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000010361379924, guid: 68109dbdfc2c7cd4598052dbc35183d7,
+    type: 2}
+  m_PrefabInternal: {fileID: 379284700}
+--- !u!61 &125627375
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 125627374}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!1001 &145447658
 Prefab:
   m_ObjectHideFlags: 0
@@ -238,9 +257,29 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: -0.02
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 68000010593206112, guid: 68109dbdfc2c7cd4598052dbc35183d7, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 68109dbdfc2c7cd4598052dbc35183d7, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &204530213 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000010361379924, guid: 68109dbdfc2c7cd4598052dbc35183d7,
+    type: 2}
+  m_PrefabInternal: {fileID: 604640682}
+--- !u!61 &204530214
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 204530213}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 37.5, y: 0.51}
+  serializedVersion: 2
+  m_Size: {x: 79.61, y: 4}
 --- !u!1 &219288053
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +828,8 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: -0.02
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 68000010593206112, guid: 68109dbdfc2c7cd4598052dbc35183d7, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 68109dbdfc2c7cd4598052dbc35183d7, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &379941391
@@ -1119,7 +1159,8 @@ Prefab:
       propertyPath: m_LocalScale.y
       value: 0.2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 68000010593206112, guid: 68109dbdfc2c7cd4598052dbc35183d7, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 68109dbdfc2c7cd4598052dbc35183d7, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &609799216
@@ -2243,6 +2284,25 @@ Transform:
   m_PrefabParentObject: {fileID: 4000013328182616, guid: 68109dbdfc2c7cd4598052dbc35183d7,
     type: 2}
   m_PrefabInternal: {fileID: 379284700}
+--- !u!1 &1306258892 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000010361379924, guid: 68109dbdfc2c7cd4598052dbc35183d7,
+    type: 2}
+  m_PrefabInternal: {fileID: 1867892351}
+--- !u!61 &1306258893
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1306258892}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!4 &1626993740 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000013328182616, guid: 68109dbdfc2c7cd4598052dbc35183d7,
@@ -2684,9 +2744,29 @@ Prefab:
       propertyPath: m_LocalPosition.x
       value: -0.02
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 68000010593206112, guid: 68109dbdfc2c7cd4598052dbc35183d7, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 68109dbdfc2c7cd4598052dbc35183d7, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &1870887789 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 1000010361379924, guid: 68109dbdfc2c7cd4598052dbc35183d7,
+    type: 2}
+  m_PrefabInternal: {fileID: 145447658}
+--- !u!61 &1870887790
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1870887789}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1}
 --- !u!1 &1938724134
 GameObject:
   m_ObjectHideFlags: 0
