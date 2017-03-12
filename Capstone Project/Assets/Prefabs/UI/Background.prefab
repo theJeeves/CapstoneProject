@@ -75,7 +75,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 5eb42389d42cb3f4793c86f835f407e1, type: 2}
+  m_Material: {fileID: 2100000, guid: c54e6d0e2fa629a4fb924cbe96e3ff46, type: 2}
   m_Color: {r: 0.14327422, g: 0.17976859, b: 0.18382353, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _grounds:
-  - {fileID: 2100000, guid: 5eb42389d42cb3f4793c86f835f407e1, type: 2}
+  - {fileID: 2100000, guid: c54e6d0e2fa629a4fb924cbe96e3ff46, type: 2}
   _smoothing: 0.1
 --- !u!222 &222000010939848308
 CanvasRenderer:
@@ -198,7 +198,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_SortingLayerID: 0
-  m_SortingOrder: -50
+  m_SortingOrder: -1
   m_TargetDisplay: 0
 --- !u!224 &224000013495006974
 RectTransform:
