@@ -169,6 +169,8 @@ public class GameManager : Singleton<GameManager> {
         SOSaveHandler.NextLevel();
         SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
         _inGame = true;
+        Time.timeScale = _defaultTimeScale;
+        _paused = false;
     }
 
     private void OnBackToMain(WindowIDs close, WindowIDs open) {
