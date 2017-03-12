@@ -55,7 +55,7 @@ public class GameManager : Singleton<GameManager> {
 
         // PAUSE WINDOW
         PauseWindow.OnContinueButton += OnPauseContinue;
-
+        PauseWindow.OnResartLevelButton += OnPauseRestartLevel;
         PauseWindow.OnBackToMainButton += OnPauseBackToMain;
     }
 
@@ -81,7 +81,7 @@ public class GameManager : Singleton<GameManager> {
 
         // PAUSE WINDOW
         PauseWindow.OnContinueButton -= OnPauseContinue;
-
+        PauseWindow.OnResartLevelButton -= OnPauseRestartLevel;
         PauseWindow.OnBackToMainButton -= OnPauseBackToMain;
     }
 
@@ -180,7 +180,18 @@ public class GameManager : Singleton<GameManager> {
         Time.timeScale = _defaultTimeScale;
     }
 
+
+    //
+    // PAUSE MENU EVENTS
+    //
     private void OnPauseContinue(WindowIDs ignore1, WindowIDs ignore2) {
+        _paused = false;
+        Time.timeScale = _defaultTimeScale;
+    }
+
+    private void OnPauseRestartLevel(WindowIDs ignore1, WindowIDs ignore2) {
+        SOSaveHandler.RestartLevel();
+        SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
         _paused = false;
         Time.timeScale = _defaultTimeScale;
     }

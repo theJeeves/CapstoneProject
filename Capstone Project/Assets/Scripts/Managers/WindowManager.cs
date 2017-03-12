@@ -82,7 +82,7 @@ public class WindowManager : Singleton<WindowManager> {
 
         // Pause Menu
         PauseWindow.OnContinueButton += ToggleWindows;
-        //PauseWindow.OnResartLevelButton += ToggleWindows;
+        PauseWindow.OnResartLevelButton += ToggleWindows;
         PauseWindow.OnBackToMainButton += ToggleWindows;
     }
 
@@ -109,7 +109,7 @@ public class WindowManager : Singleton<WindowManager> {
 
         // Pause Menu
         PauseWindow.OnContinueButton -= ToggleWindows;
-        //PauseWindow.OnResartLevelButton -= ToggleWindows;
+        PauseWindow.OnResartLevelButton -= ToggleWindows;
         PauseWindow.OnBackToMainButton -= ToggleWindows;
     }
 
