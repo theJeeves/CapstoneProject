@@ -12,7 +12,11 @@ public class AcidBallBehavior : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
-        Splatter();
+        if (otherGO.collider.tag != "Enemy")
+        {
+            Splatter();
+        }
+        
         
         if (otherGO.collider.tag == "Player") {
             otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(2, 5.0f, DamageEnum.Acid);
