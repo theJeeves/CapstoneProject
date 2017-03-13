@@ -75,6 +75,7 @@ public class WindowManager : Singleton<WindowManager> {
         StatsWindow.OnBack += ToggleWindows;
 
         // Credits
+        CreditsWindow.OnBackButton += ToggleWindows;
 
         // In Game
         EndOfLevel.OnLevelComplete += ToggleWindows;
@@ -103,6 +104,7 @@ public class WindowManager : Singleton<WindowManager> {
         StatsWindow.OnBack -= ToggleWindows;
 
         // Credits
+        CreditsWindow.OnBackButton -= ToggleWindows;
 
         // In Game
         EndOfLevel.OnLevelComplete -= ToggleWindows;
@@ -128,6 +130,10 @@ public class WindowManager : Singleton<WindowManager> {
         // Start && Level Select
         else if (close == WindowIDs.StartWindow && open == WindowIDs.LevelSelectWindow) { StartCoroutine(StartToLevelSelectTransition()); }
         else if (close == WindowIDs.LevelSelectWindow && open == WindowIDs.StartWindow) { StartCoroutine(LevelSelectToStartTransition()); }
+
+        // Start && Credits Select
+        else if (close == WindowIDs.StartWindow && open == WindowIDs.CreditsWindow) { StartCoroutine(StartToCreditsTransition()); }
+        else if (close == WindowIDs.CreditsWindow && open == WindowIDs.StartWindow) { StartCoroutine(CreditsToStartTransition()); }
 
         // CHECK TO SEE WHEN THE TITLE SHOULD BE DISPLAYED OR NOT
         if (open == WindowIDs.None || open == WindowIDs.EndOfLevelWindow || currentWindowID == WindowIDs.None) { _title.enabled = false; }
@@ -186,6 +192,26 @@ public class WindowManager : Singleton<WindowManager> {
 
         while (_camera.transform.position.y < 0.0f) {
             _camera.transform.position = new Vector3(_camera.transform.position.x, Mathf.SmoothStep(_camera.transform.position.y, 0.0f, (Time.time - _timer) / 1.25f), _camera.transform.position.z);
+            yield return 0;
+        }
+    }
+
+    private IEnumerator StartToCreditsTransition() {
+        float _timer = Time.time;
+        if (_camera == null) { _camera = Camera.main; }
+
+        while (_camera.transform.position.x > -25.0f) {
+            _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, -25.0f, (Time.time - _timer) / 1.25f), _camera.transform.position.y, _camera.transform.position.z);
+            yield return 0;
+        }
+    }
+
+    private IEnumerator CreditsToStartTransition() {
+        float _timer = Time.time;
+        if (_camera == null) { _camera = Camera.main; }
+
+        while (_camera.transform.position.x < 0.0f) {
+            _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, 0.0f, (Time.time - _timer) / 1.25f), _camera.transform.position.y, _camera.transform.position.z);
             yield return 0;
         }
     }

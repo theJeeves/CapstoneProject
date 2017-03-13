@@ -658,7 +658,7 @@ GameObject:
   - 114: {fileID: 114000010253806316}
   - 114: {fileID: 114000010236142418}
   m_Layer: 5
-  m_Name: STATS
+  m_Name: CREDITS
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1065,7 +1065,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 224000013603028618}
   - 222: {fileID: 222000012740592526}
-  - 114: {fileID: 114000013695484908}
+  - 114: {fileID: 114000011289465134}
   m_Layer: 5
   m_Name: CreditsWindow
   m_TagString: Untagged
@@ -1372,7 +1372,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114000012979534436}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000012166439048}
+        m_MethodName: Quit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114000010496236992
@@ -2080,6 +2091,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstSelected: {fileID: 1000011464441776}
+--- !u!114 &114000011289465134
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000014219378456}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2bae62eb69eec7349b8d5e61cd3a6470, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstSelected: {fileID: 1000010588402488}
 --- !u!114 &114000011309992192
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2490,7 +2513,7 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 77bf99444d34989469a5f840346a5953, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 0.5294118, g: 1, b: 0.5294118, a: 1}
   m_RaycastTarget: 0
   m_OnCullStateChanged:
@@ -2822,7 +2845,7 @@ MonoBehaviour:
   - {fileID: 114000012166439048}
   - {fileID: 114000011833291798}
   - {fileID: 114000011916548528}
-  - {fileID: 114000013695484908}
+  - {fileID: 114000011289465134}
   - {fileID: 114000013742888126}
   - {fileID: 114000011287183156}
 --- !u!114 &114000012207620836
@@ -3535,7 +3558,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 114000010891037858}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 114000012166439048}
+        m_MethodName: Credits
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &114000013082522334
@@ -3631,18 +3665,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 441c7fa942f033d47970dae3443f9fa1, type: 3}
-    m_FontSize: 72
+    m_FontSize: 102
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 72
+    m_MaxSize: 102
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: STATS
+  m_Text: CREDITS
 --- !u!114 &114000013286839900
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3941,18 +3975,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _normalColor: {r: 0, g: 0, b: 0, a: 1}
   _highlightedColor: {r: 0, g: 1, b: 1, a: 1}
---- !u!114 &114000013695484908
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1000014219378456}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cedcf23c45f74e849afa86acbaa0562d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firstSelected: {fileID: 1000010588402488}
 --- !u!114 &114000013705285420
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4101,7 +4123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Navigation:
     m_Mode: 4
-    m_SelectOnUp: {fileID: 114000012664967700}
+    m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
     m_SelectOnRight: {fileID: 0}
@@ -4127,8 +4149,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 114000013695484908}
-        m_MethodName: Back
+      - m_Target: {fileID: 114000011289465134}
+        m_MethodName: BackButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
