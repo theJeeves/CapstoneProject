@@ -8,7 +8,7 @@ public class SwarmPodSpawner : MonoBehaviour {
 
     [Header("Swarmer Pod Variables")]
     [SerializeField]
-    private GameObject _swarmPrefab;                //Prefab of the Pod sprite and its scripts
+    private GameObject[] _swarmPrefab;                //Prefab of the Pod sprite and its scripts
 
     public int sizeOfSwarm = 0;                   //The number of swarmers the developer wants to spawn from this instance.
     [SerializeField]
@@ -105,7 +105,7 @@ public class SwarmPodSpawner : MonoBehaviour {
 
         // Instantiate as many swarmers as the developer has requested in the inspector.
         for (int i = 0; i < sizeOfSwarm; ++i) {
-            _swarm[i] = Instantiate(_swarmPrefab, transform.position, Quaternion.identity) as GameObject;
+            _swarm[i] = Instantiate(_swarmPrefab[Random.Range(0, _swarmPrefab.Length)], transform.position, Quaternion.identity) as GameObject;
         }
     }
 }
