@@ -6,10 +6,13 @@ public class FocusCamera : MonoBehaviour {
     [SerializeField]
     private ScriptedCamera _scriptedCam;
 
-    [SerializeField]
-    private bool _leftAndRight;
-    [SerializeField]
+    //[SerializeField]
+    private bool _leftAndRight = true;
+    //[SerializeField]
     private bool _upAndDown;
+
+    [SerializeField]
+    private float _adjustDuration = 3.0f;
 
     [SerializeField]
     private Transform[] _triggerPoints;
@@ -30,6 +33,12 @@ public class FocusCamera : MonoBehaviour {
 
     private void OnDisable() {
         PlayerHealth.UpdateHealth -= UponDeath;
+    }
+
+    private void OnTriggerEnter2D(Collider2D otherGO) {
+        if (_collider.enabled && otherGO.tag == "Player") {
+            _scriptedCam.SetAdjustSpeed(_adjustDuration);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D otherGO) {

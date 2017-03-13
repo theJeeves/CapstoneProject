@@ -57,4 +57,8 @@ public class ScriptedCamera : ScriptableObject {
     public void Reset() {
         _initialTarget = new Vector3(0.0f, 0.0f, 0.0f);
     }
+
+    public void SetAdjustSpeed(float speed) {
+        _adjustSpeed = speed;
+    }
 }
