@@ -51,7 +51,7 @@ public class rotatingLaser : MonoBehaviour
             if(hit.collider.tag == "Player")
             {
                 GameObject otherGO = GameObject.FindGameObjectWithTag("Player");
-                otherGO.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage);
+                otherGO.GetComponent<PlayerHealth>().KillPlayer();
             }
 
 
