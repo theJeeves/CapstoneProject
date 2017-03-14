@@ -116,7 +116,7 @@ public class PlayerHealth : MonoBehaviour {
             GetComponent<Rigidbody2D>().gravityScale = 0.0f;
             GetComponent<PlayerMovementManager>().ClearQueue();
 
-            _GM.OnContinue(WindowIDs.None, WindowIDs.None);
+            StartCoroutine(ReloadLevelDelay());
 
             //if (Time.time - _timer > 1.0f) {
 
@@ -250,11 +250,13 @@ public class PlayerHealth : MonoBehaviour {
             if (damageType == DamageEnum.Acid) {
                 AcidDamageEffect();
                 _health -= damage;
+                if (_effect != null) { _SOEffectHandler.StopEffect(_effect); }
                 _effect = _SOEffectHandler.PlayEffect(EffectEnums.AcidDamageEffect, _effectPositions[1].position);
                 _damageType = damageType;
             }
             else if (damageType == DamageEnum.Explosion) {
                 ExplosionDamageEffect();
+                if (_effect != null) { _SOEffectHandler.StopEffect(_effect); }
                 _effect = _SOEffectHandler.PlayEffect(EffectEnums.ExplosionDamageEffect, _effectPositions[1].position);
                 _damageType = damageType;
                 _health -= damage;
@@ -310,6 +312,11 @@ public class PlayerHealth : MonoBehaviour {
         yield return new WaitForSeconds(_recoveryTime);
 
         _canTakeDamage = true;
+    }
+
+    private IEnumerator ReloadLevelDelay() {
+        yield return new WaitForSeconds(5.0f);
+        _GM.OnContinue(WindowIDs.None, WindowIDs.None);
     }
 
     private void DeployBodyParts() {

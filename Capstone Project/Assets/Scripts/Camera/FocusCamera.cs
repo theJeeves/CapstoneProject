@@ -90,7 +90,7 @@ public class FocusCamera : MonoBehaviour {
 
             if (otherGO.tag == "Player") {
                 _scriptedCam.Reset();
-                _originSet = false;
+                //_originSet = false;
             }
         }
     }
