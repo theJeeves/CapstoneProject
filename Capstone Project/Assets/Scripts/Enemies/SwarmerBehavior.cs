@@ -119,7 +119,7 @@ public class SwarmerBehavior : MonoBehaviour {
             _timer = Time.time;
         }
         else if (_enemyType == EnemyType.ExplodingSwamer && otherGO.gameObject.tag == "Player") {
-            otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(15, 3.0f, DamageEnum.Explosion);
+            otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(25, 3.0f, DamageEnum.Explosion);
             GetComponent<EnemyBasicBehaviors>().DecrementHealth(100);
         }
     }

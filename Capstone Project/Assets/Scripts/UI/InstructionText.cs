@@ -10,6 +10,8 @@ public class InstructionText : MonoBehaviour {
 
     [SerializeField]
     private string _instructions;
+    [SerializeField]
+    private bool _enableInput = false;
 
     private bool _isDirty = false;
     private float _displayTime = 3.0f;
@@ -29,6 +31,8 @@ public class InstructionText : MonoBehaviour {
 
             _timer = Time.time;
             DisplayHint(_instructions);
+
+            if (_enableInput) { InputManager.Instance.GetComponent<InputManager>().StartInput(); }
         }
     }
 

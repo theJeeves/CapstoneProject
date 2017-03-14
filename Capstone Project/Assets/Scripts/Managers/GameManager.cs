@@ -110,7 +110,7 @@ public class GameManager : Singleton<GameManager> {
     //
     // Start Window Events
     //
-    private void OnContinue(WindowIDs ignore1, WindowIDs ignore2) {
+    public void OnContinue(WindowIDs ignore1, WindowIDs ignore2) {
         SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
         _inGame = true;
     }
@@ -229,25 +229,50 @@ public class GameManager : Singleton<GameManager> {
             inGame = true;
 
             if (SOSaveHandler.CheckpointID == 0) {
-                SpawnPlayer();
+                GameObject player = SpawnPlayer();
+
+                if (level == 1) {
+                    player.GetComponentInChildren<WeaponSelect>().MGAvailable = true;
+                    player.GetComponentInChildren<WeaponSelect>().SGAvailable = false;
+                    _IM.StopInput();
+                }
             }
             else {
                 SpawnPlayer();
                 GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
+                GameObject camera = GameObject.FindGameObjectWithTag("SmartCamera");
+
                 foreach (GameObject ckpt in checkpoints) {
 
                     if (ckpt.GetComponent<CheckpointBehavior>().ID == SOSaveHandler.CheckpointID) {
-                        ckpt.GetComponent<CheckpointBehavior>().Activate();
+                        CheckpointBehavior ckptBehavior = ckpt.GetComponent<CheckpointBehavior>();
+
+                        ckptBehavior.Activate();
+                        camera.transform.position = ckptBehavior.cameraPos;
+
+                        if (ckptBehavior.smartXEnabled) {
+                            camera.GetComponent<SmartCameraXPosition>().enabled = true;
+                        }
+                        else {
+                            camera.GetComponent<SmartCameraXPosition>().enabled = false;
+                        }
+                        if (ckptBehavior.smartYEnabled) {
+                            camera.GetComponent<SmartCameraYPosition>().enabled = true;
+                        }
+                        else {
+                            camera.GetComponent<SmartCameraYPosition>().enabled = false;
+                        }
                     }
                 }
             }
         }
     }
 
-    private void SpawnPlayer() {
+    private GameObject SpawnPlayer() {
         GameObject _player = Instantiate(Resources.Load("MainCharacter/MainCharacter", typeof(GameObject)) as GameObject, transform.position, Quaternion.identity) as GameObject;
         SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, SOSaveHandler.CheckpointPosition);
         _player.transform.position = SOSaveHandler.CheckpointPosition;
         _IM.AssignPlayer(_player);
+        return _player;
     }
 }

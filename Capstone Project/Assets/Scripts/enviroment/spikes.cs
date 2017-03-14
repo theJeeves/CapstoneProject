@@ -11,9 +11,8 @@ public class spikes : MonoBehaviour {
 
         string tag = otherGO.gameObject.tag;
 
-        if (tag == "Player")
-        {
-            otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage);
+        if (tag == "Player") {
+            otherGO.gameObject.GetComponent<PlayerHealth>().KillPlayer();
         }
 
     }

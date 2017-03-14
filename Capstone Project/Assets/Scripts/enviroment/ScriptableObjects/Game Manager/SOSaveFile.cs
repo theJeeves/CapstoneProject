@@ -6,6 +6,8 @@ public class SOSaveFile : ScriptableObject {
 
     [SerializeField]
     private Vector3[] _startingPositions;
+    [SerializeField]
+    private Vector3[] _startingCameraPos;
 
     public int CurrentLevel {
        get { return PlayerPrefs.GetInt("currentLevel"); }
@@ -22,6 +24,23 @@ public class SOSaveFile : ScriptableObject {
         set {
             PlayerPrefs.SetFloat("checkpointPositionX", value.x);
             PlayerPrefs.SetFloat("checkpointPositionY", value.y);
+        }
+    }
+
+    public Vector3 CameraPosition {
+        get { return new Vector3(PlayerPrefs.GetFloat("cameraPositionX"), PlayerPrefs.GetFloat("cameraPositionY"), PlayerPrefs.GetFloat("cameraPositionZ")); }
+        set {
+            PlayerPrefs.SetFloat("cameraPositionX", value.x);
+            PlayerPrefs.SetFloat("cameraPositionY", value.y);
+            PlayerPrefs.SetFloat("cameraPositionZ", value.z);
+        }
+    }
+
+    public Vector2 SmartCameraSettings {
+        get { return new Vector2(PlayerPrefs.GetInt("smartX"), PlayerPrefs.GetInt("smartY")); }
+        set {
+            PlayerPrefs.SetFloat("smartX", value.x);
+            PlayerPrefs.SetFloat("smartY", value.y);
         }
     }
 

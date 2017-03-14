@@ -857,7 +857,7 @@ MonoBehaviour:
   _ammoCapacity: 3
   numOfRounds: 0
   _shotDelay: 0.25
-  _reloadTime: 0.25
+  _reloadTime: 0.5
   _barrelNorm: {fileID: 4000011842634022}
   _endNorm: {fileID: 4000012708005994}
   _barrelAlt: {fileID: 4000013172761228}
@@ -1011,7 +1011,7 @@ MonoBehaviour:
   _ammoCapacity: 26
   numOfRounds: 0
   _shotDelay: 0.1
-  _reloadTime: 0.3
+  _reloadTime: 0.5
   _barrelNorm: {fileID: 4000011842634022}
   _endNorm: {fileID: 4000012708005994}
   _barrelAlt: {fileID: 4000013172761228}
@@ -1035,7 +1035,6 @@ MonoBehaviour:
   _playerBody: {fileID: 1000013727174476}
   _SOEffectHandler: {fileID: 11400000, guid: e39803050b195f549bce9a8efa402b78, type: 2}
   _scrnShkRequest: {fileID: 11400000, guid: 8ef3faf65b3f2824bb551b6f8c073115, type: 2}
-  _SOSaveHandler: {fileID: 11400000, guid: c545bace2bff4004c952e2fab9f354e4, type: 2}
   _SOWeaponManager: {fileID: 11400000, guid: fcec17c53c3b960458e7557822f929b5, type: 2}
   _bodyParts:
   - {fileID: 1000010164026762, guid: 5728fb320be1e37409bc14a66a403db1, type: 2}

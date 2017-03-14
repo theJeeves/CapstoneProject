@@ -41,11 +41,12 @@ public class ScriptedCamera : ScriptableObject {
     }
 
     public void LinearlyMoveCamera(float percentage, Vector3 originPos, Vector3 target) {
-        //if (_camera.transform.position != target) {
+
+        if (_camera == null) { _camera = GameObject.FindGameObjectWithTag("SmartCamera"); }
+
             _camera.transform.position = new Vector3(percentage * (target.x - originPos.x) + originPos.x, 
                                                      percentage * (target.y - originPos.y) + originPos.y, 
                                                      percentage * (target.z - originPos.z) + originPos.z);
-        //}
     }
 
     //Depending on what the developer wants to do, EnableScripts and DisableScripts will turn on/off

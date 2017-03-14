@@ -11,6 +11,13 @@ public class CheckpointBehavior : MonoBehaviour {
     public int ID = 0;
 
     [Space]
+    [Header("Camera Properties")]
+
+    public Vector3 cameraPos;
+    public bool smartXEnabled;
+    public bool smartYEnabled;
+
+    [Space]
     [Header("Tools")]
 
     [SerializeField]

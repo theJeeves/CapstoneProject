@@ -53,6 +53,7 @@ public class PlayerHealth : MonoBehaviour {
     private int _damageReceived = 0;                // How much damage has the player received.
     private float _duration = 0.0f;                 // Duration for an effect to last.
     private bool _deathAnimationPlayed = false;     // Bool to ensure the death explosions only play once per death.
+    private bool _killPlayerCalled = false;
 
     private InputManager _inputManager;
     private PlayerMovementManager _movementManager;
@@ -113,31 +114,49 @@ public class PlayerHealth : MonoBehaviour {
 
             GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
             GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            GetComponent<PlayerMovementManager>().ClearQueue();
 
-            if (Time.time - _timer > 1.0f) {
+            _GM.OnContinue(WindowIDs.None, WindowIDs.None);
 
-                transform.position = _GM.SOSaveHandler.CheckpointPosition;
-                GetComponent<PlayerMovementManager>().ClearQueue();
+            //if (Time.time - _timer > 1.0f) {
 
-                if (Camera.main.WorldToViewportPoint(_GM.SOSaveHandler.CheckpointPosition).x > 0.1f &&
-                    Camera.main.WorldToViewportPoint(_GM.SOSaveHandler.CheckpointPosition).x < 0.9f) {
+            //    transform.position = _GM.SOSaveHandler.CheckpointPosition;
+            //    GetComponent<PlayerMovementManager>().ClearQueue();
 
-                    // Delay the player from any input for 1.5 seconds to ensure they do not immediate fly to their death
-                    // Call the respawn effect and restore all the default values for the player.
-                    _inputManager.PauseInput(1.25f);
-                    GetComponent<Rigidbody2D>().gravityScale = 40.0f;
-                    _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _GM.SOSaveHandler.CheckpointPosition);
-                    _SOWeaponManager.Reload();
-                    _health = _maxHealth;
-                    _playerBody.SetActive(true);
-                    UpdateHealth(_health);
-                    _deathAnimationPlayed = false;
-                }
-            }
+            //    if (Camera.main.WorldToViewportPoint(_GM.SOSaveHandler.CheckpointPosition).x > 0.1f &&
+            //        Camera.main.WorldToViewportPoint(_GM.SOSaveHandler.CheckpointPosition).x < 0.9f) {
+
+            //        // Delay the player from any input for 1.5 seconds to ensure they do not immediate fly to their death
+            //        // Call the respawn effect and restore all the default values for the player.
+            //        _inputManager.PauseInput(1.25f);
+            //        GetComponent<Rigidbody2D>().gravityScale = 40.0f;
+            //        _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _GM.SOSaveHandler.CheckpointPosition);
+            //        _SOWeaponManager.Reload();
+            //        _health = _maxHealth;
+            //        _playerBody.SetActive(true);
+            //        UpdateHealth(_health);
+            //        _deathAnimationPlayed = false;
+            //    }
+            //}
+        }
+
+        if (_killPlayerCalled) {
+            KillPlayer();
         }
 
         // if there is any type of effect associated with the player, ensure it is following them with a slight offset.
         if (_effect != null) {
+
+            // If an effect is playing and then the player dies, stop the effect at once.
+            if (_health < 0) {
+                _duration = 0.0f;
+                _SOEffectHandler.StopEffect(_effect);
+
+                foreach (GameObject sprite in _entity.Sprites) {
+                    Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
+                    sprite.GetComponent<SpriteRenderer>().color = Color.white;
+                }
+            }
             _effect.transform.position = transform.position + new Vector3(0.0f, 25.0f, 0.0f);
         }
 
@@ -147,12 +166,8 @@ public class PlayerHealth : MonoBehaviour {
             if (Time.time - _timer < _duration) {
 
                 if (_damageType == DamageEnum.Acid && _canTakeDamage) {
-                    _health -= _damageReceived;
                     _scrnShkRequest.ShakeRequest();
                     StartCoroutine(RecoveryDelay());
-                    if (UpdateHealth != null) {
-                        UpdateHealth(_health);
-                    }
                 }
 
                 ReturnToNormalColor();
@@ -164,6 +179,54 @@ public class PlayerHealth : MonoBehaviour {
         }
     }
 
+    public void KillPlayer() {
+
+        _killPlayerCalled = true;
+
+        if (!_deathAnimationPlayed) {
+
+            if (_inputManager == null) { _inputManager = InputManager.Instance.GetComponent<InputManager>(); }
+
+            _playerBody.SetActive(false);
+            _inputManager.PauseInput(60.0f);
+
+            if (!_collisionState.OnSolidGround) {
+                _SOEffectHandler.PlayEffect(EffectEnums.Player_Death00, transform.position);
+            }
+            else {
+                _SOEffectHandler.PlayEffect(EffectEnums.Player_Death01, transform.position);
+            }
+            _deathAnimationPlayed = true;
+            DeployBodyParts();
+            _timer = Time.time;
+            if (OnPlayerDeath != null) { OnPlayerDeath(); }     // This tells the save file to add to the number of deaths.
+        }
+
+        GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+        GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+        GetComponent<PlayerMovementManager>().ClearQueue();
+
+        if (Time.time - _timer > 1.0f) {
+
+            transform.position = _GM.SOSaveHandler.CheckpointPosition;
+            GetComponent<PlayerMovementManager>().ClearQueue();
+
+            if (Camera.main.WorldToViewportPoint(_GM.SOSaveHandler.CheckpointPosition).x > 0.1f &&
+                Camera.main.WorldToViewportPoint(_GM.SOSaveHandler.CheckpointPosition).x < 0.9f) {
+
+                // Delay the player from any input for 1.5 seconds to ensure they do not immediate fly to their death
+                // Call the respawn effect and restore all the default values for the player.
+                _inputManager.PauseInput(1.25f);
+                GetComponent<Rigidbody2D>().gravityScale = 40.0f;
+                _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _GM.SOSaveHandler.CheckpointPosition);
+                _SOWeaponManager.Reload();
+                _playerBody.SetActive(true);
+                _deathAnimationPlayed = false;
+                _killPlayerCalled = false;
+            }
+        }
+    }
+
     /// <summary>
     /// The function is generally usesd by other game objects which can damage the player. This function handles various damage types.
     /// Some attacks will have an instant damage on the health while other may have a damage over time. 
@@ -171,53 +234,43 @@ public class PlayerHealth : MonoBehaviour {
     /// </summary>
     public void DecrementPlayerHealth(int damage, float duration = 0.0f, DamageEnum damageType = DamageEnum.None) {
 
-        if (_canTakeDamage) {
-
-            // Tell the input manager to stop taking in input for 0.5 seconds
-            // To ensure there are no conflicting movement requests, clear the player movement queue of all requests.
-            if (_inputManager == null) { _inputManager = InputManager.Instance.GetComponent<InputManager>(); }
-            _inputManager.PauseInput(0.5f);
-            _movementManager.ClearQueue();
+        // Tell the input manager to stop taking in input for 0.5 seconds
+        // To ensure there are no conflicting movement requests, clear the player movement queue of all requests.
+        if (_inputManager == null) { _inputManager = InputManager.Instance.GetComponent<InputManager>(); }
+        _inputManager.PauseInput(0.5f);
+        _movementManager.ClearQueue();
 
 
-            // If duration is passed in for damages which last for X amount of time
-            if (duration > 0.0f) {
-                _damageReceived = damage;
-                _duration = duration;
+        // If duration is passed in for damages which last for X amount of time
+        if (duration > 0.0f) {
+            _damageReceived = damage;
+            _duration = duration;
 
-                // For each of the damage effects, call the appropriate functions to give the selected effect.
-                if (damageType == DamageEnum.Acid) {
-                    AcidDamageEffect();
-                    _effect = _SOEffectHandler.PlayEffect(EffectEnums.AcidDamageEffect, _effectPositions[1].position);
-                    _damageType = damageType;
-                }
-                else if (damageType == DamageEnum.Explosion) {
-                    ExplosionDamageEffect();
-                    _effect = _SOEffectHandler.PlayEffect(EffectEnums.ExplosionDamageEffect, _effectPositions[1].position);
-                    _damageType = damageType;
-                    _health -= damage;
-                    _scrnShkRequest.ShakeRequest();
-                    StartCoroutine(RecoveryDelay());
-
-
-                    // UPDATE HEALTH UI
-                    if (UpdateHealth != null) {
-                        UpdateHealth(_health);
-                    }
-                }
-
-                _timer = Time.time;
+            // For each of the damage effects, call the appropriate functions to give the selected effect.
+            if (damageType == DamageEnum.Acid) {
+                AcidDamageEffect();
+                _health -= damage;
+                _effect = _SOEffectHandler.PlayEffect(EffectEnums.AcidDamageEffect, _effectPositions[1].position);
+                _damageType = damageType;
             }
-            else {
-                StartCoroutine(RecoveryDelay());
-
+            else if (damageType == DamageEnum.Explosion) {
+                ExplosionDamageEffect();
+                _effect = _SOEffectHandler.PlayEffect(EffectEnums.ExplosionDamageEffect, _effectPositions[1].position);
+                _damageType = damageType;
                 _health -= damage;
                 _scrnShkRequest.ShakeRequest();
-
-                if (UpdateHealth != null) {
-                    UpdateHealth(_health);
-                }
             }
+
+            _timer = Time.time;
+        }
+        else {
+            _health -= damage;
+            _scrnShkRequest.ShakeRequest();
+        }
+
+        // UPDATE HEALTH UI
+        if (UpdateHealth != null) {
+            UpdateHealth(_health);
         }
     }
 

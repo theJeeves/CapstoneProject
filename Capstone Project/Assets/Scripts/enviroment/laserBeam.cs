@@ -51,7 +51,7 @@ public class laserBeam : MonoBehaviour
             {
                 if (_hit.collider.tag == "Player")
                 {
-                    _hit.collider.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage);
+                    _hit.collider.gameObject.GetComponent<PlayerHealth>().KillPlayer();
 
                 }
             }

@@ -73,7 +73,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
         }
     }
 
-    private void Update() {
+    private void LateUpdate() {
 
         if (enemyType == EnemyType.AcidSwarmer) {
 
@@ -90,7 +90,16 @@ public class EnemyBasicBehaviors : MonoBehaviour {
             _effect.transform.position = _effectPositions[1].position;
         }
         else if (_effectPositions != null && enemyType == EnemyType.Flying) {
-            _effect.transform.position = new Vector3(_effectPositions[1].position.x, _effectPositions[1].position.y, 1.0f);
+            _effect.transform.position = new Vector3(_effectPositions[1].position.x, _effectPositions[1].position.y, 0.0f);
+
+            if (Time.time - _timer > _effectDelay) {
+                _SOEffectHandler.PlayEffect(EffectEnums.AcidSquirt, _effectPositions[2].position, transform.eulerAngles.z + 90.0f);
+
+                _SOEffectHandler.PlayEffect(EffectEnums.AcidBall, _effectPositions[2].position);
+                _effectDelay = Random.Range(1.0f, 3.0f);
+                _timer = Time.time;
+            }
+
         }
         else if (_effectPositions != null && enemyType == EnemyType.Charger) {
 
@@ -106,7 +115,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
         if (otherGO.gameObject.tag == "Player") {
 
             if (enemyType == EnemyType.Flying) {
-                otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(7);
+                otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(15);
                 int direction = otherGO.gameObject.transform.position.x > transform.position.x ? 1 : -1;
                 otherGO.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(175.0f * direction, 100.0f);
             }

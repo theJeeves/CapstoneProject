@@ -61,7 +61,6 @@ public class FocusCamera : MonoBehaviour {
 
                             if (_linearMovement.Length > 0 && _linearMovement[i]) {
 
-                                Debug.Log("here");
                                 float difference = _triggerPoints[i + 1].position.x - _triggerPoints[i].position.x;
                                 float percentage = 1.0f - ((_triggerPoints[i + 1].position.x - playerPos.x) / difference);
                                 SetCameraOrigin();
@@ -91,6 +90,7 @@ public class FocusCamera : MonoBehaviour {
 
             if (otherGO.tag == "Player") {
                 _scriptedCam.Reset();
+                _originSet = false;
             }
         }
     }
