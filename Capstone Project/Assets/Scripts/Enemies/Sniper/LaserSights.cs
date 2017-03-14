@@ -10,7 +10,7 @@ public class LaserSights : MonoBehaviour {
     [SerializeField]
     private Transform _endOfBarrel;
 
-    private PolygonCollider2D _playerBox;
+    private BoxCollider2D _playerBox;
     private Vector3 _playerPos;
     private Vector2 _obstruction;
     private LineRenderer _renderer;
@@ -32,7 +32,7 @@ public class LaserSights : MonoBehaviour {
     private void Update() {
 
         if (_playerBox == null) {
-            _playerBox = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
+            _playerBox = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
         }
 
         _playerPos = new Vector2(_playerBox.bounds.center.x, _playerBox.bounds.center.y + 7.5f);

@@ -144,7 +144,6 @@ public class PlayerHealth : MonoBehaviour {
             KillPlayer();
         }
 
-        // if there is any type of effect associated with the player, ensure it is following them with a slight offset.
         if (_effect != null) {
 
             // If an effect is playing and then the player dies, stop the effect at once.
@@ -157,6 +156,7 @@ public class PlayerHealth : MonoBehaviour {
                     sprite.GetComponent<SpriteRenderer>().color = Color.white;
                 }
             }
+            // if there is any type of effect associated with the player, ensure it is following them with a slight offset.
             _effect.transform.position = transform.position + new Vector3(0.0f, 25.0f, 0.0f);
         }
 
@@ -205,6 +205,15 @@ public class PlayerHealth : MonoBehaviour {
         GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
         GetComponent<Rigidbody2D>().gravityScale = 0.0f;
         GetComponent<PlayerMovementManager>().ClearQueue();
+
+        // If an effect is playing and then the player dies, stop the effect at once.
+        _duration = 0.0f;
+        _SOEffectHandler.StopEffect(_effect);
+
+        foreach (GameObject sprite in _entity.Sprites) {
+            Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
+            sprite.GetComponent<SpriteRenderer>().color = Color.white;
+        }
 
         if (Time.time - _timer > 1.0f) {
 
