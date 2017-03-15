@@ -12,6 +12,8 @@ public class PlayerMovementManager : MonoBehaviour {
     private Vector3 _values;
     private float _timer = 0.0f;
 
+    private AudioSource _audioSource;
+    private bool _isPlaying = false;
 
     // The key is whether or not the movement should be additive or override the current movement.
     private Queue<MovementRequest> _moveQ = new Queue<MovementRequest>();
@@ -20,6 +22,7 @@ public class PlayerMovementManager : MonoBehaviour {
         _body2d = GetComponent<Rigidbody2D>();
         _controller = GetComponent<ControllableObject>();
         _collisionState = GetComponent<PlayerCollisionState>();
+        _audioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -29,6 +32,8 @@ public class PlayerMovementManager : MonoBehaviour {
 
         if (_moveQ.Count == 0 && _grounded && Mathf.Abs(_body2d.velocity.x) > 0.5f) {
             _body2d.velocity = new Vector2(Mathf.SmoothStep(_body2d.velocity.x, 0.0f, (Time.time - _timer) / 1.00f), _body2d.velocity.y);
+            _audioSource.Stop();
+            _isPlaying = false;
         }
         else {
             _timer = Time.time;
@@ -41,6 +46,10 @@ public class PlayerMovementManager : MonoBehaviour {
                 case MovementType.MainMenuWalking:
                 case MovementType.Walking:
                     _body2d.velocity = _moveQ.Dequeue().Move(_values, _grounded, _controller.CurrentKey);
+                    if (!_isPlaying) {
+                        _audioSource.Play();
+                        _isPlaying = true;
+                    }
                     break;
                 case MovementType.Shotgun:
                 case MovementType.MachineGun:

@@ -3,12 +3,15 @@ using System.Collections;
 
 public class EnableCollider : MonoBehaviour {
 
+    public bool mainMenu = false;
+
     private float _delayTime = 0.25f;
     private float _timer;
 
     private void Start() {
         _timer = Time.time;
-        GetComponent<Rigidbody2D>().gravityScale = Random.Range(35.0f, 45.0f);
+
+        if (!mainMenu) { GetComponent<Rigidbody2D>().gravityScale = Random.Range(35.0f, 45.0f); }
     }
 	
 	// Update is called once per frame

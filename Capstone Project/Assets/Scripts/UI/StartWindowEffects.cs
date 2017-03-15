@@ -60,6 +60,7 @@ public class StartWindowEffects : MonoBehaviour {
         for (int i = 0; i < _enemyBodyParts.bodyParts.Length; ++i) {
             GameObject instance = Instantiate(_enemyBodyParts.bodyParts[i], transform.position, Quaternion.identity) as GameObject;
             _bodyParts.Add(instance);
+            instance.GetComponent<EnableCollider>().mainMenu = true;
             instance.GetComponent<Rigidbody2D>().gravityScale = 2.0f;
             instance.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f);
             instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-10.0f, -5.0f), Random.Range(4.0f, 15.0f)), ForceMode2D.Impulse);
