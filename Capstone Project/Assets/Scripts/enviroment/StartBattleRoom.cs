@@ -5,8 +5,10 @@ public class StartBattleRoom : MonoBehaviour {
 
     [SerializeField]
     private GameObject[] _doors;
-    private bool _set = false;
+    [SerializeField]
+    private GameObject[] _objectsToEnable;
 
+    private bool _set = false;
     private GameObject[] _swarm;
 
     private void OnEnable() {
@@ -30,6 +32,10 @@ public class StartBattleRoom : MonoBehaviour {
 
                 for (int i = 1; i < _doors.Length; ++i) {
                     _doors[i].SetActive(false);
+                }
+
+                for (int i = 0; i < _objectsToEnable.Length; ++i) {
+                    _objectsToEnable[i].SetActive(true);
                 }
             }
         }

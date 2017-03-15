@@ -6,10 +6,15 @@ public class FocusCamera : MonoBehaviour {
     [SerializeField]
     private ScriptedCamera _scriptedCam;
 
-    //[SerializeField]
+    [Header("Movement Type")]
+    [SerializeField]
     private bool _leftAndRight = true;
-    //[SerializeField]
-    private bool _upAndDown;
+    [SerializeField]
+    private bool _topToBottom = false;
+    [SerializeField]
+    private bool _bottomToTop = false;
+
+    [Space]
 
     [SerializeField]
     private float _adjustDuration = 3.0f;
@@ -71,11 +76,16 @@ public class FocusCamera : MonoBehaviour {
                             }
                         }
                     }
-                    //if (_upAndDown) {
-                    //    if (playerPos.y > _triggerPoints[i].position.y && playerPos.y < _triggerPoints[i + 1].position.y) {
-                    //        _scriptedCam.MoveCamera(_cameraPositions[i]);
-                    //    }
-                    //}
+                    else if (_bottomToTop) {
+                        if (playerPos.y > _triggerPoints[i].position.y && playerPos.y < _triggerPoints[i + 1].position.y) {
+                            _scriptedCam.MoveCamera(_cameraPositions[i]);
+                        }
+                    }
+                    else if (_topToBottom) {
+                        if (playerPos.y < _triggerPoints[i].position.y && playerPos.y > _triggerPoints[i + 1].position.y) {
+                            _scriptedCam.MoveCamera(_cameraPositions[i]);
+                        }
+                    }
                 }
             }
             else if (length == 0) {
