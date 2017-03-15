@@ -9,7 +9,10 @@ public class InstructionText : MonoBehaviour {
     public static event Hint_ControlsEvent2 HideHint;
 
     [SerializeField]
-    private string _instructions;
+    private string _ds4Instructions;
+    [SerializeField]
+    private string _xboxInstructions;
+
     [SerializeField]
     private bool _enableInput = false;
 
@@ -17,6 +20,9 @@ public class InstructionText : MonoBehaviour {
     private float _displayTime = 3.0f;
     private float _timer = 0.0f;
     private bool _displayed = false;
+
+    private bool _ds4;
+
 
     private void Update() {
 
@@ -30,7 +36,14 @@ public class InstructionText : MonoBehaviour {
         if (!_isDirty && player.gameObject.tag == "Player" && DisplayHint != null) {
 
             _timer = Time.time;
-            DisplayHint(_instructions);
+
+            _ds4 = InputManager.Instance.GetComponent<InputManager>().controllerType == 0 ? true : false;
+            if (_ds4) {
+                DisplayHint(_ds4Instructions);
+            }
+            else {
+                DisplayHint(_xboxInstructions);
+            }
 
             if (_enableInput) { InputManager.Instance.GetComponent<InputManager>().StartInput(); }
         }

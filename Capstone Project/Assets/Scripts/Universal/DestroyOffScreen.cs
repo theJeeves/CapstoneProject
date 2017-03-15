@@ -15,13 +15,13 @@ public class DestroyOffScreen : MonoBehaviour {
 
 
         if (!_bodyParts) {
-            if (_GOpos.x < -.15f || _GOpos.x > 1.15f || _GOpos.y < -0.15f || _GOpos.y > 1.15f) {
+            if (_GOpos.x < -.26f || _GOpos.x > 1.26f || _GOpos.y < -0.26f || _GOpos.y > 1.26f) {
 
                 Destroy(gameObject);
             }
         }
         else {
-            if (_GOpos.x < -.15f || _GOpos.x > 1.15f || _GOpos.y < -0.15f) {
+            if (_GOpos.x < -.26f || _GOpos.x > 1.26f || _GOpos.y < -0.26f) {
 
                 Destroy(gameObject);
             }

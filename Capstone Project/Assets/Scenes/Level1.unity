@@ -1274,11 +1274,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4000013336964350, guid: 471bf15c45171454694989e4a69e85ef, type: 2}
       propertyPath: m_LocalPosition.x
-      value: -6873
+      value: 3139
       objectReference: {fileID: 0}
     - target: {fileID: 4000013336964350, guid: 471bf15c45171454694989e4a69e85ef, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 1660
+      value: -1149
       objectReference: {fileID: 0}
     - target: {fileID: 4000013336964350, guid: 471bf15c45171454694989e4a69e85ef, type: 2}
       propertyPath: m_LocalPosition.z
@@ -1307,6 +1307,10 @@ Prefab:
     - target: {fileID: 1000014286403070, guid: 471bf15c45171454694989e4a69e85ef, type: 2}
       propertyPath: m_Name
       value: TESTING PURPOSES ONLY
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000014286403070, guid: 471bf15c45171454694989e4a69e85ef, type: 2}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 471bf15c45171454694989e4a69e85ef, type: 2}
@@ -1841,6 +1845,11 @@ Prefab:
         type: 2}
       propertyPath: cameraPos.z
       value: -100
+      objectReference: {fileID: 0}
+    - target: {fileID: 114000013400083330, guid: 4e8ebbdbfd5e1784e889a58d8f732aa6,
+        type: 2}
+      propertyPath: smartXEnabled
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 4e8ebbdbfd5e1784e889a58d8f732aa6, type: 2}
@@ -5253,7 +5262,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instructions: Aim Down-Left and Shoot to Glide
+  _ds4Instructions: Aim down-left and shoot to glide
+  _xboxInstructions: Aim down-left and shoot to glide
   _enableInput: 0
 --- !u!61 &507787818
 BoxCollider2D:
@@ -6243,6 +6253,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
+  _leftAndRight: 1
+  _topToBottom: 0
+  _bottomToTop: 0
   _adjustDuration: 3
   _triggerPoints:
   - {fileID: 669943794}
@@ -6536,7 +6549,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instructions: Press Square to Reload
+  _ds4Instructions: Press Square to reload
+  _xboxInstructions: Press X to reload
   _enableInput: 0
 --- !u!61 &574346707
 BoxCollider2D:
@@ -6597,6 +6611,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
+  _leftAndRight: 1
+  _topToBottom: 0
+  _bottomToTop: 0
   _adjustDuration: 3
   _triggerPoints:
   - {fileID: 1752118554}
@@ -8113,6 +8130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
+  _leftAndRight: 1
+  _topToBottom: 0
+  _bottomToTop: 0
   _adjustDuration: 1.5
   _triggerPoints: []
   _cameraPositions:
@@ -10716,6 +10736,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
+  _leftAndRight: 1
+  _topToBottom: 0
+  _bottomToTop: 0
   _adjustDuration: 3
   _triggerPoints:
   - {fileID: 1369426985}
@@ -14277,6 +14300,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
+  _leftAndRight: 1
+  _topToBottom: 0
+  _bottomToTop: 0
   _adjustDuration: 3
   _triggerPoints:
   - {fileID: 1807480392}
@@ -14616,7 +14642,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instructions: Press L1 to Switch Weapons
+  _ds4Instructions: You picked up "The Joule." Press L1 to swap weapons
+  _xboxInstructions: You picked up "The Joule." Press LB to swap weapons
   _enableInput: 0
 --- !u!61 &1230027272
 BoxCollider2D:
@@ -14629,9 +14656,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 158.59, y: 0}
   serializedVersion: 2
-  m_Size: {x: 300, y: 50}
+  m_Size: {x: 650, y: 50}
 --- !u!114 &1230027273
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15787,7 +15814,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instructions: Use Right Analog to Aim and R2 to Shoot
+  _ds4Instructions: Use Right Analog to aim and R2 to shoot
+  _xboxInstructions: Use Right Analog to aim and RT to shoot
   _enableInput: 0
 --- !u!61 &1394543093
 BoxCollider2D:
@@ -16543,6 +16571,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
+  _leftAndRight: 1
+  _topToBottom: 0
+  _bottomToTop: 0
   _adjustDuration: 3
   _triggerPoints: []
   _cameraPositions:
@@ -16730,16 +16761,6 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1266364277}
-    - target: {fileID: 82000013139353146, guid: 6a41f45c8ea40f942af3c558febc2fc5,
-        type: 2}
-      propertyPath: spreadCustomCurve.m_RotationOrder
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 82000013012948632, guid: 6a41f45c8ea40f942af3c558febc2fc5,
-        type: 2}
-      propertyPath: spreadCustomCurve.m_RotationOrder
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 6a41f45c8ea40f942af3c558febc2fc5, type: 2}
   m_IsPrefabParent: 0
@@ -18005,7 +18026,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _instructions: Use Left Analog or D-Pad to Run
+  _ds4Instructions: Use Left Analog or D-Pad to run
+  _xboxInstructions: Use Left Analog or D-Pad to run
   _enableInput: 1
 --- !u!61 &1517023932
 BoxCollider2D:
@@ -18354,6 +18376,16 @@ Prefab:
         type: 2}
       propertyPath: m_Pivot.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013617441290, guid: 256b2e9d2276a3c4b9a6f5e89fdd7dd2,
+        type: 2}
+      propertyPath: m_SizeDelta.x
+      value: 900
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000013617441290, guid: 256b2e9d2276a3c4b9a6f5e89fdd7dd2,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 256b2e9d2276a3c4b9a6f5e89fdd7dd2, type: 2}
@@ -19638,6 +19670,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
+  _leftAndRight: 1
+  _topToBottom: 0
+  _bottomToTop: 0
   _adjustDuration: 3
   _triggerPoints:
   - {fileID: 33001567}
@@ -21458,6 +21493,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
+  _leftAndRight: 1
+  _topToBottom: 0
+  _bottomToTop: 0
   _adjustDuration: 1.25
   _triggerPoints: []
   _cameraPositions:
@@ -21491,6 +21529,10 @@ MonoBehaviour:
   _doors:
   - {fileID: 2071319500}
   - {fileID: 32772188}
+  _objectsToEnable: []
+  _objectsToDisable: []
+  _enemies: []
+  _normalEnemies: 0
 --- !u!1001 &1682597641
 Prefab:
   m_ObjectHideFlags: 0
@@ -22296,6 +22338,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
+  _leftAndRight: 1
+  _topToBottom: 0
+  _bottomToTop: 0
   _adjustDuration: 3
   _triggerPoints:
   - {fileID: 584097434}
@@ -26941,6 +26986,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
+  _leftAndRight: 1
+  _topToBottom: 0
+  _bottomToTop: 0
   _adjustDuration: 1.5
   _triggerPoints:
   - {fileID: 618461558}

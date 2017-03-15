@@ -7,6 +7,13 @@ public class StartBattleRoom : MonoBehaviour {
     private GameObject[] _doors;
     [SerializeField]
     private GameObject[] _objectsToEnable;
+    [SerializeField]
+    private GameObject[] _objectsToDisable;
+    [SerializeField]
+    private GameObject[] _enemies;
+
+    [SerializeField]
+    private bool _normalEnemies = false;
 
     private bool _set = false;
     private GameObject[] _swarm;
@@ -34,9 +41,24 @@ public class StartBattleRoom : MonoBehaviour {
                     _doors[i].SetActive(false);
                 }
 
-                for (int i = 0; i < _objectsToEnable.Length; ++i) {
-                    _objectsToEnable[i].SetActive(true);
+                if (_objectsToEnable != null) {
+                    for (int i = 0; i < _objectsToEnable.Length; ++i) {
+                        _objectsToEnable[i].SetActive(true);
+                    }
                 }
+            }
+        }
+
+        if (_normalEnemies) {
+            int Scounter = 0;
+            for (int i = 0; i < _enemies.Length; ++i) {
+                if (_enemies[i] == null) {
+                    if (++Scounter >= _enemies.Length) { _objectsToDisable[0].SetActive(false); }
+                }
+                else {
+                    Scounter = 0;
+                }
+
             }
         }
     }
