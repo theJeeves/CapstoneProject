@@ -8,6 +8,7 @@ public class EnableCollider : MonoBehaviour {
 
     private void Start() {
         _timer = Time.time;
+        GetComponent<Rigidbody2D>().gravityScale = Random.Range(35.0f, 45.0f);
     }
 	
 	// Update is called once per frame
