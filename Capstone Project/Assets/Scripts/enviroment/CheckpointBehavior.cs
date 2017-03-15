@@ -84,6 +84,10 @@ public class CheckpointBehavior : MonoBehaviour {
             _GM.SOSaveHandler.CheckpointPosition = _respawnPoint.position;
             _GM.SOSaveHandler.CheckpointID = ID;
             _GM.SOSaveHandler.CurrentLevel = currentLevel;
+
+            if (currentLevel == 1 && ID >= 7) {
+                _GM.SOSaveHandler.JouleEnabled = 1;
+            }
             
             GetComponent<AudioSource>().Play();
         }

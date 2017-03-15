@@ -108,6 +108,11 @@ public class SOSaveFile : ScriptableObject {
         }
     }
 
+    public int JouleEnabled {
+        get { return PlayerPrefs.GetInt("jouleEnabled"); }
+        set { PlayerPrefs.SetInt("jouleEnabled", value); }
+    }
+
     public void NewGame() {
         CurrentLevel = 1;
         CheckpointID = 0;
@@ -123,6 +128,7 @@ public class SOSaveFile : ScriptableObject {
         FlyingVectorsKilled = 0;
         SnipersKilled = 0;
         ChargersKilled = 0;
+        JouleEnabled = 0;
     }
 
     public void NextLevel() {

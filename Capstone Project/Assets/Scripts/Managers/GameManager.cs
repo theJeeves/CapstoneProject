@@ -273,6 +273,9 @@ public class GameManager : Singleton<GameManager> {
         SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, SOSaveHandler.CheckpointPosition);
         _player.transform.position = SOSaveHandler.CheckpointPosition;
         _IM.AssignPlayer(_player);
+        if (SOSaveHandler.CurrentLevel > 1) { _player.GetComponentInChildren<WeaponSelect>().SGAvailable = true; }
+        else if (SOSaveHandler.CurrentLevel == 1 && SOSaveHandler.CheckpointID >= 7 && SOSaveHandler.CheckpointID != 8) { _player.GetComponentInChildren<WeaponSelect>().SGAvailable = true; }
+        else { _player.GetComponentInChildren<WeaponSelect>().SGAvailable = false; }
         return _player;
     }
 }
