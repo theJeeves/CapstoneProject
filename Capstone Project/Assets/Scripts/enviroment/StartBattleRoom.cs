@@ -27,7 +27,10 @@ public class StartBattleRoom : MonoBehaviour {
             }
 
             if (counter >= _swarm.Length) {
-                _doors[_doors.Length - 1].SetActive(false);
+
+                for (int i = 1; i < _doors.Length; ++i) {
+                    _doors[i].SetActive(false);
+                }
             }
         }
     }
