@@ -19,8 +19,6 @@ public class EndLevelWindow : GenericWindow {
 
         _stats[0].text = _SOSaveHandler.CurrentDeathCount.ToString();
         _stats[1].text = (_SOSaveHandler.InProgressJouleShots + _SOSaveHandler.InProgressPersuaderShots).ToString();
-        //_stats[2].text = _SOSaveHandler.PersuaderShots.ToString();
-        //_stats[3].text = _SOSaveHandler.JouleShots.ToString();
     }
 
     public void ContinueButton() {
