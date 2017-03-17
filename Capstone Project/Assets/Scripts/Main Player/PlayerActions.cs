@@ -5,6 +5,7 @@ public class PlayerActions : MonoBehaviour {
 
     public delegate void PlayerActionEvent(Buttons button);
     public static event PlayerActionEvent ButtonPressed;
+    public static event PlayerActionEvent ButtonHeld;
     
     [Header("Walking")]
     [SerializeField]
@@ -20,12 +21,14 @@ public class PlayerActions : MonoBehaviour {
 
     private void OnEnable() {
         ControllableObject.OnButton += OnButton;
+        ControllableObject.OnButtonDown += OnButtonDown;
 
         _controller = GetComponent<ControllableObject>();
     }
 
     private void OnDisable() {
         ControllableObject.OnButton -= OnButton;
+        ControllableObject.OnButtonDown -= OnButtonDown;
     }
 
     private void Update() {
@@ -147,18 +150,49 @@ public class PlayerActions : MonoBehaviour {
                 _controller.SetButtonPressed(Buttons.AimLeft);
             }
 
-            StartCoroutine(Delay());
+            StartCoroutine(PersuaderDelay());
         }
         // IF THE PLAYER IS AIMING, THEN THERE IS NO NEED FOR THE SMALL DELAY AND FIRE IMMEDIATELY.
         else if (button == Buttons.Shoot && (_controller.GetButtonPress(Buttons.AimDown) || _controller.GetButtonPress(Buttons.AimUp) ||
             _controller.GetButtonPress(Buttons.AimLeft) || _controller.GetButtonPress(Buttons.AimRight)) ) {
+
+            if (ButtonHeld != null) { ButtonHeld(Buttons.Shoot); }
+        }
+    }
+
+
+    // THIS IS PRIMARILY FOR THE SHOTGUN SINCE WE DO NOT WANT THE GUN SHOOTING THE ENTIRE CLIP IF THE BUTTON IS HELD DOWN
+    private void OnButtonDown(Buttons button) {
+
+        // THIS STATEMENT IS TO MITIGATE A SMALL DELAY BETWEEN WHEN THE PLAYER SHOOTS AND THE CHARACTER MOVING INTO A AIMING POSITION
+        // WITHOUT THE PLAYER ACTUALLY AIMING.
+        if (button == Buttons.Shoot && !_controller.GetButtonPress(Buttons.AimDown) && !_controller.GetButtonPress(Buttons.AimUp) &&
+            !_controller.GetButtonPress(Buttons.AimLeft) && !_controller.GetButtonPress(Buttons.AimRight)) {
+
+            //if (_controller.FacingDirection == Facing.Right) {
+            //    _controller.SetButtonPressed(Buttons.AimRight);
+            //}
+            //else if (_controller.FacingDirection == Facing.Left) {
+            //    _controller.SetButtonPressed(Buttons.AimLeft);
+            //}
+
+            StartCoroutine(JouleDelay());
+        }
+        // IF THE PLAYER IS AIMING, THEN THERE IS NO NEED FOR THE SMALL DELAY AND FIRE IMMEDIATELY.
+        else if (button == Buttons.Shoot && (_controller.GetButtonPress(Buttons.AimDown) || _controller.GetButtonPress(Buttons.AimUp) ||
+            _controller.GetButtonPress(Buttons.AimLeft) || _controller.GetButtonPress(Buttons.AimRight))) {
 
             if (ButtonPressed != null) { ButtonPressed(Buttons.Shoot); }
         }
     }
 
     // EXTREMELY SMALL DELAY SO IT LOOKS INSTANT
-    private IEnumerator Delay() {
+    private IEnumerator PersuaderDelay() {
+        yield return new WaitForSeconds(0.01f);
+        if (ButtonHeld != null) { ButtonHeld(Buttons.Shoot); }
+    }
+
+    private IEnumerator JouleDelay() {
         yield return new WaitForSeconds(0.01f);
         if (ButtonPressed != null) { ButtonPressed(Buttons.Shoot); }
     }

@@ -59,7 +59,7 @@ public class MachineGun : AbstractGun {
             UpdateNumOfRounds(numOfRounds);
         }
 
-        PlayerActions.ButtonPressed += OnPlayerActionButtonPress;
+        PlayerActions.ButtonHeld += OnPlayerActionButtonPress;
 
         _canLift = _collisionState.OnSolidGround ? true : false;
     }
@@ -71,7 +71,7 @@ public class MachineGun : AbstractGun {
         _grounded = _collisionState.OnSolidGround ? true : false;
 
         StopAllCoroutines();
-        PlayerActions.ButtonPressed -= OnPlayerActionButtonPress;
+        PlayerActions.ButtonHeld -= OnPlayerActionButtonPress;
     }
 
     private void Update() {
