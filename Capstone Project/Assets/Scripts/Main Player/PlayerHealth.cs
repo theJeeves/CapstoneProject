@@ -96,9 +96,12 @@ public class PlayerHealth : MonoBehaviour {
             if (!_deathAnimationPlayed) {
 
                 if (_inputManager == null) { _inputManager = InputManager.Instance.GetComponent<InputManager>(); }
+                _inputManager.StopInput();
+
+                GetComponent<BoxCollider2D>().enabled = false;
+                GetComponent<PolygonCollider2D>().enabled = false;
 
                 _playerBody.SetActive(false);
-                _inputManager.PauseInput(60.0f);
 
                 if (!_collisionState.OnSolidGround) {
                     _SOEffectHandler.PlayEffect(EffectEnums.Player_Death00, transform.position);

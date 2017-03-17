@@ -90,10 +90,10 @@ public class WeaponSelect : MonoBehaviour {
             }
         }
         else {
-            if (_shotgun.isActiveAndEnabled && _MGAvailable) {
+            if (_shotgun.isActiveAndEnabled) {
                 _shotgunAmmo.enabled = false;
             }
-            else if (_machineGun.isActiveAndEnabled && _SGAvailable) {
+            else if (_machineGun.isActiveAndEnabled) {
                 _machineGunAmmo.enabled = false;
             }
         }
