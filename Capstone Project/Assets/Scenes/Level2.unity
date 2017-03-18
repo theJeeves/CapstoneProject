@@ -5240,6 +5240,7 @@ MonoBehaviour:
   _triggerPoints:
   - {fileID: 1060439549}
   - {fileID: 2085539912}
+  - {fileID: 801220049}
   _cameraPositions:
   - {x: 1394, y: -46, z: -190}
   - {x: 1394, y: -46, z: -190}
@@ -5275,9 +5276,9 @@ BoxCollider2D:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
-  m_Offset: {x: -55.84, y: 24.6}
+  m_Offset: {x: -421, y: 24.6}
   serializedVersion: 2
-  m_Size: {x: 1167.58, y: 997.6}
+  m_Size: {x: 791.5, y: 997.6}
 --- !u!1 &445584014
 GameObject:
   m_ObjectHideFlags: 0
@@ -10790,7 +10791,7 @@ GameObject:
   m_Icon: {fileID: -964228994112308473, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &801220049
 Transform:
   m_ObjectHideFlags: 0
@@ -10798,7 +10799,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 801220048}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 340, y: -66, z: 0}
+  m_LocalPosition: {x: 340, y: 171, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
@@ -14674,7 +14675,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1060439548}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -637, y: 175, z: 0}
+  m_LocalPosition: {x: -599, y: 175, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []

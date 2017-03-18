@@ -114,7 +114,6 @@ public class FocusCamera : MonoBehaviour {
     }
 
     private void SetCameraOrigin() {
-        Debug.Log(_scriptedCam.LinearCamPositionSet(gameObject.name));
 
         if (!_scriptedCam.LinearCamPositionSet(gameObject.name)) { 
         //if (!_originSet) {

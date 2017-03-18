@@ -7,7 +7,6 @@ public class GameManager : Singleton<GameManager> {
 
     public SOSaveFile SOSaveHandler;
     public SOEffects SOEffectHandler;
-    public bool inGame = false;
 
     private InputManager _IM;
     private WindowManager _WM;
@@ -192,7 +191,7 @@ public class GameManager : Singleton<GameManager> {
 
     private void OnBackToMain(WindowIDs close, WindowIDs open) {
 
-        inGame = false;
+        _inGame = false;
         _paused = false;
         SOSaveHandler.NextLevel();
         SceneManager.LoadScene(0);
@@ -216,17 +215,17 @@ public class GameManager : Singleton<GameManager> {
     }
 
     private void OnPauseBackToMain(WindowIDs ignore1, WindowIDs ignore2) {
-        inGame = false;
         _paused = false;
         SceneManager.LoadScene(0);
         Time.timeScale = _defaultTimeScale;
+        _inGame = false;
     }
 
     // Things to do when a level is loaded
     private void OnLevelWasLoaded(int level) {
 
         if (level != 0) {
-            inGame = true;
+            _inGame = true;
 
             if (SOSaveHandler.CheckpointID == 0) {
                 GameObject player = SpawnPlayer();
@@ -265,6 +264,9 @@ public class GameManager : Singleton<GameManager> {
                     }
                 }
             }
+        }
+        else if (level == 0) {
+            _inGame = false;
         }
     }
 
