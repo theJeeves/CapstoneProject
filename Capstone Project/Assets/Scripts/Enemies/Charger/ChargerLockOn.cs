@@ -6,7 +6,7 @@ public class ChargerLockOn : MonoBehaviour {
     public delegate void ChargerLockOnEvent(float time);
     public delegate void ChargerLockOnEvent2();
     public static event ChargerLockOnEvent RocketAnim;
-    public static event ChargerLockOnEvent2 ResetRockets;
+    //public static event ChargerLockOnEvent2 ResetRockets;
 
     [SerializeField]
     protected float _timer;
@@ -77,14 +77,30 @@ public class ChargerLockOn : MonoBehaviour {
     }
 
     private IEnumerator AttackReset() {
+
         _hit = new RaycastHit2D();
         _direction = (_player.position - transform.position).normalized;
 
+        float startTime = Time.time;
+
+        //yield return new WaitForSeconds(1.0f);
+
+        //while (Time.time - startTime <= _resetTimer) {
+
+        //    if (Mathf.Abs(_body2d.velocity.x) <= 0.0f) {
+        //        yield return new WaitForSeconds(1.0f);
+        //        break;
+        //    }
+        //    else {
+        //        yield return 0;
+        //    }
+        //}
+
         yield return new WaitForSeconds(_resetTimer);
 
-        if (ResetRockets != null) {
-            ResetRockets();
-        }
+        //if (ResetRockets != null) {
+        //    ResetRockets();
+        //}
 
         _animationManager.Play(2);
         StartCoroutine(LockOn());
