@@ -9,7 +9,7 @@ public class StartWindow : GenericWindow {
     public static event GenericWindowEvent OnLevelSelect;
     public static event GenericWindowEvent OnStats;
     public static event GenericWindowEvent OnCredits;
-    public static event GenericWindowEvent OnQuit;
+    //public static event GenericWindowEvent OnQuit;
 
     [SerializeField]
     private Button _continueButton;

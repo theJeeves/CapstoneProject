@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 [CreateAssetMenu(menuName ="Scripted Camera/New Scripted Camera Handler")]
 public class ScriptedCamera : ScriptableObject {
@@ -15,10 +16,35 @@ public class ScriptedCamera : ScriptableObject {
 
     private Vector3 _initialTarget;
 
+    private int _currentIndex = 0;
+    public List<string> keys;
+    public List<Vector3> values;
+    private Dictionary<string, Vector3> _linearCamPositions = new Dictionary<string, Vector3>();
+
     private void OnEnable() {
         // Get a reference to the main camera to be used with the rest of the script.
         _camera = GameObject.FindGameObjectWithTag("SmartCamera");
         _initialTarget = Vector3.zero;
+
+        _currentIndex = 0;
+        for (int i = 0; i < keys.Count; ++i) {
+            if (values[i] != Vector3.zero) {
+                _currentIndex = i;
+            }
+            else {
+                if (_currentIndex == 0) { _currentIndex = -1; }
+                break;
+            }
+        }
+
+        if (_currentIndex != -1) {
+            for (int i = 0; i < _currentIndex + 1; ++i) {
+                _linearCamPositions.Add(keys[i], values[i]);
+            }
+        }
+        else {
+            _currentIndex = 0;
+        }
     }
 
     public void MoveCamera(Vector3 target) {
@@ -69,5 +95,26 @@ public class ScriptedCamera : ScriptableObject {
 
     public void SetAdjustSpeed(float speed) {
         _adjustSpeed = speed;
+    }
+
+    public bool LinearCamPositionSet(string key) {
+        return _linearCamPositions.ContainsKey(key);
+    }
+
+    public void SetLinearCamPosition(string key, Vector3 value) {
+        if (!_linearCamPositions.ContainsKey(key)) {
+            keys[_currentIndex] = key;
+            values[_currentIndex++] = value;
+            _linearCamPositions.Add(key, value);
+        }
+    }
+
+    public Vector3 GetLinearCamPosition(string key) {
+        if (_linearCamPositions.ContainsKey(key)) {
+            return _linearCamPositions[key];
+        }
+        else {
+            return Vector3.zero;
+        }
     }
 }

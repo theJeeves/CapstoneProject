@@ -16,12 +16,12 @@ public class WindowManager : Singleton<WindowManager> {
     [SerializeField]
     private GenericWindow[] windows;
 
-    private GameManager _GM;
+    //private GameManager _GM;
     private Camera _camera;
     private int controllerType = -1;
 
     protected override void Awake() {
-        _GM = GameManager.Instance.GetComponent<GameManager>(); ;
+        //_GM = GameManager.Instance.GetComponent<GameManager>(); ;
         _camera = Camera.main;
         currentWindowID = WindowIDs.None;
         DontDestroyOnLoad(gameObject);

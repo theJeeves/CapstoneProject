@@ -23,11 +23,11 @@ public class CallTextHUD : MonoBehaviour {
 
     private void Update() {
         
-        if (_display && _transform.anchoredPosition.y > -145.0f) {
-            _transform.anchoredPosition = Vector3.MoveTowards(_transform.anchoredPosition, new Vector3(0.0f, -145.0f, 0), Time.deltaTime * _dropDownSpeed);
+        if (_display && _transform.anchoredPosition.y > -200.0f) {
+            _transform.anchoredPosition = Vector3.MoveTowards(_transform.anchoredPosition, new Vector3(0.0f, -200.0f, 0), Time.deltaTime * _dropDownSpeed);
         }
-        else if (!_display && _transform.anchoredPosition.y < 125.0f) {
-            _transform.anchoredPosition = Vector3.MoveTowards(_transform.anchoredPosition, new Vector3(0.0f, 125.0f, 0), Time.deltaTime * _dropDownSpeed);
+        else if (!_display && _transform.anchoredPosition.y < 155.0f) {
+            _transform.anchoredPosition = Vector3.MoveTowards(_transform.anchoredPosition, new Vector3(0.0f, 155.0f, 0), Time.deltaTime * _dropDownSpeed);
         }
     }
 

@@ -4897,6 +4897,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 17
+--- !u!1 &472453536
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 472453537}
+  - 61: {fileID: 472453539}
+  - 114: {fileID: 472453538}
+  m_Layer: 2
+  m_Name: How To Move Quickly
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &472453537
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 472453536}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 3284, y: -773, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1450740849}
+  m_RootOrder: 4
+--- !u!114 &472453538
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 472453536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ds4Instructions: Use the Persuader to move quickly
+  _xboxInstructions: Use the Persuader to move quickly
+  _enableInput: 0
+--- !u!61 &472453539
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 472453536}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 1000, y: 500}
 --- !u!1 &475429711
 GameObject:
   m_ObjectHideFlags: 0
@@ -6220,7 +6278,7 @@ GameObject:
   - 114: {fileID: 562229490}
   - 114: {fileID: 562229489}
   m_Layer: 2
-  m_Name: Intro
+  m_Name: Intro_Level1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6252,7 +6310,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
   _leftAndRight: 1
   _topToBottom: 0
   _bottomToTop: 0
@@ -6549,8 +6606,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ds4Instructions: Press Square to reload
-  _xboxInstructions: Press X to reload
+  _ds4Instructions: Press Square to manually reload. Guns will auto reload when you
+    are grounded
+  _xboxInstructions: Press X to manually reload. Guns will auto reload when you are
+    grounded
   _enableInput: 0
 --- !u!61 &574346707
 BoxCollider2D:
@@ -6610,7 +6669,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
   _leftAndRight: 1
   _topToBottom: 0
   _bottomToTop: 0
@@ -7296,6 +7354,64 @@ Prefab:
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 3044ecc060150944faa2cab9340db781, type: 2}
   m_IsPrefabParent: 0
+--- !u!1 &598532680
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 598532681}
+  - 61: {fileID: 598532683}
+  - 114: {fileID: 598532682}
+  m_Layer: 2
+  m_Name: HOW TO SLOW DOWN IN MID AIR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &598532681
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 598532680}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 6748, y: -1306, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1450740849}
+  m_RootOrder: 5
+--- !u!114 &598532682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 598532680}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ds4Instructions: Use the Persuader to slow down in mid-air
+  _xboxInstructions: Use the Persuader to slow down in mid-air
+  _enableInput: 0
+--- !u!61 &598532683
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 598532680}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 250, y: 500}
 --- !u!4 &599639772 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4000013499194950, guid: 3044ecc060150944faa2cab9340db781,
@@ -8215,7 +8331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
   _leftAndRight: 1
   _topToBottom: 0
   _bottomToTop: 0
@@ -10821,7 +10936,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
   _leftAndRight: 1
   _topToBottom: 0
   _bottomToTop: 0
@@ -11880,6 +11994,66 @@ Transform:
   m_PrefabParentObject: {fileID: 4000010242174600, guid: d267883f8e350644bad5de366b381480,
     type: 2}
   m_PrefabInternal: {fileID: 741271844}
+--- !u!1 &999984422
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 999984423}
+  - 61: {fileID: 999984425}
+  - 114: {fileID: 999984424}
+  m_Layer: 2
+  m_Name: Joule Shots
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &999984423
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 999984422}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 9795, y: -1676, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Children: []
+  m_Father: {fileID: 1450740849}
+  m_RootOrder: 7
+--- !u!114 &999984424
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 999984422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _ds4Instructions: Combine your running moment with diagonal Joule shots for MAX
+    speed and distance
+  _xboxInstructions: Combine your running moment with diagonal Joule shots for MAX
+    speed and distance
+  _enableInput: 0
+--- !u!61 &999984425
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 999984422}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 250, y: 500}
 --- !u!1 &1009745298
 GameObject:
   m_ObjectHideFlags: 0
@@ -14385,7 +14559,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
   _leftAndRight: 1
   _topToBottom: 0
   _bottomToTop: 0
@@ -14716,7 +14889,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 1450740849}
-  m_RootOrder: 4
+  m_RootOrder: 6
 --- !u!114 &1230027271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15900,8 +16073,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc1424ba91e592447b35a3c4ec421658, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _ds4Instructions: Use Right Analog to aim and R2 to shoot
-  _xboxInstructions: Use Right Analog to aim and RT to shoot
+  _ds4Instructions: Use Right Analog to aim and R2 to shoot The Persuader
+  _xboxInstructions: Use Right Analog to aim and R2 to shoot The Persuader
   _enableInput: 0
 --- !u!61 &1394543093
 BoxCollider2D:
@@ -16656,7 +16829,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
   _leftAndRight: 1
   _topToBottom: 0
   _bottomToTop: 0
@@ -16885,7 +17057,10 @@ Transform:
   - {fileID: 1394543091}
   - {fileID: 574346705}
   - {fileID: 507787816}
+  - {fileID: 472453537}
+  - {fileID: 598532681}
   - {fileID: 1230027270}
+  - {fileID: 999984423}
   m_Father: {fileID: 0}
   m_RootOrder: 14
 --- !u!1001 &1452871912
@@ -18463,16 +18638,6 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 224000013617441290, guid: 256b2e9d2276a3c4b9a6f5e89fdd7dd2,
-        type: 2}
-      propertyPath: m_SizeDelta.x
-      value: 900
-      objectReference: {fileID: 0}
-    - target: {fileID: 224000013617441290, guid: 256b2e9d2276a3c4b9a6f5e89fdd7dd2,
-        type: 2}
-      propertyPath: m_AnchoredPosition.x
-      value: 250
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 256b2e9d2276a3c4b9a6f5e89fdd7dd2, type: 2}
   m_IsPrefabParent: 0
@@ -19755,7 +19920,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
   _leftAndRight: 1
   _topToBottom: 0
   _bottomToTop: 0
@@ -21578,7 +21742,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
   _leftAndRight: 1
   _topToBottom: 0
   _bottomToTop: 0
@@ -22423,7 +22586,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
   _leftAndRight: 1
   _topToBottom: 0
   _bottomToTop: 0
@@ -27071,7 +27233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b8c60f3266ce34ba62d0b666175f3a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scriptedCam: {fileID: 11400000, guid: f32a7f37b74b57e4d858c5428a2eed1c, type: 2}
   _leftAndRight: 1
   _topToBottom: 0
   _bottomToTop: 0

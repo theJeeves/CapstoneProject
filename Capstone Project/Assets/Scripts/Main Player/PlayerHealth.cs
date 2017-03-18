@@ -50,7 +50,7 @@ public class PlayerHealth : MonoBehaviour {
     private SpriterDotNetUnity.ChildData _entity;
     private bool _canTakeDamage;                    // Bool determining if the player is able to take damage or not. Tied with _recoveryTime.
     private float _timer = 0.0f;                    // Timer is used to determine how much time has passed for effect durations.
-    private int _damageReceived = 0;                // How much damage has the player received.
+    //private int _damageReceived = 0;                // How much damage has the player received.
     private float _duration = 0.0f;                 // Duration for an effect to last.
     private bool _deathAnimationPlayed = false;     // Bool to ensure the death explosions only play once per death.
     private bool _killPlayerCalled = false;
@@ -155,7 +155,7 @@ public class PlayerHealth : MonoBehaviour {
                 _SOEffectHandler.StopEffect(_effect);
 
                 foreach (GameObject sprite in _entity.Sprites) {
-                    Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
+                    //Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
                     sprite.GetComponent<SpriteRenderer>().color = Color.white;
                 }
             }
@@ -214,7 +214,7 @@ public class PlayerHealth : MonoBehaviour {
         _SOEffectHandler.StopEffect(_effect);
 
         foreach (GameObject sprite in _entity.Sprites) {
-            Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
+            //Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
             sprite.GetComponent<SpriteRenderer>().color = Color.white;
         }
 
@@ -255,7 +255,7 @@ public class PlayerHealth : MonoBehaviour {
 
         // If duration is passed in for damages which last for X amount of time
         if (duration > 0.0f) {
-            _damageReceived = damage;
+            //_damageReceived = damage;
             _duration = duration;
 
             // For each of the damage effects, call the appropriate functions to give the selected effect.

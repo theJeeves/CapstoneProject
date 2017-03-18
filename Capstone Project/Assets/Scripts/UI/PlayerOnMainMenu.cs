@@ -17,13 +17,14 @@ public class PlayerOnMainMenu : MonoBehaviour {
     private int _previousIndex = -100;
 
     private float _timer = 0.0f;
-    private bool _animating = false;
+    //private bool _animating = false;
 
     private void OnEnable() {
         _collisionState = GetComponent<PlayerCollisionState>();
         _controller = GetComponent<ControllableObject>();
 
         // START THE GAME MANAGER, WINDOW MANAGER, AND THE EVENT SYSTEM
+        // They are not used in this script, but they started for the reset of the game.
         GameManager GM = GameManager.Instance.GetComponent<GameManager>() ;
         WindowManager WM = WindowManager.Instance.GetComponent<WindowManager>();
         EventSystemSingleton ESS = EventSystemSingleton.Instance.GetComponent<EventSystemSingleton>();

@@ -43,14 +43,14 @@ public class PlayerCollisionState : MonoBehaviour {
                                     new Vector2(2.22f, 0.0f), new Vector2(-0.34f, 0.0f),
                                     new Vector2(-2.04f, 5.04f)};
 
-    private ControllableObject _controller;
+    //private ControllableObject _controller;
     private Rigidbody2D _body2d;
 
     private void OnEnable() {
 
         _box = GetComponent<BoxCollider2D>();
         //_box = GetComponent<PolygonCollider2D>();
-        _controller = GetComponent<ControllableObject>();
+        //_controller = GetComponent<ControllableObject>();
         _body2d = GetComponent<Rigidbody2D>();
 
         // The distance should just be long enough to extend outside of the collider box.
@@ -113,15 +113,4 @@ public class PlayerCollisionState : MonoBehaviour {
         _onSolidGround = _touchedGround ? true : false;         // Update the collision state.
         _touchedGround = false;                                 // Reset the collision check.
     }
-
-    private void Update() {
-
-        //if ((_controller.GetButtonPress(Buttons.AimRight) || _controller.GetButtonPress(Buttons.AimLeft)) ) {
-        //    _box.SetPath(0, _aiming);
-        //}
-        //else {
-        //    _box.SetPath(0, _notAiming);
-        //}
-    }
-
 }

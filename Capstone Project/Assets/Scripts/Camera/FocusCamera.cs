@@ -3,7 +3,6 @@ using System.Collections;
 
 public class FocusCamera : MonoBehaviour {
 
-    [SerializeField]
     private ScriptedCamera _scriptedCam;
 
     [Header("Movement Type")]
@@ -39,6 +38,8 @@ public class FocusCamera : MonoBehaviour {
     private void OnEnable() {
         PlayerHealth.UpdateHealth += UponDeath;
         _collider = GetComponent<BoxCollider2D>();
+
+        _scriptedCam = Resources.Load<ScriptedCamera>("ScriptableObjects/SOScriptedCamHandler");
     }
 
     private void OnDisable() {
@@ -68,8 +69,9 @@ public class FocusCamera : MonoBehaviour {
 
                                 float difference = _triggerPoints[i + 1].position.x - _triggerPoints[i].position.x;
                                 float percentage = 1.0f - ((_triggerPoints[i + 1].position.x - playerPos.x) / difference);
+
                                 SetCameraOrigin();
-                                _scriptedCam.LinearlyMoveCamera(percentage, _camOrigin, _cameraPositions[i]);
+                                _scriptedCam.LinearlyMoveCamera(percentage, _scriptedCam.GetLinearCamPosition(gameObject.name), _cameraPositions[i]);
                             }
                             else {
                                 _scriptedCam.MoveCamera(_cameraPositions[i]);
@@ -112,9 +114,12 @@ public class FocusCamera : MonoBehaviour {
     }
 
     private void SetCameraOrigin() {
+        Debug.Log(_scriptedCam.LinearCamPositionSet(gameObject.name));
 
-        if (!_originSet) {
-            _camOrigin = GameObject.FindGameObjectWithTag("SmartCamera").transform.position;
+        if (!_scriptedCam.LinearCamPositionSet(gameObject.name)) { 
+        //if (!_originSet) {
+            _scriptedCam.SetLinearCamPosition(gameObject.name, GameObject.FindGameObjectWithTag("SmartCamera").transform.position);
+            //_camOrigin = GameObject.FindGameObjectWithTag("SmartCamera").transform.position;
             _originSet = true;
         }
     }
