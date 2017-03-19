@@ -193,7 +193,11 @@ public class GameManager : Singleton<GameManager> {
 
         _inGame = false;
         _paused = false;
-        SOSaveHandler.NextLevel();
+
+        if (Application.loadedLevel < 3) {
+            SOSaveHandler.NextLevel();
+        }
+
         SceneManager.LoadScene(0);
         Time.timeScale = _defaultTimeScale;
     }

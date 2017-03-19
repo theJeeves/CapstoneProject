@@ -14,6 +14,12 @@ public class SwarmPodSpawner : MonoBehaviour {
     [SerializeField]
     private float _destructionDelay = 0.0f;         //How long the pod should remain in a damaged state.
 
+    [Space]
+    [Header("Additional Game Objects")]
+
+    [SerializeField]
+    private GameObject[] _additionalGOs;
+
     private GameObject[] _swarm;
 
     [Space]
@@ -63,6 +69,12 @@ public class SwarmPodSpawner : MonoBehaviour {
 
                 GetComponent<SpriteRenderer>().enabled = false;
                 SpawnSwarm();
+
+                if (_additionalGOs.Length > 0) {
+                    for (int i = 0; i < _additionalGOs.Length; ++i) {
+                        _additionalGOs[i].SetActive(true);
+                    }
+                }
             }
             else {
 
