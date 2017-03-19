@@ -105,9 +105,7 @@ public class MachineGun : AbstractGun {
                     Fire();
                     // If the last round has gone out, send out the event to hide the ammo type display.
                     if (--numOfRounds <= 0) {
-                        if (EmptyClip != null) {
-                            EmptyClip();
-                        }
+                        if (EmptyClip != null) { EmptyClip(); }
 
                         // Determine if the player was on the ground when they shot the last round in the chamber.
                         //_grounded = _collisionState.OnSolidGround ? true : false;

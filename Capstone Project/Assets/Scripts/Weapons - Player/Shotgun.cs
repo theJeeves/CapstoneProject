@@ -75,20 +75,6 @@ public class Shotgun : AbstractGun {
             _moveRequest.RequestMovement();
             _SSRequest.ShakeRequest();
 
-            _grounded = false;
-
-            // Make the ammo sprite disappear when the ammo is depleted while in the air.
-            if (--numOfRounds <= 0) {
-                if (EmptyClip != null) {
-                    EmptyClip();
-                }
-
-                // Determine if the player was on the ground when they shot the last round in the chamber.
-                _grounded = _collisionState.OnSolidGround ? true : false;
-
-                Reload();
-            }
-
             if (UpdateNumOfRounds != null) {
                 UpdateNumOfRounds(numOfRounds);
             }
@@ -163,7 +149,21 @@ public class Shotgun : AbstractGun {
 
         if (ShotFired != null) { ShotFired(); }     // this is here to tell the save file another shot is fired and to record it.
 
-        yield return new WaitForSeconds(_shotDelay);
+        _grounded = false;
+
+        // Make the ammo sprite disappear when the ammo is depleted while in the air.
+        if (--numOfRounds <= 0) {
+            if (EmptyClip != null) { EmptyClip(); }
+
+            // Determine if the player was on the ground when they shot the last round in the chamber.
+            _grounded = _collisionState.OnSolidGround ? true : false;
+            yield return new WaitForSeconds(0.1f);
+            Reload();
+        }
+        else {
+            yield return new WaitForSeconds(_shotDelay);
+        }
+
         _canShoot = true;
     }
 }
