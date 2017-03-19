@@ -5,7 +5,8 @@ using System.Collections;
 public enum DamageEnum {
     None,
     Acid,
-    Explosion
+    Explosion,
+    LaserContinuous
 }
 
 public class PlayerHealth : MonoBehaviour {
@@ -245,13 +246,14 @@ public class PlayerHealth : MonoBehaviour {
     /// Each one will damage the player and, if applicable, call the SOEffectHandler to play the appropriate effect.
     /// </summary>
     public void DecrementPlayerHealth(int damage, float duration = 0.0f, DamageEnum damageType = DamageEnum.None) {
-
-        // Tell the input manager to stop taking in input for 0.5 seconds
-        // To ensure there are no conflicting movement requests, clear the player movement queue of all requests.
-        if (_inputManager == null) { _inputManager = InputManager.Instance.GetComponent<InputManager>(); }
-        _inputManager.PauseInput(0.5f);
-        _movementManager.ClearQueue();
-
+        if (damageType != DamageEnum.LaserContinuous)
+        {
+            // Tell the input manager to stop taking in input for 0.5 seconds
+            // To ensure there are no conflicting movement requests, clear the player movement queue of all requests.
+            if (_inputManager == null) { _inputManager = InputManager.Instance.GetComponent<InputManager>(); }
+            _inputManager.PauseInput(0.5f);
+            _movementManager.ClearQueue();
+        }
 
         // If duration is passed in for damages which last for X amount of time
         if (duration > 0.0f) {

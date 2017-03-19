@@ -28,6 +28,9 @@ public class laserBeam : MonoBehaviour
     private bool _delayFinished;
     private bool _laserActive = false;
 
+    [SerializeField]
+    private bool _alwaysOn;
+
 
     // Use this for initialization
     private void OnEnable()
@@ -42,38 +45,62 @@ public class laserBeam : MonoBehaviour
     //FIX THIS!!!!!!!!!!
     void Update()
     {
-        if (_laser.gameObject.activeInHierarchy)
+        if (_alwaysOn)
         {
-            GetComponentInChildren<AudioSource>().Play();
+            drawLaser();
             Debug.DrawLine(start.position, end.position, Color.red);
             _hit = Physics2D.Raycast(start.position, (end.position - start.position).normalized, (end.position - start.position).magnitude, _whatToHit);
             if (_hit.collider != null)
             {
                 if (_hit.collider.tag == "Player")
                 {
-                    _hit.collider.gameObject.GetComponent<PlayerHealth>().KillPlayer();
+                    _hit.collider.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage, 0.0f, DamageEnum.LaserContinuous);
 
                 }
             }
         }
-        else if (!_laser.gameObject.activeInHierarchy && _delayFinished)
+        else
         {
-            GetComponentInChildren<AudioSource>().Stop();
-            if (!_laserActive)
+
+            if (_laser.gameObject.activeInHierarchy)
             {
-                StartCoroutine(LaserOnOff());
-                _laserActive = true;
+                GetComponentInChildren<AudioSource>().Play();
+                Debug.DrawLine(start.position, end.position, Color.red);
+                _hit = Physics2D.Raycast(start.position, (end.position - start.position).normalized, (end.position - start.position).magnitude, _whatToHit);
+                if (_hit.collider != null)
+                {
+                    if (_hit.collider.tag == "Player")
+                    {
+                        _hit.collider.gameObject.GetComponent<PlayerHealth>().KillPlayer();
+
+                    }
+                }
+            }
+            else if (!_laser.gameObject.activeInHierarchy && _delayFinished)
+            {
+                GetComponentInChildren<AudioSource>().Stop();
+                if (!_laserActive)
+                {
+                    StartCoroutine(LaserOnOff());
+                    _laserActive = true;
+                }
             }
         }
-        
     }
     void drawLaser()
     {
         _lr.SetPosition(0, start.position);
-        //_lr.SetPosition(1, start.position);
-        _lr.SetWidth(5.0f, 5.0f);
-        _lr.SetColors(Color.red, Color.red);
-        _laser.gameObject.SetActive(false);
+        if (_alwaysOn)
+        {
+            _lr.SetPosition(1, end.position);
+            _lr.SetWidth(5.0f, 5.0f);
+            _lr.SetColors(Color.yellow, Color.yellow);
+        }
+        else {
+            _lr.SetWidth(5.0f, 5.0f);
+            _lr.SetColors(Color.red, Color.red);
+            _laser.gameObject.SetActive(false);
+        }
     }
 
     IEnumerator LaserOnOff()

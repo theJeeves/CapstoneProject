@@ -33,6 +33,8 @@ public class SwarmerBehavior : MonoBehaviour {
     [SerializeField]
     private bool _canMove = false;
 
+
+
     private EnemyType _enemyType;
 
     [System.Serializable]
@@ -101,10 +103,14 @@ public class SwarmerBehavior : MonoBehaviour {
             }
 
             if (_hit.collider == null) {
-                _movingRight = _movingRight ? false : true;
-                _walkingSpeed *= -1.0f;
-                _direction.x *= -1.0f;
-            }
+                   
+                    _movingRight = _movingRight ? false : true;
+                    _walkingSpeed *= -1.0f;
+                    _direction.x *= -1.0f;
+                }
+               
+                
+            
             else {
                 _body.MoveRotation(0.0f);
             }
