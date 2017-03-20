@@ -17,6 +17,9 @@ public class GameManager : Singleton<GameManager> {
     private bool _paused = false;
     private float _defaultTimeScale = 1.0f;
 
+    private int _currentLevel = 0;
+    private float _playeTime = 0.0f;
+
     protected override void Awake() {
         // CALL BASE AWAKE TO ENSURE THERE ARE NO OTHER INSTANCES OF THE GAME MANAGER IN THE SCENE
         base.Awake();
@@ -33,6 +36,7 @@ public class GameManager : Singleton<GameManager> {
     }
 
     private void OnEnable() {
+
         // Start Window Events
         StartWindow.OnContinue += OnContinue;
         StartWindow.OnNewGame += OnNewGame;
@@ -50,6 +54,9 @@ public class GameManager : Singleton<GameManager> {
         // Enemy Death Events
         EnemyBasicBehaviors.OnDeath += OnEnemyDeath;
 
+        // stats events
+        StatsWindow.OnResetStats += ResetStats;
+
         // LEVEL COMPLETED
         EndOfLevel.OnLevelComplete += OnLevelComplete;
         EndLevelWindow.OnContinue += OnLoadNextLevel;
@@ -59,6 +66,8 @@ public class GameManager : Singleton<GameManager> {
         PauseWindow.OnContinueButton += OnPauseContinue;
         PauseWindow.OnResartLevelButton += OnPauseRestartLevel;
         PauseWindow.OnBackToMainButton += OnPauseBackToMain;
+
+        _playeTime = 0.0f;
     }
 
     private void OnDisable() {
@@ -79,6 +88,9 @@ public class GameManager : Singleton<GameManager> {
         // Enemy Death Events
         EnemyBasicBehaviors.OnDeath -= OnEnemyDeath;
 
+        // stats events
+        StatsWindow.OnResetStats -= ResetStats;
+
         // LEVEL COMPLETED Events
         EndOfLevel.OnLevelComplete -= OnLevelComplete;
         EndLevelWindow.OnContinue -= OnLoadNextLevel;
@@ -91,18 +103,42 @@ public class GameManager : Singleton<GameManager> {
     }
 
     private void Update() {
-        if (_inGame && ( _IM.controllerType == 0 ? Input.GetButtonDown("DS_OPTIONS") : Input.GetButtonDown("XBOX_START")) ) {
+        if (_inGame) {
 
-            if (!_paused) {
-                _paused = true;
-                Time.timeScale = 0.0f;
-                _WM.ToggleWindows(WindowIDs.None, WindowIDs.PauseWindow);
+            UpdateTime();
+
+            if (_IM.controllerType == 0 ? Input.GetButtonDown("DS_OPTIONS") : Input.GetButtonDown("XBOX_START") ) {
+
+                if (!_paused) {
+                    _paused = true;
+                    Time.timeScale = 0.0f;
+                    _WM.ToggleWindows(WindowIDs.None, WindowIDs.PauseWindow);
+                }
+                else if (_paused) {
+                    _paused = false;
+                    Time.timeScale = _defaultTimeScale;
+                    _WM.ToggleWindows(WindowIDs.PauseWindow, WindowIDs.None);
+                }
             }
-            else if (_paused) {
-                _paused = false;
-                Time.timeScale = _defaultTimeScale;
-                _WM.ToggleWindows(WindowIDs.PauseWindow, WindowIDs.None);
-            }
+        }
+    }
+
+    private void UpdateTime() {
+        _playeTime += Time.deltaTime;
+
+        switch (_currentLevel) {
+            case 1:
+                SOSaveHandler.CurrentLevel1Time = _playeTime;
+                //if (_playeTime > SOSaveHandler.BestLevel1Time) { SOSaveHandler.BestLevel1Time = _playeTime; }
+                break;
+            case 2:
+                SOSaveHandler.CurrentLevel2Time = _playeTime;
+                //if (_playeTime > SOSaveHandler.BestLevel2Time) { SOSaveHandler.BestLevel2Time = _playeTime; }
+                break;
+            case 3:
+                SOSaveHandler.CurrentLevel3Time = _playeTime;
+                //if (_playeTime > SOSaveHandler.BestLevel3Time) { SOSaveHandler.BestLevel3Time = _playeTime; }
+                break;
         }
     }
 
@@ -118,6 +154,7 @@ public class GameManager : Singleton<GameManager> {
         SOSaveHandler.NewGame();
         SceneManager.LoadScene(1);
         _inGame = true;
+        _playeTime = 0.0f;
     }
 
     //
@@ -129,6 +166,7 @@ public class GameManager : Singleton<GameManager> {
         Time.timeScale = _defaultTimeScale;
         _inGame = true;
         _paused = false;
+        _playeTime = 0.0f;
     }
 
     //
@@ -172,6 +210,10 @@ public class GameManager : Singleton<GameManager> {
         }
     }
 
+    private void ResetStats(WindowIDs ignore1, WindowIDs ignore2) {
+        SOSaveHandler.ResetAllStats();
+    }
+
     //
     // LEVEL COMPLETED Events
     //
@@ -179,6 +221,24 @@ public class GameManager : Singleton<GameManager> {
         _IM.StopInput();
         _inGame = false;
         Time.timeScale = 0.0f;
+
+        switch (_currentLevel) {
+            case 1:
+                //SOSaveHandler.CurrentLevel1Time = _playeTime;
+                if (_playeTime < SOSaveHandler.BestLevel1Time || SOSaveHandler.BestLevel1Time <= 1.0f) { SOSaveHandler.BestLevel1Time = _playeTime; }
+                break;
+            case 2:
+                //SOSaveHandler.CurrentLevel2Time = _playeTime;
+                if (_playeTime < SOSaveHandler.BestLevel2Time || SOSaveHandler.BestLevel2Time <= 1.0f) { SOSaveHandler.BestLevel2Time = _playeTime; }
+                break;
+            case 3:
+                //SOSaveHandler.CurrentLevel3Time = _playeTime;
+                if (_playeTime < SOSaveHandler.BestLevel3Time || SOSaveHandler.BestLevel3Time <= 1.0f) { SOSaveHandler.BestLevel3Time = _playeTime; }
+                break;
+        }
+
+        SOSaveHandler.TotalTimePlayed += _playeTime;
+        _playeTime = 0.0f;
     }
 
     private void OnLoadNextLevel(WindowIDs ignore1, WindowIDs ignore2) {
@@ -216,6 +276,8 @@ public class GameManager : Singleton<GameManager> {
         SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
         _paused = false;
         Time.timeScale = _defaultTimeScale;
+
+        _playeTime = 0.0f;
     }
 
     private void OnPauseBackToMain(WindowIDs ignore1, WindowIDs ignore2) {
@@ -227,6 +289,8 @@ public class GameManager : Singleton<GameManager> {
 
     // Things to do when a level is loaded
     private void OnLevelWasLoaded(int level) {
+
+        _currentLevel = level;
 
         if (level != 0) {
             _inGame = true;

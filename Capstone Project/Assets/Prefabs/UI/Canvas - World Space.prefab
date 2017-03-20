@@ -23,7 +23,7 @@ GameObject:
   - 114: {fileID: 114000011634663732}
   - 114: {fileID: 114000011179106988}
   m_Layer: 5
-  m_Name: FLYING VECTORS
+  m_Name: BEST LEVEL 2 TIME
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,7 +76,7 @@ GameObject:
   - 114: {fileID: 114000013064446372}
   - 114: {fileID: 114000013255549406}
   m_Layer: 5
-  m_Name: EXPLOSIVE VECTORS
+  m_Name: BEST LEVEL 1 TIME
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -203,7 +203,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000011399638080
 GameObject:
   m_ObjectHideFlags: 1
@@ -333,7 +333,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1000012035145084
 GameObject:
   m_ObjectHideFlags: 0
@@ -397,7 +397,7 @@ GameObject:
   - 114: {fileID: 114000011047527516}
   - 114: {fileID: 114000011208227124}
   m_Layer: 5
-  m_Name: FLYING VECTORS
+  m_Name: BEST LEVEL 2 TIME
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -468,7 +468,7 @@ GameObject:
   - 114: {fileID: 114000013562285326}
   - 114: {fileID: 114000012118451438}
   m_Layer: 5
-  m_Name: ACID VECTORS
+  m_Name: TOTAL TIME PLAYED
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -573,7 +573,7 @@ GameObject:
   - 114: {fileID: 114000013881708662}
   - 114: {fileID: 114000014202748676}
   m_Layer: 5
-  m_Name: ACID VECTORS
+  m_Name: TOTAL TIME PLAYED
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -679,7 +679,7 @@ GameObject:
   - 114: {fileID: 114000014011139890}
   - 114: {fileID: 114000013237770430}
   m_Layer: 5
-  m_Name: SNIPERS KILLED
+  m_Name: BEST LEVEL 3 TIME
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -731,7 +731,7 @@ GameObject:
   - 114: {fileID: 114000011344556086}
   - 114: {fileID: 114000010911663410}
   m_Layer: 5
-  m_Name: SNIPERS KILLED
+  m_Name: BEST LEVEL 3 TIME
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -821,7 +821,7 @@ GameObject:
   - 114: {fileID: 114000012720049094}
   - 114: {fileID: 114000013182377322}
   m_Layer: 5
-  m_Name: EXPLOSIVE VECTORS
+  m_Name: BEST LEVEL 1 TIME
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1828,7 +1828,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Flying Vectors Defeated
+  m_Text: Best Level 2 Time
 --- !u!114 &114000011720968742
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2379,7 +2379,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Explosive Vectors Defeated
+  m_Text: Best Level 1 Time
 --- !u!114 &114000012842666572
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3128,7 +3128,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Acid Vectors Defeated
+  m_Text: Total Time Played
 --- !u!114 &114000013967564032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3230,7 +3230,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: Snipers Defeated
+  m_Text: Best Level 3 Time
 --- !u!114 &114000014029336790
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -4026,10 +4026,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 224000012792193074}
   m_RootOrder: 9
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 250, y: -815}
+  m_SizeDelta: {x: 500, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000011824618524
 RectTransform:
@@ -4518,10 +4518,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 224000013052077386}
   m_RootOrder: 9
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 50, y: -815}
+  m_SizeDelta: {x: 100, y: 120}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224000014246738276
 RectTransform:

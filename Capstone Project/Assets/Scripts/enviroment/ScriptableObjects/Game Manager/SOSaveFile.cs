@@ -6,8 +6,8 @@ public class SOSaveFile : ScriptableObject {
 
     [SerializeField]
     private Vector3[] _startingPositions;
-    [SerializeField]
-    private Vector3[] _startingCameraPos;
+    //[SerializeField]
+    //private Vector3[] _startingCameraPos;
 
     public int CurrentLevel {
        get { return PlayerPrefs.GetInt("currentLevel"); }
@@ -113,6 +113,41 @@ public class SOSaveFile : ScriptableObject {
         set { PlayerPrefs.SetInt("jouleEnabled", value); }
     }
 
+    public float CurrentLevel1Time {
+        get { return PlayerPrefs.GetFloat("currentLevel1Time"); }
+        set { PlayerPrefs.SetFloat("currentLevel1Time", value); }
+    }
+
+    public float CurrentLevel2Time {
+        get { return PlayerPrefs.GetFloat("currentLevel2Time"); }
+        set { PlayerPrefs.SetFloat("currentLevel2Time", value); }
+    }
+
+    public float CurrentLevel3Time {
+        get { return PlayerPrefs.GetFloat("currentLevel3Time"); }
+        set { PlayerPrefs.SetFloat("currentLevel3Time", value); }
+    }
+
+    public float BestLevel1Time {
+        get { return PlayerPrefs.GetFloat("bestLevel1Time"); }
+        set { PlayerPrefs.SetFloat("bestLevel1Time", value); }
+    }
+
+    public float BestLevel2Time {
+        get { return PlayerPrefs.GetFloat("bestLevel2Time"); }
+        set { PlayerPrefs.SetFloat("bestLevel2Time", value); }
+    }
+
+    public float BestLevel3Time {
+        get { return PlayerPrefs.GetFloat("bestLevel3Time"); }
+        set { PlayerPrefs.SetFloat("bestLevel3Time", value); }
+    }
+
+    public float TotalTimePlayed {
+        get { return PlayerPrefs.GetFloat("totalTimePlayed"); }
+        set { PlayerPrefs.SetFloat("totalTimePlayed", value); }
+    }
+
     public void NewGame() {
         CurrentLevel = 1;
         CheckpointID = 0;
@@ -129,6 +164,10 @@ public class SOSaveFile : ScriptableObject {
         SnipersKilled = 0;
         ChargersKilled = 0;
         JouleEnabled = 0;
+
+        CurrentLevel1Time = 0.0f;
+        CurrentLevel2Time = 0.0f;
+        CurrentLevel3Time = 0.0f;
     }
 
     public void NextLevel() {
@@ -138,6 +177,10 @@ public class SOSaveFile : ScriptableObject {
         CurrentDeathCount = 0;
         InProgressPersuaderShots = 0;
         InProgressJouleShots = 0;
+
+        CurrentLevel1Time = 0.0f;
+        CurrentLevel2Time = 0.0f;
+        CurrentLevel3Time = 0.0f;
     }
 
     public void RestartLevel() {
@@ -146,6 +189,10 @@ public class SOSaveFile : ScriptableObject {
         CurrentDeathCount = 0;
         InProgressPersuaderShots = 0;
         InProgressJouleShots = 0;
+
+        CurrentLevel1Time = 0.0f;
+        CurrentLevel2Time = 0.0f;
+        CurrentLevel3Time = 0.0f;
     }
 
     public void LoadLevel(int level) {
@@ -155,5 +202,35 @@ public class SOSaveFile : ScriptableObject {
         CurrentDeathCount = 0;
         InProgressPersuaderShots = 0;
         InProgressJouleShots = 0;
+    }
+
+    public void ResetAllStats() {
+
+        CurrentLevel = 1;
+        CheckpointID = 0;
+        CheckpointPosition = _startingPositions[0];
+
+        DeathCount = 0;
+        CurrentDeathCount = 0;
+        PersuaderShots = 0;
+        InProgressPersuaderShots = 0;
+        JouleShots = 0;
+        InProgressJouleShots = 0;
+        AcidVectorsKilled = 0;
+        ExplosiveVectorsKilled = 0;
+        FlyingVectorsKilled = 0;
+        SnipersKilled = 0;
+        ChargersKilled = 0;
+        JouleEnabled = 0;
+
+        TotalTimePlayed = 0.0f;
+
+        CurrentLevel1Time = 0.0f;
+        CurrentLevel2Time = 0.0f;
+        CurrentLevel3Time = 0.0f;
+
+        BestLevel1Time = 0.0f;
+        BestLevel2Time = 0.0f;
+        BestLevel3Time = 0.0f;
     }
 }
