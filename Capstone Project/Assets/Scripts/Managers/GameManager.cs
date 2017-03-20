@@ -285,6 +285,9 @@ public class GameManager : Singleton<GameManager> {
         SceneManager.LoadScene(0);
         Time.timeScale = _defaultTimeScale;
         _inGame = false;
+
+        // Add to the toal time if the player goes back to the main menu.
+        SOSaveHandler.TotalTimePlayed += _playeTime;
     }
 
     // Things to do when a level is loaded
