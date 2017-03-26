@@ -115,7 +115,7 @@ public class InputManager : Singleton<InputManager> {
         // Stop looking after the first one is found.
         foreach(string input in inputs) {
             if (input != "") {
-                controllerType = input == "Wireless Controller" ? 0 : 1;
+                controllerType = input == "Wireless Controller" || input == "PLAYSTATION(R)3 Controller" ? 0 : 1;
                 break;
             }
         }

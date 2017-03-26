@@ -105,7 +105,9 @@ public class GameManager : Singleton<GameManager> {
     private void Update() {
         if (_inGame) {
 
-            UpdateTime();
+            if (!_paused) {
+                UpdateTime();
+            }
 
             if (_IM.controllerType == 0 ? Input.GetButtonDown("DS_OPTIONS") : Input.GetButtonDown("XBOX_START") ) {
 
@@ -124,19 +126,20 @@ public class GameManager : Singleton<GameManager> {
     }
 
     private void UpdateTime() {
-        _playeTime += Time.deltaTime;
+        //_playeTime += Time.deltaTime;
+        SOSaveHandler.TotalTimePlayed += Time.deltaTime;
 
         switch (_currentLevel) {
             case 1:
-                SOSaveHandler.CurrentLevel1Time = _playeTime;
+                SOSaveHandler.CurrentLevel1Time += Time.deltaTime;
                 //if (_playeTime > SOSaveHandler.BestLevel1Time) { SOSaveHandler.BestLevel1Time = _playeTime; }
                 break;
             case 2:
-                SOSaveHandler.CurrentLevel2Time = _playeTime;
+                SOSaveHandler.CurrentLevel2Time += Time.deltaTime;
                 //if (_playeTime > SOSaveHandler.BestLevel2Time) { SOSaveHandler.BestLevel2Time = _playeTime; }
                 break;
             case 3:
-                SOSaveHandler.CurrentLevel3Time = _playeTime;
+                SOSaveHandler.CurrentLevel3Time += Time.deltaTime;
                 //if (_playeTime > SOSaveHandler.BestLevel3Time) { SOSaveHandler.BestLevel3Time = _playeTime; }
                 break;
         }
@@ -148,6 +151,16 @@ public class GameManager : Singleton<GameManager> {
     public void OnContinue(WindowIDs ignore1, WindowIDs ignore2) {
         SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
         _inGame = true;
+        _paused = false;
+
+        switch (_currentLevel) {
+            case 1:
+                _playeTime = SOSaveHandler.CurrentLevel1Time; break;
+            case 2:
+                _playeTime = SOSaveHandler.CurrentLevel2Time; break;
+            case 3:
+                _playeTime = SOSaveHandler.CurrentLevel3Time; break;
+        }
     }
 
     private void OnNewGame(WindowIDs ignore1, WindowIDs ignore2) {
@@ -155,6 +168,7 @@ public class GameManager : Singleton<GameManager> {
         SceneManager.LoadScene(1);
         _inGame = true;
         _playeTime = 0.0f;
+        _paused = false;
     }
 
     //
@@ -167,6 +181,10 @@ public class GameManager : Singleton<GameManager> {
         _inGame = true;
         _paused = false;
         _playeTime = 0.0f;
+
+        SOSaveHandler.CurrentLevel1Time = 0.0f;
+        SOSaveHandler.CurrentLevel2Time = 0.0f;
+        SOSaveHandler.CurrentLevel3Time = 0.0f;
     }
 
     //
@@ -224,20 +242,16 @@ public class GameManager : Singleton<GameManager> {
 
         switch (_currentLevel) {
             case 1:
-                //SOSaveHandler.CurrentLevel1Time = _playeTime;
-                if (_playeTime < SOSaveHandler.BestLevel1Time || SOSaveHandler.BestLevel1Time <= 1.0f) { SOSaveHandler.BestLevel1Time = _playeTime; }
+                if (SOSaveHandler.CurrentLevel1Time < SOSaveHandler.BestLevel1Time || SOSaveHandler.BestLevel1Time <= 1.0f) { SOSaveHandler.BestLevel1Time = SOSaveHandler.CurrentLevel1Time; }
                 break;
             case 2:
-                //SOSaveHandler.CurrentLevel2Time = _playeTime;
-                if (_playeTime < SOSaveHandler.BestLevel2Time || SOSaveHandler.BestLevel2Time <= 1.0f) { SOSaveHandler.BestLevel2Time = _playeTime; }
+                if (SOSaveHandler.CurrentLevel2Time < SOSaveHandler.BestLevel2Time || SOSaveHandler.BestLevel2Time <= 1.0f) { SOSaveHandler.BestLevel2Time = SOSaveHandler.CurrentLevel2Time; }
                 break;
             case 3:
-                //SOSaveHandler.CurrentLevel3Time = _playeTime;
-                if (_playeTime < SOSaveHandler.BestLevel3Time || SOSaveHandler.BestLevel3Time <= 1.0f) { SOSaveHandler.BestLevel3Time = _playeTime; }
+                if (SOSaveHandler.CurrentLevel3Time < SOSaveHandler.BestLevel3Time || SOSaveHandler.BestLevel3Time <= 1.0f) { SOSaveHandler.BestLevel3Time = SOSaveHandler.CurrentLevel3Time; }
                 break;
         }
 
-        SOSaveHandler.TotalTimePlayed += _playeTime;
         _playeTime = 0.0f;
     }
 
@@ -257,7 +271,9 @@ public class GameManager : Singleton<GameManager> {
         if (Application.loadedLevel < 3) {
             SOSaveHandler.NextLevel();
         }
-
+        else {
+            SOSaveHandler.NewGame();
+        }
         SceneManager.LoadScene(0);
         Time.timeScale = _defaultTimeScale;
     }
@@ -286,8 +302,6 @@ public class GameManager : Singleton<GameManager> {
         Time.timeScale = _defaultTimeScale;
         _inGame = false;
 
-        // Add to the toal time if the player goes back to the main menu.
-        SOSaveHandler.TotalTimePlayed += _playeTime;
     }
 
     // Things to do when a level is loaded
@@ -297,6 +311,7 @@ public class GameManager : Singleton<GameManager> {
 
         if (level != 0) {
             _inGame = true;
+            _playeTime = 0.0f;
 
             if (SOSaveHandler.CheckpointID == 0) {
                 GameObject player = SpawnPlayer();
