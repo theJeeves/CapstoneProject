@@ -13,11 +13,13 @@ public class DisplayAmmo : MonoBehaviour {
     private void OnEnable() {
         Shotgun.UpdateNumOfRounds += UpdateText;
         MachineGun.UpdateNumOfRounds += UpdateText;
+        PlayerHealth.UpdateHealth += ShowHideText;
     }
 
     private void OnDisable() {
         Shotgun.UpdateNumOfRounds -= UpdateText;
         MachineGun.UpdateNumOfRounds -= UpdateText;
+        PlayerHealth.UpdateHealth -= ShowHideText;
     }
 
     private void UpdateText(int numOfRounds) {
@@ -26,6 +28,15 @@ public class DisplayAmmo : MonoBehaviour {
         }
         else {
             _ammoText.text = string.Format("{0}  ", numOfRounds);
+        }
+    }
+
+    private void ShowHideText(int health) {
+        if (health > 0) {
+            _ammoText.enabled = true;
+        }
+        else {
+            _ammoText.enabled = false;
         }
     }
 }

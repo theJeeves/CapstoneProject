@@ -62,6 +62,10 @@ public class AimDirection {
     }
 }
 
+
+/// <summary>
+/// MAIN CLASS
+/// </summary>
 public class ControllableObject : MonoBehaviour {
 
     // Events are like broadcasting a message. Other scripts which are looking for specific events
@@ -83,12 +87,12 @@ public class ControllableObject : MonoBehaviour {
     // Keeps all the possible aiming directions. 
     private short[] _aimDirections = new short[8];
 
-    private byte _currentKey;
-    public byte CurrentKey {
+    private int _currentKey;
+    public int CurrentKey {
         get { return _currentKey; }
     }
-    private short _aimDirection;
-    public short AimDirection {
+    private int _aimDirection;
+    public int AimDirection {
         get { return _aimDirection; }
     }
 
@@ -104,7 +108,7 @@ public class ControllableObject : MonoBehaviour {
         }
     }
 
-    public void SetAimDirection(byte key) {
+    public void SetAimDirection(int key) {
         _currentKey = key;
         _aimDirection = _aimDirections[_currentKey];
     }
@@ -143,7 +147,6 @@ public class ControllableObject : MonoBehaviour {
             }
             buttonStates[button].PressTime += Time.deltaTime;
         }
-
         // Update the status of the input
         buttonStates[button].IsPressed = isPressed;
     }
@@ -164,6 +167,20 @@ public class ControllableObject : MonoBehaviour {
         }
         else {
             return 0.0f;
+        }
+    }
+
+    // THIS FUNCTION IS ONLY SUPPPOSED TO BE USED IN THE MAIN MENU.
+    // DO NOT USE IT ANY OTHER TIME!!!
+    public void SetButtonPressTime(Buttons button) {
+        if (buttonStates.ContainsKey(button)) {
+            buttonStates[button].PressTime = 1.0f;
+        }
+    }
+
+    public void SetButtonPressed(Buttons button) {
+        if (buttonStates.ContainsKey(button)) {
+            buttonStates[button].IsPressed = true;
         }
     }
 

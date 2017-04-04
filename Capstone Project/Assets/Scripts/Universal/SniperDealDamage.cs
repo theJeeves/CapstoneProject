@@ -3,20 +3,30 @@ using System.Collections;
 
 public class SniperDealDamage : MonoBehaviour {
 
-    public delegate void SniperDealDamageEvent(int damage);
-    public static event SniperDealDamageEvent DecrementPlayerHealth;
-
     [SerializeField]
     private int _damage;
+    [SerializeField]
+    private float _knockBack;
+    [SerializeField]
+    private SOEffects _SOEffectHandler;
 
-    private void OnTriggerEnter2D(Collider2D collider) {
+    private void OnCollisionEnter2D(Collision2D otherGO) {
 
-        if (collider.gameObject.tag == "Player") {
+        string tag = otherGO.gameObject.tag;
 
-            if (DecrementPlayerHealth != null) {
-                DecrementPlayerHealth(_damage);
-            }
-            Destroy(gameObject);
+        if (tag == "Player") {
+            otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage);
+            Vector2 direction = otherGO.gameObject.GetComponent<BoxCollider2D>().bounds.center - transform.position;
+            //otherGO.gameObject.GetComponent<Rigidbody2D>().AddForce(direction.normalized * _knockBack, ForceMode2D.Impulse);
+            otherGO.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(direction.normalized.x * _knockBack, direction.normalized.y * _knockBack);
         }
+
+        _SOEffectHandler.PlayEffect(EffectEnums.SniperBulletImpact, transform.position);
+        Destroy(gameObject);
+    }
+
+    public void Destroy() {
+        _SOEffectHandler.PlayEffect(EffectEnums.SniperBulletImpact, transform.position);
+        Destroy(gameObject);
     }
 }

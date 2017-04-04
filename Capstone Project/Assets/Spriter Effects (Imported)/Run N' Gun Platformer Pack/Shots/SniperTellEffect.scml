@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r10">
+    <folder id="0" name="player shots">
+        <file id="0" name="player shots/Yellow_Shot1.png" width="130" height="51" pivot_x="0.66" pivot_y="0.5"/>
+        <file id="1" name="player shots/Yellow_Impact3.png" width="108" height="108" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="2" name="player shots/Yellow_Impact2.png" width="108" height="108" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="3" name="player shots/Yellow_Impact1.png" width="108" height="108" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="4" name="player shots/Blue_Shot2.png" width="143" height="88" pivot_x="0.8" pivot_y="0.5"/>
+        <file id="5" name="player shots/Blue_Shot1.png" width="143" height="88" pivot_x="0.8" pivot_y="0.5"/>
+        <file id="6" name="player shots/Blue_Impact4.png" width="118" height="172" pivot_x="0.9" pivot_y="0.5"/>
+        <file id="7" name="player shots/Blue_Impact3.png" width="118" height="172" pivot_x="0.9" pivot_y="0.5"/>
+        <file id="8" name="player shots/Blue_Impact2.png" width="118" height="164" pivot_x="0.9" pivot_y="0.5"/>
+        <file id="9" name="player shots/Blue_Impact1.png" width="91" height="114" pivot_x="0.9" pivot_y="0.5"/>
+    </folder>
+    <folder id="1" name="enemy shots">
+        <file id="0" name="enemy shots/Redshot1.png" width="80" height="80" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="1" name="enemy shots/Redshot_strike5.png" width="20" height="30" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="2" name="enemy shots/Redshot_strike4.png" width="20" height="46" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="3" name="enemy shots/Redshot_strike3.png" width="20" height="58" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="4" name="enemy shots/Redshot_strike2.png" width="20" height="60" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="5" name="enemy shots/Redshot_strike1.png" width="20" height="75" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="6" name="enemy shots/Redshot_Impact5.png" width="140" height="140" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="7" name="enemy shots/Redshot_Impact4.png" width="140" height="140" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="8" name="enemy shots/Redshot_Impact3.png" width="140" height="140" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="9" name="enemy shots/Redshot_Impact2.png" width="140" height="140" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="10" name="enemy shots/Redshot_Impact1.png" width="140" height="140" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="11" name="enemy shots/Redshot2.png" width="80" height="80" pivot_x="0" pivot_y="1"/>
+        <file id="12" name="enemy shots/fireball_0.png" width="59" height="57" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="13" name="enemy shots/fireball_1.png" width="59" height="57" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="14" name="enemy shots/pre-flame_0.png" width="262" height="231" pivot_x="0.537879" pivot_y="0.467811"/>
+        <file id="15" name="enemy shots/pre-flame_1.png" width="262" height="231" pivot_x="0.541667" pivot_y="0.484979"/>
+    </folder>
+    <entity id="0" name="SniperTellEffect">
+        <animation id="0" name="SniperTellEffect" length="3000" interval="100" looping="false">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                </key>
+                <key id="1" time="525">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="0" z_index="1"/>
+                    <object_ref id="2" timeline="1" key="1" z_index="2"/>
+                </key>
+                <key id="2" time="540">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="1" z_index="1"/>
+                </key>
+                <key id="3" time="1810">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="2" z_index="1"/>
+                </key>
+                <key id="4" time="2150">
+                    <object_ref id="0" timeline="0" key="3" z_index="0"/>
+                    <object_ref id="1" timeline="2" key="3" z_index="1"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="pre-flame_0_000">
+                <key id="0" spin="0">
+                    <object folder="1" file="14" x="1.151631" y="-0.191939" angle="0" scale_x="1.772682" scale_y="1.777953"/>
+                </key>
+                <key id="1" time="525" spin="0">
+                    <object folder="1" file="14" x="1.151631" y="-0.191939" angle="0" scale_x="0.568871" scale_y="0.568871"/>
+                </key>
+                <key id="2" time="1810" spin="0">
+                    <object folder="1" file="14" x="0.821598" y="-0.191939" angle="0" scale_x="1.848317" scale_y="1.859287" a="0"/>
+                </key>
+                <key id="3" time="2150" spin="0">
+                    <object folder="1" file="14" x="0.821598" y="-0.521972" angle="0" scale_x="1.848317" scale_y="1.859287" a="0"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="pre-flame_1">
+                <key id="0" spin="0">
+                    <object folder="1" file="15" x="1.754439" y="-0.191939" angle="0" scale_x="0.542638" scale_y="0.570536"/>
+                </key>
+                <key id="1" time="525" spin="0">
+                    <object folder="1" file="15" x="0.191939" y="-0.191939" angle="0" scale_x="0.076155" scale_y="0.088797"/>
+                </key>
+            </timeline>
+            <timeline id="2" name="fireball_1_000">
+                <key id="0" time="525" spin="0">
+                    <object folder="1" file="13" x="0.330033" y="-0.990099" angle="0"/>
+                </key>
+                <key id="1" time="540">
+                    <object folder="1" file="13" x="0.330033" y="-0.990099" angle="0"/>
+                </key>
+                <key id="2" time="1810">
+                    <object folder="1" file="13" x="0.330033" y="-0.990099" angle="107.667641" scale_x="2.992299" scale_y="2.992299"/>
+                </key>
+                <key id="3" time="2150">
+                    <object folder="1" file="13" x="0.330033" y="-0.990099" angle="187.897089" scale_x="2.992299" scale_y="2.992299" a="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

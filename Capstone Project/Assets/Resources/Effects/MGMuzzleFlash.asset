@@ -1,0 +1,595 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fd4016cde4e2bc4ea2f88cf390d0ad5, type: 3}
+  m_Name: MGMuzzleFlash
+  m_EditorClassIdentifier: 
+  Spriter:
+    Folders:
+    - Id: 0
+      Name: 
+      Files:
+      - Id: 0
+        Name: Angle_0.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 39
+        Height: 76
+      - Id: 1
+        Name: Angle_0y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 39
+        Height: 76
+      - Id: 2
+        Name: Angle_1.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 39
+        Height: 110
+      - Id: 3
+        Name: Angle_1y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 39
+        Height: 110
+      - Id: 4
+        Name: Angle_2.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 39
+        Height: 216
+      - Id: 5
+        Name: Angle_2y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 39
+        Height: 216
+      - Id: 6
+        Name: Arrow_0.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 62
+      - Id: 7
+        Name: Arrow_0y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 62
+      - Id: 8
+        Name: Arrow_1.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 109
+      - Id: 9
+        Name: Arrow_1y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 109
+      - Id: 10
+        Name: Arrow_2.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 212
+      - Id: 11
+        Name: Arrow_2y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 212
+      - Id: 12
+        Name: ColorCircle.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 261
+        Height: 239
+      - Id: 13
+        Name: rect_0.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 63
+      - Id: 14
+        Name: rect_0y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 63
+      - Id: 15
+        Name: rect_1.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 101
+      - Id: 16
+        Name: rect_1y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 101
+      - Id: 17
+        Name: rect_2.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 207
+      - Id: 18
+        Name: rect_2y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 207
+      - Id: 19
+        Name: round_0.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 62
+      - Id: 20
+        Name: round_0y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 62
+      - Id: 21
+        Name: round_1.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 46
+        Height: 112
+      - Id: 22
+        Name: round_1y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 46
+        Height: 112
+      - Id: 23
+        Name: round_2.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 199
+      - Id: 24
+        Name: round_2y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0
+        Width: 45
+        Height: 199
+      - Id: 25
+        Name: shard_0.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 59
+        Height: 86
+      - Id: 26
+        Name: shard_0y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 59
+        Height: 86
+      - Id: 27
+        Name: shard_1.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 61
+        Height: 51
+      - Id: 28
+        Name: shard_1y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 61
+        Height: 51
+      - Id: 29
+        Name: shard_2.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 65
+        Height: 75
+      - Id: 30
+        Name: shard_2y.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 65
+        Height: 75
+      - Id: 31
+        Name: WhiteCircle.png
+        Type: 0
+        PivotX: 0.5
+        PivotY: 0.5
+        Width: 212
+        Height: 197
+      - Id: 32
+        Name: MuzzleFlash.png
+        Type: 0
+        PivotX: 0.497854
+        PivotY: 0.100694
+        Width: 233
+        Height: 288
+    Entities:
+    - Id: 0
+      Name: MG Muzzle Flash 1
+      ObjectInfos: []
+      CharacterMaps: []
+      Animations:
+      - Id: 0
+        Name: MG Muzzle Flash 1
+        Length: 200
+        Looping: 0
+        MainlineKeys:
+        - Id: 0
+          Name: 
+          Time: 0
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 0
+            ZIndex: 0
+        - Id: 1
+          Name: 
+          Time: 33
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 1
+            ZIndex: 0
+        - Id: 2
+          Name: 
+          Time: 112
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 2
+            ZIndex: 0
+        - Id: 3
+          Name: 
+          Time: 200
+          CurveType: 0
+          C1: 0
+          C2: 0
+          C3: 0
+          C4: 0
+          BoneRefs: []
+          ObjectRefs:
+          - Id: 0
+            Name: 
+            ParentId: -1
+            TimelineId: 0
+            KeyId: 3
+            ZIndex: 0
+        Timelines:
+        - Id: 0
+          Name: MuzzleFlash
+          ObjectType: 0
+          ObjectId: 0
+          Keys:
+          - Id: 0
+            Name: 
+            Time: 0
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 1
+              Y: -1
+              Angle: 270
+              ScaleX: 1
+              ScaleY: 0.61657
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 0
+              FileId: 32
+              PivotX: 0.497854
+              PivotY: 0.100694
+              T: 0
+          - Id: 1
+            Name: 
+            Time: 33
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 1
+              Y: -1
+              Angle: 270
+              ScaleX: 1.174468
+              ScaleY: 0.801541
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 0
+              FileId: 32
+              PivotX: 0.497854
+              PivotY: 0.100694
+              T: 0
+          - Id: 2
+            Name: 
+            Time: 112
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 1
+              Y: -1
+              Angle: 270
+              ScaleX: 0.743687
+              ScaleY: 1.027586
+              Alpha: 1
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 0
+              FileId: 32
+              PivotX: 0.497854
+              PivotY: 0.100694
+              T: 0
+          - Id: 3
+            Name: 
+            Time: 200
+            CurveType: 0
+            C1: 0
+            C2: 0
+            C3: 0
+            C4: 0
+            Spin: 0
+            BoneInfo:
+              X: 0
+              Y: 0
+              Angle: 0
+              ScaleX: 1
+              ScaleY: 1
+              Alpha: 1
+            ObjectInfo:
+              X: 1
+              Y: -1
+              Angle: 270
+              ScaleX: 0.26383
+              ScaleY: 1.279383
+              Alpha: 0
+              AnimationId: 0
+              EntityId: 0
+              FolderId: 0
+              FileId: 32
+              PivotX: 0.497854
+              PivotY: 0.100694
+              T: 0
+          Meta:
+            Varlines: []
+            Tagline:
+              Keys: []
+        Eventlines: []
+        Soundlines: []
+        Meta:
+          Varlines: []
+          Tagline:
+            Keys: []
+      Variables: []
+    Tags: []
+  FileEntries:
+  - FolderId: 0
+    FileId: 0
+    Sprite: {fileID: 21300000, guid: 119889c7181fe8f4aaa1c1a7bf18f915, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 1
+    Sprite: {fileID: 21300000, guid: 6f8c75617c988784ab32dc3dae6e65e3, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 2
+    Sprite: {fileID: 21300000, guid: 29b4670594459464ea9902587aeb7053, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 3
+    Sprite: {fileID: 21300000, guid: bd25bbee4161c90489c1faea108348af, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 4
+    Sprite: {fileID: 21300000, guid: 64a3a11ba7cda1c489e888bd12bd9a5a, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 5
+    Sprite: {fileID: 21300000, guid: c2c0978daa3c751458756d294ecf41f7, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 6
+    Sprite: {fileID: 21300000, guid: 01f033190979824469c5e7333c685322, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 7
+    Sprite: {fileID: 21300000, guid: 8f96a8abacce1af49a72a64bb98b02a8, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 8
+    Sprite: {fileID: 21300000, guid: a4c379a579282294ca7ebe34e5aa04b4, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 9
+    Sprite: {fileID: 21300000, guid: 8b26d6ace2aaa224895be225796abec3, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 10
+    Sprite: {fileID: 21300000, guid: 28c34ef5832299c4b9486a7a4209b470, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 11
+    Sprite: {fileID: 21300000, guid: 80f2188af3f3f4746a2534bb60aa5148, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 12
+    Sprite: {fileID: 21300000, guid: c8225776c1ceef9449278868fc680f2d, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 13
+    Sprite: {fileID: 21300000, guid: 0b7be79dbd8158742ad4c00eee708c6c, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 14
+    Sprite: {fileID: 21300000, guid: 81e9003173528e8429a5778a91ed8676, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 15
+    Sprite: {fileID: 21300000, guid: e2785099e79ff424daad97b9642772d6, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 16
+    Sprite: {fileID: 21300000, guid: 62e42da9edb82484aa091d97374e818d, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 17
+    Sprite: {fileID: 21300000, guid: 3c6ed6dbac1b012499c40e370078dd9c, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 18
+    Sprite: {fileID: 21300000, guid: 05888960d4809eb46af4e569ac7517a7, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 19
+    Sprite: {fileID: 21300000, guid: 9c4c0955e5af50747aa50a7088d8a20f, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 20
+    Sprite: {fileID: 21300000, guid: 3f0517e22b35f0b4ea2b2eca56b70289, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 21
+    Sprite: {fileID: 21300000, guid: dce7b2174a89f3b4a9e0be29929c0c0c, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 22
+    Sprite: {fileID: 21300000, guid: 019b65ae9117b0d4ba672a26c5ba9dfb, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 23
+    Sprite: {fileID: 21300000, guid: a6b82b84123aff44c91292ca8b9f8a04, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 24
+    Sprite: {fileID: 21300000, guid: 80b25993447527c44ac6ff3630855b1c, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 25
+    Sprite: {fileID: 21300000, guid: ca91be37b7cdf754095ddb99194e89c9, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 26
+    Sprite: {fileID: 21300000, guid: 4ef1e5a05ee5d2d4dbcdf53775387582, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 27
+    Sprite: {fileID: 21300000, guid: 6e22e92d990148f4589c0dd1b9118bf4, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 28
+    Sprite: {fileID: 21300000, guid: 8036dfbbb5ecd9f498e71a21c90687e8, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 29
+    Sprite: {fileID: 21300000, guid: 0199871eca075fc459aeb2dd8bbae758, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 30
+    Sprite: {fileID: 21300000, guid: 2530d6586eaaf074f93a62ccbb1b4872, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 31
+    Sprite: {fileID: 21300000, guid: 6ec87b26711966446800be92c2e28cc2, type: 3}
+    Sound: {fileID: 0}
+  - FolderId: 0
+    FileId: 32
+    Sprite: {fileID: 21300000, guid: f5feca15657cca94b90427da99c078d1, type: 3}
+    Sound: {fileID: 0}

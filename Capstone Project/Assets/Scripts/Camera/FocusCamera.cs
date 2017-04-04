@@ -3,72 +3,123 @@ using System.Collections;
 
 public class FocusCamera : MonoBehaviour {
 
-    [SerializeField]
     private ScriptedCamera _scriptedCam;
-    [SerializeField]
-    private bool _rightTrigger = false;
 
-    private Vector3 _boxPos;
+    [Header("Movement Type")]
+    [SerializeField]
+    private bool _leftAndRight = true;
+    [SerializeField]
+    private bool _topToBottom = false;
+    [SerializeField]
+    private bool _bottomToTop = false;
+
+    [Space]
+
+    [SerializeField]
+    private float _adjustDuration = 3.0f;
+
+    [SerializeField]
+    private Transform[] _triggerPoints;
+    [SerializeField]
+    private Vector3[] _cameraPositions;
+    [SerializeField]
+    private bool[] _linearMovement;
+
+    private Vector2 playerPos = Vector2.zero;
+    private int length = 0;
+    private float _movementTimer = 0.0f;
+    private float _movementDelay = 0.5f;
+
+    private Vector3 _camOrigin = Vector3.zero;
+    private bool _originSet = false;
+
+    private BoxCollider2D _collider;
 
     private void OnEnable() {
-        _boxPos.x = _rightTrigger ? transform.position.x + GetComponent<BoxCollider2D>().size.x / 2 :
-            transform.position.x - GetComponent<BoxCollider2D>().size.x / 2;
+        PlayerHealth.UpdateHealth += UponDeath;
+        _collider = GetComponent<BoxCollider2D>();
+
+        _scriptedCam = Resources.Load<ScriptedCamera>("ScriptableObjects/SOScriptedCamHandler");
     }
 
-    private void OnTriggerEnter2D(Collider2D player) {
+    private void OnDisable() {
+        PlayerHealth.UpdateHealth -= UponDeath;
+    }
 
-        if (player.tag == "Player") {
+    private void OnTriggerEnter2D(Collider2D otherGO) {
+        if (_collider.enabled && otherGO.tag == "Player") {
+            _scriptedCam.SetAdjustSpeed(_adjustDuration);
+        }
+    }
 
-            _scriptedCam.IsRightTrigger = _rightTrigger;
+    private void OnTriggerStay2D(Collider2D otherGO) {
 
-            switch (_rightTrigger) {
-                case true:
+        if (_collider.enabled && otherGO.tag == "Player" &&  Time.time - _movementTimer > _movementDelay) {
 
-                    if (player.transform.position.x >= _boxPos.x) {
-                        _scriptedCam.DisableScripts();
-                        StartCoroutine(MoveCamera());
+            playerPos = otherGO.transform.position;
+            length = _triggerPoints.Length;
+
+            if (length > 1) {
+                for (int i = 0; i < length - 1; ++i) {
+
+                    if (_leftAndRight) {
+                        if (playerPos.x > _triggerPoints[i].position.x && playerPos.x < _triggerPoints[i + 1].position.x) {
+
+                            if (_linearMovement.Length > 0 && _linearMovement[i]) {
+
+                                float difference = _triggerPoints[i + 1].position.x - _triggerPoints[i].position.x;
+                                float percentage = 1.0f - ((_triggerPoints[i + 1].position.x - playerPos.x) / difference);
+
+                                SetCameraOrigin();
+                                _scriptedCam.LinearlyMoveCamera(percentage, _scriptedCam.GetLinearCamPosition(gameObject.name), _cameraPositions[i]);
+                            }
+                            else {
+                                _scriptedCam.MoveCamera(_cameraPositions[i]);
+                            }
+                        }
                     }
-                    break;
-
-                case false:
-
-                    if (player.transform.position.x <= _boxPos.x) {
-                        _scriptedCam.DisableScripts();
-                        StartCoroutine(MoveCamera());
+                    else if (_bottomToTop) {
+                        if (playerPos.y > _triggerPoints[i].position.y && playerPos.y < _triggerPoints[i + 1].position.y) {
+                            _scriptedCam.MoveCamera(_cameraPositions[i]);
+                        }
                     }
-                    break;
+                    else if (_topToBottom) {
+                        if (playerPos.y < _triggerPoints[i].position.y && playerPos.y > _triggerPoints[i + 1].position.y) {
+                            _scriptedCam.MoveCamera(_cameraPositions[i]);
+                        }
+                    }
+                }
+            }
+            else if (length == 0) {
+                _scriptedCam.MoveCamera(_cameraPositions[0]);
             }
         }
     }
 
-    private IEnumerator MoveCamera() {
+    private void OnTriggerExit2D(Collider2D otherGO) {
 
-        while (!_scriptedCam.MoveCamera(_boxPos)) {
-            yield return 0;
+        if (_collider.enabled && gameObject.GetComponent<FocusCamera>().enabled) {
+
+            if (otherGO.tag == "Player") {
+                _scriptedCam.Reset();
+                //_originSet = false;
+            }
         }
     }
 
-    private void OnTriggerExit2D(Collider2D player) {
+    private void UponDeath(int health) {
+        if (health <= 0) {
+            _movementTimer = Time.time;
+        }
+    }
 
-        if (player.tag == "Player") {
+    private void SetCameraOrigin() {
 
-            _scriptedCam.IsRightTrigger = _rightTrigger;
-
-            switch (_rightTrigger) {
-                case true:
-                    if (player.transform.position.x > _boxPos.x) {
-                        _scriptedCam.EnableScripts();
-                        StopAllCoroutines();
-                    }
-                    break;
-
-                case false:
-                    if (player.transform.position.x < _boxPos.x) {
-                        _scriptedCam.EnableScripts();
-                        StopAllCoroutines();
-                    }
-                    break;
-            }
+        if (!_scriptedCam.LinearCamPositionSet(gameObject.name)) { 
+        //if (!_originSet) {
+            _scriptedCam.SetLinearCamPosition(gameObject.name, GameObject.FindGameObjectWithTag("SmartCamera").transform.position);
+            //_camOrigin = GameObject.FindGameObjectWithTag("SmartCamera").transform.position;
+            _originSet = true;
         }
     }
 }

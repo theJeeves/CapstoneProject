@@ -9,27 +9,44 @@ using UnityEngine.UI;
 
 public class WeaponSelect : MonoBehaviour {
 
-    [SerializeField]
     private Image _shotgunAmmo;
-    [SerializeField]
     private Image _machineGunAmmo;
+
+    [SerializeField]
+    private bool _MGAvailable = true;
+    public bool MGAvailable {
+        set { _MGAvailable = value; }
+    }
+    [SerializeField]
+    private bool _SGAvailable = false;
+    public bool SGAvailable {
+        set { _SGAvailable = value; }
+    }
 
     private Shotgun _shotgun;
     private MachineGun _machineGun;
-    private SpriteRenderer _renderer;
 
     private void OnEnable() {
         ControllableObject.OnButtonDown += OnButtonDown;
+        PlayerHealth.UpdateHealth += ShowHideIcon;
+
+        _shotgunAmmo = GameObject.Find("SGAmmoType").GetComponent<Image>();
+        _machineGunAmmo = GameObject.Find("MGAmmoType").GetComponent<Image>();
 
         _shotgun = GetComponent<Shotgun>();
         _machineGun = GetComponent<MachineGun>();
-        _renderer = GetComponent<SpriteRenderer>();
 
-        EnableShotgun();
+        if (_shotgun.enabled) {
+            EnableShotgun();
+        }
+        else if (_machineGun.enabled) {
+            EnableMachineGun();
+        }
     }
 
     private void OnDisable() {
         ControllableObject.OnButtonDown -= OnButtonDown;
+        PlayerHealth.UpdateHealth -= ShowHideIcon;
     }
 
     // Only perform the weapon swap one per button press.
@@ -38,10 +55,10 @@ public class WeaponSelect : MonoBehaviour {
         
         if (button == Buttons.WeaponSwap) {
 
-            if (_shotgun.isActiveAndEnabled) {
+            if (_shotgun.isActiveAndEnabled && _MGAvailable) {
                 EnableMachineGun();
             }
-            else if (_machineGun.isActiveAndEnabled) {
+            else if (_machineGun.isActiveAndEnabled && _SGAvailable) {
                 EnableShotgun();
             }
         }
@@ -53,7 +70,6 @@ public class WeaponSelect : MonoBehaviour {
 
         _shotgun.enabled = true;
         _shotgunAmmo.enabled = true;
-        _renderer.sprite = _shotgun.Sprite;
     }
 
     private void EnableMachineGun() {
@@ -62,6 +78,24 @@ public class WeaponSelect : MonoBehaviour {
 
         _machineGun.enabled = true;
         _machineGunAmmo.enabled = true;
-        _renderer.sprite = _machineGun.Sprite;
+    }
+
+    private void ShowHideIcon(int health) {
+        if (health > 0) {
+            if (_shotgun.isActiveAndEnabled && _MGAvailable) {
+                _shotgunAmmo.enabled = true;
+            }
+            else if (_machineGun.isActiveAndEnabled && _SGAvailable) {
+                _machineGunAmmo.enabled = true;
+            }
+        }
+        else {
+            if (_shotgun.isActiveAndEnabled) {
+                _shotgunAmmo.enabled = false;
+            }
+            else if (_machineGun.isActiveAndEnabled) {
+                _machineGunAmmo.enabled = false;
+            }
+        }
     }
 }

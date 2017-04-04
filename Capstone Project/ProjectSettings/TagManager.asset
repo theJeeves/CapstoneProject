@@ -6,19 +6,25 @@ TagManager:
   tags:
   - SolidGround
   - Gun
-  - Start
+  - StartNorm
   - End
   - Enemy
-  - Block
-  - Pillar
-  - Platform
   - SmartCamera
-  - PlayerUpperBody
-  - PlayerLowerBody
   - Weapons
-  - LandingDust
-  - ShotgunFireEffect
-  - MGImpact
+  - SwarmerPod
+  - SwarmerPodBattery
+  - AcidBall
+  - Block
+  - SniperBullet
+  - Ignore
+  - StartAlt
+  - Start
+  - Checkpoint
+  - GameManager
+  - WindowManager
+  - InputManager
+  - EventSystemSingleton
+  - Back_LevelSelect
   layers:
   - Default
   - TransparentFX
@@ -33,12 +39,12 @@ TagManager:
   - Enemy
   - WorldObjects
   - Camera
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - SwarmerPod
+  - SwarmerPodBattery
+  - AcidBall
+  - Block
+  - SniperBullet
+  - Ignore
   - 
   - 
   - 
@@ -56,9 +62,27 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
-  - name: Player
-    uniqueID: 3890449483
+  - name: Background World Objects
+    uniqueID: 3559661181
     locked: 0
-  - name: Environment
-    uniqueID: 1683302791
+  - name: Main World Object
+    uniqueID: 75039419
+    locked: 0
+  - name: Enemies
+    uniqueID: 508758275
+    locked: 0
+  - name: Player
+    uniqueID: 777899571
+    locked: 0
+  - name: UI
+    uniqueID: 960412473
+    locked: 0
+  - name: Effects
+    uniqueID: 4102216409
+    locked: 0
+  - name: Foreground World Objects
+    uniqueID: 1726647307
+    locked: 0
+  - name: Text UI
+    uniqueID: 1937888195
     locked: 0

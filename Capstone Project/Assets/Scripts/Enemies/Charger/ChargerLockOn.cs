@@ -6,7 +6,7 @@ public class ChargerLockOn : MonoBehaviour {
     public delegate void ChargerLockOnEvent(float time);
     public delegate void ChargerLockOnEvent2();
     public static event ChargerLockOnEvent RocketAnim;
-    public static event ChargerLockOnEvent2 ResetRockets;
+    //public static event ChargerLockOnEvent2 ResetRockets;
 
     [SerializeField]
     protected float _timer;
@@ -28,10 +28,13 @@ public class ChargerLockOn : MonoBehaviour {
     private Transform _player;
     private Vector2 _direction;
 
+    private ChargerAnimations _animationManager;
+
     private void OnEnable() {
-        _body2d = GetComponent<Rigidbody2D>();
+        _body2d = GetComponentInParent<Rigidbody2D>();
         _player = GameObject.FindGameObjectWithTag("Player").transform;
         _hit = Physics2D.Raycast(transform.position, _direction, _attackRange, _whatToHit);
+        _animationManager = GetComponentInParent<ChargerAnimations>();
 
         StartCoroutine(LockOn());
     }
@@ -42,27 +45,31 @@ public class ChargerLockOn : MonoBehaviour {
 
             if (_hit.collider != null && _hit.collider.tag == "Player") {
 
+                _animationManager.Play(3);
                 _body2d.velocity = Vector2.zero;
                 //Start the "tell" animation for this enemy.
                 if (RocketAnim != null) {
                     RocketAnim(_timer);
                 }
                 yield return new WaitForSeconds(_timer);
+
                 // Charge toward the player.
+                _animationManager.Play(4);
                 _body2d.AddForce(Vector2.right * _chargeSpeed * _direction.x, ForceMode2D.Impulse);
                 break;
             }
 
             // Raycast to determine if we are in range of the player. Continually walk toward the player if not.
             _direction = (_player.position - transform.position).normalized;
+            _direction = new Vector2(_direction.x, 0.0f);
             _hit = Physics2D.Raycast(transform.position, _direction, _attackRange, _whatToHit);
             Debug.DrawLine(transform.position, transform.position + (Vector3.right * _attackRange * _direction.x), Color.yellow);
             _body2d.velocity = new Vector2(_walkSpeed * _direction.x, _body2d.velocity.y);
 
             // Correct facing direction while walking toward the player
             Vector3 localScale = transform.localScale;
-            transform.localScale = _direction.x > 0 ? new Vector3(-0.12f, localScale.y, localScale.z)
-                : new Vector3(0.12f, localScale.y, localScale.z);
+            transform.localScale = _direction.x > 0 ? new Vector3(1.0f, localScale.y, localScale.z)
+                : new Vector3(-1.0f, localScale.y, localScale.z);
 
             yield return 0;
         }
@@ -70,15 +77,32 @@ public class ChargerLockOn : MonoBehaviour {
     }
 
     private IEnumerator AttackReset() {
+
         _hit = new RaycastHit2D();
         _direction = (_player.position - transform.position).normalized;
 
+        float startTime = Time.time;
+
+        //yield return new WaitForSeconds(1.0f);
+
+        //while (Time.time - startTime <= _resetTimer) {
+
+        //    if (Mathf.Abs(_body2d.velocity.x) <= 0.0f) {
+        //        yield return new WaitForSeconds(1.0f);
+        //        break;
+        //    }
+        //    else {
+        //        yield return 0;
+        //    }
+        //}
+
         yield return new WaitForSeconds(_resetTimer);
 
-        if (ResetRockets != null) {
-            ResetRockets();
-        }
+        //if (ResetRockets != null) {
+        //    ResetRockets();
+        //}
 
+        _animationManager.Play(2);
         StartCoroutine(LockOn());
     }
 

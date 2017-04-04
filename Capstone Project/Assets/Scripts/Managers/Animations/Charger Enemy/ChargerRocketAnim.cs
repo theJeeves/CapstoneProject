@@ -11,12 +11,12 @@ public class ChargerRocketAnim : MonoBehaviour {
 
 	private void OnEnable() {
         ChargerLockOn.RocketAnim += StartAnim;
-        ChargerLockOn.ResetRockets += ResetRockets;
+        //ChargerLockOn.ResetRockets += ResetRockets;
     }
 
     private void OnDisable() {
         ChargerLockOn.RocketAnim -= StartAnim;
-        ChargerLockOn.ResetRockets -= ResetRockets;
+        //ChargerLockOn.ResetRockets -= ResetRockets;
     }
 
     private void StartAnim(float time) {

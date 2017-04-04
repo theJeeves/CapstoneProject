@@ -3,49 +3,68 @@ using System.Collections;
 
 public class LaserSights : MonoBehaviour {
 
-    private Transform _player;
+    [SerializeField]
+    private SOEffects _SOEffectHandler;
+    [SerializeField]
+    private LayerMask _whatToHit;
     [SerializeField]
     private Transform _endOfBarrel;
+
+    private BoxCollider2D _playerBox;
+    private Vector3 _playerPos;
+    private Vector2 _obstruction;
     private LineRenderer _renderer;
+    private GameObject _laserEffect;
 
     private void Awake() {
-
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        //_playerBox = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
         _renderer = GetComponent<LineRenderer>();
     }
 
     private void OnEnable() {
-        SniperPushBack.Stun += TurnOffSights;
-
-        StartCoroutine(Laser());
+        _laserEffect = _SOEffectHandler.PlayEffect(EffectEnums.SniperLaserEffect, _endOfBarrel.position);
     }
 
     private void OnDisable() {
-        SniperPushBack.Stun -= TurnOffSights;
+        _SOEffectHandler.StopEffect(_laserEffect);
     }
 
-    private void TurnOffSights() {
-        _renderer.enabled = false;
-        StartCoroutine(TurnOnSights());
+    private void Update() {
+
+        if (_playerBox == null) {
+            _playerBox = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
+        }
+
+        _playerPos = new Vector2(_playerBox.bounds.center.x, _playerBox.bounds.center.y + 7.5f);
+
+        CheckCollisions();
+
+        //Set the Start Position
+        _renderer.SetPosition(0, _endOfBarrel.position);
+
+        //Set the End Position
+        if (_obstruction == Vector2.zero) {
+            _renderer.SetPosition(1, _playerPos);
+            _laserEffect.transform.position = _playerPos;
+        }
+        else {
+            _renderer.SetPosition(1, _obstruction);
+            _laserEffect.transform.position = _obstruction;
+        }
+
+        //Set the width of the line renderer
+        _renderer.SetWidth(2.5f, 2.5f);
+        _renderer.SetColors(Color.red, Color.red);
     }
 
-    private IEnumerator TurnOnSights() {
-        yield return new WaitForSeconds(1.0f);
-        _renderer.enabled = true;
-    }
+    private void CheckCollisions() {
 
-    private IEnumerator Laser() {
-        while (true) {
-            //Set the Start Position
-            _renderer.SetPosition(0, _endOfBarrel.position);
+        // Send out a raycast to determine if the laser should be touching the player or a world object.
+        RaycastHit2D hit = Physics2D.Raycast(_endOfBarrel.position, _playerPos - _endOfBarrel.position, 
+            Vector3.Magnitude(_playerPos - _endOfBarrel.position), _whatToHit);
 
-            //Set the End Position
-            _renderer.SetPosition(1, _player.position);
-
-            //Set the width of the line renderer
-            _renderer.SetWidth(1.0f, 1.0f);
-
-            yield return 0;
+        if (hit.collider != null) {
+            _obstruction = hit.collider.gameObject.tag == "Player" ? new Vector2(0.0f, 0.0f) : hit.point;
         }
     }
 }

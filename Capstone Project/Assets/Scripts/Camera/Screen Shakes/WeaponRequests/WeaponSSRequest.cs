@@ -22,7 +22,7 @@ public class WeaponSSRequest : ScreenShakeRequest {
         _directions[angle] = new Vector3(x, y, z);
     }
 
-    public override Vector3 Shake(byte key) {
+    public override Vector3 Shake(int key) {
         return _directions[key] * _shakeAmount;
     }
 

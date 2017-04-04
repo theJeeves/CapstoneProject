@@ -3,60 +3,79 @@ using System.Collections;
 
 public class SniperLockOn : MonoBehaviour {
 
-    public delegate void SniperLockOnEvent();
-    public static event SniperLockOnEvent Attack;
+    [SerializeField]
+    private SOEffects _SOEffectHandler;
 
     [SerializeField]
-    private float _timer;
-    private Transform _playerPos;
+    private GameObject _endOfBarrel;
+
+    [SerializeField]
+    private float _shotDelay;
+    private BoxCollider2D _playerPos;
     private Vector3 _direction;
     private Vector3 _localScale;
 
+    private AudioSource _audioSource;
+
     private bool _canAttack;
     private float _startTime;
+    private GameObject _tellEffect;
+    private SniperAnimations _animationManager;
 
     private void Awake() {
-        _playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        _animationManager = GetComponentInParent<SniperAnimations>();
     }
 
     private void OnEnable() {
+
+        _audioSource = GetComponent<AudioSource>();
         _canAttack = true;
-        _startTime = Time.time;
-        SniperPushBack.Stun += PauseAttack;
+        RestartAttack();
     }
 
     private void OnDisable() {
-        SniperPushBack.Stun -= PauseAttack;
-    }
-
-    private void PauseAttack() {
-        StartCoroutine(StunResetAttack());
+        _SOEffectHandler.StopEffect(_tellEffect);
     }
 
     private void Update() {
-        _direction = (_playerPos.position - transform.position);
-        _localScale = transform.localScale;
-        transform.localScale = _direction.x > 0 ? new Vector3(0.12f, _localScale.y, _localScale.z)
-            : new Vector3(-0.12f, _localScale.y, _localScale.z);
 
-        if (_canAttack) {
-
-            if (Time.time - _startTime >= _timer) {
-                if (Attack != null) {
-                    Attack();
-                    _startTime = Time.time;
-                }
-            }
+        if (_playerPos == null) {
+            _playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
         }
-        else {
-            _startTime = Time.time;
+
+        _direction = (_playerPos.bounds.center - transform.position);
+        _localScale = transform.localScale;
+        transform.localScale = _direction.x > 0 ? new Vector3(1.0f, _localScale.y, _localScale.z)
+            : new Vector3(-1.0f, _localScale.y, _localScale.z);
+
+        if (_tellEffect != null) {
+            _tellEffect.transform.position = _endOfBarrel.transform.position;
+        }
+
+
+        if (Time.time - _startTime >= _shotDelay) {
+            Fire();
+                
+            if (Time.time - _startTime >= _shotDelay + 2.0f) {
+                RestartAttack();
+            }
         }
     }
 
-    private IEnumerator StunResetAttack() {
+    private void Fire() {
+        if (_canAttack) {
+            _SOEffectHandler.PlayEffect(EffectEnums.SniperBullet, _endOfBarrel.transform.position);
+            _audioSource.pitch = Random.Range(0.75f, 1.5f);
+            _audioSource.Play();
+            _animationManager.Play(3);
+            _canAttack = false;
+        }
+    }
 
-        _canAttack = false;
-        yield return new WaitForSeconds(1.0f);
+    private void RestartAttack() {
+        _startTime = Time.time;
+        _animationManager.Play(2);
+        _tellEffect = _SOEffectHandler.PlayEffect(EffectEnums.SniperTellEffect, _endOfBarrel.transform.position);
         _canAttack = true;
     }
 }

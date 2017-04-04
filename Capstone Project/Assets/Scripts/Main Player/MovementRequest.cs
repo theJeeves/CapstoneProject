@@ -6,7 +6,8 @@ public enum MovementType {
     Walking,
     Shotgun,
     MachineGun,
-    AddForce
+    AddForce,
+    MainMenuWalking
 }
 
 [CreateAssetMenu(menuName ="Movement Request/New Movement")]
@@ -46,7 +47,6 @@ public class MovementRequest : ScriptableObject {
     private System.Action<float, float>[] _gunActions = new System.Action<float, float>[8];
 
     protected virtual void OnEnable() {
-        _player = GameObject.FindGameObjectWithTag("Player");
 
         if (_type == MovementType.Shotgun || _type == MovementType.MachineGun) {
             _gunActions[0] = AimRight;
@@ -60,16 +60,18 @@ public class MovementRequest : ScriptableObject {
         }
     }
 
-    public Vector2 Move(Vector3 values, bool grounded = false, byte key = 0) {
+    public Vector2 Move(Vector3 values, bool grounded = false, int key = 0) {
 
         switch (_type) {
             case MovementType.Walking:
+
                 if (grounded) {
                     if (_button == Buttons.MoveRight) {
-                        return new Vector2(_walkSpeed * Mathf.Clamp(values.z * 4.5f, 0, 1), values.y);
+
+                        return new Vector2(Mathf.Clamp( values.x + (_walkSpeed * Mathf.Clamp(values.z * 2.0f , 0, 1)), 0.0f, _walkSpeed), values.y);
                     }
                     else {
-                        return new Vector2(-(_walkSpeed) * Mathf.Clamp(values.z * 4.5f, 0, 1), values.y);
+                        return new Vector2(Mathf.Clamp(values.x - (_walkSpeed * Mathf.Clamp(values.z * 2.0f, 0, 1)), -_walkSpeed, 0.0f), values.y);
                     }
                 }
                 else {
@@ -102,17 +104,28 @@ public class MovementRequest : ScriptableObject {
                 }
                 return new Vector2(0.0f, 0.0f);
 
+            case MovementType.MainMenuWalking:
+                return new Vector2(5.0f, values.y);
+
             default:
                 return new Vector2(values.x, values.y);
         }
     }
 
+    private void GetPlayerReference() {
+        if (_player == null) {
+            _player = GameObject.FindGameObjectWithTag("Player");
+        }
+    }
+
     public virtual void RequestMovement(Buttons button) {
         _button = button;
+        GetPlayerReference();
         _player.SendMessage("Enqueue", this);
     }
 
     public virtual void RequestMovement() {
+        GetPlayerReference();
         _player.SendMessage("Enqueue", this);
     }
 
@@ -120,14 +133,17 @@ public class MovementRequest : ScriptableObject {
 
         switch (_type) {
             case MovementType.Shotgun:
-                _xVel = !_grounded ? -_recoil : -_recoil * 0.45f;
+                _xVel = !_grounded ? -_recoil : -_recoil * 0.5f;
 
                 // MOVING LEFT OR MOVING RIGHT OR STANDING STILL
                 _yVel = bodyYvel;
                 break;
 
             case MovementType.MachineGun:
-                _xVel += (_recoil * -0.25f);
+                if (_xVel >= -_recoil) {
+                    _xVel -= _recoil / 2.0f;
+                }
+
                 _yVel = bodyYvel;
                 break;
         }
@@ -227,14 +243,17 @@ public class MovementRequest : ScriptableObject {
 
         //SHOTGUN
         if (_type == MovementType.Shotgun) {
-            _xVel = !_grounded ? _recoil : _recoil * 0.45f;
+            _xVel = !_grounded ? _recoil : _recoil * 0.5f;
 
             //MOVING RIGHT OR MOVING LEFT OR STANDING STILL
             _yVel = bodyYvel;
         }
         //MACHINEGUN
         else if (_type == MovementType.MachineGun) {
-            _xVel += (_recoil * 0.25f);
+
+            if (_xVel <= _recoil) {
+                _xVel += _recoil / 2.0f;
+            }
             _yVel = bodyYvel;
         }
     }
@@ -264,23 +283,23 @@ public class MovementRequest : ScriptableObject {
                 else if (!_grounded) {
 
                     //MOVING RIGHT
-                    if (bodyXvel > 0) {
+                    if (bodyXvel > 0.0f) {
 
                         _xVel = Mathf.Clamp(bodyXvel + _recoil * _addVel, _recoil * _addVel, _recoil);
 
                         //FALLING (NEGATIVE Y VELOCITY)
-                        if (bodyYvel < 0) {
+                        if (bodyYvel < 0.0f) {
                             _yVel = _recoil * _setVel;
                         }
 
                         //RISING OR ZERO Y VELOCITY
-                        else if (bodyYvel >= 0) {
+                        else if (bodyYvel >= 0.0f) {
                             _yVel = _recoil * _setVel;
                         }
                     }
 
                     // MOVING LEFT OR STANDING STILL
-                    else if (bodyXvel <= 0) {
+                    else if (bodyXvel <= 0.0f) {
                         _xVel = _recoil * _setVel;
                         _yVel = _recoil * _setVel;
                     }

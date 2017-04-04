@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r10">
+    <folder id="0" name="weapon_effects">
+        <file id="0" name="weapon_effects/charge_flash.png" width="210" height="210" pivot_x="0.533019" pivot_y="0.504717"/>
+        <file id="1" name="weapon_effects/flash_0.png" width="316" height="159" pivot_x="0.0943396" pivot_y="0.440994"/>
+        <file id="2" name="weapon_effects/white_pak_0.png" width="120" height="120" pivot_x="0.5" pivot_y="0.5"/>
+        <file id="3" name="weapon_effects/blue_hitspark_0.png" width="160" height="160" pivot_x="0.5" pivot_y="0.5"/>
+    </folder>
+    <entity id="0" name="PodBatteryIndicator">
+        <animation id="0" name="PodBatteryIndicator" length="1170" interval="100" looping="false">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                </key>
+                <key id="1" time="318">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                </key>
+                <key id="2" time="640">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="0" z_index="1"/>
+                </key>
+                <key id="3" time="816">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="1" z_index="1"/>
+                </key>
+                <key id="4" time="960">
+                    <object_ref id="0" timeline="0" key="3" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="2" z_index="1"/>
+                </key>
+                <key id="5" time="1163">
+                    <object_ref id="0" timeline="0" key="4" z_index="0"/>
+                    <object_ref id="1" timeline="1" key="3" z_index="1"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="charge_flash">
+                <key id="0" spin="-1">
+                    <object folder="0" file="0" x="-1" y="-2" angle="0" scale_x="2.495789" scale_y="2.495789" a="0"/>
+                </key>
+                <key id="1" time="318" spin="-1">
+                    <object folder="0" file="0" x="-1" y="-2" angle="270.314809" scale_x="1.852917" scale_y="1.852917" a="0.36111"/>
+                </key>
+                <key id="2" time="640" spin="-1">
+                    <object folder="0" file="0" x="-1" y="-2" angle="179.456928" scale_x="1.344678" scale_y="1.344678" a="0.80556"/>
+                </key>
+                <key id="3" time="960" spin="-1">
+                    <object folder="0" file="0" x="-1" y="-2" angle="89.352618" scale_x="0.92327" scale_y="0.92327"/>
+                </key>
+                <key id="4" time="1163" spin="-1">
+                    <object folder="0" file="0" x="-1" y="-2" angle="3.704627" scale_x="0.92327" scale_y="0.92327"/>
+                </key>
+            </timeline>
+            <timeline id="1" name="white_pak_0">
+                <key id="0" time="640" spin="0">
+                    <object folder="0" file="2" x="2" y="-3" angle="0"/>
+                </key>
+                <key id="1" time="816" spin="0">
+                    <object folder="0" file="2" x="2" y="-3" angle="0" scale_x="1.55" scale_y="1.55" a="0.61111"/>
+                </key>
+                <key id="2" time="960" spin="0">
+                    <object folder="0" file="2" x="2" y="-3" angle="0" scale_x="2" scale_y="2"/>
+                </key>
+                <key id="3" time="1163" spin="0">
+                    <object folder="0" file="2" x="2" y="-3" angle="0" scale_x="2.479339" scale_y="2.595041" a="0"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>

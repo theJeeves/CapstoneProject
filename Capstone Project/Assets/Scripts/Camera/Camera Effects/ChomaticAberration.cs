@@ -14,11 +14,6 @@ public class ChomaticAberration : MonoBehaviour {
 
     private void OnEnable() {
         _chroma = GetComponent<UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration>();
-        //SniperDealDamage.DecrementPlayerHealth += PlayerDamaged;
-    }
-
-    private void OnDisable() {
-        //SniperDealDamage.DecrementPlayerHealth -= PlayerDamaged;
     }
 
     public void PlayerDamaged(int ignore = 0) {

@@ -4,19 +4,14 @@ using System.Collections;
 public class CrystalBullet : AbstractBullet {
 
     [SerializeField]
-    private SOEffects _SOEffect;
+    private SOEffects _SOEffectHandler;
 
-    private ControllableObject _controller;
+    public override void Fire(Vector2 direction) {
 
-    private void OnEnable() {
-        _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
-    }
-
-    protected override void Start() {
-        base.Start();
+        base.Fire(direction);
 
         // Have the crystals fire out from the MG at slightly off directions to give a more chaotic feel.
-        _direction += new Vector3(Random.Range(_directionRange.Min, _directionRange.Max), Random.Range(_directionRange.Min, _directionRange.Max), 0);
+        _direction += new Vector2(Random.Range(_directionRange.Min, _directionRange.Max), Random.Range(_directionRange.Min, _directionRange.Max));
 
         GetComponent<Rigidbody2D>().velocity = _direction * _shotSpeed;
     }
@@ -24,11 +19,27 @@ public class CrystalBullet : AbstractBullet {
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
         if (otherGO.gameObject.tag == "Enemy") {
-            otherGO.gameObject.GetComponentInParent<EnemyHealth>().DecrementHealth(_damageAmount);
+            otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
+        }
+        if (otherGO.collider.gameObject.tag == "SwarmerPodBattery") {
+            otherGO.gameObject.GetComponentInParent<SwarmPodSpawner>().DestroyPod();
         }
 
-        if (otherGO != null) {
-            _SOEffect.PlayEffect(EffectEnum.MGImpact, transform.position, gameObject.transform.localEulerAngles.z);
+        if (otherGO.gameObject.tag != "Player" && otherGO != null) {
+            _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
+            Destroy(gameObject);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D otherGO) {
+
+        if (otherGO.gameObject.tag == "Block") {
+            _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
+            Destroy(gameObject);
+        }
+        else if (otherGO.gameObject.tag == "Enemy") {
+            otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
+            _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }
     }

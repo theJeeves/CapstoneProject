@@ -10,11 +10,17 @@ public class CameraShakeManager : MonoBehaviour {
     private Queue<ScreenShakeRequest> _shakeQ = new Queue<ScreenShakeRequest>();
 
     private ControllableObject _controller;
-    private byte _key;
+    private int _key;
     private Vector3 _defaultPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
     private void OnEnable() {
-        _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+        //_controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+    }
+
+    private void Update() {
+        if (_controller == null) {
+            _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+        }
     }
 
     private void LateUpdate() {
