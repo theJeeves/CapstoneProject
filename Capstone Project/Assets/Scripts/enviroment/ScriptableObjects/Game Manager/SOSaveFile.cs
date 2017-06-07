@@ -233,4 +233,15 @@ public class SOSaveFile : ScriptableObject {
         BestLevel2Time = 0.0f;
         BestLevel3Time = 0.0f;
     }
+
+    public void GameCompleted() {
+        CurrentLevel = 1;
+        CheckpointID = 0;
+        CheckpointPosition = _startingPositions[0];
+
+
+        CurrentLevel1Time = 0.0f;
+        CurrentLevel2Time = 0.0f;
+        CurrentLevel3Time = 0.0f;
+    }
 }
