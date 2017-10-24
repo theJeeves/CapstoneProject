@@ -272,7 +272,6 @@ public class GameManager : Singleton<GameManager> {
             SOSaveHandler.NextLevel();
         }
         else {
-            //SOSaveHandler.NewGame();
             SOSaveHandler.GameCompleted();
         }
         SceneManager.LoadScene(0);
