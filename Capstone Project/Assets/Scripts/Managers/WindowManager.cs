@@ -26,7 +26,7 @@ public class WindowManager : Singleton<WindowManager> {
         currentWindowID = WindowIDs.None;
         DontDestroyOnLoad(gameObject);
 
-        if (Application.loadedLevel == 0) {
+        if (SceneManager.GetActiveScene().buildIndex == 0) {
             ToggleWindows(WindowIDs.None, WindowIDs.StartWindow);
         }
 
@@ -86,6 +86,9 @@ public class WindowManager : Singleton<WindowManager> {
         PauseWindow.OnContinueButton += ToggleWindows;
         PauseWindow.OnResartLevelButton += ToggleWindows;
         PauseWindow.OnBackToMainButton += ToggleWindows;
+
+        // Scene Changes
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     private void OnDisable() {
@@ -115,6 +118,9 @@ public class WindowManager : Singleton<WindowManager> {
         PauseWindow.OnContinueButton -= ToggleWindows;
         PauseWindow.OnResartLevelButton -= ToggleWindows;
         PauseWindow.OnBackToMainButton -= ToggleWindows;
+
+        // Scene Changes
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     public void ToggleWindows(WindowIDs close, WindowIDs open) {
@@ -148,9 +154,9 @@ public class WindowManager : Singleton<WindowManager> {
     }
 
     // Things to do when a level is loaded
-    private void OnLevelWasLoaded(int level) {
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
 
-        if (level == 0) {
+        if (scene.buildIndex == 0) {
             ToggleWindows(WindowIDs.None, WindowIDs.StartWindow);
         }
     }

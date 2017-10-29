@@ -67,6 +67,9 @@ public class GameManager : Singleton<GameManager> {
         PauseWindow.OnResartLevelButton += OnPauseRestartLevel;
         PauseWindow.OnBackToMainButton += OnPauseBackToMain;
 
+        // Scene Changes
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
         _playeTime = 0.0f;
     }
 
@@ -100,6 +103,9 @@ public class GameManager : Singleton<GameManager> {
         PauseWindow.OnContinueButton -= OnPauseContinue;
         PauseWindow.OnResartLevelButton -= OnPauseRestartLevel;
         PauseWindow.OnBackToMainButton -= OnPauseBackToMain;
+
+        // Scene Changes
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
     private void Update() {
@@ -268,7 +274,7 @@ public class GameManager : Singleton<GameManager> {
         _inGame = false;
         _paused = true;
 
-        if (Application.loadedLevel < 3) {
+        if (SceneManager.GetActiveScene().buildIndex < 3) {
             SOSaveHandler.NextLevel();
         }
         else {
@@ -305,18 +311,18 @@ public class GameManager : Singleton<GameManager> {
     }
 
     // Things to do when a level is loaded
-    private void OnLevelWasLoaded(int level) {
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
 
-        _currentLevel = level;
+        _currentLevel = scene.buildIndex;
 
-        if (level != 0) {
+        if (scene.buildIndex != 0) {
             _inGame = true;
             _playeTime = 0.0f;
 
             if (SOSaveHandler.CheckpointID == 0) {
                 GameObject player = SpawnPlayer();
 
-                if (level == 1) {
+                if (scene.buildIndex == 1) {
                     player.GetComponentInChildren<WeaponSelect>().MGAvailable = true;
                     player.GetComponentInChildren<WeaponSelect>().SGAvailable = false;
                     _IM.StopInput();
@@ -351,7 +357,7 @@ public class GameManager : Singleton<GameManager> {
                 }
             }
         }
-        else if (level == 0) {
+        else if (scene.buildIndex == 0) {
             _inGame = false;
         }
     }

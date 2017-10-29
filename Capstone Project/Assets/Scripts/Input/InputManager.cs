@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
 
 /// <summary>
@@ -100,10 +99,18 @@ public class InputManager : Singleton<InputManager> {
         _DS4Inputs = Resources.Load("Inputs/DualShock 4", typeof(SOInputType)) as SOInputType;
         _XBOXInputs = Resources.Load("Inputs/Xbox One", typeof(SOInputType)) as SOInputType;
 
-        _canTakeInput = Application.loadedLevel == 0 ? false : true;
+        _canTakeInput = SceneManager.GetActiveScene().buildIndex == 0 ? false : true;
         _limitedTime = _canTakeInput;
 
         base.Awake();
+    }
+
+    private void OnEnable() {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable() {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
 
@@ -185,8 +192,8 @@ public class InputManager : Singleton<InputManager> {
         _limitedTime = true;
     }
 
-    public void OnLevelWasLoaded(int level) {
-        if (level > 0) {
+    public void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
+        if (scene.buildIndex > 0) {
             _player = null;
         }
     }

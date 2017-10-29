@@ -11,7 +11,7 @@ public class SniperBulletMovement : MonoBehaviour {
         // Get the center of the player based on the collider
         Vector3 playerPos = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>().bounds.center;
         // Offset where the bullet will go by 7.5 in the y-axis
-        playerPos = new Vector3(playerPos.x, playerPos.y + 7.5f, playerPos.z);
+        playerPos = new Vector3(playerPos.x, playerPos.y + 7.5f, 0.0f);
 
 
         Vector3 unitVect = (playerPos - transform.position).normalized;
