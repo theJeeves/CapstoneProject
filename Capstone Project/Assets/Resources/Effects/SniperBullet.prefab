@@ -25,6 +25,7 @@ GameObject:
   - component: {fileID: 114000014118542908}
   - component: {fileID: 114000010975593734}
   - component: {fileID: 114000010017259332}
+  - component: {fileID: 247267785904729756}
   m_Layer: 17
   m_Name: SniperBullet
   m_TagString: SniperBullet
@@ -267,7 +268,7 @@ Rigidbody2D:
   m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
-  m_SleepingMode: 1
+  m_SleepingMode: 0
   m_CollisionDetection: 0
   m_Constraints: 0
 --- !u!61 &61000011735629466
@@ -456,3 +457,13 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
+--- !u!247 &247267785904729756
+ConstantForce2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1000010515563096}
+  m_Enabled: 0
+  m_Force: {x: 0, y: 0}
+  m_RelativeForce: {x: 0, y: 0}
+  m_Torque: 0
