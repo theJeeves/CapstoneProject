@@ -5,27 +5,27 @@ using System.Collections.Generic;
 public class StartWindowEffects : MonoBehaviour {
 
     [SerializeField]
-    private Transform _playerSpawnPos;
+    private Transform m_playerSpawnPos;
     [SerializeField]
-    private GameObject _player;
+    private GameObject m_player;
     [SerializeField]
-    private SOEffects _SOEffectHandler;
+    private SOEffects m_SOEffectHandler;
     [SerializeField]
-    private SOEnemyBodyParts _enemyBodyParts;
+    private SOEnemyBodyParts m_enemyBodyParts;
 
     [SerializeField]
-    private AudioClip[] _audioClips;
+    private AudioClip[] m_audioClips;
 
     private AudioSource _audio;
 
-    private float _timer = 0.0f;
-    private float _deployTime = 0.0f;
+    private GameObject m_bodyPartsContainer;
 
-    private List<GameObject> _bodyParts = new List<GameObject>();
-    private float _resetTimer = 0.0f;
-    private float _resetTime = 60.0f;
+    private float m_deployTime = 0.0f;
 
-    private bool _start = false;
+    private float m_resetTime = 0.0f;
+    private float m_defaultResetTime = 60.0f;
+
+    private bool m_start = false;
 
     private void OnEnable() {
         Reset();
@@ -35,31 +35,30 @@ public class StartWindowEffects : MonoBehaviour {
 
     private void Update() {
 
-        if (_start && Time.time - _timer > _deployTime) {
+        if (TimeTools.TimeExpired(ref m_deployTime)) {
             DeployBodyParts();
-            _timer = Time.time;
-            _deployTime = Random.Range(0.5f, 2.0f);
+            m_deployTime = Random.Range(0.5f, 2.0f);
         }
-
-        if (Time.time - _resetTimer > _resetTime) {
+        if (TimeTools.TimeExpired(ref m_resetTime)) {
             Reset();
-            _audio.clip = _audioClips[2];
+            _audio.clip = m_audioClips[2];
             _audio.Play();
         }
     }
 
     private void DeployBodyParts() {
 
-        GameObject effectInstance = _SOEffectHandler.PlayEffect(EffectEnums.SwarmerDeathExplosion, transform.position);
-        _audio.clip = _audioClips[Random.Range(0, 2)];
+        GameObject effectInstance = m_SOEffectHandler.PlayEffect(EffectEnums.SwarmerDeathExplosion, transform.position);
+        effectInstance.transform.parent = m_bodyPartsContainer.transform;
+        _audio.clip = m_audioClips[Random.Range(0, 2)];
         _audio.pitch = Random.Range(0.75f, 1.5f);
         _audio.Play();
         effectInstance.transform.localScale = new Vector3(0.85f, 0.85f, 1.0f);
         effectInstance.GetComponent<AudioSource>().pitch = Random.Range(0.75f, 1.5f);
 
-        for (int i = 0; i < _enemyBodyParts.bodyParts.Length; ++i) {
-            GameObject instance = Instantiate(_enemyBodyParts.bodyParts[i], transform.position, Quaternion.identity) as GameObject;
-            _bodyParts.Add(instance);
+        for (int i = 0; i < m_enemyBodyParts.bodyParts.Length; ++i) {
+            GameObject instance = Instantiate(m_enemyBodyParts.bodyParts[i], transform.position, Quaternion.identity) as GameObject;
+            instance.transform.parent = m_bodyPartsContainer.transform;
             instance.GetComponent<EnableCollider>().mainMenu = true;
             instance.GetComponent<Rigidbody2D>().gravityScale = 2.0f;
             instance.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f);
@@ -69,18 +68,18 @@ public class StartWindowEffects : MonoBehaviour {
     }
 
     public void SetStart() {
-        _start = true;
-        _timer = Time.time;
+        m_start = true;
     }
 
     private void Reset() {
-        _start = false;
-        _deployTime = Random.Range(0.5f, 2.0f);
-        _resetTimer = Time.time;
-        foreach (GameObject part in _bodyParts) {
-            Destroy(part);
+        m_start = false;
+        m_deployTime = Random.Range(0.5f, 2.0f);
+        m_resetTime = m_defaultResetTime;
+        if (m_bodyPartsContainer != null) {
+            Destroy(m_bodyPartsContainer);
         }
-        _bodyParts.Clear();
-        Instantiate(_player, _playerSpawnPos.position, Quaternion.identity);
+        m_bodyPartsContainer = new GameObject();
+        m_bodyPartsContainer.name = "Effects";
+        Instantiate(m_player, m_playerSpawnPos.position, Quaternion.identity);
     }
 }

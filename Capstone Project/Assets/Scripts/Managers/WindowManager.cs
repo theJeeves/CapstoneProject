@@ -20,6 +20,8 @@ public class WindowManager : Singleton<WindowManager> {
     private Camera _camera;
     private int controllerType = -1;
 
+    private float m_time = 0.0f;
+
     protected override void Awake() {
         //_GM = GameManager.Instance.GetComponent<GameManager>(); ;
         _camera = Camera.main;
@@ -162,62 +164,62 @@ public class WindowManager : Singleton<WindowManager> {
     }
 
     private IEnumerator StartToStatsTransition() {
-        float _timer = Time.time;
+        m_time = 0.0f;
         if (_camera == null) { _camera = Camera.main; }
 
         while(_camera.transform.position.y > -34.75f) {
-            _camera.transform.position = new Vector3(_camera.transform.position.x, Mathf.SmoothStep(_camera.transform.position.y, -34.75f, (Time.time - _timer) / 2.0f), _camera.transform.position.z);
+            _camera.transform.position = new Vector3(_camera.transform.position.x, Mathf.SmoothStep(_camera.transform.position.y, -34.75f, TimeTools.TimeElapsed(ref m_time) / 2.0f), _camera.transform.position.z);
             yield return 0;
         }
     }
 
     private IEnumerator StatsToStartTransition() {
-        float _timer = Time.time;
+        m_time = 0.0f;
         if (_camera == null) { _camera = Camera.main; }
 
         while (_camera.transform.position.y < 0.0f) {
-            _camera.transform.position = new Vector3(_camera.transform.position.x, Mathf.SmoothStep(_camera.transform.position.y, 0.0f, (Time.time - _timer) / 2.0f), _camera.transform.position.z);
+            _camera.transform.position = new Vector3(_camera.transform.position.x, Mathf.SmoothStep(_camera.transform.position.y, 0.0f, TimeTools.TimeElapsed(ref m_time) / 2.0f), _camera.transform.position.z);
             yield return 0;
         }
     }
 
     private IEnumerator StartToLevelSelectTransition() {
-        float _timer = Time.time;
+        m_time = 0.0f;
         if (_camera == null) { _camera = Camera.main; }
 
         while (_camera.transform.position.y > -17.0f) {
-            _camera.transform.position = new Vector3(_camera.transform.position.x, Mathf.SmoothStep(_camera.transform.position.y, -17.0f, (Time.time - _timer) / 1.25f), _camera.transform.position.z);
+            _camera.transform.position = new Vector3(_camera.transform.position.x, Mathf.SmoothStep(_camera.transform.position.y, -17.0f, TimeTools.TimeElapsed(ref m_time) / 1.25f), _camera.transform.position.z);
             yield return 0;
         }
     }
 
     private IEnumerator LevelSelectToStartTransition() {
 
-        float _timer = Time.time;
+        m_time = 0.0f;
         if (_camera == null) { _camera = Camera.main; }
 
         while (_camera.transform.position.y < 0.0f) {
-            _camera.transform.position = new Vector3(_camera.transform.position.x, Mathf.SmoothStep(_camera.transform.position.y, 0.0f, (Time.time - _timer) / 1.25f), _camera.transform.position.z);
+            _camera.transform.position = new Vector3(_camera.transform.position.x, Mathf.SmoothStep(_camera.transform.position.y, 0.0f, TimeTools.TimeElapsed(ref m_time) / 1.25f), _camera.transform.position.z);
             yield return 0;
         }
     }
 
     private IEnumerator StartToCreditsTransition() {
-        float _timer = Time.time;
+        m_time = 0.0f;
         if (_camera == null) { _camera = Camera.main; }
 
         while (_camera.transform.position.x > -25.0f) {
-            _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, -25.0f, (Time.time - _timer) / 1.25f), _camera.transform.position.y, _camera.transform.position.z);
+            _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, -25.0f, TimeTools.TimeElapsed(ref m_time) / 1.25f), _camera.transform.position.y, _camera.transform.position.z);
             yield return 0;
         }
     }
 
     private IEnumerator CreditsToStartTransition() {
-        float _timer = Time.time;
+        m_time = 0.0f;
         if (_camera == null) { _camera = Camera.main; }
 
         while (_camera.transform.position.x < 0.0f) {
-            _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, 0.0f, (Time.time - _timer) / 1.25f), _camera.transform.position.y, _camera.transform.position.z);
+            _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, 0.0f, TimeTools.TimeElapsed(ref m_time) / 1.25f), _camera.transform.position.y, _camera.transform.position.z);
             yield return 0;
         }
     }

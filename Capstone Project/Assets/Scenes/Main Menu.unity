@@ -288,13 +288,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 702b45b07975d254ab62afb50e38c408, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerSpawnPos: {fileID: 1097862098}
-  _player: {fileID: 1000011917182888, guid: de425596d7b3eee49b3f0f7774bf4af8, type: 2}
-  _SOEffectHandler: {fileID: 11400000, guid: e39803050b195f549bce9a8efa402b78, type: 2}
-  _enemyBodyParts: {fileID: 11400000, guid: 7fba9bfd726fba34cb7c6497cf01b590, type: 2}
-  _audioClips:
+  m_playerSpawnPos: {fileID: 1097862098}
+  m_player: {fileID: 1000011917182888, guid: de425596d7b3eee49b3f0f7774bf4af8, type: 2}
+  m_SOEffectHandler: {fileID: 11400000, guid: e39803050b195f549bce9a8efa402b78, type: 2}
+  m_enemyBodyParts: {fileID: 11400000, guid: 7fba9bfd726fba34cb7c6497cf01b590, type: 2}
+  m_audioClips:
+  - {fileID: 8300000, guid: 6d8be00164fd7934e9f41333b1a01517, type: 3}
   - {fileID: 8300000, guid: f3bb7b49dd9d75a41a8f9d36c736c39f, type: 3}
-  - {fileID: 8300000, guid: fd0000f81ed7d2847a25e9e203a772b5, type: 3}
   - {fileID: 8300000, guid: a3be038fdc6f97840bddec9464dbc534, type: 3}
 --- !u!114 &282146064
 MonoBehaviour:
@@ -2514,6 +2514,16 @@ Prefab:
         type: 2}
       propertyPath: m_LocalPosition.y
       value: -280
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000010313994284, guid: d6c03484af674f04ebe9e4df2ad2208c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.x
+      value: 0.70000076
+      objectReference: {fileID: 0}
+    - target: {fileID: 224000010313994284, guid: d6c03484af674f04ebe9e4df2ad2208c,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -132.32993
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d6c03484af674f04ebe9e4df2ad2208c, type: 2}

@@ -4,13 +4,15 @@ using System.Collections;
 public class SniperLockOn : MonoBehaviour {
 
     [SerializeField]
-    private SOEffects _SOEffectHandler;
+    private SOEffects _SOEffectHandler = null;
 
     [SerializeField]
-    private GameObject _endOfBarrel;
+    private GameObject _endOfBarrel = null;
 
     [SerializeField]
-    private float _shotDelay;
+    private float m_defaultShotDelay = 0.0f;
+    private float m_shotDelay;
+
     private BoxCollider2D _playerPos;
     private Vector3 _direction;
     private Vector3 _localScale;
@@ -18,7 +20,6 @@ public class SniperLockOn : MonoBehaviour {
     private AudioSource _audioSource;
 
     private bool _canAttack;
-    private float _startTime;
     private GameObject _tellEffect;
     private SniperAnimations _animationManager;
 
@@ -52,11 +53,10 @@ public class SniperLockOn : MonoBehaviour {
             _tellEffect.transform.position = _endOfBarrel.transform.position;
         }
 
-
-        if (Time.time - _startTime >= _shotDelay) {
+        if (TimeTools.TimeExpired(ref m_shotDelay)) {
             Fire();
                 
-            if (Time.time - _startTime >= _shotDelay + 2.0f) {
+            if (TimeTools.TimeExpired(ref m_shotDelay, -2.0f)) {
                 RestartAttack();
             }
         }
@@ -73,7 +73,7 @@ public class SniperLockOn : MonoBehaviour {
     }
 
     private void RestartAttack() {
-        _startTime = Time.time;
+        m_shotDelay = m_defaultShotDelay;
         _animationManager.Play(2);
         _tellEffect = _SOEffectHandler.PlayEffect(EffectEnums.SniperTellEffect, _endOfBarrel.transform.position);
         _canAttack = true;

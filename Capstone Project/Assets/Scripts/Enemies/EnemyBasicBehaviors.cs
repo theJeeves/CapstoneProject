@@ -41,14 +41,12 @@ public class EnemyBasicBehaviors : MonoBehaviour {
 
 
     private Transform[] _effectPositions;
-    private float _timer = 0.0f;
-    private float _effectDelay = 0.0f;
+    private float m_effectDelay = 0.0f;
 
     private void OnEnable() {
 
         if (enemyType == EnemyType.AcidSwarmer) {
-            _timer = Time.time;
-            _effectDelay = Random.Range(1.0f, 3.0f);
+            m_effectDelay = Random.Range(1.0f, 3.0f);
         }
         else if (enemyType == EnemyType.ExplodingSwamer) {
             _effect = _SOEffectHandler.PlayEffect(EffectEnums.SwarmerExplosiveEffect, transform.position);
@@ -77,12 +75,11 @@ public class EnemyBasicBehaviors : MonoBehaviour {
 
         if (enemyType == EnemyType.AcidSwarmer) {
 
-            if (Time.time - _timer > _effectDelay) {
+            if (TimeTools.TimeExpired(ref m_effectDelay)) {
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidSquirt, _effectPositions[1].position, transform.eulerAngles.z + 90.0f);
 
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidBall, _effectPositions[1].position);
-                _effectDelay = Random.Range(1.0f, 3.0f);
-                _timer = Time.time;
+                m_effectDelay = Random.Range(1.0f, 3.0f);
             }
         }
 
@@ -92,12 +89,11 @@ public class EnemyBasicBehaviors : MonoBehaviour {
         else if (_effectPositions != null && enemyType == EnemyType.Flying) {
             _effect.transform.position = new Vector3(_effectPositions[1].position.x, _effectPositions[1].position.y, 0.0f);
 
-            if (Time.time - _timer > _effectDelay) {
+            if (TimeTools.TimeExpired(ref m_effectDelay)) {
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidSquirt, _effectPositions[2].position, transform.eulerAngles.z + 90.0f);
 
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidBall, _effectPositions[2].position);
-                _effectDelay = Random.Range(1.0f, 3.0f);
-                _timer = Time.time;
+                m_effectDelay = Random.Range(1.0f, 3.0f);
             }
 
         }

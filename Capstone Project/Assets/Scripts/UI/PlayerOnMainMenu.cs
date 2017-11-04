@@ -16,8 +16,8 @@ public class PlayerOnMainMenu : MonoBehaviour {
     private int _currentIndex = 38;
     private int _previousIndex = -100;
 
-    private float _timer = 0.0f;
-    //private bool _animating = false;
+    private float m_time = 0.0f;
+    private float m_defaultTime = 1.0f;
 
     private void OnEnable() {
         _collisionState = GetComponent<PlayerCollisionState>();
@@ -39,7 +39,7 @@ public class PlayerOnMainMenu : MonoBehaviour {
 
         if (_collisionState.OnSolidGround) {
 
-            if (Time.time - _timer > 1.0f) {
+            if (TimeTools.TimeExpired(ref m_time)) {
 
                 _controller.SetButtonPressTime(Buttons.MoveRight);
                 _walkingMovementRequest.RequestMovement(Buttons.MoveRight);
@@ -50,7 +50,7 @@ public class PlayerOnMainMenu : MonoBehaviour {
             }
         }
         else {
-            _timer = Time.time;
+            m_time = m_defaultTime;
         }
     }
 

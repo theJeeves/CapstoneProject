@@ -36,7 +36,8 @@ public abstract class AbstractGun : MonoBehaviour {
     public int numOfRounds;
 
     [SerializeField]
-    protected float _shotDelay;
+    protected float m_defaultShotDelay;
+    protected float m_shotDelay;
     [SerializeField]
     protected float _reloadTime;
 

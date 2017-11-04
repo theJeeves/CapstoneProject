@@ -148,7 +148,6 @@ public class Shotgun : AbstractGun {
         _SOEffectHandler.PlayEffect(EffectEnums.ShotgunBlast, _barrelNorm.transform.position, _controller.AimDirection, _direction.x, _direction.y);
 
         if (ShotFired != null) { ShotFired(); }     // this is here to tell the save file another shot is fired and to record it.
-
         _grounded = false;
 
         // Make the ammo sprite disappear when the ammo is depleted while in the air.
@@ -161,7 +160,7 @@ public class Shotgun : AbstractGun {
             Reload();
         }
         else {
-            yield return new WaitForSeconds(_shotDelay);
+            yield return new WaitForSeconds(m_shotDelay);
         }
 
         _canShoot = true;

@@ -10,7 +10,7 @@ public class PlayerMovementManager : MonoBehaviour {
 
     private bool _grounded = false;
     private Vector3 _values;
-    private float _timer = 0.0f;
+    private float m_time = 0.0f;
 
     private AudioSource _audioSource;
     private bool _isPlaying = false;
@@ -31,12 +31,12 @@ public class PlayerMovementManager : MonoBehaviour {
         _grounded = _collisionState.OnSolidGround;
 
         if (_moveQ.Count == 0 && _grounded && Mathf.Abs(_body2d.velocity.x) > 0.5f) {
-            _body2d.velocity = new Vector2(Mathf.SmoothStep(_body2d.velocity.x, 0.0f, (Time.time - _timer) / 1.00f), _body2d.velocity.y);
+            _body2d.velocity = new Vector2(Mathf.SmoothStep(_body2d.velocity.x, 0.0f, TimeTools.TimeElapsed(ref m_time) / 1.00f), _body2d.velocity.y);
             _audioSource.Stop();
             _isPlaying = false;
         }
         else {
-            _timer = Time.time;
+            m_time = 0.0f;
         }
 
         while (_moveQ.Count > 0) {

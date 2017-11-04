@@ -29,7 +29,6 @@ public class SwarmPodSpawner : MonoBehaviour {
 
     private Transform[] _effectPositions;           // Positions where the effects will play from.
     private bool _batteryDamaged = false;           //Bool to determine if the player has hit the battery already
-    private float _timer = 0.0f;                    //For delay purposes in Update
 
     // Since these two effect animations are "looping", the effects manager will never stop or destroy them automatically.
     //Therefore, we need to have a reference to their instance at manually tell the SOEffectHandler when to destroy them.
@@ -49,7 +48,6 @@ public class SwarmPodSpawner : MonoBehaviour {
         _podBatteryIndicatorGO1 = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryIndicator, _effectPositions[6].position);
 
         _swarm = new GameObject[sizeOfSwarm];
-        _timer = Time.time;
     }
 
     private void Update() {
@@ -59,7 +57,7 @@ public class SwarmPodSpawner : MonoBehaviour {
         // sprite representing the pod. Lastly, it calls the fucntion to spawn all the swarmers.
         if (_batteryDamaged) {
 
-            if (Time.time - _timer > _destructionDelay) {
+            if ( TimeTools.TimeExpired(ref _destructionDelay) ) {
 
                 _SOEffectHandler.PlayEffect(EffectEnums.PodExplosion, _effectPositions[5].position);
 
@@ -97,7 +95,6 @@ public class SwarmPodSpawner : MonoBehaviour {
         // function works properly. It also stops the battery indicator effect animation and starts the battery damaged
         //effect animation.
         if (!_batteryDamaged) {
-            _timer = Time.time;
             _batteryDamaged = true;
             _SOEffectHandler.StopEffect(_podBatteryIndicatorGO);
             _SOEffectHandler.StopEffect(_podBatteryIndicatorGO1);

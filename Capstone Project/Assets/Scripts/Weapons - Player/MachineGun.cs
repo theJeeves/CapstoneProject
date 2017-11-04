@@ -19,7 +19,6 @@ public class MachineGun : AbstractGun {
 
     private GameObject _muzzleFlashGO;
     private bool _canLift = true;
-    private float _timer = 0.0f;
 
     protected override void Awake() {
         base.Awake();
@@ -78,7 +77,7 @@ public class MachineGun : AbstractGun {
         if (_muzzleFlashGO != null) {
             _muzzleFlashGO.transform.position = _barrelNorm.transform.position;
         }
-        if (!_canShoot && Time.time - _timer >= _shotDelay) {
+        if (TimeTools.TimeExpired(ref m_shotDelay)) {
             _canShoot = true;
         }
 
@@ -145,7 +144,7 @@ public class MachineGun : AbstractGun {
             }
             Lift();
             _SSRequest.ShakeRequest();
-            _timer = Time.time;
+            m_shotDelay = m_defaultShotDelay;
 
             if (ShotFired != null) { ShotFired(); }     // this is here to tell the save file another shot is fired and to record it.
         }

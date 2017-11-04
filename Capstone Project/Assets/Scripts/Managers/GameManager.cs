@@ -108,6 +108,7 @@ public class GameManager : Singleton<GameManager> {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    // This is where all the "Menu Controls" should go. Example, back button and pausing the game.
     private void Update() {
         if (_inGame) {
 
