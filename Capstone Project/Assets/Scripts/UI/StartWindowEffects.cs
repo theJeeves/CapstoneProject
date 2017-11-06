@@ -35,14 +35,16 @@ public class StartWindowEffects : MonoBehaviour {
 
     private void Update() {
 
-        if (TimeTools.TimeExpired(ref m_deployTime)) {
-            DeployBodyParts();
-            m_deployTime = Random.Range(0.5f, 2.0f);
-        }
-        if (TimeTools.TimeExpired(ref m_resetTime)) {
-            Reset();
-            _audio.clip = m_audioClips[2];
-            _audio.Play();
+        if (m_start) {
+            if (TimeTools.TimeExpired(ref m_deployTime)) {
+                DeployBodyParts();
+                m_deployTime = Random.Range(0.5f, 2.0f);
+            }
+            if (TimeTools.TimeExpired(ref m_resetTime)) {
+                Reset();
+                _audio.clip = m_audioClips[2];
+                _audio.Play();
+            }
         }
     }
 

@@ -12,7 +12,7 @@ public class ScriptedCamera : ScriptableObject {
     //private bool largerFOV = false;
 
     protected GameObject _camera;       // Reference to the main Camera
-    protected float _time = 0.0f;       // Used for timing and delay purposes
+    protected float m_timeElapsed = 0.0f;       // Used for timing and delay purposes
 
     private Vector3 _initialTarget;
 
@@ -50,7 +50,7 @@ public class ScriptedCamera : ScriptableObject {
     public void MoveCamera(Vector3 target) {
 
         if (_initialTarget != target) {
-            _time = Time.time;
+            m_timeElapsed = 0.0f;
             _initialTarget = target;
         }
 
@@ -59,10 +59,11 @@ public class ScriptedCamera : ScriptableObject {
             _camera = GameObject.FindGameObjectWithTag("SmartCamera");
         }
 
-        if (_camera.transform.position != target) { 
-            _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, target.x, (Time.time - _time) / _adjustSpeed),
-                Mathf.SmoothStep(_camera.transform.position.y, target.y, (Time.time - _time) / _adjustSpeed),
-                Mathf.SmoothStep(_camera.transform.position.z, target.z, (Time.time - _time) / _adjustSpeed));
+        if (_camera.transform.position != target) {
+            TimeTools.TimeElapsed(ref m_timeElapsed);
+            _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, target.x, m_timeElapsed / _adjustSpeed),
+                Mathf.SmoothStep(_camera.transform.position.y, target.y, m_timeElapsed / _adjustSpeed),
+                Mathf.SmoothStep(_camera.transform.position.z, target.z, m_timeElapsed / _adjustSpeed));
         }
     }
 
@@ -80,13 +81,13 @@ public class ScriptedCamera : ScriptableObject {
     public void EnableScripts() {
         //_camera.GetComponent<SmartCameraFOV>().enabled = true;
         _camera.GetComponent<SmartCameraXPosition>().enabled = true;
-        _time = 0.0f;
+        m_timeElapsed = 0.0f;
     }
 
     public void DisableScripts() {
         //_camera.GetComponent<SmartCameraFOV>().enabled = false;
         _camera.GetComponent<SmartCameraXPosition>().enabled = false;
-        _time = 0.0f;
+        m_timeElapsed = 0.0f;
     }
 
     public void Reset() {

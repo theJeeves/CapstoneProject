@@ -16,26 +16,29 @@ public class InstructionText : MonoBehaviour {
     [SerializeField]
     private bool _enableInput = false;
 
-    private bool _isDirty = false;
-    private float _displayTime = 3.0f;
-    private float _timer = 0.0f;
-    private bool _displayed = false;
+    private float m_defaultDisplayTime = 3.0f;
+    [SerializeField]
+    private float m_displayTime = 3.0f;
+    private bool m_inTrigger = false;
 
     private bool _ds4;
 
+    private void Start() {
+        m_displayTime = m_defaultDisplayTime;
+    }
 
     private void Update() {
 
-        if (_timer != 0.0f && Time.time - _timer > _displayTime) {
-            _displayed = true;
+        if (m_inTrigger && m_displayTime != float.NegativeInfinity) {
+            TimeTools.TimeExpired(ref m_displayTime);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D player) {
 
-        if (!_isDirty && player.gameObject.tag == "Player" && DisplayHint != null) {
+        m_inTrigger = true;
 
-            _timer = Time.time;
+        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == "Player" && DisplayHint != null) {
 
             _ds4 = InputManager.Instance.GetComponent<InputManager>().controllerType == 0 ? true : false;
             if (_ds4) {
@@ -51,11 +54,13 @@ public class InstructionText : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D player) {
 
-        if (!_isDirty && player.gameObject.tag == "Player" && HideHint != null) {
+        m_inTrigger = false;
+
+        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == "Player" && HideHint != null) {
 
             HideHint();
-            if (_displayed) _isDirty = true;
-            else _timer = 0.0f;
+
+            m_displayTime = m_displayTime <= 0.0f ? float.NegativeInfinity : m_defaultDisplayTime;
         }
     }
 }

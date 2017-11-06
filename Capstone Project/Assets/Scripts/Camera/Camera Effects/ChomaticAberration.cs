@@ -8,7 +8,7 @@ public class ChomaticAberration : MonoBehaviour {
     [SerializeField]
     private float _effectDuration = 0.0f;
 
-    private float _startTime = 0.0f;
+    private float m_startTime = 0.0f;
 
     private UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration _chroma;
 
@@ -22,12 +22,12 @@ public class ChomaticAberration : MonoBehaviour {
 
     private IEnumerator PlayEffect() {
 
-        _startTime = Time.time;
+        m_startTime = 0.0f;
 
         _chroma.chromaticAberration = _effectIntensity;
 
         while(_chroma.chromaticAberration > 0.0f) {
-            _chroma.chromaticAberration = Mathf.SmoothStep(_chroma.chromaticAberration, 0.0f, (Time.time - _startTime) / _effectDuration);
+            _chroma.chromaticAberration = Mathf.SmoothStep(_chroma.chromaticAberration, 0.0f, TimeTools.TimeElapsed(ref m_startTime) / _effectDuration);
             yield return 0;
         }
     }

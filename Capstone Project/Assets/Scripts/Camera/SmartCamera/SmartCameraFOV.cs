@@ -11,13 +11,13 @@ public class SmartCameraFOV : MonoBehaviour {
     private Vector3 _currPosition = Vector3.zero;
     private float _curreVelocity;
 
-    private float _startTime;
+    private float m_timeElapsed;
 
     private bool _decraseing;
     private bool _increasing;
 
     private void OnEnable() {
-        _startTime = Time.time;
+        m_timeElapsed = 0.0f;
     }
 	
 	// Update is called once per frame
@@ -32,7 +32,7 @@ public class SmartCameraFOV : MonoBehaviour {
             }
         else {
                 transform.position = new Vector3(_currPosition.x, _currPosition.y,
-                    Mathf.SmoothStep(_currPosition.z, _targetZ - 0.1f, (Time.time - _startTime) / _adjustSpeed));
+                    Mathf.SmoothStep(_currPosition.z, _targetZ - 0.1f, TimeTools.TimeElapsed(ref m_timeElapsed) / _adjustSpeed));
             }
         }
     }
