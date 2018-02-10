@@ -11,15 +11,15 @@ public class CrystalBullet : AbstractBullet {
         base.Fire(direction);
 
         // Have the crystals fire out from the MG at slightly off directions to give a more chaotic feel.
-        _direction += new Vector2(Random.Range(_directionRange.Min, _directionRange.Max), Random.Range(_directionRange.Min, _directionRange.Max));
+        m_Direction += new Vector2(Random.Range(m_DirectionRange.Min, m_DirectionRange.Max), Random.Range(m_DirectionRange.Min, m_DirectionRange.Max));
 
-        GetComponent<Rigidbody2D>().velocity = _direction * _shotSpeed;
+        GetComponent<Rigidbody2D>().velocity = m_Direction * m_ShotSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
         if (otherGO.gameObject.tag == "Enemy") {
-            otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
+            otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(m_DamageAmount);
         }
         if (otherGO.collider.gameObject.tag == "SwarmerPodBattery") {
             otherGO.gameObject.GetComponentInParent<SwarmPodSpawner>().DestroyPod();
@@ -38,7 +38,7 @@ public class CrystalBullet : AbstractBullet {
             Destroy(gameObject);
         }
         else if (otherGO.gameObject.tag == "Enemy") {
-            otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
+            otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(m_DamageAmount);
             _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }
