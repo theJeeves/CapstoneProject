@@ -28,7 +28,7 @@ public class ShotgunBlast : AbstractBullet {
 
         base.Fire(direction);
 
-        _endOfBarrel = m_Direction.x == 0.0f && m_Direction.y == -1.0f ? GameObject.FindGameObjectWithTag("StartAlt") : GameObject.FindGameObjectWithTag("StartNorm");
+        _endOfBarrel = _direction.x == 0.0f && _direction.y == -1.0f ? GameObject.FindGameObjectWithTag("StartAlt") : GameObject.FindGameObjectWithTag("StartNorm");
 
         //Get all the prefab lightning bolts into one array
         _lightning = GetComponentsInChildren<DigitalRuby.LightningBolt.LightningBoltScript>();
@@ -57,13 +57,13 @@ public class ShotgunBlast : AbstractBullet {
             if (i != _lightning.Length - 1) {
 
                 _magnitudes[i] = Random.Range(_magnitudeRange.Min, _magnitudeRange.Max);
-                _directions[i].x += Random.Range(m_DirectionRange.Min, m_DirectionRange.Max);
-                _directions[i].y += Random.Range(m_DirectionRange.Min, m_DirectionRange.Max);
-                _directions[i] += m_Direction;
+                _directions[i].x += Random.Range(_directionRange.Min, _directionRange.Max);
+                _directions[i].y += Random.Range(_directionRange.Min, _directionRange.Max);
+                _directions[i] += _direction;
             }
             else {
                 _magnitudes[i] = _magnitudeRange.Max;
-                _directions[i] = m_Direction;
+                _directions[i] = _direction;
             }
         }
     }
@@ -104,7 +104,7 @@ public class ShotgunBlast : AbstractBullet {
                 string hitTagName = hit.collider.gameObject.tag;
 
                 if (hitTagName == "Enemy") {
-                    hit.collider.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(m_DamageAmount);
+                    hit.collider.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
                 }
                 else {
                     _magnitudes[i] = Vector3.Magnitude(hit.point - (Vector2)_endOfBarrel.transform.position);

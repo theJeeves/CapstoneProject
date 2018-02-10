@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public enum MovementType {
     None,
@@ -12,86 +13,65 @@ public enum MovementType {
 [CreateAssetMenu(menuName ="Movement Request/New Movement")]
 public class MovementRequest : ScriptableObject {
 
-    #region Constant Fields
-    private const string PLAYER_TAG = "Player";
-    private const string ADD_IMPULSE_FORCE = "AddImpulseForce";
-    private const string ENQUEUE = "Enqueue";
-    #endregion Constant Fields
+    private GameObject _player;
+    private Buttons _button;
+    public Buttons Button {
+        get { return _button; }
+    }
 
-    #region Fields
-    private System.Action<float, float>[] m_GunActions = new System.Action<float, float>[8];
-
-    private GameObject m_Player;
-    private float m_XVel;
-    private float m_YVel;
-    private bool m_Grounded;
-    private Vector2 m_ForceRequest = new Vector2(0.0f, 0.0f);
+    public MovementType _type = MovementType.None;
+    public MovementType MovementType {
+        get { return _type; }
+    }
 
     [SerializeField]
-    private float m_WalkSpeed;
+    private float _walkSpeed;
     [SerializeField]
-    private float m_Recoil;
+    private float _recoil;
     [SerializeField]
-    private float m_SetVel;
+    private float _setVel;
     [SerializeField]
-    private float m_AddVel;
+    private float _addVel;
     [SerializeField]
-    private float m_XMultiplier;
+    private float _xMultiplier;
     [SerializeField]
-    private float m_XImpulse;
+    private float _xImpulse;
     [SerializeField]
-    private float m_YImpulse;
-    #endregion Fields
+    private float _yImpulse;
 
+    private float _xVel;
+    private float _yVel;
+    private bool _grounded;
+    private Vector2 _forceRequest = new Vector2(0.0f, 0.0f);
 
-    #region Properties
-    public Buttons Button { get; private set; }
+    private System.Action<float, float>[] _gunActions = new System.Action<float, float>[8];
 
-    public MovementType MovementType { get; private set; } = MovementType.None;
-
-    #endregion Properties
-
-    #region Initializers
     protected virtual void OnEnable() {
 
-        if (MovementType == MovementType.Shotgun || MovementType == MovementType.MachineGun) {
-            m_GunActions[0] = AimRight;
-            m_GunActions[1] = AimUpAndRight;
-            m_GunActions[2] = AimUp;
-            m_GunActions[3] = AimUpAndLeft;
-            m_GunActions[4] = AimLeft;
-            m_GunActions[5] = AimDownAndLeft;
-            m_GunActions[6] = AimDown;
-            m_GunActions[7] = AimDownAndRight;
+        if (_type == MovementType.Shotgun || _type == MovementType.MachineGun) {
+            _gunActions[0] = AimRight;
+            _gunActions[1] = AimUpAndRight;
+            _gunActions[2] = AimUp;
+            _gunActions[3] = AimUpAndLeft;
+            _gunActions[4] = AimLeft;
+            _gunActions[5] = AimDownAndLeft;
+            _gunActions[6] = AimDown;
+            _gunActions[7] = AimDownAndRight;
         }
-    }
-
-    #endregion Initializers
-
-    #region Public Methods
-    public virtual void RequestMovement(Buttons button) {
-        Button = button;
-        GetPlayerReference();
-        m_Player.SendMessage(ENQUEUE, this);
-    }
-
-    public virtual void RequestMovement() {
-        GetPlayerReference();
-        m_Player.SendMessage(ENQUEUE, this);
     }
 
     public Vector2 Move(Vector3 values, bool grounded = false, int key = 0) {
 
-        switch (MovementType) {
+        switch (_type) {
             case MovementType.Walking:
 
                 if (grounded) {
-                    if (Button == Buttons.MoveRight) {
+                    if (_button == Buttons.MoveRight) {
 
-                        return new Vector2(Mathf.Clamp(values.x + (m_WalkSpeed * Mathf.Clamp(values.z * 2.0f, 0, 1)), 0.0f, m_WalkSpeed), values.y);
+                        return new Vector2(Mathf.Clamp( values.x + (_walkSpeed * Mathf.Clamp(values.z * 2.0f , 0, 1)), 0.0f, _walkSpeed), values.y);
                     }
                     else {
-                        return new Vector2(Mathf.Clamp(values.x - (m_WalkSpeed * Mathf.Clamp(values.z * 2.0f, 0, 1)), -m_WalkSpeed, 0.0f), values.y);
+                        return new Vector2(Mathf.Clamp(values.x - (_walkSpeed * Mathf.Clamp(values.z * 2.0f, 0, 1)), -_walkSpeed, 0.0f), values.y);
                     }
                 }
                 else {
@@ -99,18 +79,18 @@ public class MovementRequest : ScriptableObject {
                 }
 
             case MovementType.Shotgun:
-                m_Grounded = grounded;
-                m_GunActions[key].Invoke(values.x, values.y);
+                _grounded = grounded;
+                _gunActions[key].Invoke(values.x, values.y);
 
-                return new Vector2(m_XVel, m_YVel);
+                return new Vector2(_xVel, _yVel);
 
             case MovementType.MachineGun:
-                m_XVel = values.x;
-                m_YVel = values.y;
+                _xVel = values.x;
+                _yVel = values.y;
 
-                m_GunActions[key].Invoke(values.x, values.y);
+                _gunActions[key].Invoke(values.x, values.y);
 
-                return new Vector2(m_XVel, m_YVel);
+                return new Vector2(_xVel, _yVel);
 
 
             case MovementType.AddForce:
@@ -120,7 +100,7 @@ public class MovementRequest : ScriptableObject {
                     else if (key == 6) { ImpulseDown(); }
                     else if (key == 7) { ImpulseDownAndRight(values.x); }
 
-                    m_Player.SendMessage(ADD_IMPULSE_FORCE, m_ForceRequest);
+                    _player.SendMessage("AddImpulseForce", _forceRequest);
                 }
                 return new Vector2(0.0f, 0.0f);
 
@@ -131,64 +111,73 @@ public class MovementRequest : ScriptableObject {
                 return new Vector2(values.x, values.y);
         }
     }
-    #endregion Public Methods
 
-    #region Private Methods
     private void GetPlayerReference() {
-        if (m_Player == null) {
-            m_Player = GameObject.FindGameObjectWithTag(PLAYER_TAG);
+        if (_player == null) {
+            _player = GameObject.FindGameObjectWithTag("Player");
         }
+    }
+
+    public virtual void RequestMovement(Buttons button) {
+        _button = button;
+        GetPlayerReference();
+        _player.SendMessage("Enqueue", this);
+    }
+
+    public virtual void RequestMovement() {
+        GetPlayerReference();
+        _player.SendMessage("Enqueue", this);
     }
 
     private void AimRight(float bodyXvel, float bodyYvel) {
 
-        switch (MovementType) {
+        switch (_type) {
             case MovementType.Shotgun:
-                m_XVel = !m_Grounded ? -m_Recoil : -m_Recoil * 0.5f;
+                _xVel = !_grounded ? -_recoil : -_recoil * 0.5f;
 
                 // MOVING LEFT OR MOVING RIGHT OR STANDING STILL
-                m_YVel = bodyYvel;
+                _yVel = bodyYvel;
                 break;
 
             case MovementType.MachineGun:
-                if (m_XVel >= -m_Recoil) {
-                    m_XVel -= m_Recoil / 2.0f;
+                if (_xVel >= -_recoil) {
+                    _xVel -= _recoil / 2.0f;
                 }
 
-                m_YVel = bodyYvel;
+                _yVel = bodyYvel;
                 break;
         }
     }
 
     private void AimUpAndRight(float bodyXvel, float bodyYvel) {
 
-        switch (MovementType) {
+        switch (_type) {
 
             case MovementType.Shotgun:
                 //FALLING
                 if (bodyYvel < 0) {
-                    m_YVel = bodyYvel + m_Recoil * -(m_AddVel);
+                    _yVel = bodyYvel + _recoil * -(_addVel);
                 }
 
                 //MOVING LEFT
                 if (bodyXvel < 0) {
 
-                    m_XVel = bodyXvel + m_Recoil * -(m_AddVel);
+                    _xVel = bodyXvel + _recoil * -(_addVel);
 
                     //RISING
                     if (bodyYvel >= 0) {
-                        m_YVel = m_Recoil * -(m_AddVel);
+                        _yVel = _recoil * -(_addVel);
                     }
                 }
 
                 //MOVING RIGHT OR NO X VELOCITY
                 else if (bodyXvel >= 0) {
 
-                    m_XVel = m_Recoil * -(m_SetVel);
+                    _xVel = _recoil * -(_setVel);
 
                     //RISING
                     if (bodyYvel >= 0) {
-                        m_YVel = m_Recoil * -(m_SetVel);
+                        _yVel = _recoil * -(_setVel);
                     }
                 }
                 break;
@@ -197,19 +186,19 @@ public class MovementRequest : ScriptableObject {
 
     private void AimUp(float bodyXvel, float bodyYvel) {
 
-        switch (MovementType) {
+        switch (_type) {
 
             case MovementType.Shotgun:
-                m_XVel = bodyXvel;
+                _xVel = bodyXvel;
 
                 //FALLING
                 if (bodyYvel < 0) {
-                    m_YVel = bodyYvel + m_Recoil * -(m_SetVel);
+                    _yVel = bodyYvel + _recoil * -(_setVel);
                 }
 
                 //RISING OR STILL
                 else if (bodyYvel >= 0) {
-                    m_YVel = -(m_Recoil);
+                    _yVel = -(_recoil);
                 }
                 break;
         }
@@ -217,33 +206,33 @@ public class MovementRequest : ScriptableObject {
 
     private void AimUpAndLeft(float bodyXvel, float bodyYvel) {
 
-        switch (MovementType) {
+        switch (_type) {
 
             case MovementType.Shotgun:
                 //FALLING
                 if (bodyYvel < 0) {
-                    m_YVel = bodyYvel + m_Recoil * -(m_AddVel);
+                    _yVel = bodyYvel + _recoil * -(_addVel);
                 }
 
                 //MOVING LEFT
                 if (bodyXvel <= 0) {
 
-                    m_XVel = m_Recoil * (m_SetVel);
+                    _xVel = _recoil * (_setVel);
 
                     //RISING
                     if (bodyYvel >= 0) {
-                        m_YVel = m_Recoil * -(m_SetVel);
+                        _yVel = _recoil * -(_setVel);
                     }
                 }
 
                 //MOVING RIGHT
                 else if (bodyXvel > 0) {
 
-                    m_XVel = bodyXvel + m_Recoil * m_AddVel;
+                    _xVel = bodyXvel + _recoil * _addVel;
 
                     //RISING
                     if (bodyYvel >= 0) {
-                        m_YVel = m_Recoil * -(m_AddVel);
+                        _yVel = _recoil * -(_addVel);
                     }
                 }
                 break;
@@ -253,79 +242,79 @@ public class MovementRequest : ScriptableObject {
     private void AimLeft(float bodyXvel, float bodyYvel) {
 
         //SHOTGUN
-        if (MovementType == MovementType.Shotgun) {
-            m_XVel = !m_Grounded ? m_Recoil : m_Recoil * 0.5f;
+        if (_type == MovementType.Shotgun) {
+            _xVel = !_grounded ? _recoil : _recoil * 0.5f;
 
             //MOVING RIGHT OR MOVING LEFT OR STANDING STILL
-            m_YVel = bodyYvel;
+            _yVel = bodyYvel;
         }
         //MACHINEGUN
-        else if (MovementType == MovementType.MachineGun) {
+        else if (_type == MovementType.MachineGun) {
 
-            if (m_XVel <= m_Recoil) {
-                m_XVel += m_Recoil / 2.0f;
+            if (_xVel <= _recoil) {
+                _xVel += _recoil / 2.0f;
             }
-            m_YVel = bodyYvel;
+            _yVel = bodyYvel;
         }
     }
 
     private void AimDownAndLeft(float bodyXvel, float bodyYvel) {
 
-        switch (MovementType) {
+        switch (_type) {
 
             case MovementType.Shotgun:
                 //ON THE GROUND
-                if (m_Grounded) {
+                if (_grounded) {
 
-                    m_YVel = m_Recoil * m_SetVel;
+                    _yVel = _recoil * _setVel;
 
                     //MOVING RIGHT
                     if (bodyXvel > 0) {
-                        m_XVel = Mathf.Clamp(bodyXvel + m_Recoil * m_AddVel, m_Recoil * m_AddVel, m_Recoil);
+                        _xVel = Mathf.Clamp(bodyXvel + _recoil * _addVel, _recoil * _addVel, _recoil);
                     }
 
                     // MOVING LEFT OR STANDING STILL
                     else if (bodyXvel <= 0) {
-                        m_XVel = m_Recoil * m_SetVel;
+                        _xVel = _recoil * _setVel;
                     }
                 }
 
                 //IN THE AIR
-                else if (!m_Grounded) {
+                else if (!_grounded) {
 
                     //MOVING RIGHT
                     if (bodyXvel > 0.0f) {
 
-                        m_XVel = Mathf.Clamp(bodyXvel + m_Recoil * m_AddVel, m_Recoil * m_AddVel, m_Recoil);
+                        _xVel = Mathf.Clamp(bodyXvel + _recoil * _addVel, _recoil * _addVel, _recoil);
 
                         //FALLING (NEGATIVE Y VELOCITY)
                         if (bodyYvel < 0.0f) {
-                            m_YVel = m_Recoil * m_SetVel;
+                            _yVel = _recoil * _setVel;
                         }
 
                         //RISING OR ZERO Y VELOCITY
                         else if (bodyYvel >= 0.0f) {
-                            m_YVel = m_Recoil * m_SetVel;
+                            _yVel = _recoil * _setVel;
                         }
                     }
 
                     // MOVING LEFT OR STANDING STILL
                     else if (bodyXvel <= 0.0f) {
-                        m_XVel = m_Recoil * m_SetVel;
-                        m_YVel = m_Recoil * m_SetVel;
+                        _xVel = _recoil * _setVel;
+                        _yVel = _recoil * _setVel;
                     }
                 }
                 break;
 
             case MovementType.MachineGun:
                 //FALLING DOWN AND THE Y-VELOCITY IS LESS THAN THE SET RECOIL
-                if (m_YVel <= m_Recoil && bodyYvel < 0) {
+                if (_yVel <= _recoil && bodyYvel < 0) {
 
                     //THIS QUICKLY SLOWS DOWN THE PLAYER FROM FALLING (IRON MAN EFFECT)
-                    m_YVel += Mathf.Abs(m_Recoil * (1.3f * (bodyYvel / m_YVel)));
+                    _yVel += Mathf.Abs(_recoil * (1.3f * (bodyYvel / _yVel)));
 
-                    if (m_XVel <= m_Recoil * m_XMultiplier) {
-                        m_XVel += m_Recoil;
+                    if (_xVel <= _recoil * _xMultiplier) {
+                        _xVel += _recoil;
                     }
                 }
                 break;
@@ -334,31 +323,31 @@ public class MovementRequest : ScriptableObject {
 
     private void AimDown(float bodyXvel, float bodyYvel) {
 
-        switch (MovementType) {
+        switch (_type) {
 
             case MovementType.Shotgun:
-                m_YVel = m_Recoil;
+                _yVel = _recoil;
 
                 //FALLING (NEGATVIE Y VELOCITY) OR RISING OR ZERO Y VELOCITY
-                m_XVel = bodyXvel;
+                _xVel = bodyXvel;
                 break;
 
             case MovementType.MachineGun:
                 //FALLING DOWN AND THE Y-VELOCITY IS LESS THAN THE SET RECOIL
-                if (m_YVel <= m_Recoil && bodyYvel < 0) {
+                if (_yVel <= _recoil && bodyYvel < 0) {
 
                     //THIS QUICKLY SLOWS DOWN THE PLAYER FROM FALLING (IRON MAN EFFECT)
-                    m_YVel += Mathf.Abs(m_Recoil * (1.3f * (bodyYvel / m_YVel)));
+                    _yVel += Mathf.Abs(_recoil * (1.3f * (bodyYvel / _yVel)));
                 }
 
                 //AIMING STRIGHT DOWN AND MOVING RIGHT
                 else if (bodyXvel > 0) {
-                    m_XVel -= 2.0f;
+                    _xVel -= 2.0f;
                 }
 
                 //AIMING STRIGHT DOWN AND MOVING LEFT
                 else if (bodyXvel < 0) {
-                    m_XVel += 2.0f;
+                    _xVel += 2.0f;
                 }
                 break;
         }
@@ -366,49 +355,49 @@ public class MovementRequest : ScriptableObject {
 
     private void AimDownAndRight(float bodyXvel, float bodyYvel) {
 
-        switch (MovementType) {
+        switch (_type) {
 
             //SHOTGUN
             case MovementType.Shotgun:
                 //ON THE GROUND
-                if (m_Grounded) {
+                if (_grounded) {
 
-                    m_YVel = m_Recoil * m_SetVel;
+                    _yVel = _recoil * _setVel;
 
                     // MOVING LEFT
                     if (bodyXvel < 0) {
-                        m_XVel = -1.0f * Mathf.Clamp(Mathf.Abs(bodyXvel) + m_Recoil * m_AddVel, m_Recoil * m_AddVel, m_Recoil);
+                        _xVel = -1.0f * Mathf.Clamp(Mathf.Abs(bodyXvel) + _recoil * _addVel, _recoil * _addVel, _recoil);
                     }
 
                     //MOVING RIGHT OR STANDING STILL
                     else if (bodyXvel >= 0) {
-                        m_XVel = m_Recoil * -m_SetVel;
+                        _xVel = _recoil * -_setVel;
                     }
                 }
 
                 //IN THE AIR
-                else if (!m_Grounded) {
+                else if (!_grounded) {
 
                     //MOVING LEFT
                     if (bodyXvel < 0) {
 
-                        m_XVel = -1.0f * Mathf.Clamp(Mathf.Abs(bodyXvel) + m_Recoil * m_AddVel, m_Recoil * m_AddVel, m_Recoil);
+                        _xVel = -1.0f * Mathf.Clamp(Mathf.Abs(bodyXvel) + _recoil * _addVel, _recoil * _addVel, _recoil);
 
                         //FALLING (NEGATIVE Y VELOCITY)
                         if (bodyYvel < 0) {
-                            m_YVel = m_Recoil * m_SetVel;
+                            _yVel = _recoil * _setVel;
                         }
 
                         //RISING OR ZERO Y VELOCITY
                         else if (bodyYvel >= 0) {
-                            m_YVel = Mathf.Clamp(bodyYvel, m_Recoil * m_AddVel, m_Recoil * 2);
+                            _yVel = Mathf.Clamp(bodyYvel, _recoil * _addVel, _recoil * 2);
                         }
                     }
 
                     //MOVING RIGHT OR STANDING STILL
                     else if (bodyXvel >= 0) {
-                        m_XVel = m_Recoil * -m_SetVel;
-                        m_YVel = m_Recoil * m_SetVel;
+                        _xVel = _recoil * -_setVel;
+                        _yVel = _recoil * _setVel;
                     }
                 }
                 break;
@@ -416,13 +405,13 @@ public class MovementRequest : ScriptableObject {
             //MACHINE GUN
             case MovementType.MachineGun:
                 //FALLING DOWN AND THE Y-VELOCITY IS LESS THAN THE SET RECOIL
-                if (m_YVel <= m_Recoil && bodyYvel < 0) {
+                if (_yVel <= _recoil && bodyYvel < 0) {
 
                     //THIS QUICKLY SLOWS DOWN THE PLAYER FROM FALLING (IRON MAN EFFECT)
-                    m_YVel += Mathf.Abs(m_Recoil * (1.3f * (bodyYvel / m_YVel)));
+                    _yVel += Mathf.Abs(_recoil * (1.3f * (bodyYvel / _yVel)));
 
-                    if (m_XVel >= m_Recoil * -m_XMultiplier) {
-                        m_XVel -= m_Recoil;
+                    if (_xVel >= _recoil * -_xMultiplier) {
+                        _xVel -= _recoil;
                     }
                 }
                 break;
@@ -433,17 +422,16 @@ public class MovementRequest : ScriptableObject {
     //THE NEXT THREE FUCNTIONS ARE FOR IMPULSE TYPES ONLY
     private void ImpulseDownAndLeft(float xVel) {
         // CHANGE THE FORCE DEPENDING ON IF THE PLAYER IS MOVING IN THE XDIRECTION OR NOT
-        m_ForceRequest = xVel > -0.5f || xVel < 0.5f ? new Vector2(m_XImpulse, m_YImpulse) : new Vector2(0, m_YImpulse);
+        _forceRequest = xVel > -0.5f || xVel < 0.5f ? new Vector2(_xImpulse, _yImpulse) : new Vector2(0, _yImpulse);
     }
 
     private void ImpulseDown() {
         // CHANGE THE FORCE DEPENDING ON IF THE PLAYER IS MOVING IN THE XDIRECTION OR NOT
-        m_ForceRequest = new Vector2(0, m_YImpulse + 2500.0f);
+        _forceRequest = new Vector2(0, _yImpulse + 2500.0f);
     }
 
     private void ImpulseDownAndRight(float xVel) {
         // CHANGE THE FORCE DEPENDING ON IF THE PLAYER IS MOVING IN THE XDIRECTION OR NOT
-        m_ForceRequest = xVel > -0.5f || xVel < 0.5f ? new Vector2(-m_XImpulse, m_YImpulse) : new Vector2(0, m_YImpulse);
+        _forceRequest = xVel > -0.5f || xVel < 0.5f ? new Vector2(-_xImpulse, _yImpulse) : new Vector2(0, _yImpulse);
     }
-    #endregion Private Methods
 }

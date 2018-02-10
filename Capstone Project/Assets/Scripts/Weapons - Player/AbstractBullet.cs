@@ -3,52 +3,45 @@ using System.Collections;
 
 public abstract class AbstractBullet : MonoBehaviour {
 
-    #region Fields
     [SerializeField]
-    protected float m_ShotSpeed;
+    protected float _shotSpeed;
     [SerializeField]
-    protected int m_DamageAmount;
+    protected int _damageAmount;
 
     [SerializeField]
-    protected Range m_DirectionRange;
+    protected Range _directionRange;
 
-    protected Vector2 m_Start;
-    protected Vector2 m_End;
-    protected Vector2 m_Direction;
+    protected Vector2 _start;
+    protected Vector2 _end;
+    protected Vector2 _direction;
 
-    #endregion Fields
+    [System.Serializable]
+    protected struct Range {
 
-    #region Initializers
-    protected virtual void Start() {}
+        [SerializeField]
+        private float _min;
+        public float Min {
+            get { return _min; }
+            set { _min = value; }
+        }
 
-    #endregion Initializers
+        [SerializeField]
+        private float _max;
+        public float Max {
+            get { return _max; }
+            set { _max = value; }
+        }
+    }
 
-    #region Protected Methods
+    protected virtual void Start() {
+        //_direction = (_end - _start).normalized;
+    }
+
     protected virtual IEnumerator Shoot() {
         yield return 0;
     }
 
-    #endregion Protected Methods
-
-    #region Public Methods
     public virtual void Fire(Vector2 direction) {
-        m_Direction = direction;
+        _direction = direction;
     }
-
-    #endregion Public Methods
-
-    #region Structs
-    [System.Serializable]
-    protected struct Range {
-
-        #region Properties
-        [SerializeField]
-        public float Min { get; set; }
-
-        [SerializeField]
-        public float Max { get; set; }
-
-        #endregion Properties
-    }
-    #endregion Structs
 }

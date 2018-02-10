@@ -26,16 +26,16 @@ public class SOEffects : ScriptableObject {
         public SpriterDotNetUnity.SpriterData data;
     };
 
-    private Dictionary<EffectEnums, Effect> m_Map = new Dictionary<EffectEnums, Effect>();
+    private Dictionary<EffectEnums, Effect> _map = new Dictionary<EffectEnums, Effect>();
 
     public void LoadEffects() {
 
         foreach (EffectEnums type in System.Enum.GetValues(typeof(EffectEnums))) {
             if (type == EffectEnums.CrystalBullet || type == EffectEnums.ShotgunBlast) {
-                m_Map.Add(type, new Effect(Resources.Load("MainCharacter/" + type.ToString(), typeof(GameObject)) as GameObject));
+                _map.Add(type, new Effect(Resources.Load("MainCharacter/" + type.ToString(), typeof(GameObject)) as GameObject));
             }
             else {
-                m_Map.Add(type, new Effect(Resources.Load("Effects/" + type.ToString(), typeof(GameObject)) as GameObject,
+                _map.Add(type, new Effect(Resources.Load("Effects/" + type.ToString(), typeof(GameObject)) as GameObject,
                     Resources.Load("Effects/" + type.ToString(), typeof(SpriterDotNetUnity.SpriterData)) as SpriterDotNetUnity.SpriterData));
             }
         }
@@ -45,17 +45,17 @@ public class SOEffects : ScriptableObject {
     //It is give a position + the offset, and optionally (priamrily for the weapons) the angle.
     public GameObject PlayEffect(EffectEnums type, Vector2 position, float angle = 0.0f, float X_direction = 0.0f, float Y_direction = 0.0f) {
 
-        if (!m_Map.ContainsKey(type)) {
+        if (!_map.ContainsKey(type)) {
             if (type == EffectEnums.CrystalBullet || type == EffectEnums.ShotgunBlast) {
-                m_Map.Add(type, new Effect(Resources.Load("MainCharacter/" + type.ToString(), typeof(GameObject)) as GameObject));
+                _map.Add(type, new Effect(Resources.Load("MainCharacter/" + type.ToString(), typeof(GameObject)) as GameObject));
             }
             else {
-                m_Map.Add(type, new Effect(Resources.Load("Effects/" + type.ToString(), typeof(GameObject)) as GameObject,
+                _map.Add(type, new Effect(Resources.Load("Effects/" + type.ToString(), typeof(GameObject)) as GameObject,
                     Resources.Load("Effects/" + type.ToString(), typeof(SpriterDotNetUnity.SpriterData)) as SpriterDotNetUnity.SpriterData));
             }
         }
 
-        Effect effect = m_Map[type];
+        Effect effect = _map[type];
 
         GameObject instance = Instantiate(effect.prefab, position, Quaternion.identity) as GameObject;
         instance.transform.position = new Vector3(position.x, position.y, -1.0f);

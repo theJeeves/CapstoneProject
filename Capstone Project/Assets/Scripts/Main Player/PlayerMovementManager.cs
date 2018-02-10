@@ -1,89 +1,77 @@
 ﻿using UnityEngine;
+using System.Collections;
 using System.Collections.Generic;
 
 public class PlayerMovementManager : MonoBehaviour {
 
-    #region Fields
-    private Rigidbody2D m_Body2d;
-    private ControllableObject m_Controller;
-    private PlayerCollisionState m_CollisionState;
+    private Rigidbody2D _body2d;
+    private ControllableObject _controller;
+    private PlayerCollisionState _collisionState;
 
-    private bool m_Grounded = false;
-    private Vector3 m_Values;
-    private float m_Time = 0.0f;
+    private bool _grounded = false;
+    private Vector3 _values;
+    private float m_time = 0.0f;
 
-    private AudioSource m_AudioSource;
-    private bool m_IsPlaying = false;
+    private AudioSource _audioSource;
+    private bool _isPlaying = false;
 
     // The key is whether or not the movement should be additive or override the current movement.
-    private Queue<MovementRequest> m_MoveQ = new Queue<MovementRequest>();
-    #endregion Fields
+    private Queue<MovementRequest> _moveQ = new Queue<MovementRequest>();
 
-    #region Initializers
     private void OnEnable() {
-        m_Body2d = GetComponent<Rigidbody2D>();
-        m_Controller = GetComponent<ControllableObject>();
-        m_CollisionState = GetComponent<PlayerCollisionState>();
-        m_AudioSource = GetComponent<AudioSource>();
+        _body2d = GetComponent<Rigidbody2D>();
+        _controller = GetComponent<ControllableObject>();
+        _collisionState = GetComponent<PlayerCollisionState>();
+        _audioSource = GetComponent<AudioSource>();
     }
-    #endregion Initializers
-
-    #region Public Methods
-    public void Enqueue(MovementRequest request) {
-        m_MoveQ.Enqueue(request);
-    }
-
-    //Instantly move the player (Mainly for world/enemy factors)
-    public void AddImpulseForce(Vector2 force) {
-        m_Body2d.AddForce(force, ForceMode2D.Impulse);
-    }
-
-    public void ClearQueue() {
-        m_MoveQ.Clear();
-    }
-    #endregion Public Methods
-
-    #region Private Methods
 
     // Update is called once per frame
     private void Update () {
 
-        m_Grounded = m_CollisionState.OnSolidGround;
+        _grounded = _collisionState.OnSolidGround;
 
-        if (m_MoveQ.Count == 0 && m_Grounded && Mathf.Abs(m_Body2d.velocity.x) > 0.5f) {
-            m_Body2d.velocity = new Vector2(Mathf.SmoothStep(m_Body2d.velocity.x, 0.0f, TimeTools.TimeElapsed(ref m_Time) / 1.00f), m_Body2d.velocity.y);
-            m_AudioSource.Stop();
-            m_IsPlaying = false;
+        if (_moveQ.Count == 0 && _grounded && Mathf.Abs(_body2d.velocity.x) > 0.5f) {
+            _body2d.velocity = new Vector2(Mathf.SmoothStep(_body2d.velocity.x, 0.0f, TimeTools.TimeElapsed(ref m_time) / 1.00f), _body2d.velocity.y);
+            _audioSource.Stop();
+            _isPlaying = false;
         }
         else {
-            m_Time = 0.0f;
+            m_time = 0.0f;
         }
 
-        while (m_MoveQ.Count > 0) {
-            m_Values = new Vector3(m_Body2d.velocity.x, m_Body2d.velocity.y, m_Controller.GetButtonPressTime(m_MoveQ.Peek().Button));
+        while (_moveQ.Count > 0) {
+            _values = new Vector3(_body2d.velocity.x, _body2d.velocity.y, _controller.GetButtonPressTime(_moveQ.Peek().Button));
 
-            switch (m_MoveQ.Peek().MovementType) {
+            switch (_moveQ.Peek().MovementType) {
                 case MovementType.MainMenuWalking:
                 case MovementType.Walking:
-                    m_Body2d.velocity = m_MoveQ.Dequeue().Move(m_Values, m_Grounded, m_Controller.CurrentKey);
-                    if (!m_IsPlaying) {
-                        m_AudioSource.Play();
-                        m_IsPlaying = true;
+                    _body2d.velocity = _moveQ.Dequeue().Move(_values, _grounded, _controller.CurrentKey);
+                    if (!_isPlaying) {
+                        _audioSource.Play();
+                        _isPlaying = true;
                     }
                     break;
                 case MovementType.Shotgun:
                 case MovementType.MachineGun:
-                    m_Body2d.velocity = m_MoveQ.Dequeue().Move(m_Values, m_Grounded, m_Controller.CurrentKey);
+                    _body2d.velocity = _moveQ.Dequeue().Move(_values, _grounded, _controller.CurrentKey);
                     break;
                 case MovementType.AddForce:
-                    m_MoveQ.Dequeue().Move(Vector3.zero, false, m_Controller.CurrentKey);
-                    break;
-                default:
-                    m_MoveQ.Dequeue();
-                    Debug.LogError("Movement Type Not Defined.");
+                    _moveQ.Dequeue().Move(Vector3.zero, false, _controller.CurrentKey);
                     break;
             }
         }
     }
-    #endregion Private Methods
+
+    public void Enqueue(MovementRequest request) {
+        _moveQ.Enqueue(request);
+    }
+
+    //Instantly move the player (Mainly for world/enemy factors)
+    public void AddImpulseForce(Vector2 force) {
+        _body2d.AddForce(force, ForceMode2D.Impulse);
+    }
+
+    public void ClearQueue() {
+        _moveQ.Clear();
+    }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿
+using UnityEngine;
 using System.Collections;
 
 /*
@@ -7,31 +8,26 @@ using System.Collections;
 
 public class MachineGun : AbstractGun {
 
-    #region Fields
-    [SerializeField]
-    private MovementRequest m_InitialMoveRequest;
-    private GameObject m_MuzzleFlashGO;
-    private bool m_CanLift = true;
-    #endregion Fields
-
-    #region Events
     public static event AbstractGunEvent2 EmptyClip;
     public static event AbstractGunEvent3 StartReloadAnimation;
     public static event AbstractGunEvent UpdateNumOfRounds;
     public static event AbstractGunEvent2 DisplayAmmo;
     public static event AbstractGunEvent2 ShotFired;
-    #endregion Events
 
-    #region Initializers
+    [SerializeField]
+    private MovementRequest _initialMoveRequest;
+
+    private GameObject _muzzleFlashGO;
+    private bool _canLift = true;
+
     protected override void Awake() {
         base.Awake();
 
         _weaponManager.SetAmmoCapacity(_type, _ammoCapacity);
 
         numOfRounds = _weaponManager.GetNumOfRounds(_type);
-
-        if (numOfRounds > 0) {
-            DisplayAmmo?.Invoke();
+        if (numOfRounds > 0 && DisplayAmmo != null) {
+            DisplayAmmo();
         }
     }
 
@@ -58,15 +54,15 @@ public class MachineGun : AbstractGun {
             _canShoot = true;
         }
 
-        UpdateNumOfRounds?.Invoke(numOfRounds);
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(numOfRounds);
+        }
 
         PlayerActions.ButtonHeld += OnPlayerActionButtonPress;
 
-        m_CanLift = _collisionState.OnSolidGround ? true : false;
+        _canLift = _collisionState.OnSolidGround ? true : false;
     }
-    #endregion Initializers
 
-    #region Finalizers
     private void OnDisable() {
         PlayerCollisionState.OnHitGround -= Reload;
         ControllableObject.OnButtonDown -= ManualReload;
@@ -76,12 +72,10 @@ public class MachineGun : AbstractGun {
         StopAllCoroutines();
         PlayerActions.ButtonHeld -= OnPlayerActionButtonPress;
     }
-    #endregion Finalizers
 
-    #region Private Methods
     private void Update() {
-        if (m_MuzzleFlashGO != null) {
-            m_MuzzleFlashGO.transform.position = _barrelNorm.transform.position;
+        if (_muzzleFlashGO != null) {
+            _muzzleFlashGO.transform.position = _barrelNorm.transform.position;
         }
         if (TimeTools.TimeExpired(ref m_shotDelay)) {
             _canShoot = true;
@@ -92,22 +86,15 @@ public class MachineGun : AbstractGun {
 
     private void Lift() {
 
-        bool allowAction = m_CanLift;
-        allowAction &= _controller.GetButtonPress(Buttons.AimDown);
-        allowAction &= _direction.y == 1.0f;
-
-        if (allowAction) {
-            m_InitialMoveRequest.RequestMovement();
-            m_CanLift = false;
+        if (_canLift && _controller.GetButtonPress(Buttons.AimDown) && _direction.y == -1.0f) {
+            _initialMoveRequest.RequestMovement();
+            _canLift = false;
         }
     }
 
     private void OnPlayerActionButtonPress(Buttons button) {
 
-        bool allowAction = numOfRounds > 0;
-        allowAction &= button == Buttons.Shoot;
-
-        if (allowAction) {
+        if (button == Buttons.Shoot && numOfRounds > 0) {
 
             if (!_reloading) {
 
@@ -117,14 +104,15 @@ public class MachineGun : AbstractGun {
                     Fire();
                     // If the last round has gone out, send out the event to hide the ammo type display.
                     if (--numOfRounds <= 0) {
-                        EmptyClip?.Invoke();
+                        if (EmptyClip != null) { EmptyClip(); }
 
                         // Determine if the player was on the ground when they shot the last round in the chamber.
                         //_grounded = _collisionState.OnSolidGround ? true : false;
                         Reload();
                     }
-
-                    UpdateNumOfRounds?.Invoke(numOfRounds);
+                    if (UpdateNumOfRounds != null) {
+                        UpdateNumOfRounds(numOfRounds);
+                    }
                 }
             }
         }
@@ -132,7 +120,9 @@ public class MachineGun : AbstractGun {
         // Only call for the ammo to hide if the player has no more bullets in the clip
         // and are in the air. Otherwise, it is handle in the if statement above.
         else if (numOfRounds <= 0 && !_grounded) {
-            EmptyClip?.Invoke();
+            if (EmptyClip != null) {
+                EmptyClip();
+            }
         }
     }
 
@@ -144,7 +134,7 @@ public class MachineGun : AbstractGun {
 
             int firingAngle = FiringAngle();
 
-            m_MuzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrelNorm.transform.position, firingAngle);
+            _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrelNorm.transform.position, firingAngle);
 
             if (firingAngle == 270) {
                 _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrelAlt.transform.position, firingAngle, _direction.x, _direction.y);
@@ -156,7 +146,7 @@ public class MachineGun : AbstractGun {
             _SSRequest.ShakeRequest();
             m_shotDelay = m_defaultShotDelay;
 
-            ShotFired?.Invoke();    // this is here to tell the save file another shot is fired and to record it.
+            if (ShotFired != null) { ShotFired(); }     // this is here to tell the save file another shot is fired and to record it.
         }
     }
 
@@ -191,7 +181,7 @@ public class MachineGun : AbstractGun {
 
         // This ensures the player will be lifted by the initial shot every time.
         // Machine Gun specific.
-        m_CanLift = true;
+        _canLift = true;
 
         if (numOfRounds > 0 && _controller.GetButtonPress(Buttons.Shoot)) { }
         else {
@@ -203,12 +193,7 @@ public class MachineGun : AbstractGun {
 
     private void ManualReload(Buttons button) {
 
-        bool allowReload = _grounded; 
-        allowReload = button == Buttons.Reload;
-        allowReload &= _reloading == false;
-        allowReload &= numOfRounds < _ammoCapacity;
-
-        if (allowReload) {
+        if (button == Buttons.Reload && !_reloading && numOfRounds < _ammoCapacity && _grounded) {
             _grounded = true;
             StartCoroutine(ReloadDelay());
         }
@@ -226,7 +211,9 @@ public class MachineGun : AbstractGun {
             yield return 0;
         }
 
-        StartReloadAnimation?.Invoke(_reloadTime);
+        if (StartReloadAnimation != null) {
+            StartReloadAnimation(_reloadTime);
+        }
 
         yield return new WaitForSeconds(_reloadTime);
 
@@ -234,14 +221,15 @@ public class MachineGun : AbstractGun {
         numOfRounds = _weaponManager.GetNumOfRounds(_type);
 
         // UPDATE THE UI
-        UpdateNumOfRounds?.Invoke(numOfRounds);
+        if (UpdateNumOfRounds != null) {
+            UpdateNumOfRounds(numOfRounds);
+        }
 
         // The player can now fire again.
         _reloading = false;
         _canShoot = true;
         // This ensures the player will be lifted by the initial shot every time.
         // Machine Gun specific.
-        m_CanLift = true;
+        _canLift = true;
     }
-    #endregion Private Methods
 }
