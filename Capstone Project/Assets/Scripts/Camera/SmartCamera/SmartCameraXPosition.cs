@@ -3,6 +3,7 @@ using System.Collections;
 
 public class SmartCameraXPosition : MonoBehaviour {
 
+    #region Private Fields
     [SerializeField]
     private float _adjustSpeed;
 
@@ -10,20 +11,16 @@ public class SmartCameraXPosition : MonoBehaviour {
     private Vector3 _currPlayerPos;
     private float _movementDelay = 0.5f;
     private float _movementTimer = 0.0f;
-
-    private bool _movingRight = false;
-    public bool MovingRight {
-        set { _movingRight = value; }
-    }
     private bool _adjusting = false;
-
     private float _startTime = 0.0f;
+
+    #endregion Private Fields
 
     private void OnEnable() {
 
         PlayerHealth.UpdateHealth += UponDeath;
 
-        _player = GameObject.FindGameObjectWithTag("Player");
+        _player = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG);
         _startTime = Time.time;
 
         if (_player != null) {
@@ -36,9 +33,18 @@ public class SmartCameraXPosition : MonoBehaviour {
         PlayerHealth.UpdateHealth -= UponDeath;
     }
 
+    #region Properties
+    private bool _movingRight = false;
+    public bool MovingRight {
+        set { _movingRight = value; }
+    }
+
+    #endregion Properties
+
+    #region Private Methods
     private void Update() {
         if (_player == null) {
-            _player = GameObject.FindGameObjectWithTag("Player");
+            _player = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG);
 
             if (Camera.main.WorldToViewportPoint(_player.transform.position).x > 0.5f) _movingRight = false;
             else if (Camera.main.WorldToViewportPoint(_player.transform.position).x < 0.5f) _movingRight = true;
@@ -47,7 +53,7 @@ public class SmartCameraXPosition : MonoBehaviour {
 
     private void LateUpdate() {
 
-        if (Time.time - _movementTimer > _movementDelay) {
+        if (TimeTools.TimeExpired(ref _movementTimer)) {
 
             // EACH FRAME, DETERMINE THE PLAYER'S POSITION ON THE SCREEN TO PROPERLY ADJUST THE CAMERA.
             _currPlayerPos = Camera.main.WorldToViewportPoint(_player.transform.position);
@@ -117,7 +123,9 @@ public class SmartCameraXPosition : MonoBehaviour {
     private void UponDeath(int health) {
 
         if (health <= 0) {
-            _movementTimer = Time.time;
+            _movementTimer = _movementDelay;
         }
     }
+
+    #endregion Private Methods
 }

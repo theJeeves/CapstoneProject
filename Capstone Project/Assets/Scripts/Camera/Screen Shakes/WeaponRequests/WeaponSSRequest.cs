@@ -3,10 +3,10 @@
 [CreateAssetMenu(menuName ="Screen Shake/Weapon")]
 public class WeaponSSRequest : ScreenShakeRequest {
 
-    #region Fields
+    #region Private Fields
     private Vector3[] _directions = new Vector3[8];     // All possible angles which can be used by the player
 
-    #endregion Fields
+    #endregion Private Fields
 
     #region Private Initializers
     private void OnEnable() {
@@ -37,7 +37,7 @@ public class WeaponSSRequest : ScreenShakeRequest {
     /// Request the camera perform a screen shake.
     /// </summary>
     public override void ShakeRequest() {
-        Camera.main.SendMessage("Enqueue", this);
+        Camera.main.SendMessage(StringConstantUtility.ENQUEUE_MESSAGE, this);
     }
 
     #endregion Public Methods

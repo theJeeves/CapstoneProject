@@ -18,10 +18,10 @@ public class DamageSSRequest : ScreenShakeRequest {
     /// Request the camera perform a screen shake.
     /// </summary>
     public override void ShakeRequest() {
-        Camera.main.SendMessage("Enqueue", this);
+        Camera.main.SendMessage(StringConstantUtility.ENQUEUE_MESSAGE, this);
 
         // This calls for the chromatic effect
-        Camera.main.SendMessage("PlayerDamaged", 1);
+        Camera.main.SendMessage(StringConstantUtility.PLAYER_DAMAGED_MESSAGE, 1);
     }
 
     #endregion Public Methods

@@ -1,15 +1,20 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SetCameraPosition : MonoBehaviour {
 
+    #region Private Fields
     [SerializeField]
     private Vector3 _newCameraPos;
 
+    #endregion Private Fields
+
+    #region Private Methods
     private void OnTriggerEnter2D(Collider2D otherGO) {
 
-        if (otherGO.tag == "Player") {
-            GameObject.FindGameObjectWithTag("SmartCamera").transform.position = new Vector3(_newCameraPos.x, _newCameraPos.y, _newCameraPos.z);
+        if (otherGO.tag == StringConstantUtility.PLAYER_TAG) {
+            GameObject.FindGameObjectWithTag(StringConstantUtility.SMART_CAMERA_TAG).transform.position = new Vector3(_newCameraPos.x, _newCameraPos.y, _newCameraPos.z);
         }
     }
+
+    #endregion Private Methods
 }

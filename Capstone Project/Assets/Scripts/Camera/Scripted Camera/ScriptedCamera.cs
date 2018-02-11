@@ -1,29 +1,39 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 [CreateAssetMenu(menuName ="Scripted Camera/New Scripted Camera Handler")]
 public class ScriptedCamera : ScriptableObject {
 
+    #region Fields
+
+    #region Public Fields
+    public List<string> keys;
+    public List<Vector3> values;
+    #endregion Public Fields
+
+    #region Protected Fields
     //The speed at which the FOV will adjust
     [SerializeField]
     protected float _adjustSpeed = 10.0f;
 
-    //private bool largerFOV = false;
-
     protected GameObject _camera;       // Reference to the main Camera
     protected float m_timeElapsed = 0.0f;       // Used for timing and delay purposes
 
-    private Vector3 _initialTarget;
+    #endregion Protected Fields
 
+    #region Private Fields
+    private Vector3 _initialTarget;
     private int _currentIndex = 0;
-    public List<string> keys;
-    public List<Vector3> values;
     private Dictionary<string, Vector3> _linearCamPositions = new Dictionary<string, Vector3>();
 
+    #endregion Private Fields
+
+    #endregion Fields
+
+    #region Private Initializers
     private void OnEnable() {
-        // Get a reference to the main camera to be used with the rest of the script.
-        _camera = GameObject.FindGameObjectWithTag("SmartCamera");
+
+        FindSmartCamera();
         _initialTarget = Vector3.zero;
 
         _currentIndex = 0;
@@ -47,6 +57,14 @@ public class ScriptedCamera : ScriptableObject {
         }
     }
 
+    #endregion Private Initializers
+
+    #region Public Methods
+
+    /// <summary>
+    /// Move the camera to a specified position.
+    /// </summary>
+    /// <param name="target"></param>
     public void MoveCamera(Vector3 target) {
 
         if (_initialTarget != target) {
@@ -54,10 +72,7 @@ public class ScriptedCamera : ScriptableObject {
             _initialTarget = target;
         }
 
-        if (_camera == null) {
-            // Get a reference to the main camera to be used with the rest of the script.
-            _camera = GameObject.FindGameObjectWithTag("SmartCamera");
-        }
+        FindSmartCamera();
 
         if (_camera.transform.position != target) {
             TimeTools.TimeElapsed(ref m_timeElapsed);
@@ -67,41 +82,67 @@ public class ScriptedCamera : ScriptableObject {
         }
     }
 
+    /// <summary>
+    /// Move the camera linearly from one position to another.
+    /// </summary>
+    /// <param name="percentage"></param>
+    /// <param name="originPos"></param>
+    /// <param name="target"></param>
     public void LinearlyMoveCamera(float percentage, Vector3 originPos, Vector3 target) {
 
-        if (_camera == null) { _camera = GameObject.FindGameObjectWithTag("SmartCamera"); }
-
-            _camera.transform.position = new Vector3(percentage * (target.x - originPos.x) + originPos.x, 
-                                                     percentage * (target.y - originPos.y) + originPos.y, 
-                                                     percentage * (target.z - originPos.z) + originPos.z);
+        FindSmartCamera();
+        _camera.transform.position = new Vector3(percentage * (target.x - originPos.x) + originPos.x, 
+                                                    percentage * (target.y - originPos.y) + originPos.y, 
+                                                    percentage * (target.z - originPos.z) + originPos.z);
     }
 
-    //Depending on what the developer wants to do, EnableScripts and DisableScripts will turn on/off
-    //when a scripted camera event is needed. 
+    /// <summary>
+    /// Enable the camera to move with the player on its own.
+    /// </summary>
     public void EnableScripts() {
-        //_camera.GetComponent<SmartCameraFOV>().enabled = true;
+
         _camera.GetComponent<SmartCameraXPosition>().enabled = true;
         m_timeElapsed = 0.0f;
     }
 
+    /// <summary>
+    /// Disable the camera from moving with the player on its own.
+    /// </summary>
     public void DisableScripts() {
-        //_camera.GetComponent<SmartCameraFOV>().enabled = false;
+
         _camera.GetComponent<SmartCameraXPosition>().enabled = false;
         m_timeElapsed = 0.0f;
     }
 
+    /// <summary>
+    /// Reset the camera to the origin of the parent object.
+    /// </summary>
     public void Reset() {
         _initialTarget = new Vector3(0.0f, 0.0f, 0.0f);
     }
 
+    /// <summary>
+    /// Set the speed at which the camera will adjust.
+    /// </summary>
+    /// <param name="speed"></param>
     public void SetAdjustSpeed(float speed) {
         _adjustSpeed = speed;
     }
 
+    /// <summary>
+    /// Determine if the camera is set to move linearly.
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public bool LinearCamPositionSet(string key) {
         return _linearCamPositions.ContainsKey(key);
     }
 
+    /// <summary>
+    /// Set the camera position so it may move linearly.
+    /// </summary>
+    /// <param name="key"></param>
+    /// <param name="value"></param>
     public void SetLinearCamPosition(string key, Vector3 value) {
         if (!_linearCamPositions.ContainsKey(key)) {
             keys[_currentIndex] = key;
@@ -110,12 +151,24 @@ public class ScriptedCamera : ScriptableObject {
         }
     }
 
+    /// <summary>
+    /// Return the position as a Vector3 for a linearly set camera spot.
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public Vector3 GetLinearCamPosition(string key) {
-        if (_linearCamPositions.ContainsKey(key)) {
-            return _linearCamPositions[key];
-        }
-        else {
-            return Vector3.zero;
+
+        return _linearCamPositions.ContainsKey(key) ? _linearCamPositions[key] : Vector3.zero;
+    }
+
+    #endregion Public Methods
+
+    #region Private Methods
+    private void FindSmartCamera() {
+        // Get a reference to the main camera to be used with the rest of the script.
+        if (_camera == null) {
+            _camera = GameObject.FindGameObjectWithTag(StringConstantUtility.SMART_CAMERA_TAG);
         }
     }
+    #endregion Private Methods
 }

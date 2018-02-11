@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 /// <summary>
 /// NOTE: WHEN USING WORLDTOVIEWPORTPOINT, BOTTOM LEFT IS (0, 0) AND TOP RIGHT IS (1, 1)
@@ -7,48 +6,58 @@ using System.Collections;
 
 public class SmartCameraYPosition : MonoBehaviour {
 
+    #region Private Fields
     [SerializeField]
     private float _adjustSpeed;
 
     private GameObject _player;
     private Vector3 _currPlayerPos;
-
-    private bool _movingUp = false;
-    public bool MovingUp {
-        set { _movingUp = value; }
-    }
     private bool _adjusting = false;
     private bool _startYAdjustment = false;
-
     private float _startTime = 0.0f;
     private float _diff = 0.0f;
     private bool _timeSet = false;
-
     private float _movementTimer = 0.0f;
     private float _movementDelay = 0.5f;
 
+    #endregion Private Fields
+
+    #region Private Initializers
     private void OnEnable() {
         PlayerHealth.UpdateHealth += UponDeath;
 
-        _player = GameObject.FindGameObjectWithTag("Player");
+        _player = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG);
         _startTime = Time.time;
-
-        //_movingUp = Camera.main.WorldToViewportPoint(_player.transform.position).y <= 0.3f ? false : true;
     }
 
+    #endregion Private Initializers
+
+
+    #region Private Finalizers
     private void OnDisable() {
         PlayerHealth.UpdateHealth -= UponDeath;
     }
 
+    #endregion Private Finalizers
+
+    #region Properties
+    private bool _movingUp = false;
+    public bool MovingUp {
+        set { _movingUp = value; }
+    }
+
+    #endregion Properties
+
+    #region Private Methods
     private void LateUpdate() {
 
-        if (_player == null && GameObject.FindGameObjectWithTag("Player") != null) {
-            _player = GameObject.FindGameObjectWithTag("Player");
+        if (_player == null && GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG) != null) {
+            _player = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG);
             _movingUp = Camera.main.WorldToViewportPoint(_player.transform.position).y <= 0.3f ? false : true;
         }
 
         if (_player != null) {
-            if (Time.time - _movementTimer > _movementDelay) {
+            if (TimeTools.TimeExpired(ref _movementTimer)) {
                 // EACH FRAME, DETERMINE THE PLAYER'S POSITION ON THE SCREEN TO PROPERLY ADJUST THE CAMERA.
                 _currPlayerPos = Camera.main.WorldToViewportPoint(_player.transform.position);
 
@@ -126,7 +135,9 @@ public class SmartCameraYPosition : MonoBehaviour {
     private void UponDeath(int health) {
 
         if (health <= 0) {
-            _movementTimer = Time.time;
+            _movementTimer = _movementDelay;
         }
     }
+
+    #endregion Private Methods
 }

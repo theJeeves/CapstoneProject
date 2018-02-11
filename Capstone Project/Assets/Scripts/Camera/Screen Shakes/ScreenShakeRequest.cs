@@ -3,11 +3,11 @@
 [CreateAssetMenu(menuName ="Screen Shake/New Screen Shake Request")]
 public abstract class ScreenShakeRequest : ScriptableObject {
 
-    #region Fields
+    #region Protected Fields
     [SerializeField]
     protected float _shakeAmount = 0.0f;
 
-    #endregion Fields
+    #endregion Protected Fields
 
     #region Public Methods
     /// <summary>

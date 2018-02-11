@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class FocusCamera : MonoBehaviour {
 
+    #region Private Fields
     private ScriptedCamera _scriptedCam;
 
     [Header("Movement Type")]
@@ -29,12 +29,13 @@ public class FocusCamera : MonoBehaviour {
     private int length = 0;
     private float m_movementTime = 0.0f;
     private float m_defaultMovementTime = 0.5f;
-
     private Vector3 _camOrigin = Vector3.zero;
     private bool _originSet = false;
-
     private BoxCollider2D _collider;
 
+    #endregion Private Fields
+
+    #region Private Initializers
     private void OnEnable() {
         PlayerHealth.UpdateHealth += UponDeath;
         _collider = GetComponent<BoxCollider2D>();
@@ -42,19 +43,33 @@ public class FocusCamera : MonoBehaviour {
         _scriptedCam = Resources.Load<ScriptedCamera>("ScriptableObjects/SOScriptedCamHandler");
     }
 
+    #endregion Private Initializers
+
+    #region Private Finalizers
     private void OnDisable() {
         PlayerHealth.UpdateHealth -= UponDeath;
     }
 
+    #endregion Private Finalizers
+
     private void OnTriggerEnter2D(Collider2D otherGO) {
-        if (_collider.enabled && otherGO.tag == "Player") {
+
+        bool allowAction = _collider.enabled;
+        allowAction &= otherGO.tag == StringConstantUtility.PLAYER_TAG;
+
+        if (allowAction) {
             _scriptedCam.SetAdjustSpeed(_adjustDuration);
         }
     }
 
+    #region Private Methods
     private void OnTriggerStay2D(Collider2D otherGO) {
 
-        if (_collider.enabled && otherGO.tag == "Player" && TimeTools.TimeExpired(ref m_movementTime)) {
+        bool allowAction = _collider.enabled;
+        allowAction &= otherGO.tag == StringConstantUtility.PLAYER_TAG;
+        allowAction &= TimeTools.TimeExpired(ref m_movementTime);
+
+        if (allowAction) {
 
             playerPos = otherGO.transform.position;
             length = _triggerPoints.Length;
@@ -98,12 +113,12 @@ public class FocusCamera : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D otherGO) {
 
-        if (_collider.enabled && gameObject.GetComponent<FocusCamera>().enabled) {
+        bool allowAction = _collider.enabled;
+        allowAction &= gameObject.GetComponent<FocusCamera>().enabled;
+        allowAction &= otherGO.tag == StringConstantUtility.PLAYER_TAG;
 
-            if (otherGO.tag == "Player") {
-                _scriptedCam.Reset();
-                //_originSet = false;
-            }
+        if (allowAction) {
+             _scriptedCam.Reset();
         }
     }
 
@@ -116,10 +131,10 @@ public class FocusCamera : MonoBehaviour {
     private void SetCameraOrigin() {
 
         if (!_scriptedCam.LinearCamPositionSet(gameObject.name)) { 
-        //if (!_originSet) {
-            _scriptedCam.SetLinearCamPosition(gameObject.name, GameObject.FindGameObjectWithTag("SmartCamera").transform.position);
-            //_camOrigin = GameObject.FindGameObjectWithTag("SmartCamera").transform.position;
+            _scriptedCam.SetLinearCamPosition(gameObject.name, GameObject.FindGameObjectWithTag(StringConstantUtility.SMART_CAMERA_TAG).transform.position);
             _originSet = true;
         }
     }
+
+    #endregion Private Methods
 }

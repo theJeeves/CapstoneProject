@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class CameraShakeManager : MonoBehaviour {
 
-    #region Fields
+    #region Private Fields
     [SerializeField]
     private float _decreaseRate = 0.0f;
 
@@ -12,7 +12,7 @@ public class CameraShakeManager : MonoBehaviour {
     private int _key;
     private Vector3 _defaultPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
-    #endregion Fields
+    #endregion Private Fields
 
     #region Public Methods
     /// <summary>
@@ -27,8 +27,10 @@ public class CameraShakeManager : MonoBehaviour {
 
     #region Private Methods
     private void Update() {
+
+        // If _controller == null, the find the player game object.
         if (_controller == null) {
-            _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+            _controller = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<ControllableObject>();
         }
     }
 

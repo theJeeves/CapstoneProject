@@ -3,7 +3,7 @@ using System.Collections;
 
 public class ChomaticAberration : MonoBehaviour {
 
-    #region Fields
+    #region Private Fields
     [SerializeField]
     private float _effectIntensity = 0;
     [SerializeField]
@@ -12,7 +12,7 @@ public class ChomaticAberration : MonoBehaviour {
     private float m_startTime = 0.0f;
     private UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration _chroma;
 
-    #endregion Fields
+    #endregion Private Fields
 
     #region Private Initializers
     private void OnEnable() {

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class EnableDisableSmartCamera : MonoBehaviour {
 
+    #region Private Fields
     [SerializeField]
     private bool _oneTimeUse = false;
+
     [Space]
 
     [Header("Smart Camera X")]
@@ -28,24 +29,23 @@ public class EnableDisableSmartCamera : MonoBehaviour {
     [SerializeField]
     private bool _YDisableOnExit = false;
 
-    //[Space]
-    //[Header("Field Of View")]
-    //[SerializeField]
-    //private bool _FOVDisableOnEnter = false;
-    //[SerializeField]
-    //private bool _FOVEnableOnExit = false;
-
     private GameObject _camera;       // Reference to the main Camera
 
+    #endregion Private Fields
+
+
+    #region Private Initializers
     private void OnEnable() {
-        _camera = GameObject.FindGameObjectWithTag("SmartCamera");
+        _camera = GameObject.FindGameObjectWithTag(StringConstantUtility.SMART_CAMERA_TAG);
     }
 
+    #endregion Private Initializers
+
+    #region Private Methods
     private void OnTriggerEnter2D(Collider2D otherGO) {
 
-        if (otherGO.gameObject.tag == "Player") {
+        if (otherGO.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
             if (_XDisableOnEnter) {
-                //_camera.GetComponent<SmartCameraFOV>().enabled = false;
                 _camera.GetComponent<SmartCameraXPosition>().enabled = false;
             }
             else if (_XEnableOnEnter) {
@@ -58,18 +58,13 @@ public class EnableDisableSmartCamera : MonoBehaviour {
             else if (_YEnableOnEnter) {
                 _camera.GetComponent<SmartCameraYPosition>().enabled = true;
             }
-
-            //if (_FOVDisableOnEnter) {
-            //    _camera.GetComponent<SmartCameraFOV>().enabled = false;
-            //}
         }
     }
 
     private void OnTriggerExit2D(Collider2D otherGO) {
 
-        if (otherGO.gameObject.tag == "Player") {
+        if (otherGO.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
             if (_XEnableOnExit) {
-                //_camera.GetComponent<SmartCameraFOV>().enabled = true;
                 _camera.GetComponent<SmartCameraXPosition>().enabled = true;
             }
             else if (_XDisableOnExit) {
@@ -86,10 +81,8 @@ public class EnableDisableSmartCamera : MonoBehaviour {
             if (_oneTimeUse) {
                 GetComponent<BoxCollider2D>().enabled = false;
             }
-
-            //if (_FOVEnableOnExit) {
-            //    _camera.GetComponent<SmartCameraFOV>().enabled = true;
-            //}
         }
     }
+
+    #endregion Private Methods
 }

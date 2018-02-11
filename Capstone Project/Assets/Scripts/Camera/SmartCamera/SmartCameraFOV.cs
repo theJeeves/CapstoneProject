@@ -1,27 +1,45 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SmartCameraFOV : MonoBehaviour {
+
+    #region Private Fields
     [SerializeField]
     private float _adjustSpeed;
     [SerializeField]
     private float _targetZ = -100.0f;
-    private bool _adjust = true;
 
+    private bool _adjust = true;
     private Vector3 _currPosition = Vector3.zero;
     private float _curreVelocity;
-
     private float m_timeElapsed;
-
     private bool _decraseing;
     private bool _increasing;
 
+    #endregion Private Fields
+
+    #region Initializers
     private void OnEnable() {
         m_timeElapsed = 0.0f;
     }
-	
-	// Update is called once per frame
-	private void LateUpdate () {
+
+    #endregion Initializers
+
+    #region Public Methods
+    /// <summary>
+    /// Set the z-axis for the camera. Useful for zooming in and out.
+    /// </summary>
+    /// <param name="target"></param>
+    public void SetZCamera(float target) {
+        _adjust = true;
+        _targetZ = target;
+    }
+
+    #endregion Public Methods
+
+
+    #region Private Methods
+    // Update is called once per frame
+    private void LateUpdate () {
 
         if (_adjust) {
 
@@ -37,8 +55,5 @@ public class SmartCameraFOV : MonoBehaviour {
         }
     }
 
-    public void SetZCamera(float target) {
-        _adjust = true;
-        _targetZ = target;
-    }
+    #endregion Private Methods
 }
