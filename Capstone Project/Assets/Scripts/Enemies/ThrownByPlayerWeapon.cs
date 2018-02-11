@@ -1,8 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class ThrownByPlayerWeapon : MonoBehaviour {
 
+    #region Constants
+    private const float X_CONSTRAINTS = 1.0f;
+    private const float Y_CONSTRAINTS = 0.0f;
+    #endregion Constants
+
+    #region Private Fields
     [SerializeField]
     private float _xForce;
     [SerializeField]
@@ -10,17 +15,26 @@ public class ThrownByPlayerWeapon : MonoBehaviour {
 
     private Rigidbody2D _body2d;
 
+    #endregion Private Fields
+
+    #region Private Initializers
     private void Awake() {
         _body2d = GetComponent<Rigidbody2D>();
     }
 
+    #endregion Private Initializers
+
+    #region Private Methods
     private void PushThisGameObject(GameObject whatGotHit, Vector3 direction) {
 
-        if (whatGotHit == gameObject) {
-            if (direction.x == 1.0f && direction.y == 0.0f) {
-                Debug.Log(direction.x * _xForce);
-                _body2d.AddForce(new Vector2(_xForce * direction.x, _yForce * direction.x), ForceMode2D.Impulse);
-            }
+        bool allowAction = whatGotHit == gameObject;
+        allowAction &= direction.x == X_CONSTRAINTS;
+        allowAction &= direction.y == Y_CONSTRAINTS;
+
+        if (allowAction) {
+            _body2d.AddForce(new Vector2(_xForce * direction.x, _yForce * direction.x), ForceMode2D.Impulse);
         }
     }
+
+    #endregion Private Methods
 }

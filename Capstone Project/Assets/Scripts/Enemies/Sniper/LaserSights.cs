@@ -1,8 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class LaserSights : MonoBehaviour {
 
+    #region Constant Fields
+    private const float Y_OFFSET = 7.5f;
+    private const float LINE_RENDER_WIDTH = 2.5f;
+
+    #endregion Constant Fields
+
+    #region Private Fields
     [SerializeField]
     private SOEffects _SOEffectHandler;
     [SerializeField]
@@ -16,8 +22,10 @@ public class LaserSights : MonoBehaviour {
     private LineRenderer _renderer;
     private GameObject _laserEffect;
 
+    #endregion Private Fields
+
+    #region Private Initializers
     private void Awake() {
-        //_playerBox = GameObject.FindGameObjectWithTag("Player").GetComponent<PolygonCollider2D>();
         _renderer = GetComponent<LineRenderer>();
     }
 
@@ -25,17 +33,23 @@ public class LaserSights : MonoBehaviour {
         _laserEffect = _SOEffectHandler.PlayEffect(EffectEnums.SniperLaserEffect, _endOfBarrel.position);
     }
 
+    #endregion Private Initializers
+
+    #region Private Finalizers
     private void OnDisable() {
         _SOEffectHandler.StopEffect(_laserEffect);
     }
 
+    #endregion Private Finalizers
+
+    #region Private Methods
     private void Update() {
 
         if (_playerBox == null) {
-            _playerBox = GameObject.FindGameObjectWithTag("Player").GetComponent<BoxCollider2D>();
+            _playerBox = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<BoxCollider2D>();
         }
 
-        _playerPos = new Vector2(_playerBox.bounds.center.x, _playerBox.bounds.center.y + 7.5f);
+        _playerPos = new Vector2(_playerBox.bounds.center.x, _playerBox.bounds.center.y + Y_OFFSET);
 
         CheckCollisions();
 
@@ -53,8 +67,10 @@ public class LaserSights : MonoBehaviour {
         }
 
         //Set the width of the line renderer
-        _renderer.SetWidth(2.5f, 2.5f);
-        _renderer.SetColors(Color.red, Color.red);
+        _renderer.startWidth = LINE_RENDER_WIDTH;
+        _renderer.endWidth = LINE_RENDER_WIDTH;
+        _renderer.startColor = Color.red;
+        _renderer.endColor = Color.red;
     }
 
     private void CheckCollisions() {
@@ -64,7 +80,9 @@ public class LaserSights : MonoBehaviour {
             Vector3.Magnitude(_playerPos - _endOfBarrel.position), _whatToHit);
 
         if (hit.collider != null) {
-            _obstruction = hit.collider.gameObject.tag == "Player" ? new Vector2(0.0f, 0.0f) : hit.point;
+            _obstruction = hit.collider.gameObject.tag == StringConstantUtility.PLAYER_TAG ? Vector2.zero : hit.point;
         }
     }
+
+    #endregion Private Methods
 }

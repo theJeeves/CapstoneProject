@@ -3,16 +3,18 @@ using System.Collections;
 
 public class ChargerLockOn : MonoBehaviour {
 
-    public delegate void ChargerLockOnEvent(float time);
-    public delegate void ChargerLockOnEvent2();
-    public static event ChargerLockOnEvent RocketAnim;
+    #region Fields
 
+    #region Protected Fields
     [SerializeField]
     protected float _timer;
 
+    #endregion Protected Fields
+
+
+    #region Private Fields
     [SerializeField]
     private float _resetTimer;
-
     [SerializeField]
     private LayerMask _whatToHit;
     [SerializeField]
@@ -26,30 +28,47 @@ public class ChargerLockOn : MonoBehaviour {
     private RaycastHit2D _hit;
     private Transform _player;
     private Vector2 _direction;
-
     private ChargerAnimations _animationManager;
 
+    #endregion Private Fields
+
+    #endregion Fields
+
+    #region Private Initializers
     private void OnEnable() {
         _body2d = GetComponentInParent<Rigidbody2D>();
-        _player = GameObject.FindGameObjectWithTag("Player").transform;
+        _player = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).transform;
         _hit = Physics2D.Raycast(transform.position, _direction, _attackRange, _whatToHit);
         _animationManager = GetComponentInParent<ChargerAnimations>();
 
         StartCoroutine(LockOn());
     }
 
+    #endregion Private Initializers
+
+    #region Delegates
+    public delegate void ChargerLockOnEvent(float time);
+    public delegate void ChargerLockOnEvent2();
+
+    #endregion Delegates
+
+    #region Events
+    public static event ChargerLockOnEvent RocketAnim;
+
+    #endregion Events
+
+    #region Private Mehtods
     private IEnumerator LockOn() {
 
         while (true) {
 
-            if (_hit.collider != null && _hit.collider.tag == "Player") {
+            if (_hit.collider != null && _hit.collider.tag == StringConstantUtility.PLAYER_TAG) {
 
                 _animationManager.Play(3);
                 _body2d.velocity = Vector2.zero;
                 //Start the "tell" animation for this enemy.
-                if (RocketAnim != null) {
-                    RocketAnim(_timer);
-                }
+                RocketAnim?.Invoke(_timer);
+ 
                 yield return new WaitForSeconds(_timer);
 
                 // Charge toward the player.
@@ -80,13 +99,11 @@ public class ChargerLockOn : MonoBehaviour {
         _hit = new RaycastHit2D();
         _direction = (_player.position - transform.position).normalized;
 
-        float startTime = Time.time;
-
         yield return new WaitForSeconds(_resetTimer);
 
         _animationManager.Play(2);
         StartCoroutine(LockOn());
     }
 
-
+    #endregion Private Methods
 }

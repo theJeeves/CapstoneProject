@@ -1,49 +1,32 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class PlayerChargerInteraction : MonoBehaviour {
-    //private float _knockBack;
+
+    #region Private Fields
     private float _launchDistance;
     private Rigidbody2D _playerBody2d;
     private Rigidbody2D _chargerBody2d;
 
-    public delegate void PlayerKnockUpEvent();
-    public static event PlayerKnockUpEvent PlayerKnockedUp;
+    #endregion Private Fields
 
-    private void OnEnable()
+    #region Private Initializers
+    private void Start()
     {
-        //ChargerDealDamage.KnockUp += KnockUp;
-    }
-
-    private void OnDisable()
-    {
-        //ChargerDealDamage.KnockUp -= KnockUp;
-    }
-
-    void Start()
-    {
-        //_knockBack = 50.0f;
         _launchDistance = 20000.0f;
         _playerBody2d = GetComponent<Rigidbody2D>();
-        //_chargerBody2d = GameObject.Find("Charger").GetComponentInChildren<Rigidbody2D>();
 
-        if(PlayerKnockedUp != null)
-        {
-            PlayerKnockedUp();
-        }
+        PlayerKnockedUp?.Invoke();
     }
 
-    private void KnockUp()
-    {
-        //if (PlayerKnockedUp != null)
-        //{
+    #endregion Private Initializers
 
-        //Debug.Log("launch player");
-        _playerBody2d.AddForce(Vector2.up * _launchDistance, ForceMode2D.Impulse);
-        
+    #region Delegates
+    public delegate void PlayerKnockUpEvent();
 
-        //Debug.Log("Launced PLayer");
-        //}
-    }
+    #endregion Delegates
 
+    #region Events
+    public static event PlayerKnockUpEvent PlayerKnockedUp;
+
+    #endregion Events
 }
