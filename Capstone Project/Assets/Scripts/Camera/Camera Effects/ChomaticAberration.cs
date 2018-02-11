@@ -3,23 +3,33 @@ using System.Collections;
 
 public class ChomaticAberration : MonoBehaviour {
 
+    #region Fields
     [SerializeField]
     private float _effectIntensity = 0;
     [SerializeField]
     private float _effectDuration = 0.0f;
 
     private float m_startTime = 0.0f;
-
     private UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration _chroma;
 
+    #endregion Fields
+
+    #region Private Initializers
     private void OnEnable() {
         _chroma = GetComponent<UnityStandardAssets.ImageEffects.VignetteAndChromaticAberration>();
     }
 
+    #endregion Private Initializers
+
+    #region Public Methods
     public void PlayerDamaged(int ignore = 0) {
         StartCoroutine(PlayEffect());
     }
 
+    #endregion Public Methods
+
+
+    #region Private Methods
     private IEnumerator PlayEffect() {
 
         m_startTime = 0.0f;
@@ -31,4 +41,6 @@ public class ChomaticAberration : MonoBehaviour {
             yield return 0;
         }
     }
+
+    #endregion Private Methods
 }

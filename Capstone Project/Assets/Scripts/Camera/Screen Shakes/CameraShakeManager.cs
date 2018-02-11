@@ -1,22 +1,31 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class CameraShakeManager : MonoBehaviour {
 
+    #region Fields
     [SerializeField]
     private float _decreaseRate = 0.0f;
 
     private Queue<ScreenShakeRequest> _shakeQ = new Queue<ScreenShakeRequest>();
-
     private ControllableObject _controller;
     private int _key;
     private Vector3 _defaultPosition = new Vector3(0.0f, 0.0f, 0.0f);
 
-    private void OnEnable() {
-        //_controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+    #endregion Fields
+
+    #region Public Methods
+    /// <summary>
+    /// Enqueue a camera screen shake.
+    /// </summary>
+    /// <param name="request"></param>
+    public void Enqueue(ScreenShakeRequest request) {
+        _shakeQ.Enqueue(request);
     }
 
+    #endregion Public Methods
+
+    #region Private Methods
     private void Update() {
         if (_controller == null) {
             _controller = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
@@ -37,7 +46,5 @@ public class CameraShakeManager : MonoBehaviour {
         }
     }
 
-    public void Enqueue(ScreenShakeRequest request) {
-        _shakeQ.Enqueue(request);
-    }
+    #endregion Private Methods
 }

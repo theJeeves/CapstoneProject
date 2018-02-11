@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [CreateAssetMenu(menuName ="Screen Shake/Weapon")]
 public class WeaponSSRequest : ScreenShakeRequest {
 
+    #region Fields
     private Vector3[] _directions = new Vector3[8];     // All possible angles which can be used by the player
 
+    #endregion Fields
+
+    #region Private Initializers
     private void OnEnable() {
         // Define all the possible angles based.
         AssignDirections(0, 1.0f, 0.0f);
@@ -18,15 +21,31 @@ public class WeaponSSRequest : ScreenShakeRequest {
         AssignDirections(7, 0.7f, -0.7f);
     }
 
-    private void AssignDirections(int angle, float x, float y, float z = 0.0f) {
-        _directions[angle] = new Vector3(x, y, z);
-    }
+    #endregion Private Initializers
 
+    #region Public Methods
+    /// <summary>
+    /// Immediately have the camera perform a screen shake.
+    /// </summary>
+    /// <param name="key"></param>
+    /// <returns></returns>
     public override Vector3 Shake(int key) {
         return _directions[key] * _shakeAmount;
     }
 
+    /// <summary>
+    /// Request the camera perform a screen shake.
+    /// </summary>
     public override void ShakeRequest() {
         Camera.main.SendMessage("Enqueue", this);
     }
+
+    #endregion Public Methods
+
+    #region Private Methods
+    private void AssignDirections(int angle, float x, float y, float z = 0.0f) {
+        _directions[angle] = new Vector3(x, y, z);
+    }
+
+    #endregion Private Methods
 }
