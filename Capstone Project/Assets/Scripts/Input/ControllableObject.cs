@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 /// <summary>
@@ -127,23 +126,17 @@ public class ControllableObject : MonoBehaviour {
         // When the input has ceased
         if (buttonStates[button].IsPressed && !isPressed) {
             buttonStates[button].PressTime = 0.0f;
-            if (OnButtonUp != null) {
-                OnButtonUp(button);
-            }
+            OnButtonUp?.Invoke(button);
         }
         else if (buttonStates[button].IsPressed && isPressed) {
 
             // When the input has initially begun
             if (buttonStates[button].PressTime == 0.0f) {
-                if (OnButtonDown != null) {
-                    OnButtonDown(button);
-                }
+                OnButtonDown?.Invoke(button);
             }
             // When the input is continuous
             if (buttonStates[button].PressTime >= 0.0f) {
-                if (OnButton != null) {
-                    OnButton(button);
-                }
+                OnButton?.Invoke(button);
             }
             buttonStates[button].PressTime += Time.deltaTime;
         }

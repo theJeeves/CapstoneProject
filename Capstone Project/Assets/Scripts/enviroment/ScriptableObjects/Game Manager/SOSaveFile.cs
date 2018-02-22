@@ -1,12 +1,15 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [CreateAssetMenu(menuName ="SO Save File/New SO Save File")]
 public class SOSaveFile : ScriptableObject {
 
+    #region Private Fields
     [SerializeField]
     private Vector3[] _startingPositions;
 
+    #endregion Private Fields
+
+    #region Properties
     public int CurrentLevel {
        get { return PlayerPrefs.GetInt("currentLevel", 1); }
         set { PlayerPrefs.SetInt("currentLevel", value); }
@@ -152,6 +155,9 @@ public class SOSaveFile : ScriptableObject {
         set { PlayerPrefs.SetFloat("totalTimePlayed", value); }
     }
 
+    #endregion Properties
+
+    #region Public Methods
     public void NewGame() {
         PlayerPrefs.DeleteAll();
     }
@@ -205,4 +211,6 @@ public class SOSaveFile : ScriptableObject {
         CurrentLevel2Time = 0.0f;
         CurrentLevel3Time = 0.0f;
     }
+
+    #endregion Public Methods
 }

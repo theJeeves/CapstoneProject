@@ -1,17 +1,18 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class rotatingObject : MonoBehaviour {
+
+    #region Private Fields
     [SerializeField]
     private int _rotationSpeed;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    #endregion Private Fields
+
+    #region Private Methods
+    // Update is called once per frame
+    private void Update () {
         transform.Rotate(0, 0, _rotationSpeed * Time.deltaTime);
     }
+
+    #endregion Private Methods
 }

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class StartBattleRoom : MonoBehaviour {
 
+    #region Private Fields
     [SerializeField]
     private GameObject[] _doors;
     [SerializeField]
@@ -11,24 +11,35 @@ public class StartBattleRoom : MonoBehaviour {
     private GameObject[] _objectsToDisable;
     [SerializeField]
     private GameObject[] _enemies;
-
     [SerializeField]
     private bool _normalEnemies = false;
 
     private bool _set = false;
     private GameObject[] _swarm;
 
+    #endregion Private Fields
+
+    #region Private Initializers
     private void OnEnable() {
         SwarmPodSpawner.AllClear += OpenDoors;
     }
 
+    #endregion Private Initializers
+
+    #region Private Finalizers
     private void OnDisable() {
         SwarmPodSpawner.AllClear -= OpenDoors;
     }
 
+    #endregion Private Finalizers
+
+    #region Private Methods
     private void Update() {
 
-        if (_swarm != null && _swarm.Length > 0) {
+        bool allowAction = _swarm != null;
+        allowAction &= _swarm.Length > 0;
+
+        if (allowAction) {
 
             int counter = 0;
             for (int i = 0; i < _swarm.Length; ++i) {
@@ -65,7 +76,10 @@ public class StartBattleRoom : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D otherGO) {
 
-        if (otherGO.tag == "Player" && !_set) {
+        bool allowAction = otherGO.tag == StringConstantUtility.PLAYER_TAG;
+        allowAction &= _set == false;
+
+        if (allowAction) {
 
             for (int i = 0; i < _doors.Length; ++i) {
                 _doors[i].SetActive(true);
@@ -78,4 +92,6 @@ public class StartBattleRoom : MonoBehaviour {
 
         _swarm = enemies;
     }
+
+    #endregion Private Methods
 }

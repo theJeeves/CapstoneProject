@@ -1,11 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 using SpriterDotNetUnity;
 using System.Collections.Generic;
 using System.Linq;
 
 public class CheckpointBehavior : MonoBehaviour {
 
+    #region Fields
+
+    #region Public Fields
     [Header("Checkpoint Properties")]
     public int currentLevel = 0;
     public int ID = 0;
@@ -18,6 +20,10 @@ public class CheckpointBehavior : MonoBehaviour {
     public bool smartYEnabled;
 
     [Space]
+
+    #endregion Public Fields
+
+    #region Private Fields
     [Header("Tools")]
 
     [SerializeField]
@@ -29,10 +35,40 @@ public class CheckpointBehavior : MonoBehaviour {
     private UnityAnimator _animator;                // Refernce to the SpriterDotNetUnity animator to animate the checkpoint
     private bool _activated = false;                // Determines if the player has reached hit a given checkpoint
 
+    #endregion Private Fields
+
+    #endregion Fields
+
+    #region Private Initializers
     private void OnEnable() {
         _GM = GameManager.Instance.GetComponent<GameManager>();
     }
 
+    #endregion Private Initializers
+
+    #region Public Methods
+    // If the player has reached a new checkpoint, set the checkpoint to a checked state and record their position.
+    // Also, record which checkpoint the player has just reached.
+    public void Activate() {
+        _activated = true;
+
+        if (_animator != null) {
+            _animator.Play(GetAnimation(1));
+            _GM.SOSaveHandler.CheckpointPosition = _respawnPoint.position;
+            _GM.SOSaveHandler.CheckpointID = ID;
+            _GM.SOSaveHandler.CurrentLevel = currentLevel;
+
+            if (currentLevel == 1 && ID >= 7) {
+                _GM.SOSaveHandler.JouleEnabled = 1;
+            }
+
+            GetComponent<AudioSource>().Play();
+        }
+    }
+
+    #endregion Public Methods
+
+    #region Private Methods
     private void Update() {
         // Keep looking for the animator component unit it is found.
         if (_animator == null) {
@@ -43,7 +79,10 @@ public class CheckpointBehavior : MonoBehaviour {
         }
 
         // If a player has reached a new checkpoint, reset the old checkpoint to a ready state (not a checked state)
-        if (_activated && _GM.SOSaveHandler.CheckpointID != ID) {
+        bool allowAction = _activated;
+        allowAction &= _GM.SOSaveHandler.CheckpointID != ID;
+
+        if (allowAction) {
             _activated = false;
             _animator.Play(GetAnimation(-1));
         }
@@ -51,7 +90,10 @@ public class CheckpointBehavior : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D otherGo) {
 
-        if (!_activated && otherGo.gameObject.tag == "Player") {
+        bool allowAction = _activated == false;
+        allowAction &= otherGo.gameObject.tag == StringConstantUtility.PLAYER_TAG;
+
+        if (allowAction) {
             Activate();
         }
     }
@@ -74,22 +116,5 @@ public class CheckpointBehavior : MonoBehaviour {
         return "error";
     }
 
-    // If the player has reached a new checkpoint, set the checkpoint to a checked state and record their position.
-    // Also, record which checkpoint the player has just reached.
-    public void Activate() {
-        _activated = true;
-
-        if (_animator != null) {
-            _animator.Play(GetAnimation(1));
-            _GM.SOSaveHandler.CheckpointPosition = _respawnPoint.position;
-            _GM.SOSaveHandler.CheckpointID = ID;
-            _GM.SOSaveHandler.CurrentLevel = currentLevel;
-
-            if (currentLevel == 1 && ID >= 7) {
-                _GM.SOSaveHandler.JouleEnabled = 1;
-            }
-            
-            GetComponent<AudioSource>().Play();
-        }
-    }
+    #endregion Private Methods
 }

@@ -7,6 +7,8 @@
     public const string SMART_CAMERA_TAG = "SmartCamera";
     public const string ENEMY_TAG = "Enemy";
     public const string SOLID_GROUND_TAG = "SolidGround";
+    public const string MAIN_CHARACTER_PATH = "MainCharacter/";
+    public const string EFFECTS_PATH = "Effects/";
 
     #endregion Constant Fields
 }
