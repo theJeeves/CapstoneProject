@@ -92,7 +92,7 @@ public class MachineGun : AbstractGun {
         }
     }
 
-    private void OnPlayerActionButtonPress(Buttons button) {
+    private void OnPlayerActionButtonPress(object sender, Buttons button) {
 
         if (button == Buttons.Shoot && numOfRounds > 0) {
 
@@ -191,7 +191,7 @@ public class MachineGun : AbstractGun {
         }
     }
 
-    private void ManualReload(Buttons button) {
+    private void ManualReload(object sender, Buttons button) {
 
         if (button == Buttons.Reload && !_reloading && numOfRounds < _ammoCapacity && _grounded) {
             _grounded = true;

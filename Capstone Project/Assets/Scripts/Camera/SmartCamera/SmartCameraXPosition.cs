@@ -120,7 +120,7 @@ public class SmartCameraXPosition : MonoBehaviour {
         }
     }
 
-    private void UponDeath(int health) {
+    private void UponDeath(object sender, int health) {
 
         if (health <= 0) {
             _movementTimer = _movementDelay;

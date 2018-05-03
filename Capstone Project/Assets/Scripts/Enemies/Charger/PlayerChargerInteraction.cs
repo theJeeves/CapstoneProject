@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class PlayerChargerInteraction : MonoBehaviour {
 
@@ -15,18 +16,13 @@ public class PlayerChargerInteraction : MonoBehaviour {
         _launchDistance = 20000.0f;
         _playerBody2d = GetComponent<Rigidbody2D>();
 
-        PlayerKnockedUp?.Invoke();
+        PlayerKnockedUp?.Invoke(this, null);
     }
 
     #endregion Private Initializers
 
-    #region Delegates
-    public delegate void PlayerKnockUpEvent();
-
-    #endregion Delegates
-
     #region Events
-    public static event PlayerKnockUpEvent PlayerKnockedUp;
+    public static event EventHandler PlayerKnockedUp;
 
     #endregion Events
 }

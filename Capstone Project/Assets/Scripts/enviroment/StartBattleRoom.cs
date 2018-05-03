@@ -37,7 +37,7 @@ public class StartBattleRoom : MonoBehaviour {
     private void Update() {
 
         bool allowAction = _swarm != null;
-        allowAction &= _swarm.Length > 0;
+        allowAction &= _swarm?.Length > 0;
 
         if (allowAction) {
 
@@ -88,7 +88,7 @@ public class StartBattleRoom : MonoBehaviour {
         }
     }
 
-    private void OpenDoors(GameObject[] enemies) {
+    private void OpenDoors(object sender, GameObject[] enemies) {
 
         _swarm = enemies;
     }

@@ -51,7 +51,7 @@ public class WeaponSelect : MonoBehaviour {
 
     // Only perform the weapon swap one per button press.
     // Do not continually swap between weapons if the player holds the button down.
-    private void OnButtonDown(Buttons button) {
+    private void OnButtonDown(object sender, Buttons button) {
         
         if (button == Buttons.WeaponSwap) {
 
@@ -80,7 +80,7 @@ public class WeaponSelect : MonoBehaviour {
         _machineGunAmmo.enabled = true;
     }
 
-    private void ShowHideIcon(int health) {
+    private void ShowHideIcon(object sender, int health) {
         if (health > 0) {
             if (_shotgun.isActiveAndEnabled && _MGAvailable) {
                 _shotgunAmmo.enabled = true;

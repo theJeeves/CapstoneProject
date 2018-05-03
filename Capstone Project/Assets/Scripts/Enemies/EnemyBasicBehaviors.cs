@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// WHEN TALKING ABOUT THE EFFECTS THE THREE DIFFERNT TYPES OF SWARMERS WILL HAVE,
@@ -64,7 +65,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
     private void OnEnable() {
 
         if (enemyType == EnemyType.AcidSwarmer) {
-            m_effectDelay = Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
+            m_effectDelay = UnityEngine.Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
         }
         else if (enemyType == EnemyType.ExplodingSwamer) {
             _effect = _SOEffectHandler.PlayEffect(EffectEnums.SwarmerExplosiveEffect, transform.position);
@@ -93,13 +94,8 @@ public class EnemyBasicBehaviors : MonoBehaviour {
 
     #endregion Private Finalizers
 
-    #region Delegates
-    public delegate void EnemyBasicBehaviorEvent(EnemyType type);
-
-    #endregion Delegates
-
     #region Events
-    public static event EnemyBasicBehaviorEvent OnDeath;
+    public static event EventHandler<EnemyType> EnemyDeath;
 
     #endregion Events
 
@@ -138,7 +134,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
                     break;
             }
 
-            OnDeath?.Invoke(enemyType);
+            EnemyDeath?.Invoke(this, enemyType);
             DeployBodyParts();
             Destroy(gameObject);
         }
@@ -158,7 +154,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidSquirt, _effectPositions[1].position, transform.eulerAngles.z + Z_ANGLE_OFFSET);
 
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidBall, _effectPositions[1].position);
-                m_effectDelay = Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
+                m_effectDelay = UnityEngine.Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
             }
         }
 
@@ -172,7 +168,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidSquirt, _effectPositions[2].position, transform.eulerAngles.z + Z_ANGLE_OFFSET);
 
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidBall, _effectPositions[2].position);
-                m_effectDelay = Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
+                m_effectDelay = UnityEngine.Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
             }
 
         }
@@ -201,8 +197,8 @@ public class EnemyBasicBehaviors : MonoBehaviour {
 
         for (int i = 0; i < _SOBodyParts.bodyParts.Length; ++i) {
             GameObject instance = Instantiate(_SOBodyParts.bodyParts[i], transform.position, Quaternion.identity) as GameObject;
-            instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(MIN_X_BODY_PARTS, MAX_X_BODY_PARTS), Random.Range(MIN_Y_BODY_PARTS, MAX_Y_BODY_PARTS)), ForceMode2D.Impulse);
-            instance.GetComponent<Rigidbody2D>().AddTorque(Random.Range(MIN_TORQUE, MAX_TORQUE));
+            instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(UnityEngine.Random.Range(MIN_X_BODY_PARTS, MAX_X_BODY_PARTS), UnityEngine.Random.Range(MIN_Y_BODY_PARTS, MAX_Y_BODY_PARTS)), ForceMode2D.Impulse);
+            instance.GetComponent<Rigidbody2D>().AddTorque(UnityEngine.Random.Range(MIN_TORQUE, MAX_TORQUE));
         }
     }
 

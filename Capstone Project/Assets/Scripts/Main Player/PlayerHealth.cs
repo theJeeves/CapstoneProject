@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+using System;
 
 public enum DamageEnum {
     None,
@@ -10,11 +10,6 @@ public enum DamageEnum {
 }
 
 public class PlayerHealth : MonoBehaviour {
-
-    public delegate void PlayerHealthEvent(int _health);
-    public delegate void PlayerHealthEvent1();
-    public static event PlayerHealthEvent UpdateHealth;
-    public static event PlayerHealthEvent1 OnPlayerDeath;
 
     [Header("Health Variables")]
     [SerializeField]
@@ -80,109 +75,15 @@ public class PlayerHealth : MonoBehaviour {
     void Start() {
         _health = _maxHealth;
 
-        if (UpdateHealth != null) {
-            UpdateHealth(_health);
-        }
+        UpdateHealth?.Invoke(this, _health);
     }
 
-    private void Update() {
+    #region Events
+    public static event EventHandler<int> UpdateHealth;
+    public static event EventHandler OnPlayerDeath;
+    #endregion Events
 
-        if (_entity == null) {
-            _entity = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>().ChildData;
-        }
-
-        // if the player dies, stop any velocity the player had, place them at the last checkpoint, and reset their health to 100%.
-        if (_health <= 0) {
-
-            if (!_deathAnimationPlayed) {
-
-                if (_inputManager == null) { _inputManager = InputManager.Instance.GetComponent<InputManager>(); }
-                _inputManager.StopInput();
-
-                GetComponent<BoxCollider2D>().enabled = false;
-                GetComponent<PolygonCollider2D>().enabled = false;
-
-                _playerBody.SetActive(false);
-
-                if (!_collisionState.OnSolidGround) {
-                    _SOEffectHandler.PlayEffect(EffectEnums.Player_Death00, transform.position);
-                }
-                else {
-                    _SOEffectHandler.PlayEffect(EffectEnums.Player_Death01, transform.position);
-                }
-                _deathAnimationPlayed = true;
-                DeployBodyParts();
-                _timer = Time.time;
-                if (OnPlayerDeath != null) { OnPlayerDeath(); }     // This tells the save file to add to the number of deaths.
-            }
-
-            GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
-            GetComponent<Rigidbody2D>().gravityScale = 0.0f;
-            GetComponent<PlayerMovementManager>().ClearQueue();
-
-            StartCoroutine(ReloadLevelDelay());
-
-            //if (Time.time - _timer > 1.0f) {
-
-            //    transform.position = _GM.SOSaveHandler.CheckpointPosition;
-            //    GetComponent<PlayerMovementManager>().ClearQueue();
-
-            //    if (Camera.main.WorldToViewportPoint(_GM.SOSaveHandler.CheckpointPosition).x > 0.1f &&
-            //        Camera.main.WorldToViewportPoint(_GM.SOSaveHandler.CheckpointPosition).x < 0.9f) {
-
-            //        // Delay the player from any input for 1.5 seconds to ensure they do not immediate fly to their death
-            //        // Call the respawn effect and restore all the default values for the player.
-            //        _inputManager.PauseInput(1.25f);
-            //        GetComponent<Rigidbody2D>().gravityScale = 40.0f;
-            //        _SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, _GM.SOSaveHandler.CheckpointPosition);
-            //        _SOWeaponManager.Reload();
-            //        _health = _maxHealth;
-            //        _playerBody.SetActive(true);
-            //        UpdateHealth(_health);
-            //        _deathAnimationPlayed = false;
-            //    }
-            //}
-        }
-
-        if (_killPlayerCalled) {
-            KillPlayer();
-        }
-
-        if (_effect != null) {
-
-            // If an effect is playing and then the player dies, stop the effect at once.
-            if (_health < 0) {
-                _duration = 0.0f;
-                _SOEffectHandler.StopEffect(_effect);
-
-                foreach (GameObject sprite in _entity.Sprites) {
-                    //Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
-                    sprite.GetComponent<SpriteRenderer>().color = Color.white;
-                }
-            }
-            // if there is any type of effect associated with the player, ensure it is following them with a slight offset.
-            _effect.transform.position = transform.position + new Vector3(0.0f, 25.0f, 0.0f);
-        }
-
-        // If an enemy has damaged the player and their is an effect to be played,
-        // keep calling the damage and effect to do damage over time.
-        if (_duration != 0.0f) {
-            if (Time.time - _timer < _duration) {
-
-                if (_damageType == DamageEnum.Acid && _canTakeDamage) {
-                    _scrnShkRequest.ShakeRequest();
-                    StartCoroutine(RecoveryDelay());
-                }
-
-                ReturnToNormalColor();
-            }
-            else {
-                _duration = 0.0f;
-                _SOEffectHandler.StopEffect(_effect);
-            }
-        }
-    }
-
+    #region Public Methods
     public void KillPlayer() {
 
         _killPlayerCalled = true;
@@ -203,7 +104,9 @@ public class PlayerHealth : MonoBehaviour {
             _deathAnimationPlayed = true;
             DeployBodyParts();
             _timer = Time.time;
-            if (OnPlayerDeath != null) { OnPlayerDeath(); }     // This tells the save file to add to the number of deaths.
+
+            // This tells the save file to add to the number of deaths.
+            OnPlayerDeath?.Invoke(this, null);
         }
 
         GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
@@ -246,8 +149,7 @@ public class PlayerHealth : MonoBehaviour {
     /// Each one will damage the player and, if applicable, call the SOEffectHandler to play the appropriate effect.
     /// </summary>
     public void DecrementPlayerHealth(int damage, float duration = 0.0f, DamageEnum damageType = DamageEnum.None) {
-        if (damageType != DamageEnum.LaserContinuous)
-        {
+        if (damageType != DamageEnum.LaserContinuous) {
             // Tell the input manager to stop taking in input for 0.5 seconds
             // To ensure there are no conflicting movement requests, clear the player movement queue of all requests.
             if (_inputManager == null) { _inputManager = InputManager.Instance.GetComponent<InputManager>(); }
@@ -285,8 +187,88 @@ public class PlayerHealth : MonoBehaviour {
         }
 
         // UPDATE HEALTH UI
-        if (UpdateHealth != null) {
-            UpdateHealth(_health);
+        UpdateHealth?.Invoke(this, _health);
+    }
+    #endregion Public Methods
+
+    #region Private Methods
+    private void Update() {
+
+        if (_entity == null) {
+            _entity = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>().ChildData;
+        }
+
+        // if the player dies, stop any velocity the player had, place them at the last checkpoint, and reset their health to 100%.
+        if (_health <= 0) {
+
+            if (!_deathAnimationPlayed) {
+
+                if (_inputManager == null) { _inputManager = InputManager.Instance.GetComponent<InputManager>(); }
+                _inputManager.StopInput();
+
+                GetComponent<BoxCollider2D>().enabled = false;
+                GetComponent<PolygonCollider2D>().enabled = false;
+
+                _playerBody.SetActive(false);
+
+                if (!_collisionState.OnSolidGround) {
+                    _SOEffectHandler.PlayEffect(EffectEnums.Player_Death00, transform.position);
+                }
+                else {
+                    _SOEffectHandler.PlayEffect(EffectEnums.Player_Death01, transform.position);
+                }
+                _deathAnimationPlayed = true;
+                DeployBodyParts();
+                _timer = Time.time;
+
+                // This tells the save file to add to the number of deaths.
+                OnPlayerDeath?.Invoke(this, null);
+            }
+
+            GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
+            GetComponent<Rigidbody2D>().gravityScale = 0.0f;
+            GetComponent<PlayerMovementManager>().ClearQueue();
+
+            StartCoroutine(ReloadLevelDelay());
+
+        }
+
+        if (_killPlayerCalled) {
+            KillPlayer();
+        }
+
+        if (_effect != null) {
+
+            // If an effect is playing and then the player dies, stop the effect at once.
+            if (_health < 0) {
+                _duration = 0.0f;
+                _SOEffectHandler.StopEffect(_effect);
+
+                foreach (GameObject sprite in _entity.Sprites) {
+                    //Color spriteColor = sprite.GetComponent<SpriteRenderer>().color;
+                    sprite.GetComponent<SpriteRenderer>().color = Color.white;
+                }
+            }
+            // if there is any type of effect associated with the player, ensure it is following them with a slight offset.
+            _effect.transform.position = transform.position + new Vector3(0.0f, 25.0f, 0.0f);
+        }
+
+        // If an enemy has damaged the player and their is an effect to be played,
+        // keep calling the damage and effect to do damage over time.
+        if (_duration != 0.0f) {
+            if (Time.time - _timer < _duration) {
+
+                if (_damageType == DamageEnum.Acid && _canTakeDamage) {
+                    _scrnShkRequest.ShakeRequest();
+                    StartCoroutine(RecoveryDelay());
+                }
+
+                ReturnToNormalColor();
+            }
+            else {
+                _duration = 0.0f;
+                _SOEffectHandler.StopEffect(_effect);
+            }
         }
     }
 
@@ -337,8 +319,10 @@ public class PlayerHealth : MonoBehaviour {
 
         foreach(GameObject bodyPart in _bodyParts) {
             GameObject instance = Instantiate(bodyPart, transform.position, Quaternion.identity) as GameObject;
-            instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-75.0f, 75.0f), Random.Range(200.0f, 400.0f)), ForceMode2D.Impulse );
-            instance.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-500.0f, 500.0f));
+            instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(UnityEngine.Random.Range(-75.0f, 75.0f), UnityEngine.Random.Range(200.0f, 400.0f)), ForceMode2D.Impulse );
+            instance.GetComponent<Rigidbody2D>().AddTorque(UnityEngine.Random.Range(-500.0f, 500.0f));
         }
     }
+
+    #endregion Private Methods
 }

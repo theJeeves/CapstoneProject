@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 /*
  * This class will act as the base class for all weapons in the game.
@@ -75,5 +74,5 @@ public abstract class AbstractGun : MonoBehaviour {
         _collisionState = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerCollisionState>();
     }
 
-    protected virtual void OnButtonDown(Buttons button) { }
+    protected virtual void OnButtonDown(object sender, Buttons button) { }
 }

@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 public class DisplayHealth : MonoBehaviour {
@@ -20,7 +19,7 @@ public class DisplayHealth : MonoBehaviour {
         PlayerHealth.UpdateHealth -= UpdateText;
     }
 
-    private void UpdateText(int num) {
+    private void UpdateText(object sender, int num) {
 
         _healthText.text = string.Format("{0}", num);
 

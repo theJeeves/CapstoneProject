@@ -1,11 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class PlayerActions : MonoBehaviour {
 
-    public delegate void PlayerActionEvent(Buttons button);
-    public static event PlayerActionEvent ButtonPressed;
-    public static event PlayerActionEvent ButtonHeld;
+    //public delegate void PlayerActionEvent(Buttons button);
+    //public static event PlayerActionEvent ButtonPressed;
+    //public static event PlayerActionEvent ButtonHeld;
+    public static event EventHandler<Buttons> ButtonPressed;
+    public static event EventHandler<Buttons> ButtonHeld;
     
     [Header("Walking")]
     [SerializeField]
@@ -46,7 +49,7 @@ public class PlayerActions : MonoBehaviour {
         }
     }
 
-    private void OnButton(Buttons button) {
+    private void OnButton(object sender, Buttons button) {
 
         /*
          * PLAYER WALKING
@@ -156,25 +159,18 @@ public class PlayerActions : MonoBehaviour {
         else if (button == Buttons.Shoot && (_controller.GetButtonPress(Buttons.AimDown) || _controller.GetButtonPress(Buttons.AimUp) ||
             _controller.GetButtonPress(Buttons.AimLeft) || _controller.GetButtonPress(Buttons.AimRight)) ) {
 
-            if (ButtonHeld != null) { ButtonHeld(Buttons.Shoot); }
+            ButtonHeld?.Invoke(this, Buttons.Shoot);
         }
     }
 
 
     // THIS IS PRIMARILY FOR THE SHOTGUN SINCE WE DO NOT WANT THE GUN SHOOTING THE ENTIRE CLIP IF THE BUTTON IS HELD DOWN
-    private void OnButtonDown(Buttons button) {
+    private void OnButtonDown(object sender, Buttons button) {
 
         // THIS STATEMENT IS TO MITIGATE A SMALL DELAY BETWEEN WHEN THE PLAYER SHOOTS AND THE CHARACTER MOVING INTO A AIMING POSITION
         // WITHOUT THE PLAYER ACTUALLY AIMING.
         if (button == Buttons.Shoot && !_controller.GetButtonPress(Buttons.AimDown) && !_controller.GetButtonPress(Buttons.AimUp) &&
             !_controller.GetButtonPress(Buttons.AimLeft) && !_controller.GetButtonPress(Buttons.AimRight)) {
-
-            //if (_controller.FacingDirection == Facing.Right) {
-            //    _controller.SetButtonPressed(Buttons.AimRight);
-            //}
-            //else if (_controller.FacingDirection == Facing.Left) {
-            //    _controller.SetButtonPressed(Buttons.AimLeft);
-            //}
 
             StartCoroutine(JouleDelay());
         }
@@ -182,18 +178,18 @@ public class PlayerActions : MonoBehaviour {
         else if (button == Buttons.Shoot && (_controller.GetButtonPress(Buttons.AimDown) || _controller.GetButtonPress(Buttons.AimUp) ||
             _controller.GetButtonPress(Buttons.AimLeft) || _controller.GetButtonPress(Buttons.AimRight))) {
 
-            if (ButtonPressed != null) { ButtonPressed(Buttons.Shoot); }
+            ButtonPressed?.Invoke(this, Buttons.Shoot);
         }
     }
 
     // EXTREMELY SMALL DELAY SO IT LOOKS INSTANT
     private IEnumerator PersuaderDelay() {
         yield return new WaitForSeconds(0.01f);
-        if (ButtonHeld != null) { ButtonHeld(Buttons.Shoot); }
+        ButtonHeld?.Invoke(this, Buttons.Shoot);
     }
 
     private IEnumerator JouleDelay() {
         yield return new WaitForSeconds(0.01f);
-        if (ButtonPressed != null) { ButtonPressed(Buttons.Shoot); }
+       ButtonPressed?.Invoke(this, Buttons.Shoot);
     }
 }

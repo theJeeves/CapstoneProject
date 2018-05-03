@@ -122,7 +122,7 @@ public class FocusCamera : MonoBehaviour {
         }
     }
 
-    private void UponDeath(int health) {
+    private void UponDeath(object sender, int health) {
         if (health <= 0) {
             m_movementTime = m_defaultMovementTime;
         }

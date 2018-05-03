@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class SwarmPodSpawner : MonoBehaviour {
 
@@ -62,13 +63,8 @@ public class SwarmPodSpawner : MonoBehaviour {
 
     #endregion Private Initializers
 
-    #region Delegates
-    public delegate void SwarmPodEvent(GameObject[] enemies);
-
-    #endregion Delegates
-
     #region Events
-    public static event SwarmPodEvent AllClear;
+    public static event EventHandler<GameObject[]> AllClear;
 
     #endregion Events
 
@@ -91,12 +87,12 @@ public class SwarmPodSpawner : MonoBehaviour {
     public void SpawnSwarm() {
 
         // Destroy the pod object
-        AllClear?.Invoke(_swarm);
+        AllClear?.Invoke(this, _swarm);
         Destroy(gameObject);
 
         // Instantiate as many swarmers as the developer has requested in the inspector.
         for (int i = 0; i < sizeOfSwarm; ++i) {
-            _swarm[i] = Instantiate(_swarmPrefab[Random.Range(0, _swarmPrefab.Length)], transform.position, Quaternion.identity) as GameObject;
+            _swarm[i] = Instantiate(_swarmPrefab[UnityEngine.Random.Range(0, _swarmPrefab.Length)], transform.position, Quaternion.identity) as GameObject;
         }
     }
 

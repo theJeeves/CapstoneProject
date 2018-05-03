@@ -67,7 +67,7 @@ public class Shotgun : AbstractGun {
         StopAllCoroutines();
     }
 
-    private void OnPlayerActionButtonPress(Buttons button) {
+    private void OnPlayerActionButtonPress(object sender, Buttons button) {
         if (button == Buttons.Shoot && numOfRounds > 0 && _canShoot) {
 
             StartCoroutine(ShotDelay());
@@ -81,7 +81,7 @@ public class Shotgun : AbstractGun {
         }
     }
 
-    protected override void OnButtonDown(Buttons button) {
+    protected override void OnButtonDown(object sender, Buttons button) {
         if (button == Buttons.Reload) { ManualReload(); }
     }
 

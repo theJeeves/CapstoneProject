@@ -31,7 +31,7 @@ public class DisplayAmmo : MonoBehaviour {
         }
     }
 
-    private void ShowHideText(int health) {
+    private void ShowHideText(object sender, int health) {
         if (health > 0) {
             _ammoText.enabled = true;
         }

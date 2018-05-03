@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
+using System;
 
 public class GameManager : Singleton<GameManager> {
 
@@ -52,7 +53,7 @@ public class GameManager : Singleton<GameManager> {
         MachineGun.ShotFired += OnMachineGunFired;
 
         // Enemy Death Events
-        EnemyBasicBehaviors.OnDeath += OnEnemyDeath;
+        EnemyBasicBehaviors.EnemyDeath += OnEnemyDeath;
 
         // stats events
         StatsWindow.OnResetStats += ResetStats;
@@ -89,7 +90,7 @@ public class GameManager : Singleton<GameManager> {
         MachineGun.ShotFired -= OnMachineGunFired;
 
         // Enemy Death Events
-        EnemyBasicBehaviors.OnDeath -= OnEnemyDeath;
+        EnemyBasicBehaviors.EnemyDeath -= OnEnemyDeath;
 
         // stats events
         StatsWindow.OnResetStats -= ResetStats;
@@ -198,7 +199,7 @@ public class GameManager : Singleton<GameManager> {
     // Player Death Event
     //
     // Add to the counter for every time the player dies
-    private void OnPlayerDeath() {
+    private void OnPlayerDeath(object sender, EventArgs eventArgs) {
         SOSaveHandler.CurrentDeathCount += 1;
         SOSaveHandler.DeathCount += 1;
     }
@@ -220,7 +221,7 @@ public class GameManager : Singleton<GameManager> {
     // Enemy Death Events
     //
     // Add to the counter for every kill the player makes
-    private void OnEnemyDeath(EnemyType type) {
+    private void OnEnemyDeath(object sender, EnemyType type) {
         switch (type) {
             case EnemyType.AcidSwarmer:
                 SOSaveHandler.AcidVectorsKilled += 1; break;

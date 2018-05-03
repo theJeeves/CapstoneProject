@@ -10,11 +10,6 @@ public abstract class LockOntoPlayer : MonoBehaviour {
 
     #endregion Protected Initializers
 
-    #region Delegates
-    public delegate void LockOntoPlayerEvent();
-
-    #endregion Delegates
-
     #region Protected Methods
     protected virtual IEnumerator LockOn() {
         yield return 0;
