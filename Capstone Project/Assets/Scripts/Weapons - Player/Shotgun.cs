@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System.Collections.Generic;
+using System;
 
 /*
  * Weapon based on the AbstractGun class which gives the player a "jump" like ability.
@@ -8,30 +8,22 @@ using System.Collections.Generic;
 
 public class Shotgun : AbstractGun {
 
-    // This is put into the shotgun script so the shotgun screen shake script
-    // knows which weapon called this event.
-    //public static event AbstractGunEvent2 Fire;
-    public static event AbstractGunEvent2 EmptyClip;
-    public static event AbstractGunEvent3 StartReloadAnimation;
-    public static event AbstractGunEvent UpdateNumOfRounds;
-    public static event AbstractGunEvent2 DisplayAmmo;
-    public static event AbstractGunEvent2 ShotFired;
-
+    #region Initializers
     protected override void Awake() {
         base.Awake();
 
         _weaponManager.SetAmmoCapacity(_type, _ammoCapacity);
 
         numOfRounds = _weaponManager.GetNumOfRounds(_type);
-        if (numOfRounds > 0 && DisplayAmmo != null) {
-            DisplayAmmo();
+        if (numOfRounds > 0) {
+            DisplayAmmo?.Invoke(this, null);
         }
     }
 
     private void OnEnable() {
         ControllableObject.OnButtonDown += OnButtonDown;
         PlayerActions.ButtonPressed += OnPlayerActionButtonPress;
-        PlayerCollisionState.OnHitGround += Reload;
+        PlayerCollisionState.HitGround += Reload;
 
         GetComponent<AudioSource>().clip = _audioClip;
         GetComponent<AudioSource>().Play();
@@ -41,7 +33,7 @@ public class Shotgun : AbstractGun {
 
         if (_weaponManager.reloaded) {
             numOfRounds = _ammoCapacity;
-            DisplayAmmo();
+            DisplayAmmo?.Invoke(this, null);
             _weaponManager.reloaded = false;
         }
         else if (numOfRounds <= 0) {
@@ -52,21 +44,42 @@ public class Shotgun : AbstractGun {
             _canShoot = true;
         }
 
-        if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(numOfRounds);
-        }
+        UpdateNumOfRounds?.Invoke(this, numOfRounds);
     }
 
+    #endregion Initializers
+
+    #region Finalizers
     private void OnDisable() {
         ControllableObject.OnButtonDown -= OnButtonDown;
         PlayerActions.ButtonPressed -= OnPlayerActionButtonPress;
-        PlayerCollisionState.OnHitGround -= Reload;
+        PlayerCollisionState.HitGround -= Reload;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
 
         StopAllCoroutines();
     }
 
+    #endregion Finalizers
+
+    #region Events
+    public static event EventHandler EmptyClip;
+    public static event EventHandler<float> StartReloadAnimation;
+    public static event EventHandler<int> UpdateNumOfRounds;
+    public static event EventHandler DisplayAmmo;
+    public static event EventHandler ShotFired;
+
+    #endregion Events
+
+    #region Protected Methods
+    protected override void OnButtonDown(object sender, Buttons button)
+    {
+        if (button == Buttons.Reload) { ManualReload(); }
+    }
+
+    #endregion Protected Methods
+
+    #region Private Methods
     private void OnPlayerActionButtonPress(object sender, Buttons button) {
         if (button == Buttons.Shoot && numOfRounds > 0 && _canShoot) {
 
@@ -75,18 +88,19 @@ public class Shotgun : AbstractGun {
             _moveRequest.RequestMovement();
             _SSRequest.ShakeRequest();
 
-            if (UpdateNumOfRounds != null) {
-                UpdateNumOfRounds(numOfRounds);
-            }
+            UpdateNumOfRounds?.Invoke(this, numOfRounds);
         }
     }
 
-    protected override void OnButtonDown(object sender, Buttons button) {
-        if (button == Buttons.Reload) { ManualReload(); }
+    private void Reload(object sender, EventArgs args)
+    {
+        Reload();
     }
 
-    private void Reload() {
-        if (!_reloading && numOfRounds < _ammoCapacity) {
+    private void Reload()
+    {
+        if (!_reloading && numOfRounds < _ammoCapacity)
+        {
             StartCoroutine(ReloadDelay());
         }
     }
@@ -110,9 +124,7 @@ public class Shotgun : AbstractGun {
             yield return 0;
         }
 
-        if (StartReloadAnimation != null) {
-            StartReloadAnimation(_reloadTime);
-        }
+        StartReloadAnimation?.Invoke(this, _reloadTime);
 
         yield return new WaitForSeconds(_reloadTime);
 
@@ -120,9 +132,7 @@ public class Shotgun : AbstractGun {
         numOfRounds = _weaponManager.GetNumOfRounds(_type);
 
         // UPDATE THE UI
-        if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(numOfRounds);
-        }
+        UpdateNumOfRounds?.Invoke(this, numOfRounds);
 
         // The player can now fire again.
         _reloading = false;
@@ -147,12 +157,13 @@ public class Shotgun : AbstractGun {
 
         _SOEffectHandler.PlayEffect(EffectEnums.ShotgunBlast, _barrelNorm.transform.position, _controller.AimDirection, _direction.x, _direction.y);
 
-        if (ShotFired != null) { ShotFired(); }     // this is here to tell the save file another shot is fired and to record it.
+        // this is here to tell the save file another shot is fired and to record it.
+        ShotFired?.Invoke(this, null);
         _grounded = false;
 
         // Make the ammo sprite disappear when the ammo is depleted while in the air.
         if (--numOfRounds <= 0) {
-            if (EmptyClip != null) { EmptyClip(); }
+            EmptyClip?.Invoke(this, null);
 
             // Determine if the player was on the ground when they shot the last round in the chamber.
             _grounded = _collisionState.OnSolidGround ? true : false;
@@ -165,4 +176,6 @@ public class Shotgun : AbstractGun {
 
         _canShoot = true;
     }
+
+    #endregion Private Methods
 }

@@ -30,77 +30,77 @@ public class SwarmerBehavior : MonoBehaviour {
     [SerializeField]
     private bool _canMove = false;
 
-    private float _walkingSpeed;
-    private Vector2 _origin;
-    private RaycastHit2D _hit;
-    private BoxCollider2D _GOBox;
-    private Rigidbody2D _body;
-    private bool _movingRight = true;
-    private float _offset;
-    private EnemyType _enemyType;
-    private UnityAnimator _animator;
-    private float _timer = 0.0f;
-    private float _landingDuration = 0.0f;
+    private float m_WalkingSpeed = float.NaN;
+    private Vector2 m_Origin = Vector2.zero;
+    private RaycastHit2D m_Hit;
+    private BoxCollider2D m_GOBox = null;
+    private Rigidbody2D m_Body = null;
+    private bool m_MovingRight = true;
+    private float m_Offset = float.NaN;
+    private EnemyType m_EnemyType;
+    private UnityAnimator m_Animator = null;
+    private float m_Timer = 0.0f;
+    private float m_LandingDuration = 0.0f;
 
     #endregion Private Fields
 
-    #region Private Initializers
+    #region Initializers
     private void OnEnable() {
-        _GOBox = GetComponent<BoxCollider2D>();
-        _body = GetComponent<Rigidbody2D>();
-        _enemyType = GetComponent<EnemyBasicBehaviors>().enemyType;
+        m_GOBox = GetComponent<BoxCollider2D>();
+        m_Body = GetComponent<Rigidbody2D>();
+        m_EnemyType = GetComponent<EnemyBasicBehaviors>().enemyType;
 
-        _body.AddForce(new Vector2(Random.Range(_xMinVelocity, _xMaxVelocity), Random.Range(_yMinVelocity, _yMaxVelocity)), ForceMode2D.Impulse);
-        _walkingSpeed = Random.Range(_walkingSpeedRange.Min, _walkingSpeedRange.Max);
+        m_Body.AddForce(new Vector2(Random.Range(_xMinVelocity, _xMaxVelocity), Random.Range(_yMinVelocity, _yMaxVelocity)), ForceMode2D.Impulse);
+        m_WalkingSpeed = Random.Range(_walkingSpeedRange.Min, _walkingSpeedRange.Max);
     }
 
-    #endregion Private Initializers
+    #endregion Initializers
 
     #region Private Methods
     private void FixedUpdate() {
         if (_canMove) {
-            _body.velocity = new Vector2(_walkingSpeed, _body.velocity.y);
+            m_Body.velocity = new Vector2(m_WalkingSpeed, m_Body.velocity.y);
         }
     }
 
     private void Update() {
 
-        if (_animator == null) {
-            _animator = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>().Animator;
-            _animator.Play(GetAnimation(1));
+        if (m_Animator == null) {
+            m_Animator = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>().Animator;
+            m_Animator.Play(GetAnimation(1));
         }
 
         if (_canMove) {
 
-            if (_timer != 0.0f && TimeTools.TimeExpired(ref _timer)) {
-                _animator.Play(GetAnimation(2));
+            if (m_Timer != 0.0f && TimeTools.TimeExpired(ref m_Timer)) {
+                m_Animator.Play(GetAnimation(2));
                 GetComponent<AudioSource>().Play();
-                _timer = 0.0f;
+                m_Timer = 0.0f;
             }
 
-            _offset = _movingRight ? _GOBox.bounds.max.x : _GOBox.bounds.min.x;
+            m_Offset = m_MovingRight ? m_GOBox.bounds.max.x : m_GOBox.bounds.min.x;
 
-            _origin = _GOBox.bounds.center;
-            _hit = Physics2D.Raycast(new Vector2(_offset, _origin.y), _direction, _distance);
-            Debug.DrawRay(new Vector2(_offset, _origin.y), new Vector3(_direction.x * _distance, _direction.y * _distance, 0.0f), Color.green);
+            m_Origin = m_GOBox.bounds.center;
+            m_Hit = Physics2D.Raycast(new Vector2(m_Offset, m_Origin.y), _direction, _distance);
+            Debug.DrawRay(new Vector2(m_Offset, m_Origin.y), new Vector3(_direction.x * _distance, _direction.y * _distance, 0.0f), Color.green);
 
-            if (Mathf.Abs(_body.velocity.x) <= DIRECTION_TOGGLE) {
-                _movingRight = _movingRight ? false : true;
-                _walkingSpeed *= -DIRECTION_TOGGLE;
+            if (Mathf.Abs(m_Body.velocity.x) <= DIRECTION_TOGGLE) {
+                m_MovingRight = m_MovingRight ? false : true;
+                m_WalkingSpeed *= -DIRECTION_TOGGLE;
                 _direction.x *= -DIRECTION_TOGGLE;
             }
 
-            if (_hit.collider == null) {
+            if (m_Hit.collider == null) {
                    
-                    _movingRight = _movingRight ? false : true;
-                    _walkingSpeed *= -DIRECTION_TOGGLE;
+                    m_MovingRight = m_MovingRight ? false : true;
+                    m_WalkingSpeed *= -DIRECTION_TOGGLE;
                     _direction.x *= -DIRECTION_TOGGLE;
                 }
                
                 
             
             else {
-                _body.MoveRotation(0.0f);
+                m_Body.MoveRotation(0.0f);
             }
         }
     }
@@ -108,11 +108,11 @@ public class SwarmerBehavior : MonoBehaviour {
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
         if (otherGO.gameObject.tag == StringConstantUtility.SOLID_GROUND_TAG && !_canMove) {
-            _animator.Play(GetAnimation(0));
+            m_Animator.Play(GetAnimation(0));
             _canMove = true;
-            _timer = _landingDuration;
+            m_Timer = m_LandingDuration;
         }
-        else if (_enemyType == EnemyType.ExplodingSwamer && otherGO.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
+        else if (m_EnemyType == EnemyType.ExplodingSwamer && otherGO.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
             otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(DAMAGE_AMOUNT, DAMAGE_DURATION, DamageEnum.Explosion);
             GetComponent<EnemyBasicBehaviors>().DecrementHealth(100);
         }
@@ -120,8 +120,8 @@ public class SwarmerBehavior : MonoBehaviour {
 
     private string GetAnimation(int animationNum) {
 
-        List<string> animations = _animator.GetAnimations().ToList();
-        _landingDuration = animations[0].Length * MS_CONVERSION;
+        List<string> animations = m_Animator.GetAnimations().ToList();
+        m_LandingDuration = animations[0].Length * MS_CONVERSION;
         return animations[animationNum];
     }
 

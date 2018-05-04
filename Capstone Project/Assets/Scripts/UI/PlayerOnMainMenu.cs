@@ -1,27 +1,29 @@
 ﻿using UnityEngine;
-using System.Collections;
 using SpriterDotNetUnity;
 using System.Collections.Generic;
 using System.Linq;
 
 public class PlayerOnMainMenu : MonoBehaviour {
 
+    #region Private Fields
     [SerializeField]
     private MovementRequest _walkingMovementRequest;
 
-    private ControllableObject _controller;
-    private PlayerCollisionState _collisionState;
-    private UnityAnimator _spriterAnimator;
-    private List<string> _animationList;
-    private int _currentIndex = 38;
-    private int _previousIndex = -100;
+    private ControllableObject m_Controller = null;
+    private PlayerCollisionState m_CollisionState = null;
+    private UnityAnimator m_SpriterAnimator = null;
+    private List<string> m_AnimationList = null;
+    private int m_CurrentIndex = 38;
+    private int m_PreviousIndex = -100;
+    private float m_Time = 0.0f;
+    private float m_DefaultTime = 1.0f;
 
-    private float m_time = 0.0f;
-    private float m_defaultTime = 1.0f;
+    #endregion Private Fields
 
+    #region Initializers
     private void OnEnable() {
-        _collisionState = GetComponent<PlayerCollisionState>();
-        _controller = GetComponent<ControllableObject>();
+        m_CollisionState = GetComponent<PlayerCollisionState>();
+        m_Controller = GetComponent<ControllableObject>();
 
         // START THE GAME MANAGER, WINDOW MANAGER, AND THE EVENT SYSTEM
         // They are not used in this script, but they started for the reset of the game.
@@ -30,31 +32,36 @@ public class PlayerOnMainMenu : MonoBehaviour {
         EventSystemSingleton ESS = EventSystemSingleton.Instance.GetComponent<EventSystemSingleton>();
     }
 
+    #endregion Initializers
+
+    #region Private Methods
     private void Update() {
 
-        if (_spriterAnimator == null) {
-            _spriterAnimator = GetComponent<SpriterDotNetBehaviour>().Animator;
-            _animationList = _spriterAnimator.GetAnimations().ToList();
+        if (m_SpriterAnimator == null) {
+            m_SpriterAnimator = GetComponent<SpriterDotNetBehaviour>().Animator;
+            m_AnimationList = m_SpriterAnimator.GetAnimations().ToList();
         }
 
-        if (_collisionState.OnSolidGround) {
+        if (m_CollisionState.OnSolidGround) {
 
-            if (TimeTools.TimeExpired(ref m_time)) {
+            if (TimeTools.TimeExpired(ref m_Time)) {
 
-                _controller.SetButtonPressTime(Buttons.MoveRight);
+                m_Controller.SetButtonPressTime(Buttons.MoveRight);
                 _walkingMovementRequest.RequestMovement(Buttons.MoveRight);
-                if (_currentIndex != _previousIndex) {
-                    Play(_currentIndex);
-                    _previousIndex = _currentIndex;
+                if (m_CurrentIndex != m_PreviousIndex) {
+                    Play(m_CurrentIndex);
+                    m_PreviousIndex = m_CurrentIndex;
                 }
             }
         }
         else {
-            m_time = m_defaultTime;
+            m_Time = m_DefaultTime;
         }
     }
 
     private void Play(int index) {
-        _spriterAnimator.Play(_animationList[index]);
+        m_SpriterAnimator.Play(m_AnimationList[index]);
     }
+
+    #endregion Private Methods
 }

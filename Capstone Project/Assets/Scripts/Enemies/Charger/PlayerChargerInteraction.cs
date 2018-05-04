@@ -4,22 +4,22 @@ using UnityEngine;
 public class PlayerChargerInteraction : MonoBehaviour {
 
     #region Private Fields
-    private float _launchDistance;
-    private Rigidbody2D _playerBody2d;
-    private Rigidbody2D _chargerBody2d;
+    private float m_LaunchDistance = float.NaN;
+    private Rigidbody2D m_PlayerBody2d = null;
+    private Rigidbody2D m_ChargerBody2d = null;
 
     #endregion Private Fields
 
-    #region Private Initializers
+    #region Initializers
     private void Start()
     {
-        _launchDistance = 20000.0f;
-        _playerBody2d = GetComponent<Rigidbody2D>();
+        m_LaunchDistance = 20000.0f;
+        m_PlayerBody2d = GetComponent<Rigidbody2D>();
 
         PlayerKnockedUp?.Invoke(this, null);
     }
 
-    #endregion Private Initializers
+    #endregion Initializers
 
     #region Events
     public static event EventHandler PlayerKnockedUp;

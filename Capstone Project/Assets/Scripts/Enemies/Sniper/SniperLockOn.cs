@@ -18,78 +18,78 @@ public class SniperLockOn : MonoBehaviour {
     [SerializeField]
     private float m_defaultShotDelay = 0.0f;
 
-    private float m_shotDelay;
-    private BoxCollider2D _playerPos;
-    private Vector3 _direction;
-    private Vector3 _localScale;
-    private AudioSource _audioSource;
-    private bool _canAttack;
-    private GameObject _tellEffect;
-    private SniperAnimations _animationManager;
+    private float m_ShotDelay = float.NaN;
+    private BoxCollider2D m_PlayerPos = null;
+    private Vector3 m_Direction = Vector3.zero;
+    private Vector3 m_LocalScale = Vector3.zero;
+    private AudioSource m_AudioSource = null;
+    private bool m_CanAttack = false;
+    private GameObject m_TellEffect = null;
+    private SniperAnimations m_AnimationManager = null;
 
     #endregion Private Fields
 
-    #region Private Initializers
+    #region Initializers
     private void Awake() {
-        _animationManager = GetComponentInParent<SniperAnimations>();
+        m_AnimationManager = GetComponentInParent<SniperAnimations>();
     }
 
     private void OnEnable() {
 
-        _audioSource = GetComponent<AudioSource>();
-        _canAttack = true;
+        m_AudioSource = GetComponent<AudioSource>();
+        m_CanAttack = true;
         RestartAttack();
     }
 
-    #endregion Private Initializers
+    #endregion Initializers
 
-    #region Private Finalizers
+    #region Finalizers
     private void OnDisable() {
-        _SOEffectHandler.StopEffect(_tellEffect);
+        _SOEffectHandler.StopEffect(m_TellEffect);
     }
 
-    #endregion Private Finalizers
+    #endregion Finalizers
 
     #region Private Methods
     private void Update() {
 
-        if (_playerPos == null) {
-            _playerPos = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<BoxCollider2D>();
+        if (m_PlayerPos == null) {
+            m_PlayerPos = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<BoxCollider2D>();
         }
 
-        _direction = (_playerPos.bounds.center - transform.position);
-        _localScale = transform.localScale;
-        transform.localScale = _direction.x > 0 ? new Vector3(X_SCALE, _localScale.y, _localScale.z)
-            : new Vector3(-X_SCALE, _localScale.y, _localScale.z);
+        m_Direction = (m_PlayerPos.bounds.center - transform.position);
+        m_LocalScale = transform.localScale;
+        transform.localScale = m_Direction.x > 0 ? new Vector3(X_SCALE, m_LocalScale.y, m_LocalScale.z)
+            : new Vector3(-X_SCALE, m_LocalScale.y, m_LocalScale.z);
 
-        if (_tellEffect != null) {
-            _tellEffect.transform.position = _endOfBarrel.transform.position;
+        if (m_TellEffect != null) {
+            m_TellEffect.transform.position = _endOfBarrel.transform.position;
         }
 
-        if (TimeTools.TimeExpired(ref m_shotDelay)) {
+        if (TimeTools.TimeExpired(ref m_ShotDelay)) {
             Fire();
                 
-            if (TimeTools.TimeExpired(ref m_shotDelay, SHOT_DELAY_DURATION)) {
+            if (TimeTools.TimeExpired(ref m_ShotDelay, SHOT_DELAY_DURATION)) {
                 RestartAttack();
             }
         }
     }
 
     private void Fire() {
-        if (_canAttack) {
+        if (m_CanAttack) {
             _SOEffectHandler.PlayEffect(EffectEnums.SniperBullet, _endOfBarrel.transform.position);
-            _audioSource.pitch = Random.Range(MIN_PITCH, MAX_PITCH);
-            _audioSource.Play();
-            _animationManager.Play(3);
-            _canAttack = false;
+            m_AudioSource.pitch = Random.Range(MIN_PITCH, MAX_PITCH);
+            m_AudioSource.Play();
+            m_AnimationManager.Play(3);
+            m_CanAttack = false;
         }
     }
 
     private void RestartAttack() {
-        m_shotDelay = m_defaultShotDelay;
-        _animationManager.Play(2);
-        _tellEffect = _SOEffectHandler.PlayEffect(EffectEnums.SniperTellEffect, _endOfBarrel.transform.position);
-        _canAttack = true;
+        m_ShotDelay = m_defaultShotDelay;
+        m_AnimationManager.Play(2);
+        m_TellEffect = _SOEffectHandler.PlayEffect(EffectEnums.SniperTellEffect, _endOfBarrel.transform.position);
+        m_CanAttack = true;
     }
 
     #endregion Private Methods

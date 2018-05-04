@@ -3,12 +3,6 @@ using System.Collections;
 using System;
 
 public class PlayerActions : MonoBehaviour {
-
-    //public delegate void PlayerActionEvent(Buttons button);
-    //public static event PlayerActionEvent ButtonPressed;
-    //public static event PlayerActionEvent ButtonHeld;
-    public static event EventHandler<Buttons> ButtonPressed;
-    public static event EventHandler<Buttons> ButtonHeld;
     
     [Header("Walking")]
     [SerializeField]
@@ -22,6 +16,7 @@ public class PlayerActions : MonoBehaviour {
     [Header("Set Aiming Direction")]
     private int value = 0;
 
+    #region Initializers
     private void OnEnable() {
         ControllableObject.OnButton += OnButton;
         ControllableObject.OnButtonDown += OnButtonDown;
@@ -29,11 +24,23 @@ public class PlayerActions : MonoBehaviour {
         _controller = GetComponent<ControllableObject>();
     }
 
+    #endregion Initializers
+
+    #region Finalizers
     private void OnDisable() {
         ControllableObject.OnButton -= OnButton;
         ControllableObject.OnButtonDown -= OnButtonDown;
     }
 
+    #endregion Finalizers
+
+    #region Events
+    public static event EventHandler<Buttons> ButtonPressed;
+    public static event EventHandler<Buttons> ButtonHeld;
+
+    #endregion Events
+
+    #region Private Methods
     private void Update() {
 
         // THIS IS HERE TO ENSURE THE MUZZLE FIRE ON THE MACHINE GUN ALWAYS PLAYS IN THE CORRECT DIRECTION
@@ -192,4 +199,6 @@ public class PlayerActions : MonoBehaviour {
         yield return new WaitForSeconds(0.01f);
        ButtonPressed?.Invoke(this, Buttons.Shoot);
     }
+
+    #endregion Private Methods
 }

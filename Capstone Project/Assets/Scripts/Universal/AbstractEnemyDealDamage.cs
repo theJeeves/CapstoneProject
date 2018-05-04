@@ -1,19 +1,27 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System;
+using UnityEngine;
 
 public class AbstractEnemyDealDamage : MonoBehaviour {
 
-    public delegate void AbstractEnemyDealDamageEvent(int damage);
-    public static event AbstractEnemyDealDamageEvent DecrementHealth;
-
+    #region Protected Fields
     [SerializeField]
     protected int _damage;
 
+    #endregion Protected Fields
+
+    #region Events
+    public static event EventHandler<int> DecrementHealth;
+
+    #endregion Events
+
+    #region Protected Methods
     protected virtual void OnTriggerEnter2D(Collider2D collider) {
 
-        if (collider.gameObject.tag == "Player" && DecrementHealth != null) {
+        if (collider.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
 
-            DecrementHealth(_damage);
+            DecrementHealth?.Invoke(this, _damage);
         }
     }
+
+    #endregion Protected Methods
 }

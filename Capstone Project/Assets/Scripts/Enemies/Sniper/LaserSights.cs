@@ -16,71 +16,71 @@ public class LaserSights : MonoBehaviour {
     [SerializeField]
     private Transform _endOfBarrel;
 
-    private BoxCollider2D _playerBox;
-    private Vector3 _playerPos;
-    private Vector2 _obstruction;
-    private LineRenderer _renderer;
-    private GameObject _laserEffect;
+    private BoxCollider2D m_PlayerBox = null;
+    private Vector3 m_PlayerPos = Vector3.zero;
+    private Vector2 m_Obstruction = Vector2.zero;
+    private LineRenderer m_Renderer = null;
+    private GameObject m_LaserEffect = null;
 
     #endregion Private Fields
 
-    #region Private Initializers
+    #region Initializers
     private void Awake() {
-        _renderer = GetComponent<LineRenderer>();
+        m_Renderer = GetComponent<LineRenderer>();
     }
 
     private void OnEnable() {
-        _laserEffect = _SOEffectHandler.PlayEffect(EffectEnums.SniperLaserEffect, _endOfBarrel.position);
+        m_LaserEffect = _SOEffectHandler.PlayEffect(EffectEnums.SniperLaserEffect, _endOfBarrel.position);
     }
 
-    #endregion Private Initializers
+    #endregion Initializers
 
-    #region Private Finalizers
+    #region Finalizers
     private void OnDisable() {
-        _SOEffectHandler.StopEffect(_laserEffect);
+        _SOEffectHandler.StopEffect(m_LaserEffect);
     }
 
-    #endregion Private Finalizers
+    #endregion Finalizers
 
     #region Private Methods
     private void Update() {
 
-        if (_playerBox == null) {
-            _playerBox = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<BoxCollider2D>();
+        if (m_PlayerBox == null) {
+            m_PlayerBox = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<BoxCollider2D>();
         }
 
-        _playerPos = new Vector2(_playerBox.bounds.center.x, _playerBox.bounds.center.y + Y_OFFSET);
+        m_PlayerPos = new Vector2(m_PlayerBox.bounds.center.x, m_PlayerBox.bounds.center.y + Y_OFFSET);
 
         CheckCollisions();
 
         //Set the Start Position
-        _renderer.SetPosition(0, _endOfBarrel.position);
+        m_Renderer.SetPosition(0, _endOfBarrel.position);
 
         //Set the End Position
-        if (_obstruction == Vector2.zero) {
-            _renderer.SetPosition(1, _playerPos);
-            _laserEffect.transform.position = _playerPos;
+        if (m_Obstruction == Vector2.zero) {
+            m_Renderer.SetPosition(1, m_PlayerPos);
+            m_LaserEffect.transform.position = m_PlayerPos;
         }
         else {
-            _renderer.SetPosition(1, _obstruction);
-            _laserEffect.transform.position = _obstruction;
+            m_Renderer.SetPosition(1, m_Obstruction);
+            m_LaserEffect.transform.position = m_Obstruction;
         }
 
         //Set the width of the line renderer
-        _renderer.startWidth = LINE_RENDER_WIDTH;
-        _renderer.endWidth = LINE_RENDER_WIDTH;
-        _renderer.startColor = Color.red;
-        _renderer.endColor = Color.red;
+        m_Renderer.startWidth = LINE_RENDER_WIDTH;
+        m_Renderer.endWidth = LINE_RENDER_WIDTH;
+        m_Renderer.startColor = Color.red;
+        m_Renderer.endColor = Color.red;
     }
 
     private void CheckCollisions() {
 
         // Send out a raycast to determine if the laser should be touching the player or a world object.
-        RaycastHit2D hit = Physics2D.Raycast(_endOfBarrel.position, _playerPos - _endOfBarrel.position, 
-            Vector3.Magnitude(_playerPos - _endOfBarrel.position), _whatToHit);
+        RaycastHit2D hit = Physics2D.Raycast(_endOfBarrel.position, m_PlayerPos - _endOfBarrel.position, 
+            Vector3.Magnitude(m_PlayerPos - _endOfBarrel.position), _whatToHit);
 
         if (hit.collider != null) {
-            _obstruction = hit.collider.gameObject.tag == StringConstantUtility.PLAYER_TAG ? Vector2.zero : hit.point;
+            m_Obstruction = hit.collider.gameObject.tag == StringConstantUtility.PLAYER_TAG ? Vector2.zero : hit.point;
         }
     }
 

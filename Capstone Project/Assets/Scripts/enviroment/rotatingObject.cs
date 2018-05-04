@@ -10,7 +10,8 @@ public class rotatingObject : MonoBehaviour {
 
     #region Private Methods
     // Update is called once per frame
-    private void Update () {
+    private void Update ()
+    {
         transform.Rotate(0, 0, _rotationSpeed * Time.deltaTime);
     }
 

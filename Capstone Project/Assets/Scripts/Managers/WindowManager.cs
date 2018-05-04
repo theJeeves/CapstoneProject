@@ -80,7 +80,7 @@ public class WindowManager : Singleton<WindowManager> {
         CreditsWindow.OnBackButton += ToggleWindows;
 
         // In Game
-        EndOfLevel.OnLevelComplete += ToggleWindows;
+        EndOfLevel.LevelComplete += ToggleWindows;
         EndLevelWindow.OnContinue += ToggleWindows;
         EndLevelWindow.OnBackToMain += ToggleWindows;
 
@@ -112,7 +112,7 @@ public class WindowManager : Singleton<WindowManager> {
         CreditsWindow.OnBackButton -= ToggleWindows;
 
         // In Game
-        EndOfLevel.OnLevelComplete -= ToggleWindows;
+        EndOfLevel.LevelComplete -= ToggleWindows;
         EndLevelWindow.OnContinue -= ToggleWindows;
         EndLevelWindow.OnBackToMain -= ToggleWindows;
 

@@ -20,39 +20,39 @@ public class rotatingLaser : MonoBehaviour
     [SerializeField]
     private LayerMask _whatToHit;
 
-    private Vector2 _direction;
-    private LineRenderer _lr;
-    private Color[] _colorArray = { Color.blue, Color.cyan, Color.green, Color.magenta, Color.red, Color.yellow };
+    private Vector2 m_Direction = Vector2.zero;
+    private LineRenderer m_LineRenderer = null;
+    private Color[] m_ColorArray = { Color.blue, Color.cyan, Color.green, Color.magenta, Color.red, Color.yellow };
 
     #endregion Private Fields
 
 
-    #region Private Initializers
+    #region Initializers
     // Use this for initialization
     void Start()
     {
-        _lr = GetComponentInChildren<LineRenderer>();
+        m_LineRenderer = GetComponentInChildren<LineRenderer>();
     }
 
-    #endregion Private Initializers
+    #endregion Initializers
 
     #region Private Methods
     // Update is called once per frame
     private void Update()
     {
-        _direction = endBarrel.transform.position - startBarrel.transform.position;
+        m_Direction = endBarrel.transform.position - startBarrel.transform.position;
 
-        RaycastHit2D hit = Physics2D.Raycast(transform.position, _direction, Mathf.Infinity, _whatToHit);
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, m_Direction, Mathf.Infinity, _whatToHit);
         if (hit.collider != null)
         {
             Vector2 laserEnd = new Vector2(hit.point.x, hit.point.y);
-            _lr.startWidth = LASER_START_WIDTH;
-            _lr.endWidth = LASER_END_WIDTH;
+            m_LineRenderer.startWidth = LASER_START_WIDTH;
+            m_LineRenderer.endWidth = LASER_END_WIDTH;
 
-            _lr.startColor = _colorArray[Random.Range(MIN_COLOR_INDEX, MAX_COLOR_INDEX)];
-            _lr.endColor = _colorArray[Random.Range(MIN_COLOR_INDEX, MAX_COLOR_INDEX)];
-            _lr.SetPosition(0, transform.position);
-             _lr.SetPosition(1, laserEnd);
+            m_LineRenderer.startColor = m_ColorArray[Random.Range(MIN_COLOR_INDEX, MAX_COLOR_INDEX)];
+            m_LineRenderer.endColor = m_ColorArray[Random.Range(MIN_COLOR_INDEX, MAX_COLOR_INDEX)];
+            m_LineRenderer.SetPosition(0, transform.position);
+             m_LineRenderer.SetPosition(1, laserEnd);
 
             if(hit.collider.tag == StringConstantUtility.PLAYER_TAG)
             {

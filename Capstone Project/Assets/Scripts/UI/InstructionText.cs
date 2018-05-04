@@ -1,13 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
 public class InstructionText : MonoBehaviour {
 
-    public delegate void Hint_ControlsEvent1(string hints);
-    public delegate void Hint_ControlsEvent2();
-    public static event Hint_ControlsEvent1 DisplayHint;
-    public static event Hint_ControlsEvent2 HideHint;
-
+    #region Private Fields
     [SerializeField]
     private string _ds4Instructions;
     [SerializeField]
@@ -16,36 +12,48 @@ public class InstructionText : MonoBehaviour {
     [SerializeField]
     private bool _enableInput = false;
 
-    private float m_defaultDisplayTime = 3.0f;
     [SerializeField]
     private float m_displayTime = 3.0f;
-    private bool m_inTrigger = false;
 
-    private bool _ds4;
+    private float m_DefaultDisplayTime = 3.0f;
+    private bool m_InTrigger = false;
+    private bool m_Ds4 = false;
 
+    #endregion Private Fields
+
+    #region Initializers
     private void Start() {
-        m_displayTime = m_defaultDisplayTime;
+        m_displayTime = m_DefaultDisplayTime;
     }
 
+    #endregion Initializers
+
+    #region Events
+    public static event EventHandler<string> DisplayHint;
+    public static event EventHandler HideHint;
+
+    #endregion Events
+
+    #region Private Methods
     private void Update() {
 
-        if (m_inTrigger && m_displayTime != float.NegativeInfinity) {
+        if (m_InTrigger && m_displayTime != float.NegativeInfinity) {
             TimeTools.TimeExpired(ref m_displayTime);
         }
     }
 
     private void OnTriggerEnter2D(Collider2D player) {
 
-        m_inTrigger = true;
+        m_InTrigger = true;
 
-        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == "Player" && DisplayHint != null) {
+        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
 
-            _ds4 = InputManager.Instance.GetComponent<InputManager>().controllerType == 0 ? true : false;
-            if (_ds4) {
-                DisplayHint(_ds4Instructions);
+            m_Ds4 = InputManager.Instance.GetComponent<InputManager>().controllerType == 0 ? true : false;
+            if (m_Ds4) {
+                DisplayHint?.Invoke(this, _ds4Instructions);
             }
             else {
-                DisplayHint(_xboxInstructions);
+                DisplayHint?.Invoke(this, _xboxInstructions);
             }
 
             if (_enableInput) { InputManager.Instance.GetComponent<InputManager>().StartInput(); }
@@ -54,13 +62,15 @@ public class InstructionText : MonoBehaviour {
 
     private void OnTriggerExit2D(Collider2D player) {
 
-        m_inTrigger = false;
+        m_InTrigger = false;
 
-        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == "Player" && HideHint != null) {
+        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
 
-            HideHint();
+            HideHint?.Invoke(this, null);
 
-            m_displayTime = m_displayTime <= 0.0f ? float.NegativeInfinity : m_defaultDisplayTime;
+            m_displayTime = m_displayTime <= 0.0f ? float.NegativeInfinity : m_DefaultDisplayTime;
         }
     }
+
+    #endregion Private Methods
 }

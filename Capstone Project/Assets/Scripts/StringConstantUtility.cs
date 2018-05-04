@@ -9,6 +9,9 @@
     public const string SOLID_GROUND_TAG = "SolidGround";
     public const string MAIN_CHARACTER_PATH = "MainCharacter/";
     public const string EFFECTS_PATH = "Effects/";
+    public const string CHECKPOINT = "Checkpoint";
+    public const string BACK_BUTTON = "Back_LevelSelect";
+    public const string MAIN_MENU_TAG = "Main Menu";
 
     #endregion Constant Fields
 }

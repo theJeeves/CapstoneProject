@@ -14,13 +14,15 @@ public class StartBattleRoom : MonoBehaviour {
     [SerializeField]
     private bool _normalEnemies = false;
 
-    private bool _set = false;
-    private GameObject[] _swarm;
+    private bool m_Set = false;
+    private GameObject[] m_Swarm = null;
 
     #endregion Private Fields
 
     #region Private Initializers
     private void OnEnable() {
+
+        // Wire-up events
         SwarmPodSpawner.AllClear += OpenDoors;
     }
 
@@ -28,6 +30,8 @@ public class StartBattleRoom : MonoBehaviour {
 
     #region Private Finalizers
     private void OnDisable() {
+
+        // Unwire events
         SwarmPodSpawner.AllClear -= OpenDoors;
     }
 
@@ -36,17 +40,17 @@ public class StartBattleRoom : MonoBehaviour {
     #region Private Methods
     private void Update() {
 
-        bool allowAction = _swarm != null;
-        allowAction &= _swarm?.Length > 0;
+        bool allowAction = m_Swarm != null;
+        allowAction &= m_Swarm?.Length > 0;
 
         if (allowAction) {
 
             int counter = 0;
-            for (int i = 0; i < _swarm.Length; ++i) {
-                counter = _swarm[i] == null ? ++counter : 0;
+            for (int i = 0; i < m_Swarm.Length; ++i) {
+                counter = m_Swarm[i] == null ? ++counter : 0;
             }
 
-            if (counter >= _swarm.Length) {
+            if (counter >= m_Swarm.Length) {
 
                 for (int i = 1; i < _doors.Length; ++i) {
                     _doors[i].SetActive(false);
@@ -77,20 +81,20 @@ public class StartBattleRoom : MonoBehaviour {
     private void OnTriggerStay2D(Collider2D otherGO) {
 
         bool allowAction = otherGO.tag == StringConstantUtility.PLAYER_TAG;
-        allowAction &= _set == false;
+        allowAction &= m_Set == false;
 
         if (allowAction) {
 
             for (int i = 0; i < _doors.Length; ++i) {
                 _doors[i].SetActive(true);
             }
-            _set = true;
+            m_Set = true;
         }
     }
 
-    private void OpenDoors(object sender, GameObject[] enemies) {
-
-        _swarm = enemies;
+    private void OpenDoors(object sender, GameObject[] enemies)
+    {
+        m_Swarm = enemies;
     }
 
     #endregion Private Methods

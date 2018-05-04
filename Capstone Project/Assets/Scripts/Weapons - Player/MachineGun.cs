@@ -1,6 +1,7 @@
 ﻿
 using UnityEngine;
 using System.Collections;
+using System;
 
 /*
  * Weapon based on the AbstractGun class which gives the player a "float" like ability.
@@ -8,31 +9,30 @@ using System.Collections;
 
 public class MachineGun : AbstractGun {
 
-    public static event AbstractGunEvent2 EmptyClip;
-    public static event AbstractGunEvent3 StartReloadAnimation;
-    public static event AbstractGunEvent UpdateNumOfRounds;
-    public static event AbstractGunEvent2 DisplayAmmo;
-    public static event AbstractGunEvent2 ShotFired;
-
+    #region Private Fields
     [SerializeField]
     private MovementRequest _initialMoveRequest;
 
-    private GameObject _muzzleFlashGO;
-    private bool _canLift = true;
+    private GameObject m_MuzzleFlashGO;
+    private bool m_CanLift = true;
 
+    #endregion Private Fields
+
+    #region Initializers
     protected override void Awake() {
         base.Awake();
 
         _weaponManager.SetAmmoCapacity(_type, _ammoCapacity);
 
         numOfRounds = _weaponManager.GetNumOfRounds(_type);
-        if (numOfRounds > 0 && DisplayAmmo != null) {
-            DisplayAmmo();
+        if (numOfRounds > 0)
+        {
+            DisplayAmmo?.Invoke(this, null);
         }
     }
 
     private void OnEnable() {
-        PlayerCollisionState.OnHitGround += Reload;
+        PlayerCollisionState.HitGround += Reload;
         ControllableObject.OnButtonDown += ManualReload;
 
         GetComponent<AudioSource>().clip = _audioClip;
@@ -43,7 +43,7 @@ public class MachineGun : AbstractGun {
 
         if (_weaponManager.reloaded) {
             numOfRounds = _ammoCapacity;
-            DisplayAmmo();
+            DisplayAmmo?.Invoke(this, null);
             _weaponManager.reloaded = false;
         }
         else if (numOfRounds <= 0) {
@@ -54,17 +54,18 @@ public class MachineGun : AbstractGun {
             _canShoot = true;
         }
 
-        if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(numOfRounds);
-        }
+        UpdateNumOfRounds?.Invoke(this, numOfRounds);
 
         PlayerActions.ButtonHeld += OnPlayerActionButtonPress;
 
-        _canLift = _collisionState.OnSolidGround ? true : false;
+        m_CanLift = _collisionState.OnSolidGround ? true : false;
     }
 
+    #endregion Initializers
+
+    #region Finalizers
     private void OnDisable() {
-        PlayerCollisionState.OnHitGround -= Reload;
+        PlayerCollisionState.HitGround -= Reload;
         ControllableObject.OnButtonDown -= ManualReload;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
@@ -73,9 +74,21 @@ public class MachineGun : AbstractGun {
         PlayerActions.ButtonHeld -= OnPlayerActionButtonPress;
     }
 
+    #endregion Finalizers
+
+    #region Events
+    public static event EventHandler EmptyClip;
+    public static event EventHandler<float> StartReloadAnimation;
+    public static event EventHandler<int> UpdateNumOfRounds;
+    public static event EventHandler DisplayAmmo;
+    public static event EventHandler ShotFired;
+
+    #endregion Events
+
+    #region Private Methods
     private void Update() {
-        if (_muzzleFlashGO != null) {
-            _muzzleFlashGO.transform.position = _barrelNorm.transform.position;
+        if (m_MuzzleFlashGO != null) {
+            m_MuzzleFlashGO.transform.position = _barrelNorm.transform.position;
         }
         if (TimeTools.TimeExpired(ref m_shotDelay)) {
             _canShoot = true;
@@ -86,9 +99,9 @@ public class MachineGun : AbstractGun {
 
     private void Lift() {
 
-        if (_canLift && _controller.GetButtonPress(Buttons.AimDown) && _direction.y == -1.0f) {
+        if (m_CanLift && _controller.GetButtonPress(Buttons.AimDown) && _direction.y == -1.0f) {
             _initialMoveRequest.RequestMovement();
-            _canLift = false;
+            m_CanLift = false;
         }
     }
 
@@ -104,15 +117,13 @@ public class MachineGun : AbstractGun {
                     Fire();
                     // If the last round has gone out, send out the event to hide the ammo type display.
                     if (--numOfRounds <= 0) {
-                        if (EmptyClip != null) { EmptyClip(); }
+                        EmptyClip?.Invoke(this, null);
 
                         // Determine if the player was on the ground when they shot the last round in the chamber.
                         //_grounded = _collisionState.OnSolidGround ? true : false;
                         Reload();
                     }
-                    if (UpdateNumOfRounds != null) {
-                        UpdateNumOfRounds(numOfRounds);
-                    }
+                    UpdateNumOfRounds?.Invoke(this, numOfRounds);
                 }
             }
         }
@@ -120,9 +131,7 @@ public class MachineGun : AbstractGun {
         // Only call for the ammo to hide if the player has no more bullets in the clip
         // and are in the air. Otherwise, it is handle in the if statement above.
         else if (numOfRounds <= 0 && !_grounded) {
-            if (EmptyClip != null) {
-                EmptyClip();
-            }
+            EmptyClip?.Invoke(this, null);
         }
     }
 
@@ -134,7 +143,7 @@ public class MachineGun : AbstractGun {
 
             int firingAngle = FiringAngle();
 
-            _muzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrelNorm.transform.position, firingAngle);
+            m_MuzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrelNorm.transform.position, firingAngle);
 
             if (firingAngle == 270) {
                 _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrelAlt.transform.position, firingAngle, _direction.x, _direction.y);
@@ -146,7 +155,8 @@ public class MachineGun : AbstractGun {
             _SSRequest.ShakeRequest();
             m_shotDelay = m_defaultShotDelay;
 
-            if (ShotFired != null) { ShotFired(); }     // this is here to tell the save file another shot is fired and to record it.
+            // this is here to tell the save file another shot is fired and to record it.
+            ShotFired?.Invoke(this, null);
         }
     }
 
@@ -177,22 +187,29 @@ public class MachineGun : AbstractGun {
         else return -1;
     }
 
-    private void Reload() {
+    private void Reload(object sender, EventArgs args)
+    {
+        Reload();
+    }
 
+    private void Reload()
+    {
         // This ensures the player will be lifted by the initial shot every time.
         // Machine Gun specific.
-        _canLift = true;
+        m_CanLift = true;
 
         if (numOfRounds > 0 && _controller.GetButtonPress(Buttons.Shoot)) { }
-        else {
-            if (!_reloading && numOfRounds < _ammoCapacity) {
+        else
+        {
+            if (!_reloading && numOfRounds < _ammoCapacity)
+            {
                 StartCoroutine(ReloadDelay());
             }
         }
     }
 
-    private void ManualReload(object sender, Buttons button) {
-
+    private void ManualReload(object sender, Buttons button)
+    {
         if (button == Buttons.Reload && !_reloading && numOfRounds < _ammoCapacity && _grounded) {
             _grounded = true;
             StartCoroutine(ReloadDelay());
@@ -211,9 +228,7 @@ public class MachineGun : AbstractGun {
             yield return 0;
         }
 
-        if (StartReloadAnimation != null) {
-            StartReloadAnimation(_reloadTime);
-        }
+        StartReloadAnimation?.Invoke(this, _reloadTime);
 
         yield return new WaitForSeconds(_reloadTime);
 
@@ -221,15 +236,15 @@ public class MachineGun : AbstractGun {
         numOfRounds = _weaponManager.GetNumOfRounds(_type);
 
         // UPDATE THE UI
-        if (UpdateNumOfRounds != null) {
-            UpdateNumOfRounds(numOfRounds);
-        }
+        UpdateNumOfRounds?.Invoke(this, numOfRounds);
 
         // The player can now fire again.
         _reloading = false;
         _canShoot = true;
         // This ensures the player will be lifted by the initial shot every time.
         // Machine Gun specific.
-        _canLift = true;
+        m_CanLift = true;
     }
+
+    #endregion Private Methods
 }

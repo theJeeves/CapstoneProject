@@ -6,13 +6,6 @@
 
 public abstract class AbstractGun : MonoBehaviour {
 
-    // Delegate to work with UI
-    public delegate void AbstractGunEvent(int numOfRounds);
-    // Delegate to work with ScreenShake feature
-    public delegate void AbstractGunEvent2();
-    public delegate void AbstractGunEvent3(float reloadTime);
-
-
     [SerializeField]
     protected WeaponType _type;
     [SerializeField]

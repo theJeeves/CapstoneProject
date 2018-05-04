@@ -19,7 +19,7 @@ public class SOEffects : ScriptableObject {
     #endregion Constants
 
     #region Private Fields
-    private Dictionary<EffectEnums, Effect> _map = new Dictionary<EffectEnums, Effect>();
+    private Dictionary<EffectEnums, Effect> m_Map = new Dictionary<EffectEnums, Effect>();
 
     #endregion Private Fields
 
@@ -28,10 +28,10 @@ public class SOEffects : ScriptableObject {
 
         foreach (EffectEnums type in System.Enum.GetValues(typeof(EffectEnums))) {
             if (type == EffectEnums.CrystalBullet || type == EffectEnums.ShotgunBlast) {
-                _map.Add(type, new Effect(Resources.Load(StringConstantUtility.MAIN_CHARACTER_PATH + type.ToString(), typeof(GameObject)) as GameObject));
+                m_Map.Add(type, new Effect(Resources.Load(StringConstantUtility.MAIN_CHARACTER_PATH + type.ToString(), typeof(GameObject)) as GameObject));
             }
             else {
-                _map.Add(type, new Effect(Resources.Load(StringConstantUtility.EFFECTS_PATH + type.ToString(), typeof(GameObject)) as GameObject,
+                m_Map.Add(type, new Effect(Resources.Load(StringConstantUtility.EFFECTS_PATH + type.ToString(), typeof(GameObject)) as GameObject,
                     Resources.Load(StringConstantUtility.EFFECTS_PATH + type.ToString(), typeof(SpriterDotNetUnity.SpriterData)) as SpriterDotNetUnity.SpriterData));
             }
         }
@@ -49,17 +49,17 @@ public class SOEffects : ScriptableObject {
     /// <returns></returns>
     public GameObject PlayEffect(EffectEnums type, Vector2 position, float angle = 0.0f, float X_direction = 0.0f, float Y_direction = 0.0f) {
 
-        if (!_map.ContainsKey(type)) {
+        if (!m_Map.ContainsKey(type)) {
             if (type == EffectEnums.CrystalBullet || type == EffectEnums.ShotgunBlast) {
-                _map.Add(type, new Effect(Resources.Load(StringConstantUtility.MAIN_CHARACTER_PATH + type.ToString(), typeof(GameObject)) as GameObject));
+                m_Map.Add(type, new Effect(Resources.Load(StringConstantUtility.MAIN_CHARACTER_PATH + type.ToString(), typeof(GameObject)) as GameObject));
             }
             else {
-                _map.Add(type, new Effect(Resources.Load(StringConstantUtility.EFFECTS_PATH + type.ToString(), typeof(GameObject)) as GameObject,
+                m_Map.Add(type, new Effect(Resources.Load(StringConstantUtility.EFFECTS_PATH + type.ToString(), typeof(GameObject)) as GameObject,
                     Resources.Load(StringConstantUtility.EFFECTS_PATH + type.ToString(), typeof(SpriterDotNetUnity.SpriterData)) as SpriterDotNetUnity.SpriterData));
             }
         }
 
-        Effect effect = _map[type];
+        Effect effect = m_Map[type];
 
         GameObject instance = Instantiate(effect.prefab, position, Quaternion.identity) as GameObject;
         instance.transform.position = new Vector3(position.x, position.y, -1.0f);

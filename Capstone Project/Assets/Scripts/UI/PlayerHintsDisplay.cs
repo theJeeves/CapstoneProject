@@ -1,28 +1,43 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 public class PlayerHintsDisplay : MonoBehaviour {
 
-    private Text _hints;
+    #region Constant Fields
+    private const string TO_BE_REPLACED = " NL ";
+    private const string NEW_LINE = "\n";
 
+    #endregion Constant Fields
+
+    #region Private Fields
+    private Text m_Hints;
+
+    #endregion Private Fields
+
+    #region Initializers
     private void Awake() {
-        _hints = GetComponent<Text>();
+        m_Hints = GetComponent<Text>();
     }
 
     private void OnEnable() {
         InstructionText.DisplayHint += DisplayHint;
-        //InstructionText.HideHint += HideHint;
     }
 
+    #endregion Initializers
+
+    #region Finalizers
     private void OnDisable() {
         InstructionText.DisplayHint -= DisplayHint;
-        //InstructionText.HideHint -= HideHint;
     }
 
-    private void DisplayHint(string hint) {
+    #endregion Finalizers
 
-        hint = hint.Replace(" NL ", "\n");
-        _hints.text = hint;
+    #region Private Methods
+    private void DisplayHint(object sender, string hint) {
+
+        hint = hint.Replace(TO_BE_REPLACED, NEW_LINE);
+        m_Hints.text = hint;
     }
+
+    #endregion Private Methods
 }

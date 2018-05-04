@@ -1,19 +1,30 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
+using System;
 
 public abstract class ReloadAnimation : MonoBehaviour {
 
+    #region Protected Fields
     protected Image _ammoImage;
-    private float _timer = 0.0f;
-    private bool _canAnimate;
-    private bool _playAudio;
 
+    #endregion Protected Fields
+
+    #region Private Fields
+    private float m_Timer = 0.0f;
+    private bool m_CanAnimate;
+    private bool m_PlayAudio;
+
+    #endregion Private Fields
+
+    #region Initializers
     protected virtual void Awake() {
         _ammoImage = GetComponent<Image>();
-        _canAnimate = false;
+        m_CanAnimate = false;
     }
 
+    #endregion Initializers
+
+    #region Finalizers
     protected virtual void OnDisable() {
 
         if (_ammoImage.fillAmount < 1.0f) {
@@ -21,33 +32,38 @@ public abstract class ReloadAnimation : MonoBehaviour {
         }
     }
 
+    #endregion Finalizers
+
+    #region Protected Methods
     protected virtual void Update() {
 
-        if (_canAnimate && _ammoImage.fillAmount < 1) {
-            _ammoImage.fillAmount += 1.0f / _timer * Time.deltaTime;
+        if (m_CanAnimate && _ammoImage.fillAmount < 1) {
+            _ammoImage.fillAmount += 1.0f / m_Timer * Time.deltaTime;
         }
-        else if (_canAnimate && _ammoImage.fillAmount >= 1) {
-            _canAnimate = false;
-            if (_playAudio) {
-                _playAudio = false;
+        else if (m_CanAnimate && _ammoImage.fillAmount >= 1) {
+            m_CanAnimate = false;
+            if (m_PlayAudio) {
+                m_PlayAudio = false;
                 GetComponent<AudioSource>().Play();
             }
         }
     }
 
-    protected virtual void Reload(float reloadTime) {
+    protected virtual void Reload(object sender, float reloadTime) {
 
-        _playAudio = true;
+        m_PlayAudio = true;
         _ammoImage.fillAmount = 0;
-        _timer = reloadTime;
-        _canAnimate = true;
+        m_Timer = reloadTime;
+        m_CanAnimate = true;
     }
 
-    protected virtual void ZeroFillAmount() {
+    protected virtual void ZeroFillAmount(object sender, EventArgs args) {
         _ammoImage.fillAmount = 0;
     }
 
-    protected virtual void DisplayAmmo() {
+    protected virtual void DisplayAmmo(object sender, EventArgs args) {
         _ammoImage.fillAmount = 1;
     }
+
+    #endregion Protected Methods
 }

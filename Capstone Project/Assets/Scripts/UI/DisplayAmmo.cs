@@ -1,42 +1,53 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 public class DisplayAmmo : MonoBehaviour {
 
-    private Text _ammoText;
+    #region Private Fields
+    private Text m_AmmoText;
 
+    #endregion Private Fields
+
+    #region Initializers
     private void Awake() {
-        _ammoText = GetComponent<Text>();
+        m_AmmoText = GetComponent<Text>();
     }
 
     private void OnEnable() {
-        Shotgun.UpdateNumOfRounds += UpdateText;
-        MachineGun.UpdateNumOfRounds += UpdateText;
-        PlayerHealth.UpdateHealth += ShowHideText;
+
+        // Wire-up Event
+        Shotgun.UpdateNumOfRounds += OnUpdateText;
+        MachineGun.UpdateNumOfRounds += OnUpdateText;
+        PlayerHealth.UpdateHealth += OnShowHideText;
     }
 
+    #endregion Initializers
+
+    #region Finalizers
     private void OnDisable() {
-        Shotgun.UpdateNumOfRounds -= UpdateText;
-        MachineGun.UpdateNumOfRounds -= UpdateText;
-        PlayerHealth.UpdateHealth -= ShowHideText;
+
+        // Unwire event
+        Shotgun.UpdateNumOfRounds -= OnUpdateText;
+        MachineGun.UpdateNumOfRounds -= OnUpdateText;
+        PlayerHealth.UpdateHealth -= OnShowHideText;
     }
 
-    private void UpdateText(int numOfRounds) {
+    #endregion Finalizers
+
+    #region Private Methods
+    private void OnUpdateText(object sender, int numOfRounds) {
         if (numOfRounds >= 10) {
-            _ammoText.text = string.Format("{0}", numOfRounds);
+            m_AmmoText.text = string.Format("{0}", numOfRounds);
         }
         else {
-            _ammoText.text = string.Format("{0}  ", numOfRounds);
+            m_AmmoText.text = string.Format("{0}  ", numOfRounds);
         }
     }
 
-    private void ShowHideText(object sender, int health) {
-        if (health > 0) {
-            _ammoText.enabled = true;
-        }
-        else {
-            _ammoText.enabled = false;
-        }
+    private void OnShowHideText(object sender, int health)
+    {
+        m_AmmoText.enabled = health > 0 ? true : false;
     }
+
+    #endregion Private Methods
 }

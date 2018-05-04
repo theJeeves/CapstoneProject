@@ -3,12 +3,10 @@ using UnityEngine;
 
 public class SwarmPodSpawner : MonoBehaviour {
 
-    #region Constants
+    #region Constant Fields
     private const float X_OFFSET = 2.5f;
 
-    #endregion Constnats
-
-    #region Fields
+    #endregion Constnat Fields
 
     #region Public Fields
     public int sizeOfSwarm = 0;                   //The number of swarmers the developer wants to spawn from this instance.
@@ -33,32 +31,30 @@ public class SwarmPodSpawner : MonoBehaviour {
     [SerializeField]
     private SOEffects _SOEffectHandler;
 
-    private Transform[] _effectPositions;           // Positions where the effects will play from.
-    private bool _batteryDamaged = false;           //Bool to determine if the player has hit the battery already
+    private Transform[] m_EffectPositions = null;           // Positions where the effects will play from.
+    private bool m_BatteryDamaged = false;           //Bool to determine if the player has hit the battery already
 
     // Since these two effect animations are "looping", the effects manager will never stop or destroy them automatically.
     //Therefore, we need to have a reference to their instance at manually tell the SOEffectHandler when to destroy them.
-    private GameObject _podBatteryIndicatorGO;
-    private GameObject _podBatteryIndicatorGO1;
-    private GameObject _podBatteryDamageGO;
-    private GameObject _oilSpill1;
-    private GameObject _oilSpill2;
-    private GameObject[] _swarm;
-    private bool _move = false;
+    private GameObject m_PodBatteryIndicatorGO;
+    private GameObject m_PodBatteryIndicatorGO1;
+    private GameObject m_PodBatteryDamageGO;
+    private GameObject m_OilSpill1;
+    private GameObject m_OilSpill2;
+    private GameObject[] m_Swarm;
+    private bool m_Move = false;
 
     #endregion Private Fields
 
-    #endregion Fields
-
     #region Private Initializers
     private void OnEnable() {
-        _effectPositions = GetComponentsInChildren<Transform>();
+        m_EffectPositions = GetComponentsInChildren<Transform>();
 
         // Start the battery indication effect animation
-        _podBatteryIndicatorGO = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryIndicator, _effectPositions[1].position);
-        _podBatteryIndicatorGO1 = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryIndicator, _effectPositions[6].position);
+        m_PodBatteryIndicatorGO = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryIndicator, m_EffectPositions[1].position);
+        m_PodBatteryIndicatorGO1 = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryIndicator, m_EffectPositions[6].position);
 
-        _swarm = new GameObject[sizeOfSwarm];
+        m_Swarm = new GameObject[sizeOfSwarm];
     }
 
     #endregion Private Initializers
@@ -74,25 +70,25 @@ public class SwarmPodSpawner : MonoBehaviour {
         // This function ensures the player has not hit the battery before. It then sets all necessary variables so the Update
         // function works properly. It also stops the battery indicator effect animation and starts the battery damaged
         //effect animation.
-        if (!_batteryDamaged) {
-            _batteryDamaged = true;
-            _SOEffectHandler.StopEffect(_podBatteryIndicatorGO);
-            _SOEffectHandler.StopEffect(_podBatteryIndicatorGO1);
-            _podBatteryDamageGO = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryDamage, _effectPositions[2].position);
-            _oilSpill1 = _SOEffectHandler.PlayEffect(EffectEnums.PodOilSpill1, _effectPositions[3].position);
-            _oilSpill2 = _SOEffectHandler.PlayEffect(EffectEnums.PodOilSpill2, _effectPositions[4].position);
+        if (!m_BatteryDamaged) {
+            m_BatteryDamaged = true;
+            _SOEffectHandler.StopEffect(m_PodBatteryIndicatorGO);
+            _SOEffectHandler.StopEffect(m_PodBatteryIndicatorGO1);
+            m_PodBatteryDamageGO = _SOEffectHandler.PlayEffect(EffectEnums.PodBatteryDamage, m_EffectPositions[2].position);
+            m_OilSpill1 = _SOEffectHandler.PlayEffect(EffectEnums.PodOilSpill1, m_EffectPositions[3].position);
+            m_OilSpill2 = _SOEffectHandler.PlayEffect(EffectEnums.PodOilSpill2, m_EffectPositions[4].position);
         }
     }
 
     public void SpawnSwarm() {
 
         // Destroy the pod object
-        AllClear?.Invoke(this, _swarm);
+        AllClear?.Invoke(this, m_Swarm);
         Destroy(gameObject);
 
         // Instantiate as many swarmers as the developer has requested in the inspector.
         for (int i = 0; i < sizeOfSwarm; ++i) {
-            _swarm[i] = Instantiate(_swarmPrefab[UnityEngine.Random.Range(0, _swarmPrefab.Length)], transform.position, Quaternion.identity) as GameObject;
+            m_Swarm[i] = Instantiate(_swarmPrefab[UnityEngine.Random.Range(0, _swarmPrefab.Length)], transform.position, Quaternion.identity) as GameObject;
         }
     }
 
@@ -104,15 +100,15 @@ public class SwarmPodSpawner : MonoBehaviour {
         // if the player has hit the battery with the shotgun blast. Once they have, this waits for the delay
         // before starting the explosion effect animation, stoping the battery damage effect animation, and hides
         // sprite representing the pod. Lastly, it calls the fucntion to spawn all the swarmers.
-        if (_batteryDamaged) {
+        if (m_BatteryDamaged) {
 
             if ( TimeTools.TimeExpired(ref _destructionDelay) ) {
 
-                _SOEffectHandler.PlayEffect(EffectEnums.PodExplosion, _effectPositions[5].position);
+                _SOEffectHandler.PlayEffect(EffectEnums.PodExplosion, m_EffectPositions[5].position);
 
-                _SOEffectHandler.StopEffect(_podBatteryDamageGO);
-                _SOEffectHandler.StopEffect(_oilSpill1);
-                _SOEffectHandler.StopEffect(_oilSpill2);
+                _SOEffectHandler.StopEffect(m_PodBatteryDamageGO);
+                _SOEffectHandler.StopEffect(m_OilSpill1);
+                _SOEffectHandler.StopEffect(m_OilSpill2);
 
                 GetComponent<SpriteRenderer>().enabled = false;
                 SpawnSwarm();
@@ -126,13 +122,13 @@ public class SwarmPodSpawner : MonoBehaviour {
             else {
 
                 // Have the pod shake violently before it explodes
-                if (_move) {
+                if (m_Move) {
                     transform.position = new Vector2(transform.position.x + X_OFFSET, transform.position.y);
-                    _move = false;
+                    m_Move = false;
                 }
-                else if (!_move) {
+                else if (!m_Move) {
                     transform.position = new Vector2(transform.position.x - X_OFFSET, transform.position.y);
-                    _move = true;
+                    m_Move = true;
                 }
             }
         }

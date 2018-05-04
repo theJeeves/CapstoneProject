@@ -1,37 +1,52 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using System;
 
 public class GameManager : Singleton<GameManager> {
 
+    #region Constant Fields
+    private const string MAIN_CHARACTER_PATH = "MainCharacter/MainCharacter";
+    private const string PLAYER_SAVE_FILE_PATH = "ScriptableObjects/PlayerSaveFile";
+    private const string EFFECT_HANDLER_PATH = "ScriptableObjects/SOEffectHandler";
+    private const string DUAL_SHOCK = "DS_OPTIONS";
+    private const string XBOX = "XBOX_START";
+
+    #endregion Constant Fields
+
+    #region Public Fields
     public SOSaveFile SOSaveHandler;
     public SOEffects SOEffectHandler;
 
-    private InputManager _IM;
-    private WindowManager _WM;
-    StandaloneInputModule eventSystem;
-    private GameObject _player;
+    #endregion Public Fields
 
-    private bool _inGame = false;
-    private bool _paused = false;
-    private float _defaultTimeScale = 1.0f;
+    #region Private Fields
+    private InputManager m_IM = null;
+    private WindowManager m_WM = null;
+    private StandaloneInputModule m_EventSystem = null;
+    private GameObject m_Player = null;
 
-    private int _currentLevel = 0;
-    private float _playeTime = 0.0f;
+    private bool m_InGame = false;
+    private bool m_Paused = false;
+    private float m_DefaultTimeScale = 1.0f;
 
+    private int m_CurrentLevel = 0;
+    private float m_PlayeTime = 0.0f;
+
+    #endregion Private Fields
+
+    #region Initializers
     protected override void Awake() {
         // CALL BASE AWAKE TO ENSURE THERE ARE NO OTHER INSTANCES OF THE GAME MANAGER IN THE SCENE
         base.Awake();
 
         // LOAD THE SCRIPTABLEOBJECTS TO BE USED THROUGHOUT THE GAME.
-        SOSaveHandler = Resources.Load("ScriptableObjects/PlayerSaveFile", typeof(SOSaveFile)) as SOSaveFile;
-        SOEffectHandler = Resources.Load("ScriptableObjects/SOEffectHandler", typeof(SOEffects)) as SOEffects;
+        SOSaveHandler = Resources.Load(PLAYER_SAVE_FILE_PATH, typeof(SOSaveFile)) as SOSaveFile;
+        SOEffectHandler = Resources.Load(EFFECT_HANDLER_PATH, typeof(SOEffects)) as SOEffects;
 
-        _IM = InputManager.Instance.GetComponent<InputManager>();
-        _WM = WindowManager.Instance.GetComponent<WindowManager>();
-        eventSystem = EventSystemSingleton.Instance.GetComponent<StandaloneInputModule>();
+        m_IM = InputManager.Instance.GetComponent<InputManager>();
+        m_WM = WindowManager.Instance.GetComponent<WindowManager>();
+        m_EventSystem = EventSystemSingleton.Instance.GetComponent<StandaloneInputModule>();
 
         SOEffectHandler.LoadEffects();
     }
@@ -59,7 +74,7 @@ public class GameManager : Singleton<GameManager> {
         StatsWindow.OnResetStats += ResetStats;
 
         // LEVEL COMPLETED
-        EndOfLevel.OnLevelComplete += OnLevelComplete;
+        EndOfLevel.LevelComplete += OnLevelComplete;
         EndLevelWindow.OnContinue += OnLoadNextLevel;
         EndLevelWindow.OnBackToMain += OnBackToMain;
 
@@ -71,9 +86,12 @@ public class GameManager : Singleton<GameManager> {
         // Scene Changes
         SceneManager.sceneLoaded += OnSceneLoaded;
 
-        _playeTime = 0.0f;
+        m_PlayeTime = 0.0f;
     }
 
+    #endregion Initializers
+
+    #region Finalizers
     private void OnDisable() {
         // Start Window Events
         StartWindow.OnContinue -= OnContinue;
@@ -96,7 +114,7 @@ public class GameManager : Singleton<GameManager> {
         StatsWindow.OnResetStats -= ResetStats;
 
         // LEVEL COMPLETED Events
-        EndOfLevel.OnLevelComplete -= OnLevelComplete;
+        EndOfLevel.LevelComplete -= OnLevelComplete;
         EndLevelWindow.OnContinue -= OnLoadNextLevel;
         EndLevelWindow.OnBackToMain -= OnBackToMain;
 
@@ -109,118 +127,131 @@ public class GameManager : Singleton<GameManager> {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
+    #endregion Finalizers
+
+    #region Public Methods
+    /// <summary>
+    /// Start Window Events
+    /// </summary>
+    /// <param name="ignore1"></param>
+    /// <param name="ignore2"></param>
+    public void OnContinue(WindowIDs ignore1, WindowIDs ignore2)
+    {
+        SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
+        m_InGame = true;
+        m_Paused = false;
+
+        switch (m_CurrentLevel)
+        {
+            case 1:
+                m_PlayeTime = SOSaveHandler.CurrentLevel1Time; break;
+            case 2:
+                m_PlayeTime = SOSaveHandler.CurrentLevel2Time; break;
+            case 3:
+                m_PlayeTime = SOSaveHandler.CurrentLevel3Time; break;
+        }
+    }
+
+    #endregion Public Methods
+
+    #region Private Methods
     // This is where all the "Menu Controls" should go. Example, back button and pausing the game.
     private void Update() {
-        if (_inGame) {
+        if (m_InGame) {
 
-            if (!_paused) {
+            if (!m_Paused) {
                 UpdateTime();
             }
 
-            if (_IM.controllerType == 0 ? Input.GetButtonDown("DS_OPTIONS") : Input.GetButtonDown("XBOX_START") ) {
+            if (m_IM.controllerType == 0 ? Input.GetButtonDown(DUAL_SHOCK) : Input.GetButtonDown(XBOX) ) {
 
-                if (!_paused) {
-                    _paused = true;
+                if (!m_Paused) {
+                    m_Paused = true;
                     Time.timeScale = 0.0f;
-                    _WM.ToggleWindows(WindowIDs.None, WindowIDs.PauseWindow);
+                    m_WM.ToggleWindows(WindowIDs.None, WindowIDs.PauseWindow);
                 }
-                else if (_paused) {
-                    _paused = false;
-                    Time.timeScale = _defaultTimeScale;
-                    _WM.ToggleWindows(WindowIDs.PauseWindow, WindowIDs.None);
+                else if (m_Paused) {
+                    m_Paused = false;
+                    Time.timeScale = m_DefaultTimeScale;
+                    m_WM.ToggleWindows(WindowIDs.PauseWindow, WindowIDs.None);
                 }
             }
         }
     }
 
     private void UpdateTime() {
-        //_playeTime += Time.deltaTime;
+
         SOSaveHandler.TotalTimePlayed += Time.deltaTime;
 
-        switch (_currentLevel) {
+        switch (m_CurrentLevel) {
             case 1:
                 SOSaveHandler.CurrentLevel1Time += Time.deltaTime;
-                //if (_playeTime > SOSaveHandler.BestLevel1Time) { SOSaveHandler.BestLevel1Time = _playeTime; }
                 break;
             case 2:
                 SOSaveHandler.CurrentLevel2Time += Time.deltaTime;
-                //if (_playeTime > SOSaveHandler.BestLevel2Time) { SOSaveHandler.BestLevel2Time = _playeTime; }
                 break;
             case 3:
                 SOSaveHandler.CurrentLevel3Time += Time.deltaTime;
-                //if (_playeTime > SOSaveHandler.BestLevel3Time) { SOSaveHandler.BestLevel3Time = _playeTime; }
                 break;
-        }
-    }
-
-    //
-    // Start Window Events
-    //
-    public void OnContinue(WindowIDs ignore1, WindowIDs ignore2) {
-        SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
-        _inGame = true;
-        _paused = false;
-
-        switch (_currentLevel) {
-            case 1:
-                _playeTime = SOSaveHandler.CurrentLevel1Time; break;
-            case 2:
-                _playeTime = SOSaveHandler.CurrentLevel2Time; break;
-            case 3:
-                _playeTime = SOSaveHandler.CurrentLevel3Time; break;
         }
     }
 
     private void OnNewGame(WindowIDs ignore1, WindowIDs ignore2) {
         SOSaveHandler.NewGame();
         SceneManager.LoadScene(1);
-        _inGame = true;
-        _playeTime = 0.0f;
-        _paused = false;
+        m_InGame = true;
+        m_PlayeTime = 0.0f;
+        m_Paused = false;
     }
 
-    //
-    // LEVEL SELECT
-    //
-    private void OnSelectLevel(int level) {
+    /// <summary>
+    /// LEVEL SELECT
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="level"></param>
+    private void OnSelectLevel(object sender, int level) {
         SOSaveHandler.LoadLevel(level);
         SceneManager.LoadScene(level);
-        Time.timeScale = _defaultTimeScale;
-        _inGame = true;
-        _paused = false;
-        _playeTime = 0.0f;
+        Time.timeScale = m_DefaultTimeScale;
+        m_InGame = true;
+        m_Paused = false;
+        m_PlayeTime = 0.0f;
 
         SOSaveHandler.CurrentLevel1Time = 0.0f;
         SOSaveHandler.CurrentLevel2Time = 0.0f;
         SOSaveHandler.CurrentLevel3Time = 0.0f;
     }
 
-    //
-    // Player Death Event
-    //
-    // Add to the counter for every time the player dies
+    /// <summary>
+    /// PLAYER DEATH EVENT. Add to the counter for every time the player dies.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="eventArgs"></param>
     private void OnPlayerDeath(object sender, EventArgs eventArgs) {
         SOSaveHandler.CurrentDeathCount += 1;
         SOSaveHandler.DeathCount += 1;
     }
 
-    //
-    /// Gun Events
-    //
-    private void OnShotgunFired() {
+    /// <summary>
+    /// GUN EVENTS
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="args"></param>
+    private void OnShotgunFired(object sender, EventArgs args) {
         SOSaveHandler.InProgressJouleShots += 1;
         SOSaveHandler.JouleShots += 1;
     }
 
-    private void OnMachineGunFired() {
+    private void OnMachineGunFired(object sender, EventArgs args) {
         SOSaveHandler.InProgressPersuaderShots += 1;
         SOSaveHandler.PersuaderShots += 1;
     }
 
-    //
-    // Enemy Death Events
-    //
-    // Add to the counter for every kill the player makes
+    /// <summary>
+    /// ENEMY DEATH EVENTS. Add to the counter for every kill the player makes.
+    /// </summary>
+    /// <param name="sender"></param>
+    /// <param name="type"></param>
     private void OnEnemyDeath(object sender, EnemyType type) {
         switch (type) {
             case EnemyType.AcidSwarmer:
@@ -240,15 +271,17 @@ public class GameManager : Singleton<GameManager> {
         SOSaveHandler.ResetAllStats();
     }
 
-    //
-    // LEVEL COMPLETED Events
-    //
+    /// <summary>
+    /// LEVEL COMPLETED EVENTS.
+    /// </summary>
+    /// <param name="ignore1"></param>
+    /// <param name="ignore"></param>
     private void OnLevelComplete(WindowIDs ignore1, WindowIDs ignore) {
-        _IM.StopInput();
-        _inGame = false;
+        m_IM.StopInput();
+        m_InGame = false;
         Time.timeScale = 0.0f;
 
-        switch (_currentLevel) {
+        switch (m_CurrentLevel) {
             case 1:
                 if (SOSaveHandler.CurrentLevel1Time < SOSaveHandler.BestLevel1Time || SOSaveHandler.BestLevel1Time <= 1.0f) { SOSaveHandler.BestLevel1Time = SOSaveHandler.CurrentLevel1Time; }
                 break;
@@ -260,21 +293,21 @@ public class GameManager : Singleton<GameManager> {
                 break;
         }
 
-        _playeTime = 0.0f;
+        m_PlayeTime = 0.0f;
     }
 
     private void OnLoadNextLevel(WindowIDs ignore1, WindowIDs ignore2) {
         SOSaveHandler.NextLevel();
         SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
-        _inGame = true;
-        Time.timeScale = _defaultTimeScale;
-        _paused = false;
+        m_InGame = true;
+        Time.timeScale = m_DefaultTimeScale;
+        m_Paused = false;
     }
 
     private void OnBackToMain(WindowIDs close, WindowIDs open) {
 
-        _inGame = false;
-        _paused = true;
+        m_InGame = false;
+        m_Paused = true;
 
         if (SceneManager.GetActiveScene().buildIndex < 3) {
             SOSaveHandler.NextLevel();
@@ -283,43 +316,49 @@ public class GameManager : Singleton<GameManager> {
             SOSaveHandler.GameCompleted();
         }
         SceneManager.LoadScene(0);
-        Time.timeScale = _defaultTimeScale;
+        Time.timeScale = m_DefaultTimeScale;
     }
 
 
-    //
-    // PAUSE MENU EVENTS
-    //
+    /// <summary>
+    /// PAUSE MENU EVENTS
+    /// </summary>
+    /// <param name="ignore1"></param>
+    /// <param name="ignore2"></param>
     private void OnPauseContinue(WindowIDs ignore1, WindowIDs ignore2) {
-        _paused = false;
-        Time.timeScale = _defaultTimeScale;
+        m_Paused = false;
+        Time.timeScale = m_DefaultTimeScale;
     }
 
     private void OnPauseRestartLevel(WindowIDs ignore1, WindowIDs ignore2) {
         SOSaveHandler.RestartLevel();
         SceneManager.LoadScene(SOSaveHandler.CurrentLevel);
-        _paused = false;
-        Time.timeScale = _defaultTimeScale;
+        m_Paused = false;
+        Time.timeScale = m_DefaultTimeScale;
 
-        _playeTime = 0.0f;
+        m_PlayeTime = 0.0f;
     }
 
     private void OnPauseBackToMain(WindowIDs ignore1, WindowIDs ignore2) {
-        _paused = true;
+        m_Paused = true;
         SceneManager.LoadScene(0);
-        Time.timeScale = _defaultTimeScale;
-        _inGame = false;
+        Time.timeScale = m_DefaultTimeScale;
+        m_InGame = false;
 
     }
 
-    // Things to do when a level is loaded
+    /// <summary>
+    /// Things to do when a level is loaded.
+    /// </summary>
+    /// <param name="scene"></param>
+    /// <param name="mode"></param>
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode) {
 
-        _currentLevel = scene.buildIndex;
+        m_CurrentLevel = scene.buildIndex;
 
         if (scene.buildIndex != 0) {
-            _inGame = true;
-            _playeTime = 0.0f;
+            m_InGame = true;
+            m_PlayeTime = 0.0f;
 
             if (SOSaveHandler.CheckpointID == 0) {
                 GameObject player = SpawnPlayer();
@@ -327,13 +366,13 @@ public class GameManager : Singleton<GameManager> {
                 if (scene.buildIndex == 1) {
                     player.GetComponentInChildren<WeaponSelect>().MGAvailable = true;
                     player.GetComponentInChildren<WeaponSelect>().SGAvailable = false;
-                    _IM.StopInput();
+                    m_IM.StopInput();
                 }
             }
             else {
                 SpawnPlayer();
-                GameObject[] checkpoints = GameObject.FindGameObjectsWithTag("Checkpoint");
-                GameObject camera = GameObject.FindGameObjectWithTag("SmartCamera");
+                GameObject[] checkpoints = GameObject.FindGameObjectsWithTag(StringConstantUtility.CHECKPOINT);
+                GameObject camera = GameObject.FindGameObjectWithTag(StringConstantUtility.SMART_CAMERA_TAG);
 
                 foreach (GameObject ckpt in checkpoints) {
 
@@ -360,18 +399,20 @@ public class GameManager : Singleton<GameManager> {
             }
         }
         else if (scene.buildIndex == 0) {
-            _inGame = false;
+            m_InGame = false;
         }
     }
 
     private GameObject SpawnPlayer() {
-        GameObject _player = Instantiate(Resources.Load("MainCharacter/MainCharacter", typeof(GameObject)) as GameObject, transform.position, Quaternion.identity) as GameObject;
+        GameObject _player = Instantiate(Resources.Load(MAIN_CHARACTER_PATH, typeof(GameObject)) as GameObject, transform.position, Quaternion.identity) as GameObject;
         SOEffectHandler.PlayEffect(EffectEnums.PlayerRespawn, SOSaveHandler.CheckpointPosition);
         _player.transform.position = SOSaveHandler.CheckpointPosition;
-        _IM.AssignPlayer(_player);
+        m_IM.AssignPlayer(_player);
         if (SOSaveHandler.CurrentLevel > 1) { _player.GetComponentInChildren<WeaponSelect>().SGAvailable = true; }
         else if (SOSaveHandler.CurrentLevel == 1 && SOSaveHandler.CheckpointID >= 7 && SOSaveHandler.CheckpointID != 8) { _player.GetComponentInChildren<WeaponSelect>().SGAvailable = true; }
         else { _player.GetComponentInChildren<WeaponSelect>().SGAvailable = false; }
         return _player;
     }
+
+    #endregion Private Methods
 }

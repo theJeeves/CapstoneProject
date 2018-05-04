@@ -1,41 +1,57 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
 public class CallTextHUD : MonoBehaviour {
 
+    #region Private Fields
     [SerializeField]
     private float _dropDownSpeed = 0.0f;
 
-    private bool _display = false;
-    private RectTransform _transform;
+    private bool m_Display = false;
+    private RectTransform m_Transform = null;
 
-	private void OnEnable() {
-        InstructionText.DisplayHint += DisplayHint;
-        InstructionText.HideHint += HideHint;
+    #endregion Private Fields
 
-        _transform = GetComponent<RectTransform>();
+    #region Initializers
+    private void OnEnable() {
+
+        // Wire-up events
+        InstructionText.DisplayHint += OnDisplayHint;
+        InstructionText.HideHint += OnHideHint;
+
+        m_Transform = GetComponent<RectTransform>();
     }
 
+    #endregion Initializers
+
+    #region Finalizers
     private void OnDisable() {
-        InstructionText.DisplayHint -= DisplayHint;
-        InstructionText.HideHint -= HideHint;
+
+        // Unwire events
+        InstructionText.DisplayHint -= OnDisplayHint;
+        InstructionText.HideHint -= OnHideHint;
     }
 
+    #endregion Finalizers
+
+    #region Private Methods
     private void Update() {
         
-        if (_display && _transform.anchoredPosition.y > -200.0f) {
-            _transform.anchoredPosition = Vector3.MoveTowards(_transform.anchoredPosition, new Vector3(0.0f, -200.0f, 0), Time.deltaTime * _dropDownSpeed);
+        if (m_Display && m_Transform.anchoredPosition.y > -200.0f) {
+            m_Transform.anchoredPosition = Vector3.MoveTowards(m_Transform.anchoredPosition, new Vector3(0.0f, -200.0f, 0), Time.deltaTime * _dropDownSpeed);
         }
-        else if (!_display && _transform.anchoredPosition.y < 155.0f) {
-            _transform.anchoredPosition = Vector3.MoveTowards(_transform.anchoredPosition, new Vector3(0.0f, 155.0f, 0), Time.deltaTime * _dropDownSpeed);
+        else if (!m_Display && m_Transform.anchoredPosition.y < 155.0f) {
+            m_Transform.anchoredPosition = Vector3.MoveTowards(m_Transform.anchoredPosition, new Vector3(0.0f, 155.0f, 0), Time.deltaTime * _dropDownSpeed);
         }
     }
 
-    private void DisplayHint(string hint) {
-        _display = true;
+    private void OnDisplayHint(object sender, string hint) {
+        m_Display = true;
     }
 
-    private void HideHint() {
-        _display = false;
+    private void OnHideHint(object sender, EventArgs args) {
+        m_Display = false;
     }
+
+    #endregion Private Methods
 }
