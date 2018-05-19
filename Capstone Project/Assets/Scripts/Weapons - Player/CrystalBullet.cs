@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class CrystalBullet : AbstractBullet {
 
@@ -18,14 +17,14 @@ public class CrystalBullet : AbstractBullet {
 
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
-        if (otherGO.gameObject.tag == "Enemy") {
+        if (otherGO.gameObject.tag == StringConstantUtility.ENEMY_TAG) {
             otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
         }
         if (otherGO.collider.gameObject.tag == "SwarmerPodBattery") {
             otherGO.gameObject.GetComponentInParent<SwarmPodSpawner>().DestroyPod();
         }
 
-        if (otherGO.gameObject.tag != "Player" && otherGO != null) {
+        if (otherGO?.gameObject.tag != StringConstantUtility.PLAYER_TAG) {
             _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }
@@ -37,7 +36,7 @@ public class CrystalBullet : AbstractBullet {
             _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }
-        else if (otherGO.gameObject.tag == "Enemy") {
+        else if (otherGO.gameObject.tag == StringConstantUtility.ENEMY_TAG) {
             otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
             _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);

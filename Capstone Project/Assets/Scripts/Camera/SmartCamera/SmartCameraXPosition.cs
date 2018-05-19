@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class SmartCameraXPosition : MonoBehaviour {
 
@@ -18,7 +17,7 @@ public class SmartCameraXPosition : MonoBehaviour {
 
     private void OnEnable() {
 
-        PlayerHealth.UpdateHealth += UponDeath;
+        PlayerHealth.UpdateHealth += OnUpdateHealth;
 
         _player = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG);
         _startTime = Time.time;
@@ -30,7 +29,7 @@ public class SmartCameraXPosition : MonoBehaviour {
     }
 
     private void OnDisable() {
-        PlayerHealth.UpdateHealth -= UponDeath;
+        PlayerHealth.UpdateHealth -= OnUpdateHealth;
     }
 
     #region Properties
@@ -120,7 +119,7 @@ public class SmartCameraXPosition : MonoBehaviour {
         }
     }
 
-    private void UponDeath(object sender, int health) {
+    private void OnUpdateHealth(int health) {
 
         if (health <= 0) {
             _movementTimer = _movementDelay;

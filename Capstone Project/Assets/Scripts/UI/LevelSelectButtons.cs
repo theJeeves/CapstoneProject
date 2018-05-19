@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
+using UnityEngine.Events;
 
 public class LevelSelectButtons : GenericWindow {
 
@@ -23,7 +23,7 @@ public class LevelSelectButtons : GenericWindow {
 
     #region Events
     public static event GenericWindowEvent ToggleWindows;
-    public static event EventHandler<int> SelectLevel;
+    public static event UnityAction<int> SelectLevel;
 
     #endregion Events
 
@@ -34,7 +34,7 @@ public class LevelSelectButtons : GenericWindow {
     /// <param name="level"></param>
     public void LevelSelected(int level)
     {
-        SelectLevel?.Invoke(this, level);
+        SelectLevel?.Invoke(level);
         CloseLevelSelectWindow();
     }
 

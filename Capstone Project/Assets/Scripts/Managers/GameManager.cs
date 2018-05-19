@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
-using System;
 
 public class GameManager : Singleton<GameManager> {
 
@@ -209,7 +208,7 @@ public class GameManager : Singleton<GameManager> {
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="level"></param>
-    private void OnSelectLevel(object sender, int level) {
+    private void OnSelectLevel(int level) {
         SOSaveHandler.LoadLevel(level);
         SceneManager.LoadScene(level);
         Time.timeScale = m_DefaultTimeScale;
@@ -227,7 +226,7 @@ public class GameManager : Singleton<GameManager> {
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="eventArgs"></param>
-    private void OnPlayerDeath(object sender, EventArgs eventArgs) {
+    private void OnPlayerDeath() {
         SOSaveHandler.CurrentDeathCount += 1;
         SOSaveHandler.DeathCount += 1;
     }
@@ -237,12 +236,12 @@ public class GameManager : Singleton<GameManager> {
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="args"></param>
-    private void OnShotgunFired(object sender, EventArgs args) {
+    private void OnShotgunFired() {
         SOSaveHandler.InProgressJouleShots += 1;
         SOSaveHandler.JouleShots += 1;
     }
 
-    private void OnMachineGunFired(object sender, EventArgs args) {
+    private void OnMachineGunFired() {
         SOSaveHandler.InProgressPersuaderShots += 1;
         SOSaveHandler.PersuaderShots += 1;
     }
@@ -252,7 +251,7 @@ public class GameManager : Singleton<GameManager> {
     /// </summary>
     /// <param name="sender"></param>
     /// <param name="type"></param>
-    private void OnEnemyDeath(object sender, EnemyType type) {
+    private void OnEnemyDeath(EnemyType type) {
         switch (type) {
             case EnemyType.AcidSwarmer:
                 SOSaveHandler.AcidVectorsKilled += 1; break;

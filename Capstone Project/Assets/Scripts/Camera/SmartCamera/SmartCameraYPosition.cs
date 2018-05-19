@@ -24,7 +24,7 @@ public class SmartCameraYPosition : MonoBehaviour {
 
     #region Private Initializers
     private void OnEnable() {
-        PlayerHealth.UpdateHealth += UponDeath;
+        PlayerHealth.UpdateHealth += OnUpdateHealth;
 
         _player = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG);
         _startTime = Time.time;
@@ -35,7 +35,7 @@ public class SmartCameraYPosition : MonoBehaviour {
 
     #region Private Finalizers
     private void OnDisable() {
-        PlayerHealth.UpdateHealth -= UponDeath;
+        PlayerHealth.UpdateHealth -= OnUpdateHealth;
     }
 
     #endregion Private Finalizers
@@ -132,7 +132,7 @@ public class SmartCameraYPosition : MonoBehaviour {
         }
     }
 
-    private void UponDeath(object sender, int health) {
+    private void OnUpdateHealth(int health) {
 
         if (health <= 0) {
             _movementTimer = _movementDelay;

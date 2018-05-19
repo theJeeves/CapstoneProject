@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using SpriterDotNetUnity;
 using System.Collections.Generic;
 using System.Linq;

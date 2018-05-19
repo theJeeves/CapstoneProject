@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System;
 
 public class CallTextHUD : MonoBehaviour {
 
@@ -45,11 +44,11 @@ public class CallTextHUD : MonoBehaviour {
         }
     }
 
-    private void OnDisplayHint(object sender, string hint) {
+    private void OnDisplayHint(string hint) {
         m_Display = true;
     }
 
-    private void OnHideHint(object sender, EventArgs args) {
+    private void OnHideHint() {
         m_Display = false;
     }
 

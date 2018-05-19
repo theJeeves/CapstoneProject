@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class LevelSelectWindow : GenericWindow {
+﻿public class LevelSelectWindow : GenericWindow {
 
     public static event GenericWindowEvent OnBackButton;
 

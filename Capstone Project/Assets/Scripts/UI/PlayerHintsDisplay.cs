@@ -33,7 +33,7 @@ public class PlayerHintsDisplay : MonoBehaviour {
     #endregion Finalizers
 
     #region Private Methods
-    private void DisplayHint(object sender, string hint) {
+    private void DisplayHint(string hint) {
 
         hint = hint.Replace(TO_BE_REPLACED, NEW_LINE);
         m_Hints.text = hint;

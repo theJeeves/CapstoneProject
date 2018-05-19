@@ -19,7 +19,7 @@ public class ChargerRocketAnim : MonoBehaviour {
         //ChargerLockOn.ResetRockets -= ResetRockets;
     }
 
-    private void StartAnim(object sender, float time) {
+    private void StartAnim(float time) {
         StartCoroutine(RocketAnim(time));
     }
 

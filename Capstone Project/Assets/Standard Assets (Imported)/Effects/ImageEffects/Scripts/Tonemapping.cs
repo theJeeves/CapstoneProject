@@ -1,10 +1,9 @@
-using System;
 using UnityEngine;
 
 namespace UnityStandardAssets.ImageEffects
 {
 #if UNITY_5_4_OR_NEWER
-	[ImageEffectAllowedInSceneView]
+    [ImageEffectAllowedInSceneView]
 #endif
 	[ExecuteInEditMode]
     [RequireComponent(typeof (Camera))]

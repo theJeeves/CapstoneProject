@@ -2,6 +2,7 @@
 using UnityEngine;
 using System.Collections;
 using System;
+using UnityEngine.Events;
 
 /*
  * Weapon based on the AbstractGun class which gives the player a "float" like ability.
@@ -27,13 +28,13 @@ public class MachineGun : AbstractGun {
         numOfRounds = _weaponManager.GetNumOfRounds(_type);
         if (numOfRounds > 0)
         {
-            DisplayAmmo?.Invoke(this, null);
+            DisplayAmmo?.Invoke();
         }
     }
 
     private void OnEnable() {
         PlayerCollisionState.HitGround += Reload;
-        ControllableObject.OnButtonDown += ManualReload;
+        ControllableObject.ButtonDown += ManualReload;
 
         GetComponent<AudioSource>().clip = _audioClip;
         GetComponent<AudioSource>().Play();
@@ -43,7 +44,7 @@ public class MachineGun : AbstractGun {
 
         if (_weaponManager.reloaded) {
             numOfRounds = _ammoCapacity;
-            DisplayAmmo?.Invoke(this, null);
+            DisplayAmmo?.Invoke();
             _weaponManager.reloaded = false;
         }
         else if (numOfRounds <= 0) {
@@ -54,7 +55,7 @@ public class MachineGun : AbstractGun {
             _canShoot = true;
         }
 
-        UpdateNumOfRounds?.Invoke(this, numOfRounds);
+        UpdateNumOfRounds?.Invoke(numOfRounds);
 
         PlayerActions.ButtonHeld += OnPlayerActionButtonPress;
 
@@ -66,7 +67,7 @@ public class MachineGun : AbstractGun {
     #region Finalizers
     private void OnDisable() {
         PlayerCollisionState.HitGround -= Reload;
-        ControllableObject.OnButtonDown -= ManualReload;
+        ControllableObject.ButtonDown -= ManualReload;
 
         _grounded = _collisionState.OnSolidGround ? true : false;
 
@@ -77,11 +78,11 @@ public class MachineGun : AbstractGun {
     #endregion Finalizers
 
     #region Events
-    public static event EventHandler EmptyClip;
-    public static event EventHandler<float> StartReloadAnimation;
-    public static event EventHandler<int> UpdateNumOfRounds;
-    public static event EventHandler DisplayAmmo;
-    public static event EventHandler ShotFired;
+    public static event UnityAction EmptyClip;
+    public static event UnityAction<float> StartReloadAnimation;
+    public static event UnityAction<int> UpdateNumOfRounds;
+    public static event UnityAction DisplayAmmo;
+    public static event UnityAction ShotFired;
 
     #endregion Events
 
@@ -105,7 +106,7 @@ public class MachineGun : AbstractGun {
         }
     }
 
-    private void OnPlayerActionButtonPress(object sender, Buttons button) {
+    private void OnPlayerActionButtonPress(Buttons button) {
 
         if (button == Buttons.Shoot && numOfRounds > 0) {
 
@@ -117,13 +118,13 @@ public class MachineGun : AbstractGun {
                     Fire();
                     // If the last round has gone out, send out the event to hide the ammo type display.
                     if (--numOfRounds <= 0) {
-                        EmptyClip?.Invoke(this, null);
+                        EmptyClip?.Invoke();
 
                         // Determine if the player was on the ground when they shot the last round in the chamber.
                         //_grounded = _collisionState.OnSolidGround ? true : false;
                         Reload();
                     }
-                    UpdateNumOfRounds?.Invoke(this, numOfRounds);
+                    UpdateNumOfRounds?.Invoke(numOfRounds);
                 }
             }
         }
@@ -131,7 +132,7 @@ public class MachineGun : AbstractGun {
         // Only call for the ammo to hide if the player has no more bullets in the clip
         // and are in the air. Otherwise, it is handle in the if statement above.
         else if (numOfRounds <= 0 && !_grounded) {
-            EmptyClip?.Invoke(this, null);
+            EmptyClip?.Invoke();
         }
     }
 
@@ -156,7 +157,7 @@ public class MachineGun : AbstractGun {
             m_shotDelay = m_defaultShotDelay;
 
             // this is here to tell the save file another shot is fired and to record it.
-            ShotFired?.Invoke(this, null);
+            ShotFired?.Invoke();
         }
     }
 
@@ -187,7 +188,7 @@ public class MachineGun : AbstractGun {
         else return -1;
     }
 
-    private void Reload(object sender, EventArgs args)
+    private void Reload(EventArgs args)
     {
         Reload();
     }
@@ -208,7 +209,7 @@ public class MachineGun : AbstractGun {
         }
     }
 
-    private void ManualReload(object sender, Buttons button)
+    private void ManualReload(Buttons button)
     {
         if (button == Buttons.Reload && !_reloading && numOfRounds < _ammoCapacity && _grounded) {
             _grounded = true;
@@ -228,7 +229,7 @@ public class MachineGun : AbstractGun {
             yield return 0;
         }
 
-        StartReloadAnimation?.Invoke(this, _reloadTime);
+        StartReloadAnimation?.Invoke(_reloadTime);
 
         yield return new WaitForSeconds(_reloadTime);
 
@@ -236,7 +237,7 @@ public class MachineGun : AbstractGun {
         numOfRounds = _weaponManager.GetNumOfRounds(_type);
 
         // UPDATE THE UI
-        UpdateNumOfRounds?.Invoke(this, numOfRounds);
+        UpdateNumOfRounds?.Invoke(numOfRounds);
 
         // The player can now fire again.
         _reloading = false;

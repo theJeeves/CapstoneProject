@@ -1,7 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using System;
 
 public class EndLevelWindow : GenericWindow {

@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class CreditsWindow : GenericWindow {
+﻿public class CreditsWindow : GenericWindow {
 
     public static event GenericWindowEvent OnBackButton;
 

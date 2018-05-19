@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using UnityEngine.Events;
 
 public enum DamageEnum {
     None,
@@ -75,12 +75,12 @@ public class PlayerHealth : MonoBehaviour {
     void Start() {
         _health = _maxHealth;
 
-        UpdateHealth?.Invoke(this, _health);
+        UpdateHealth?.Invoke(_health);
     }
 
     #region Events
-    public static event EventHandler<int> UpdateHealth;
-    public static event EventHandler OnPlayerDeath;
+    public static event UnityAction<int> UpdateHealth;
+    public static event UnityAction OnPlayerDeath;
     #endregion Events
 
     #region Public Methods
@@ -106,7 +106,7 @@ public class PlayerHealth : MonoBehaviour {
             _timer = Time.time;
 
             // This tells the save file to add to the number of deaths.
-            OnPlayerDeath?.Invoke(this, null);
+            OnPlayerDeath?.Invoke();
         }
 
         GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);
@@ -187,7 +187,7 @@ public class PlayerHealth : MonoBehaviour {
         }
 
         // UPDATE HEALTH UI
-        UpdateHealth?.Invoke(this, _health);
+        UpdateHealth?.Invoke(_health);
     }
     #endregion Public Methods
 
@@ -222,7 +222,7 @@ public class PlayerHealth : MonoBehaviour {
                 _timer = Time.time;
 
                 // This tells the save file to add to the number of deaths.
-                OnPlayerDeath?.Invoke(this, null);
+                OnPlayerDeath?.Invoke();
             }
 
             GetComponent<Rigidbody2D>().velocity = new Vector3(0.0f, 0.0f, 0.0f);

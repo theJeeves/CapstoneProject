@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class PauseWindow : GenericWindow {
+﻿public class PauseWindow : GenericWindow {
 
     public static event GenericWindowEvent OnContinueButton;
     public static event GenericWindowEvent OnResartLevelButton;

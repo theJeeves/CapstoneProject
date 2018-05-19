@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
-using System;
+using UnityEngine.Events;
 
 public class PlayerCollisionState : MonoBehaviour {
 
@@ -49,8 +49,8 @@ public class PlayerCollisionState : MonoBehaviour {
     #endregion Initializers
 
     #region Events
-    public static event EventHandler HitGround;
-    public static event EventHandler Lifted;
+    public static event UnityAction HitGround;
+    public static event UnityAction Lifted;
 
     #endregion Events
 
@@ -90,11 +90,11 @@ public class PlayerCollisionState : MonoBehaviour {
             else {
                 _SOEffectHandler.PlayEffect(EffectEnums.LandingDust, transform.position);
             }
-            HitGround?.Invoke(this, null);
+            HitGround?.Invoke();
         }
         // Send out this event if the player was on the ground and its status has changed.
         else if (OnSolidGround && !m_TouchedGround) {
-            Lifted?.Invoke(this, null);
+            Lifted?.Invoke();
         }
 
         OnSolidGround = m_TouchedGround ? true : false;         // Update the collision state.

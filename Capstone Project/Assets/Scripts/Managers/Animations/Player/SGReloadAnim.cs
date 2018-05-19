@@ -1,7 +1,4 @@
-﻿using UnityEngine;
-using System.Collections;
-
-public class SGReloadAnim : ReloadAnimation {
+﻿public class SGReloadAnim : ReloadAnimation {
 
     private void OnEnable() {
         Shotgun.StartReloadAnimation += Reload;

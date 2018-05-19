@@ -23,7 +23,7 @@ public class StartBattleRoom : MonoBehaviour {
     private void OnEnable() {
 
         // Wire-up events
-        SwarmPodSpawner.AllClear += OpenDoors;
+        SwarmPodSpawner.AllClear += OnAllClear;
     }
 
     #endregion Private Initializers
@@ -32,7 +32,7 @@ public class StartBattleRoom : MonoBehaviour {
     private void OnDisable() {
 
         // Unwire events
-        SwarmPodSpawner.AllClear -= OpenDoors;
+        SwarmPodSpawner.AllClear -= OnAllClear;
     }
 
     #endregion Private Finalizers
@@ -92,7 +92,7 @@ public class StartBattleRoom : MonoBehaviour {
         }
     }
 
-    private void OpenDoors(object sender, GameObject[] enemies)
+    private void OnAllClear(GameObject[] enemies)
     {
         m_Swarm = enemies;
     }

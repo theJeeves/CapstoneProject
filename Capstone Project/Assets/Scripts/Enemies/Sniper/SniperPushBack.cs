@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class SniperPushBack : MonoBehaviour {
 
@@ -16,7 +16,7 @@ public class SniperPushBack : MonoBehaviour {
 
 
     #region Events
-    public static event EventHandler Stun;
+    public static event UnityAction Stun;
 
     #endregion Events
 
@@ -25,7 +25,7 @@ public class SniperPushBack : MonoBehaviour {
 
         if (go.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
 
-            Stun?.Invoke(this, null);
+            Stun?.Invoke();
             m_Body2d = go.GetComponent<Rigidbody2D>();
             m_Direction = transform.localScale.x > 0 ? 1.0f : -1.0f;
             m_Body2d.AddForce(new Vector2(1.0f, 0.0f) * FORCE_MULTIPLIER * m_Direction, ForceMode2D.Impulse);

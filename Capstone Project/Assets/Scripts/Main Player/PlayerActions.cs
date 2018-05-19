@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using UnityEngine.Events;
 
 public class PlayerActions : MonoBehaviour {
     
@@ -19,7 +19,7 @@ public class PlayerActions : MonoBehaviour {
     #region Initializers
     private void OnEnable() {
         ControllableObject.OnButton += OnButton;
-        ControllableObject.OnButtonDown += OnButtonDown;
+        ControllableObject.ButtonDown += OnButtonDown;
 
         _controller = GetComponent<ControllableObject>();
     }
@@ -29,14 +29,14 @@ public class PlayerActions : MonoBehaviour {
     #region Finalizers
     private void OnDisable() {
         ControllableObject.OnButton -= OnButton;
-        ControllableObject.OnButtonDown -= OnButtonDown;
+        ControllableObject.ButtonDown -= OnButtonDown;
     }
 
     #endregion Finalizers
 
     #region Events
-    public static event EventHandler<Buttons> ButtonPressed;
-    public static event EventHandler<Buttons> ButtonHeld;
+    public static event UnityAction<Buttons> ButtonPressed;
+    public static event UnityAction<Buttons> ButtonHeld;
 
     #endregion Events
 
@@ -56,7 +56,7 @@ public class PlayerActions : MonoBehaviour {
         }
     }
 
-    private void OnButton(object sender, Buttons button) {
+    private void OnButton(Buttons button) {
 
         /*
          * PLAYER WALKING
@@ -166,13 +166,13 @@ public class PlayerActions : MonoBehaviour {
         else if (button == Buttons.Shoot && (_controller.GetButtonPress(Buttons.AimDown) || _controller.GetButtonPress(Buttons.AimUp) ||
             _controller.GetButtonPress(Buttons.AimLeft) || _controller.GetButtonPress(Buttons.AimRight)) ) {
 
-            ButtonHeld?.Invoke(this, Buttons.Shoot);
+            ButtonHeld?.Invoke(Buttons.Shoot);
         }
     }
 
 
     // THIS IS PRIMARILY FOR THE SHOTGUN SINCE WE DO NOT WANT THE GUN SHOOTING THE ENTIRE CLIP IF THE BUTTON IS HELD DOWN
-    private void OnButtonDown(object sender, Buttons button) {
+    private void OnButtonDown(Buttons button) {
 
         // THIS STATEMENT IS TO MITIGATE A SMALL DELAY BETWEEN WHEN THE PLAYER SHOOTS AND THE CHARACTER MOVING INTO A AIMING POSITION
         // WITHOUT THE PLAYER ACTUALLY AIMING.
@@ -185,19 +185,19 @@ public class PlayerActions : MonoBehaviour {
         else if (button == Buttons.Shoot && (_controller.GetButtonPress(Buttons.AimDown) || _controller.GetButtonPress(Buttons.AimUp) ||
             _controller.GetButtonPress(Buttons.AimLeft) || _controller.GetButtonPress(Buttons.AimRight))) {
 
-            ButtonPressed?.Invoke(this, Buttons.Shoot);
+            ButtonPressed?.Invoke(Buttons.Shoot);
         }
     }
 
     // EXTREMELY SMALL DELAY SO IT LOOKS INSTANT
     private IEnumerator PersuaderDelay() {
         yield return new WaitForSeconds(0.01f);
-        ButtonHeld?.Invoke(this, Buttons.Shoot);
+        ButtonHeld?.Invoke(Buttons.Shoot);
     }
 
     private IEnumerator JouleDelay() {
         yield return new WaitForSeconds(0.01f);
-       ButtonPressed?.Invoke(this, Buttons.Shoot);
+       ButtonPressed?.Invoke(Buttons.Shoot);
     }
 
     #endregion Private Methods

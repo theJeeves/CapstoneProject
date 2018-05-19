@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// WHEN TALKING ABOUT THE EFFECTS THE THREE DIFFERNT TYPES OF SWARMERS WILL HAVE,
@@ -95,7 +95,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
     #endregion Private Finalizers
 
     #region Events
-    public static event EventHandler<EnemyType> EnemyDeath;
+    public static event UnityAction<EnemyType> EnemyDeath;
 
     #endregion Events
 
@@ -134,7 +134,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
                     break;
             }
 
-            EnemyDeath?.Invoke(this, enemyType);
+            EnemyDeath?.Invoke(enemyType);
             DeployBodyParts();
             Destroy(gameObject);
         }

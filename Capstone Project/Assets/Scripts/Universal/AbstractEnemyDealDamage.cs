@@ -1,5 +1,5 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.Events;
 
 public class AbstractEnemyDealDamage : MonoBehaviour {
 
@@ -10,7 +10,7 @@ public class AbstractEnemyDealDamage : MonoBehaviour {
     #endregion Protected Fields
 
     #region Events
-    public static event EventHandler<int> DecrementHealth;
+    public static event UnityAction<int> DecrementHealth;
 
     #endregion Events
 
@@ -19,7 +19,7 @@ public class AbstractEnemyDealDamage : MonoBehaviour {
 
         if (collider.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
 
-            DecrementHealth?.Invoke(this, _damage);
+            DecrementHealth?.Invoke(_damage);
         }
     }
 

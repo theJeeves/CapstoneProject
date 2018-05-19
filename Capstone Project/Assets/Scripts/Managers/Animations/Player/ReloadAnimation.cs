@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System;
 
 public abstract class ReloadAnimation : MonoBehaviour {
 
@@ -49,7 +48,7 @@ public abstract class ReloadAnimation : MonoBehaviour {
         }
     }
 
-    protected virtual void Reload(object sender, float reloadTime) {
+    protected virtual void Reload(float reloadTime) {
 
         m_PlayAudio = true;
         _ammoImage.fillAmount = 0;
@@ -57,11 +56,11 @@ public abstract class ReloadAnimation : MonoBehaviour {
         m_CanAnimate = true;
     }
 
-    protected virtual void ZeroFillAmount(object sender, EventArgs args) {
+    protected virtual void ZeroFillAmount() {
         _ammoImage.fillAmount = 0;
     }
 
-    protected virtual void DisplayAmmo(object sender, EventArgs args) {
+    protected virtual void DisplayAmmo() {
         _ammoImage.fillAmount = 1;
     }
 

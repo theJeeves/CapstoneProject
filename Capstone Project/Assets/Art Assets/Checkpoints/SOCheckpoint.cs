@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 [CreateAssetMenu(menuName ="SO Checkpoint/Create SO Checkpoint")]
 public class SOCheckpoint : ScriptableObject {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
-using System;
+using UnityEngine.Events;
 
 /// <summary>
 /// This script is used to maintain a record of all the buttons and their state for Action scripts to query against.
@@ -71,9 +71,9 @@ public class ControllableObject : MonoBehaviour {
     // Events are like broadcasting a message. Other scripts which are looking for specific events
     // will have a reference to it so they can take appropriate action with a function of their own.
     // Please ask directly ask me if this does not make sense.
-    public static event EventHandler<Buttons> OnButton;
-    public static event EventHandler<Buttons> OnButtonDown;
-    public static event EventHandler<Buttons> OnButtonUp;
+    public static event UnityAction<Buttons> OnButton;
+    public static event UnityAction<Buttons> ButtonDown;
+    public static event UnityAction<Buttons> OnButtonUp;
 
 
     // Class variables
@@ -126,17 +126,17 @@ public class ControllableObject : MonoBehaviour {
         // When the input has ceased
         if (buttonStates[button].IsPressed && !isPressed) {
             buttonStates[button].PressTime = 0.0f;
-            OnButtonUp?.Invoke(this, button);
+            OnButtonUp?.Invoke(button);
         }
         else if (buttonStates[button].IsPressed && isPressed) {
 
             // When the input has initially begun
             if (buttonStates[button].PressTime == 0.0f) {
-                OnButtonDown?.Invoke(this, button);
+                ButtonDown?.Invoke(button);
             }
             // When the input is continuous
             if (buttonStates[button].PressTime >= 0.0f) {
-                OnButton?.Invoke(this, button);
+                OnButton?.Invoke(button);
             }
             buttonStates[button].PressTime += Time.deltaTime;
         }

@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System;
+using UnityEngine.Events;
 
 public class InstructionText : MonoBehaviour {
 
@@ -29,8 +29,8 @@ public class InstructionText : MonoBehaviour {
     #endregion Initializers
 
     #region Events
-    public static event EventHandler<string> DisplayHint;
-    public static event EventHandler HideHint;
+    public static event UnityAction<string> DisplayHint;
+    public static event UnityAction HideHint;
 
     #endregion Events
 
@@ -50,10 +50,10 @@ public class InstructionText : MonoBehaviour {
 
             m_Ds4 = InputManager.Instance.GetComponent<InputManager>().controllerType == 0 ? true : false;
             if (m_Ds4) {
-                DisplayHint?.Invoke(this, _ds4Instructions);
+                DisplayHint?.Invoke(_ds4Instructions);
             }
             else {
-                DisplayHint?.Invoke(this, _xboxInstructions);
+                DisplayHint?.Invoke(_xboxInstructions);
             }
 
             if (_enableInput) { InputManager.Instance.GetComponent<InputManager>().StartInput(); }
@@ -66,7 +66,7 @@ public class InstructionText : MonoBehaviour {
 
         if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
 
-            HideHint?.Invoke(this, null);
+            HideHint?.Invoke();
 
             m_displayTime = m_displayTime <= 0.0f ? float.NegativeInfinity : m_DefaultDisplayTime;
         }

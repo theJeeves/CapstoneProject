@@ -12,6 +12,8 @@
     public const string CHECKPOINT = "Checkpoint";
     public const string BACK_BUTTON = "Back_LevelSelect";
     public const string MAIN_MENU_TAG = "Main Menu";
+    public const string SG_AMMO = "SGAmmoType";
+    public const string MG_AMMO = "MGAmmoType";
 
     #endregion Constant Fields
 }

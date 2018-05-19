@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 
 /*
  * This script is designed to switch between the shotgun and the machine, depending on which one is currently enabled.
  * This includes the weapon's sprite, ammo sprite, and their respective scripts.
- */ 
+ */
 
 public class WeaponSelect : MonoBehaviour {
 
@@ -27,11 +26,11 @@ public class WeaponSelect : MonoBehaviour {
     private MachineGun _machineGun;
 
     private void OnEnable() {
-        ControllableObject.OnButtonDown += OnButtonDown;
-        PlayerHealth.UpdateHealth += ShowHideIcon;
+        ControllableObject.ButtonDown += OnButtonDown;
+        PlayerHealth.UpdateHealth += OnUpdateHealth;
 
-        _shotgunAmmo = GameObject.Find("SGAmmoType").GetComponent<Image>();
-        _machineGunAmmo = GameObject.Find("MGAmmoType").GetComponent<Image>();
+        _shotgunAmmo = GameObject.Find(StringConstantUtility.SG_AMMO).GetComponent<Image>();
+        _machineGunAmmo = GameObject.Find(StringConstantUtility.MG_AMMO).GetComponent<Image>();
 
         _shotgun = GetComponent<Shotgun>();
         _machineGun = GetComponent<MachineGun>();
@@ -45,13 +44,13 @@ public class WeaponSelect : MonoBehaviour {
     }
 
     private void OnDisable() {
-        ControllableObject.OnButtonDown -= OnButtonDown;
-        PlayerHealth.UpdateHealth -= ShowHideIcon;
+        ControllableObject.ButtonDown -= OnButtonDown;
+        PlayerHealth.UpdateHealth -= OnUpdateHealth;
     }
 
     // Only perform the weapon swap one per button press.
     // Do not continually swap between weapons if the player holds the button down.
-    private void OnButtonDown(object sender, Buttons button) {
+    private void OnButtonDown(Buttons button) {
         
         if (button == Buttons.WeaponSwap) {
 
@@ -80,7 +79,7 @@ public class WeaponSelect : MonoBehaviour {
         _machineGunAmmo.enabled = true;
     }
 
-    private void ShowHideIcon(object sender, int health) {
+    private void OnUpdateHealth(int health) {
         if (health > 0) {
             if (_shotgun.isActiveAndEnabled && _MGAvailable) {
                 _shotgunAmmo.enabled = true;

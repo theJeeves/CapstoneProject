@@ -35,7 +35,7 @@ public class DisplayAmmo : MonoBehaviour {
     #endregion Finalizers
 
     #region Private Methods
-    private void OnUpdateText(object sender, int numOfRounds) {
+    private void OnUpdateText(int numOfRounds) {
         if (numOfRounds >= 10) {
             m_AmmoText.text = string.Format("{0}", numOfRounds);
         }
@@ -44,7 +44,7 @@ public class DisplayAmmo : MonoBehaviour {
         }
     }
 
-    private void OnShowHideText(object sender, int health)
+    private void OnShowHideText(int health)
     {
         m_AmmoText.enabled = health > 0 ? true : false;
     }

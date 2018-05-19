@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using System;
+using UnityEngine.Events;
 
 public class ChargerLockOn : MonoBehaviour {
 
@@ -48,7 +48,7 @@ public class ChargerLockOn : MonoBehaviour {
     #endregion Private Initializers
 
     #region Events
-    public static event EventHandler<float> RocketAnim;
+    public static event UnityAction<float> RocketAnim;
 
     #endregion Events
 
@@ -62,7 +62,7 @@ public class ChargerLockOn : MonoBehaviour {
                 _animationManager.Play(3);
                 _body2d.velocity = Vector2.zero;
                 //Start the "tell" animation for this enemy.
-                RocketAnim?.Invoke(this, _timer);
+                RocketAnim?.Invoke(_timer);
  
                 yield return new WaitForSeconds(_timer);
 
