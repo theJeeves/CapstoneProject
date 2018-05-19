@@ -54,7 +54,7 @@ public class rotatingLaser : MonoBehaviour
             m_LineRenderer.SetPosition(0, transform.position);
              m_LineRenderer.SetPosition(1, laserEnd);
 
-            if(hit.collider.tag == StringConstantUtility.PLAYER_TAG)
+            if(hit.collider.tag == Tags.PlayerTag)
             {
                 hit.collider.gameObject.GetComponent<PlayerHealth>().KillPlayer();
             }

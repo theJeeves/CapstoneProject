@@ -3,13 +3,19 @@
 [CreateAssetMenu(menuName ="Screen Shake/Weapon")]
 public class WeaponSSRequest : ScreenShakeRequest {
 
+    #region Constants
+    public const string ENQUEUE_MESSAGE = "Enqueue";
+
+    #endregion Constants
+
     #region Private Fields
     private Vector3[] _directions = new Vector3[8];     // All possible angles which can be used by the player
 
     #endregion Private Fields
 
     #region Private Initializers
-    private void OnEnable() {
+    private void OnEnable()
+    {
         // Define all the possible angles based.
         AssignDirections(0, 1.0f, 0.0f);
         AssignDirections(1, 0.7f, 0.7f);
@@ -29,22 +35,25 @@ public class WeaponSSRequest : ScreenShakeRequest {
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    public override Vector3 Shake(int key) {
+    public override Vector3 Shake(int key)
+    {
         return _directions[key] * _shakeAmount;
     }
 
     /// <summary>
     /// Request the camera perform a screen shake.
     /// </summary>
-    public override void ShakeRequest() {
-        Camera.main.SendMessage(StringConstantUtility.ENQUEUE_MESSAGE, this);
+    public override void ShakeRequest()
+    {
+        Camera.main.SendMessage(ENQUEUE_MESSAGE, this);
     }
 
     #endregion Public Methods
 
     #region Private Methods
-    private void AssignDirections(int angle, float x, float y, float z = 0.0f) {
-        _directions[angle] = new Vector3(x, y, z);
+    private void AssignDirections(int angle, float x, float y, float z = 0.0f)
+    {
+        _directions[angle].Set(x, y, z);
     }
 
     #endregion Private Methods

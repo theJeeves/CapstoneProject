@@ -11,7 +11,7 @@ public class ChargerDealDamage : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
-        if (otherGO.gameObject.tag == "Player") {
+        if (otherGO.gameObject.tag == Tags.PlayerTag) {
 
             otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage);
 

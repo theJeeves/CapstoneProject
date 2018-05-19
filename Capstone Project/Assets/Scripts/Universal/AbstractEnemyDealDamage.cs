@@ -17,7 +17,7 @@ public class AbstractEnemyDealDamage : MonoBehaviour {
     #region Protected Methods
     protected virtual void OnTriggerEnter2D(Collider2D collider) {
 
-        if (collider.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
+        if (collider.gameObject.tag == Tags.PlayerTag) {
 
             DecrementHealth?.Invoke(_damage);
         }

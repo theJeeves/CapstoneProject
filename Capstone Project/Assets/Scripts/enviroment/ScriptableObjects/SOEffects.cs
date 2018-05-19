@@ -15,6 +15,8 @@ public class SOEffects : ScriptableObject {
 
     #region Constants
     private const float MS_CONVERSION = 0.001f;
+    private const string MAIN_CHARACTER_PATH = "MainCharacter/";
+    private const string EFFECTS_PATH = "Effects/";
 
     #endregion Constants
 
@@ -28,11 +30,11 @@ public class SOEffects : ScriptableObject {
 
         foreach (EffectEnums type in System.Enum.GetValues(typeof(EffectEnums))) {
             if (type == EffectEnums.CrystalBullet || type == EffectEnums.ShotgunBlast) {
-                m_Map.Add(type, new Effect(Resources.Load(StringConstantUtility.MAIN_CHARACTER_PATH + type.ToString(), typeof(GameObject)) as GameObject));
+                m_Map.Add(type, new Effect(Resources.Load(MAIN_CHARACTER_PATH + type.ToString(), typeof(GameObject)) as GameObject));
             }
             else {
-                m_Map.Add(type, new Effect(Resources.Load(StringConstantUtility.EFFECTS_PATH + type.ToString(), typeof(GameObject)) as GameObject,
-                    Resources.Load(StringConstantUtility.EFFECTS_PATH + type.ToString(), typeof(SpriterDotNetUnity.SpriterData)) as SpriterDotNetUnity.SpriterData));
+                m_Map.Add(type, new Effect(Resources.Load(EFFECTS_PATH + type.ToString(), typeof(GameObject)) as GameObject,
+                    Resources.Load(EFFECTS_PATH + type.ToString(), typeof(SpriterDotNetUnity.SpriterData)) as SpriterDotNetUnity.SpriterData));
             }
         }
     }
@@ -51,11 +53,11 @@ public class SOEffects : ScriptableObject {
 
         if (!m_Map.ContainsKey(type)) {
             if (type == EffectEnums.CrystalBullet || type == EffectEnums.ShotgunBlast) {
-                m_Map.Add(type, new Effect(Resources.Load(StringConstantUtility.MAIN_CHARACTER_PATH + type.ToString(), typeof(GameObject)) as GameObject));
+                m_Map.Add(type, new Effect(Resources.Load(MAIN_CHARACTER_PATH + type.ToString(), typeof(GameObject)) as GameObject));
             }
             else {
-                m_Map.Add(type, new Effect(Resources.Load(StringConstantUtility.EFFECTS_PATH + type.ToString(), typeof(GameObject)) as GameObject,
-                    Resources.Load(StringConstantUtility.EFFECTS_PATH + type.ToString(), typeof(SpriterDotNetUnity.SpriterData)) as SpriterDotNetUnity.SpriterData));
+                m_Map.Add(type, new Effect(Resources.Load(EFFECTS_PATH + type.ToString(), typeof(GameObject)) as GameObject,
+                    Resources.Load(EFFECTS_PATH + type.ToString(), typeof(SpriterDotNetUnity.SpriterData)) as SpriterDotNetUnity.SpriterData));
             }
         }
 

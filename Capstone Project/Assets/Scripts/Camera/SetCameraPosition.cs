@@ -11,8 +11,9 @@ public class SetCameraPosition : MonoBehaviour {
     #region Private Methods
     private void OnTriggerEnter2D(Collider2D otherGO) {
 
-        if (otherGO.tag == StringConstantUtility.PLAYER_TAG) {
-            GameObject.FindGameObjectWithTag(StringConstantUtility.SMART_CAMERA_TAG).transform.position = new Vector3(_newCameraPos.x, _newCameraPos.y, _newCameraPos.z);
+        if (otherGO.tag == Tags.PlayerTag)
+        {
+            GameObject.FindGameObjectWithTag(Tags.SmartCameraTag).transform.position = new Vector3(_newCameraPos.x, _newCameraPos.y, _newCameraPos.z);
         }
     }
 

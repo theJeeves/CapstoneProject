@@ -17,26 +17,31 @@ public class CrystalBullet : AbstractBullet {
 
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
-        if (otherGO.gameObject.tag == StringConstantUtility.ENEMY_TAG) {
+        if (otherGO?.gameObject.tag == Tags.EnemyTag)
+        {
             otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
         }
-        if (otherGO.collider.gameObject.tag == "SwarmerPodBattery") {
+        if (otherGO?.collider.gameObject.tag == Tags.SwarmerBatteryTag)
+        {
             otherGO.gameObject.GetComponentInParent<SwarmPodSpawner>().DestroyPod();
         }
 
-        if (otherGO?.gameObject.tag != StringConstantUtility.PLAYER_TAG) {
+        if (otherGO?.gameObject.tag != Tags.PlayerTag)
+        {
             _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D otherGO) {
-
-        if (otherGO.gameObject.tag == "Block") {
+    private void OnTriggerEnter2D(Collider2D otherGO)
+    {
+        if (otherGO?.gameObject.tag == Tags.BlockTag)
+        {
             _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);
         }
-        else if (otherGO.gameObject.tag == StringConstantUtility.ENEMY_TAG) {
+        else if (otherGO?.gameObject.tag == Tags.EnemyTag)
+        {
             otherGO.gameObject.GetComponentInParent<EnemyBasicBehaviors>().DecrementHealth(_damageAmount);
             _SOEffectHandler.PlayEffect(EffectEnums.CrystalImpact, transform.position, gameObject.transform.localEulerAngles.z);
             Destroy(gameObject);

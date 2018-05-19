@@ -8,15 +8,16 @@ public class LevelSelectButtons : GenericWindow {
     [SerializeField]
     private Button[] _levelButtons;
 
-    private Selectable _backButton;
-    private bool _buttonSet = false;
+    private Selectable m_BackButton;
+    private bool m_ButtonSet = false;
 
     #endregion Private Fields
 
     #region Finalizer
-    private void OnDisable() {
-        _buttonSet = false;
-        _backButton = null;
+    private void OnDisable()
+    {
+        m_ButtonSet = false;
+        m_BackButton = null;
     }
 
     #endregion Finalizer
@@ -43,23 +44,22 @@ public class LevelSelectButtons : GenericWindow {
     #region Private Methods
     private void Update()
     {
-        if (_backButton == null)
+        if (m_BackButton == null)
         {
-            _backButton = GameObject.FindGameObjectWithTag(StringConstantUtility.BACK_BUTTON)?.GetComponent<Selectable>();
+            m_BackButton = GameObject.FindGameObjectWithTag(Tags.BackButtonTag)?.GetComponent<Selectable>();
         }
 
-        if (!_buttonSet && _backButton != null)
+        if (m_BackButton != null && !m_ButtonSet)
         {
             for (int i = 0; i < _levelButtons.Length; ++i)
             {
-
                 Navigation navigation = _levelButtons[i].navigation;
-                navigation.selectOnLeft = _backButton;
-                navigation.selectOnRight = _backButton;
+                navigation.selectOnLeft = m_BackButton;
+                navigation.selectOnRight = m_BackButton;
 
                 _levelButtons[i].navigation = navigation;
             }
-            _buttonSet = true;
+            m_ButtonSet = true;
         }
     }
 

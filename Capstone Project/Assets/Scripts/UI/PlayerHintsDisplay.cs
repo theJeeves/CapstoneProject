@@ -15,7 +15,8 @@ public class PlayerHintsDisplay : MonoBehaviour {
     #endregion Private Fields
 
     #region Initializers
-    private void Awake() {
+    private void Awake()
+    {
         m_Hints = GetComponent<Text>();
     }
 

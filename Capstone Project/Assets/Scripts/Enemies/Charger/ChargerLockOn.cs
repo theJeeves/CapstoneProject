@@ -38,7 +38,7 @@ public class ChargerLockOn : MonoBehaviour {
     #region Private Initializers
     private void OnEnable() {
         _body2d = GetComponentInParent<Rigidbody2D>();
-        _player = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).transform;
+        _player = GameObject.FindGameObjectWithTag(Tags.PlayerTag).transform;
         _hit = Physics2D.Raycast(transform.position, _direction, _attackRange, _whatToHit);
         _animationManager = GetComponentInParent<ChargerAnimations>();
 
@@ -57,7 +57,7 @@ public class ChargerLockOn : MonoBehaviour {
 
         while (true) {
 
-            if (_hit.collider != null && _hit.collider.tag == StringConstantUtility.PLAYER_TAG) {
+            if (_hit.collider != null && _hit.collider.tag == Tags.PlayerTag) {
 
                 _animationManager.Play(3);
                 _body2d.velocity = Vector2.zero;

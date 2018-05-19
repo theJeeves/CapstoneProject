@@ -6,12 +6,12 @@ public class FollowPlayer : MonoBehaviour {
 
     // Use this for initialization
     void Awake() {
-        _player = GameObject.FindGameObjectWithTag("Player");
+        _player = GameObject.FindGameObjectWithTag(Tags.PlayerTag);
     }
 
     private void Update() {
         if (_player == null) {
-            _player = GameObject.FindGameObjectWithTag("Player");
+            _player = GameObject.FindGameObjectWithTag(Tags.PlayerTag);
         }
     }
 

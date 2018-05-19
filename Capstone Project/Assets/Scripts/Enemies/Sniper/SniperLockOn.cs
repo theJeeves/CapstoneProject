@@ -54,7 +54,7 @@ public class SniperLockOn : MonoBehaviour {
     private void Update() {
 
         if (m_PlayerPos == null) {
-            m_PlayerPos = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<BoxCollider2D>();
+            m_PlayerPos = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<BoxCollider2D>();
         }
 
         m_Direction = (m_PlayerPos.bounds.center - transform.position);

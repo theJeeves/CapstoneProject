@@ -46,7 +46,7 @@ public class LaserSights : MonoBehaviour {
     private void Update() {
 
         if (m_PlayerBox == null) {
-            m_PlayerBox = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<BoxCollider2D>();
+            m_PlayerBox = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<BoxCollider2D>();
         }
 
         m_PlayerPos = new Vector2(m_PlayerBox.bounds.center.x, m_PlayerBox.bounds.center.y + Y_OFFSET);
@@ -80,7 +80,7 @@ public class LaserSights : MonoBehaviour {
             Vector3.Magnitude(m_PlayerPos - _endOfBarrel.position), _whatToHit);
 
         if (hit.collider != null) {
-            m_Obstruction = hit.collider.gameObject.tag == StringConstantUtility.PLAYER_TAG ? Vector2.zero : hit.point;
+            m_Obstruction = hit.collider.gameObject.tag == Tags.PlayerTag ? Vector2.zero : hit.point;
         }
     }
 

@@ -30,7 +30,7 @@ public class CameraShakeManager : MonoBehaviour {
 
         // If _controller == null, the find the player game object.
         if (_controller == null) {
-            _controller = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<ControllableObject>();
+            _controller = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<ControllableObject>();
         }
     }
 
