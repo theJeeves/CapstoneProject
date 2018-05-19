@@ -19,18 +19,11 @@ public class PlayerCollisionState : MonoBehaviour {
 
     private BoxCollider2D m_Box = null;                             // Used to get the dimension of the collider
     private Vector2[] m_RayOrigin = new Vector2[2];          // Stores the left and right side of the collider's world position
-    private float m_Distance = float.NaN;                                // The distance the raycast will travel will be slightly past the player's feet.
     private Vector2 m_Direction = Vector2.zero;                             // Only interested in what is below the player's feet.
-    private bool m_TouchedGround = false;                            // Used to keep track of past states for EVENT purposes.
-
-    private Vector2[] m_NotAiming = { new Vector2(1.57f, 6.11f), new Vector2(4.35f, 3.3f),
-                                    new Vector2(2.22f, 0.0f), new Vector2(-0.34f, 0.0f),
-                                    new Vector2(-2.04f, 5.04f)};
-
-    private Vector2[] m_Aiming = { new Vector2(1.57f, 6.11f), new Vector2(6.35f, 3.3f),
-                                    new Vector2(2.22f, 0.0f), new Vector2(-0.34f, 0.0f),
-                                    new Vector2(-2.04f, 5.04f)};
     private Rigidbody2D m_Body2d = null;
+
+    private float m_Distance = float.NaN;                                // The distance the raycast will travel will be slightly past the player's feet.
+    private bool m_TouchedGround = false;                            // Used to keep track of past states for EVENT purposes.
 
     #endregion Private Fields
 
@@ -72,7 +65,8 @@ public class PlayerCollisionState : MonoBehaviour {
         RaycastHit2D hit;
         for (int i = 0; i < 2; ++i) {
             hit = Physics2D.Raycast(m_RayOrigin[i], m_Direction, m_Distance, _whatToHit);
-            if (hit.collider != null) {
+            if (hit.collider != null)
+            {
                 Debug.DrawRay(m_RayOrigin[i], new Vector3(0.0f, -1.0f * m_Distance, 0.0f), Color.white);
 
                 m_TouchedGround = m_Body2d.velocity.y <= 2.0f ? true : false;
@@ -81,19 +75,22 @@ public class PlayerCollisionState : MonoBehaviour {
         }
 
         // Send out this event if the player wasn't on the ground and its status has changed.
-        if (!OnSolidGround && m_TouchedGround) {
-
-            if (SceneManager.GetActiveScene().name == StringConstantUtility.MAIN_MENU_TAG) {
+        if (!OnSolidGround && m_TouchedGround)
+        {
+            if (SceneManager.GetActiveScene().name == Tags.MainMenuTag)
+            {
                 GameObject instance = _SOEffectHandler.PlayEffect(EffectEnums.LandingDust, new Vector2(transform.position.x, transform.position.y - 1.0f));
                 instance.transform.localScale = new Vector3(0.75f, 0.75f, 1.0f);
             }
-            else {
+            else
+            {
                 _SOEffectHandler.PlayEffect(EffectEnums.LandingDust, transform.position);
             }
             HitGround?.Invoke();
         }
         // Send out this event if the player was on the ground and its status has changed.
-        else if (OnSolidGround && !m_TouchedGround) {
+        else if (OnSolidGround && !m_TouchedGround)
+        {
             Lifted?.Invoke();
         }
 

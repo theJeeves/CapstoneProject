@@ -3,18 +3,27 @@ using UnityEngine.UI;
 
 public class OffsetForStatic : MonoBehaviour {
 
+    #region Fields
     [SerializeField]
     private float _offsetSpeed = 0.0f;
 
-    private Image _image;
+    private Image m_Image;
 
+    #endregion Fields
+
+    #region Initializers
     private void OnEnable() {
-        _image = GetComponent<Image>();
-        _image.material.mainTextureOffset = new Vector2(0.0f, 0.0f);
+        m_Image = GetComponent<Image>();
+        m_Image.material.mainTextureOffset = Vector2.zero;
     }
 
-    private void Update() {
+    #endregion Initializers
 
-        _image.material.mainTextureOffset = new Vector2(0.0f, _image.material.mainTextureOffset.y + _offsetSpeed);
+    #region Private Methods
+    private void Update()
+    {
+        m_Image.material.mainTextureOffset = new Vector2(0.0f, (m_Image.material.mainTextureOffset.y + _offsetSpeed));
     }
+
+    #endregion Private Methods
 }

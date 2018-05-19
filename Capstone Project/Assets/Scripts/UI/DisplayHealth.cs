@@ -3,33 +3,45 @@ using UnityEngine.UI;
 
 public class DisplayHealth : MonoBehaviour {
 
-    private Text _healthText;
-    private Image _healthIcon;
+    #region Fields
+    private Text m_HealthText;
+    private Image m_HealthIcon;
 
+    #endregion Fields
+
+    #region Initializers
     private void Awake() {
-        _healthText = GetComponent<Text>();
-        _healthIcon = GetComponentInChildren<Image>();
+        m_HealthText = GetComponent<Text>();
+        m_HealthIcon = GetComponentInChildren<Image>();
     }
 
     private void OnEnable() {
         PlayerHealth.UpdateHealth += UpdateText;
     }
 
+    #endregion Initializers
+
+    #region Finalizers
     private void OnDisable() {
         PlayerHealth.UpdateHealth -= UpdateText;
     }
 
+    #endregion Finalizers
+
+    #region Private Methods
     private void UpdateText(int num) {
 
-        _healthText.text = string.Format("{0}", num);
+        m_HealthText.text = string.Format("{0}", num);
 
         if (num > 0) {
-            _healthText.enabled = true;
-            _healthIcon.enabled = true;
+            m_HealthText.enabled = true;
+            m_HealthIcon.enabled = true;
         }
         else {
-            _healthText.enabled = false;
-            _healthIcon.enabled = false;
+            m_HealthText.enabled = false;
+            m_HealthIcon.enabled = false;
         }
     }
+
+    #endregion Private Methods
 }

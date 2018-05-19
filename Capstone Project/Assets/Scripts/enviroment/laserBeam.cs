@@ -61,7 +61,7 @@ public class laserBeam : MonoBehaviour
             _hit = Physics2D.Raycast(start.position, (end.position - start.position).normalized, (end.position - start.position).magnitude, _whatToHit);
             if (_hit.collider != null)
             {
-                if (_hit.collider.tag == StringConstantUtility.PLAYER_TAG)
+                if (_hit.collider.tag == Tags.PlayerTag)
                 {
                     _hit.collider.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(_damage, 0.0f, DamageEnum.LaserContinuous);
 
@@ -78,7 +78,7 @@ public class laserBeam : MonoBehaviour
                 _hit = Physics2D.Raycast(start.position, (end.position - start.position).normalized, (end.position - start.position).magnitude, _whatToHit);
                 if (_hit.collider != null)
                 {
-                    if (_hit.collider.tag == StringConstantUtility.PLAYER_TAG)
+                    if (_hit.collider.tag == Tags.PlayerTag)
                     {
                         _hit.collider.gameObject.GetComponent<PlayerHealth>().KillPlayer();
 

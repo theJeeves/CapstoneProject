@@ -113,7 +113,7 @@ public class MovementRequest : ScriptableObject {
 
     private void GetPlayerReference() {
         if (_player == null) {
-            _player = GameObject.FindGameObjectWithTag("Player");
+            _player = GameObject.FindGameObjectWithTag(Tags.PlayerTag);
         }
     }
 

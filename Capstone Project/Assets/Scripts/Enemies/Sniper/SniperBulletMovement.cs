@@ -20,7 +20,7 @@ public class SniperBulletMovement : MonoBehaviour {
     private void OnEnable() {
 
         // Get the center of the player based on the collider
-        m_PlayerPos = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<BoxCollider2D>().bounds.center;
+        m_PlayerPos = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<BoxCollider2D>().bounds.center;
         // Offset where the bullet will go by 7.5 in the y-axis
         m_PlayerPos = new Vector3(m_PlayerPos.x, m_PlayerPos.y + Y_OFFSET, 0.0f);
     }

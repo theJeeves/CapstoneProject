@@ -63,8 +63,8 @@ public abstract class AbstractGun : MonoBehaviour {
 
     protected virtual void Awake() {
 
-        _controller = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<ControllableObject>();
-        _collisionState = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG).GetComponent<PlayerCollisionState>();
+        _controller = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<ControllableObject>();
+        _collisionState = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<PlayerCollisionState>();
     }
 
     protected virtual void OnButtonDown(Buttons button) { }

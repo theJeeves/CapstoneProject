@@ -10,7 +10,7 @@ public class BodyPartsTrigger : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D otherGO) {
 
-        if (otherGO.tag == "Player") {
+        if (otherGO.tag == Tags.PlayerTag) {
             Destroy(otherGO.gameObject);
             _startEffect.SetStart();
         }

@@ -183,7 +183,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
     // DAMAGE THE PLAYER.
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
-        if (otherGO.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
+        if (otherGO.gameObject.tag == Tags.PlayerTag) {
 
             if (enemyType == EnemyType.Flying) {
                 otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(FLYING_DAMAGE_AMOUNT);

@@ -4,34 +4,47 @@ using UnityEngine.UI;
 
 public class ButtonBehavior : MonoBehaviour, ISelectHandler, IDeselectHandler/*, IPointerEnterHandler, IPointerExitHandler*/ {
 
+    #region Fields
     [SerializeField]
     private Color _normalColor = Color.black;
     [SerializeField]
     private Color _highlightedColor = Color.cyan;
 
-    private Text _text;
+    private Text m_Text;
 
+    #endregion Fields
+
+    #region Initilaizers
     private void OnEnable() {
-        _text = GetComponentInChildren<Text>();
+        m_Text = GetComponentInChildren<Text>();
     }
 
+    #endregion Initializers
+
+
+    #region Finalizers
     private void OnDisable() {
-        _text.color = _normalColor;
+        m_Text.color = _normalColor;
     }
 
+    #endregion Finalizers
+
+    #region Public Methods
     public void OnSelect(BaseEventData eventData) {
-        _text.color = _highlightedColor;
+        m_Text.color = _highlightedColor;
     }
 
     public void OnDeselect(BaseEventData eventData) {
-        _text.color = _normalColor;
+        m_Text.color = _normalColor;
     }
 
     public void HighlightButton() {
 
-        if (_text == null) { _text = GetComponentInChildren<Text>(); }
-        _text.color = _highlightedColor;
+        if (m_Text == null) { m_Text = GetComponentInChildren<Text>(); }
+        m_Text.color = _highlightedColor;
     }
+
+    #endregion Public Methods
 
     //public void OnPointerEnter(PointerEventData data) {
     //    _text.color = Color.cyan;

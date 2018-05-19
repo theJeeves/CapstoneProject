@@ -46,7 +46,7 @@ public class InstructionText : MonoBehaviour {
 
         m_InTrigger = true;
 
-        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
+        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == Tags.PlayerTag) {
 
             m_Ds4 = InputManager.Instance.GetComponent<InputManager>().controllerType == 0 ? true : false;
             if (m_Ds4) {
@@ -64,7 +64,7 @@ public class InstructionText : MonoBehaviour {
 
         m_InTrigger = false;
 
-        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
+        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == Tags.PlayerTag) {
 
             HideHint?.Invoke();
 

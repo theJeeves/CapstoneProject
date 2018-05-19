@@ -26,7 +26,7 @@ public class SmartCameraYPosition : MonoBehaviour {
     private void OnEnable() {
         PlayerHealth.UpdateHealth += OnUpdateHealth;
 
-        _player = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG);
+        _player = GameObject.FindGameObjectWithTag(Tags.PlayerTag);
         _startTime = Time.time;
     }
 
@@ -51,8 +51,8 @@ public class SmartCameraYPosition : MonoBehaviour {
     #region Private Methods
     private void LateUpdate() {
 
-        if (_player == null && GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG) != null) {
-            _player = GameObject.FindGameObjectWithTag(StringConstantUtility.PLAYER_TAG);
+        if (_player == null && GameObject.FindGameObjectWithTag(Tags.PlayerTag) != null) {
+            _player = GameObject.FindGameObjectWithTag(Tags.PlayerTag);
             _movingUp = Camera.main.WorldToViewportPoint(_player.transform.position).y <= 0.3f ? false : true;
         }
 

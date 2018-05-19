@@ -80,7 +80,7 @@ public class StartBattleRoom : MonoBehaviour {
 
     private void OnTriggerStay2D(Collider2D otherGO) {
 
-        bool allowAction = otherGO.tag == StringConstantUtility.PLAYER_TAG;
+        bool allowAction = otherGO.tag == Tags.PlayerTag;
         allowAction &= m_Set == false;
 
         if (allowAction) {

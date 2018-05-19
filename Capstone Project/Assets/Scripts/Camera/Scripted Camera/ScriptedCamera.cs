@@ -31,28 +31,36 @@ public class ScriptedCamera : ScriptableObject {
     #endregion Fields
 
     #region Private Initializers
-    private void OnEnable() {
-
+    private void OnEnable()
+    {
         FindSmartCamera();
         _initialTarget = Vector3.zero;
 
         _currentIndex = 0;
-        for (int i = 0; i < keys.Count; ++i) {
-            if (values[i] != Vector3.zero) {
+        for (int i = 0; i < keys.Count; ++i)
+        {
+            if (values[i] != Vector3.zero)
+            {
                 _currentIndex = i;
             }
             else {
-                if (_currentIndex == 0) { _currentIndex = -1; }
+                if (_currentIndex == 0)
+                {
+                    _currentIndex = -1;
+                }
                 break;
             }
         }
 
-        if (_currentIndex != -1) {
-            for (int i = 0; i < _currentIndex + 1; ++i) {
+        if (_currentIndex != -1)
+        {
+            for (int i = 0; i < _currentIndex + 1; ++i)
+            {
                 _linearCamPositions.Add(keys[i], values[i]);
             }
         }
-        else {
+        else
+        {
             _currentIndex = 0;
         }
     }
@@ -65,16 +73,18 @@ public class ScriptedCamera : ScriptableObject {
     /// Move the camera to a specified position.
     /// </summary>
     /// <param name="target"></param>
-    public void MoveCamera(Vector3 target) {
-
-        if (_initialTarget != target) {
+    public void MoveCamera(Vector3 target)
+    {
+        if (_initialTarget != target)
+        {
             m_timeElapsed = 0.0f;
             _initialTarget = target;
         }
 
         FindSmartCamera();
 
-        if (_camera.transform.position != target) {
+        if (_camera.transform.position != target)
+        {
             TimeTools.TimeElapsed(ref m_timeElapsed);
             _camera.transform.position = new Vector3(Mathf.SmoothStep(_camera.transform.position.x, target.x, m_timeElapsed / _adjustSpeed),
                 Mathf.SmoothStep(_camera.transform.position.y, target.y, m_timeElapsed / _adjustSpeed),
@@ -88,8 +98,8 @@ public class ScriptedCamera : ScriptableObject {
     /// <param name="percentage"></param>
     /// <param name="originPos"></param>
     /// <param name="target"></param>
-    public void LinearlyMoveCamera(float percentage, Vector3 originPos, Vector3 target) {
-
+    public void LinearlyMoveCamera(float percentage, Vector3 originPos, Vector3 target)
+    {
         FindSmartCamera();
         _camera.transform.position = new Vector3(percentage * (target.x - originPos.x) + originPos.x, 
                                                     percentage * (target.y - originPos.y) + originPos.y, 
@@ -99,8 +109,8 @@ public class ScriptedCamera : ScriptableObject {
     /// <summary>
     /// Enable the camera to move with the player on its own.
     /// </summary>
-    public void EnableScripts() {
-
+    public void EnableScripts()
+    {
         _camera.GetComponent<SmartCameraXPosition>().enabled = true;
         m_timeElapsed = 0.0f;
     }
@@ -108,8 +118,8 @@ public class ScriptedCamera : ScriptableObject {
     /// <summary>
     /// Disable the camera from moving with the player on its own.
     /// </summary>
-    public void DisableScripts() {
-
+    public void DisableScripts()
+    {
         _camera.GetComponent<SmartCameraXPosition>().enabled = false;
         m_timeElapsed = 0.0f;
     }
@@ -118,14 +128,15 @@ public class ScriptedCamera : ScriptableObject {
     /// Reset the camera to the origin of the parent object.
     /// </summary>
     public void Reset() {
-        _initialTarget = new Vector3(0.0f, 0.0f, 0.0f);
+        _initialTarget = Vector3.zero;
     }
 
     /// <summary>
     /// Set the speed at which the camera will adjust.
     /// </summary>
     /// <param name="speed"></param>
-    public void SetAdjustSpeed(float speed) {
+    public void SetAdjustSpeed(float speed)
+    {
         _adjustSpeed = speed;
     }
 
@@ -134,7 +145,8 @@ public class ScriptedCamera : ScriptableObject {
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    public bool LinearCamPositionSet(string key) {
+    public bool LinearCamPositionSet(string key)
+    {
         return _linearCamPositions.ContainsKey(key);
     }
 
@@ -143,8 +155,10 @@ public class ScriptedCamera : ScriptableObject {
     /// </summary>
     /// <param name="key"></param>
     /// <param name="value"></param>
-    public void SetLinearCamPosition(string key, Vector3 value) {
-        if (!_linearCamPositions.ContainsKey(key)) {
+    public void SetLinearCamPosition(string key, Vector3 value)
+    {
+        if (!_linearCamPositions.ContainsKey(key))
+        {
             keys[_currentIndex] = key;
             values[_currentIndex++] = value;
             _linearCamPositions.Add(key, value);
@@ -156,8 +170,8 @@ public class ScriptedCamera : ScriptableObject {
     /// </summary>
     /// <param name="key"></param>
     /// <returns></returns>
-    public Vector3 GetLinearCamPosition(string key) {
-
+    public Vector3 GetLinearCamPosition(string key)
+    {
         return _linearCamPositions.ContainsKey(key) ? _linearCamPositions[key] : Vector3.zero;
     }
 
@@ -166,8 +180,9 @@ public class ScriptedCamera : ScriptableObject {
     #region Private Methods
     private void FindSmartCamera() {
         // Get a reference to the main camera to be used with the rest of the script.
-        if (_camera == null) {
-            _camera = GameObject.FindGameObjectWithTag(StringConstantUtility.SMART_CAMERA_TAG);
+        if (_camera == null)
+        {
+            _camera = GameObject.FindGameObjectWithTag(Tags.SmartCameraTag);
         }
     }
     #endregion Private Methods

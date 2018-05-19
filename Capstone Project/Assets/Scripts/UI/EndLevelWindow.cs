@@ -1,50 +1,42 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System;
+using UnityEngine.SceneManagement;
 
-public class EndLevelWindow : GenericWindow {
+public class EndLevelWindow : GenericWindow
+{
+    #region Constants
+    private const string SAVE_FILE_PATH = "ScriptableObjects/PlayerSaveFile";
+    private const string STATS_NUMBERS = "STATS NUMBERS";
 
-    public static event GenericWindowEvent OnContinue;
-    public static event GenericWindowEvent OnBackToMain;
+    #endregion Constants
 
+    #region Fields
     [SerializeField]
     private GameObject _continueButton;
     [SerializeField]
     private GameObject _backToMainButton;
 
-    private SOSaveFile _SOSaveHandler;
-    private Text[] _stats;
+    private SOSaveFile m_SOSaveHandler;
+    private Text[] m_Stats;
 
-    private int _currentLevel = 0;
+    private int m_CurrentLevel = 0;
+
+    #endregion Fields
 
     protected override void OnEnable() {
         base.OnEnable();
 
-        _currentLevel = Application.loadedLevel;
+        m_CurrentLevel = SceneManager.GetActiveScene().buildIndex;
 
-        _SOSaveHandler = Resources.Load("ScriptableObjects/PlayerSaveFile", typeof(SOSaveFile)) as SOSaveFile;
+        m_SOSaveHandler = Resources.Load(SAVE_FILE_PATH, typeof(SOSaveFile)) as SOSaveFile;
 
-        _stats = GameObject.Find("STATS NUMBERS").GetComponentsInChildren<Text>();
+        m_Stats = GameObject.Find(STATS_NUMBERS).GetComponentsInChildren<Text>();
 
-        _stats[0].text = _SOSaveHandler.CurrentDeathCount.ToString();
-        _stats[1].text = (_SOSaveHandler.InProgressJouleShots + _SOSaveHandler.InProgressPersuaderShots).ToString();
+        m_Stats[0].text = m_SOSaveHandler.CurrentDeathCount.ToString();
+        m_Stats[1].text = (m_SOSaveHandler.InProgressJouleShots + m_SOSaveHandler.InProgressPersuaderShots).ToString();
 
-        //switch (_currentLevel) {
-        //    case 1:
-        //        _stats[2].text = FormatTime(_SOSaveHandler.CurrentLevel1Time);
-        //        _stats[3].text = FormatTime(_SOSaveHandler.BestLevel1Time);
-        //        break;
-        //    case 2:
-        //        _stats[2].text = FormatTime(_SOSaveHandler.CurrentLevel1Time);
-        //        _stats[3].text = FormatTime(_SOSaveHandler.BestLevel1Time);
-        //        break;
-        //    case 3:
-        //        _stats[2].text = FormatTime(_SOSaveHandler.CurrentLevel1Time);
-        //        _stats[3].text = FormatTime(_SOSaveHandler.BestLevel1Time);
-        //        break;
-        //}
-
-        if (_currentLevel == 3) {
+        if (m_CurrentLevel == 3) {
             _continueButton.SetActive(false);
             firstSelected = _backToMainButton;
         }
@@ -55,32 +47,47 @@ public class EndLevelWindow : GenericWindow {
     }
 
     private void Update() {
-        switch (_currentLevel) {
+        switch (m_CurrentLevel) {
             case 1:
-                _stats[2].text = FormatTime(_SOSaveHandler.CurrentLevel1Time);
-                _stats[3].text = FormatTime(_SOSaveHandler.BestLevel1Time);
+                m_Stats[2].text = FormatTime(m_SOSaveHandler.CurrentLevel1Time);
+                m_Stats[3].text = FormatTime(m_SOSaveHandler.BestLevel1Time);
                 break;
             case 2:
-                _stats[2].text = FormatTime(_SOSaveHandler.CurrentLevel2Time);
-                _stats[3].text = FormatTime(_SOSaveHandler.BestLevel2Time);
+                m_Stats[2].text = FormatTime(m_SOSaveHandler.CurrentLevel2Time);
+                m_Stats[3].text = FormatTime(m_SOSaveHandler.BestLevel2Time);
                 break;
             case 3:
-                _stats[2].text = FormatTime(_SOSaveHandler.CurrentLevel3Time);
-                _stats[3].text = FormatTime(_SOSaveHandler.BestLevel3Time);
+                m_Stats[2].text = FormatTime(m_SOSaveHandler.CurrentLevel3Time);
+                m_Stats[3].text = FormatTime(m_SOSaveHandler.BestLevel3Time);
                 break;
         }
     }
 
-    public void ContinueButton() {
-        if (OnContinue != null) { OnContinue(WindowIDs.EndOfLevelWindow, WindowIDs.None); }
+    #region Events
+    public static event GenericWindowEvent OnContinue;
+    public static event GenericWindowEvent OnBackToMain;
+
+    #endregion Events
+
+    #region Public Methods
+    public void ContinueButton()
+    {
+        OnContinue?.Invoke(WindowIDs.EndOfLevelWindow, WindowIDs.None);
     }
 
-    public void BackToMainButton() {
-        if (OnBackToMain != null) { OnBackToMain(WindowIDs.EndOfLevelWindow, WindowIDs.StartWindow); }
+    public void BackToMainButton()
+    {
+        OnBackToMain?.Invoke(WindowIDs.EndOfLevelWindow, WindowIDs.StartWindow);
     }
 
-    string FormatTime(float value) {
+    #endregion Public Methods
+
+    #region Private Methods
+    private string FormatTime(float value)
+    {
         TimeSpan timeSpan = TimeSpan.FromSeconds(value);
         return string.Format("{0:D2}:{1:D2}", timeSpan.Minutes, timeSpan.Seconds);
     }
+
+    #endregion Private Methods
 }

@@ -21,45 +21,50 @@ public class PlayerOnMainMenu : MonoBehaviour {
     #endregion Private Fields
 
     #region Initializers
-    private void OnEnable() {
+    private void OnEnable()
+    {
         m_CollisionState = GetComponent<PlayerCollisionState>();
         m_Controller = GetComponent<ControllableObject>();
 
         // START THE GAME MANAGER, WINDOW MANAGER, AND THE EVENT SYSTEM
         // They are not used in this script, but they started for the reset of the game.
-        GameManager GM = GameManager.Instance.GetComponent<GameManager>() ;
-        WindowManager WM = WindowManager.Instance.GetComponent<WindowManager>();
-        EventSystemSingleton ESS = EventSystemSingleton.Instance.GetComponent<EventSystemSingleton>();
+        GameManager.Instance.GetComponent<GameManager>() ;
+        WindowManager.Instance.GetComponent<WindowManager>();
+        EventSystemSingleton.Instance.GetComponent<EventSystemSingleton>();
     }
 
     #endregion Initializers
 
     #region Private Methods
-    private void Update() {
-
-        if (m_SpriterAnimator == null) {
+    private void Update()
+    {
+        if (m_SpriterAnimator == null)
+        {
             m_SpriterAnimator = GetComponent<SpriterDotNetBehaviour>().Animator;
             m_AnimationList = m_SpriterAnimator.GetAnimations().ToList();
         }
 
-        if (m_CollisionState.OnSolidGround) {
-
-            if (TimeTools.TimeExpired(ref m_Time)) {
-
+        if (m_CollisionState.OnSolidGround)
+        {
+            if (TimeTools.TimeExpired(ref m_Time))
+            {
                 m_Controller.SetButtonPressTime(Buttons.MoveRight);
                 _walkingMovementRequest.RequestMovement(Buttons.MoveRight);
-                if (m_CurrentIndex != m_PreviousIndex) {
+                if (m_CurrentIndex != m_PreviousIndex)
+                {
                     Play(m_CurrentIndex);
                     m_PreviousIndex = m_CurrentIndex;
                 }
             }
         }
-        else {
+        else
+        {
             m_Time = m_DefaultTime;
         }
     }
 
-    private void Play(int index) {
+    private void Play(int index)
+    {
         m_SpriterAnimator.Play(m_AnimationList[index]);
     }
 

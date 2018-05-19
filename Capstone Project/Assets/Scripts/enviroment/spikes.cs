@@ -11,7 +11,7 @@ public class spikes : MonoBehaviour {
     #region Private Methods
     private void OnCollisionEnter2D(Collision2D otherGO)
     {
-        if (otherGO.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
+        if (otherGO.gameObject.tag == Tags.PlayerTag) {
             otherGO.gameObject.GetComponent<PlayerHealth>().KillPlayer();
         }
     }

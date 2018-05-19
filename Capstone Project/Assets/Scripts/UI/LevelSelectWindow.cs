@@ -1,10 +1,15 @@
 ﻿public class LevelSelectWindow : GenericWindow {
 
+    #region Events
     public static event GenericWindowEvent OnBackButton;
 
-    private SOSaveFile _SOSaveHandler;
+    #endregion Events
 
-    public void BackButton() {
-        if (OnBackButton != null) { OnBackButton(WindowIDs.LevelSelectWindow, WindowIDs.StartWindow); }
+    #region Public Methods
+    public void BackButton()
+    {
+        OnBackButton?.Invoke(WindowIDs.LevelSelectWindow, WindowIDs.StartWindow);
     }
+
+    #endregion Public Methods
 }

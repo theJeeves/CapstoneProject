@@ -23,7 +23,7 @@ public class SniperPushBack : MonoBehaviour {
     #region Private Methods
     private void OnTriggerEnter2D(Collider2D go) {
 
-        if (go.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
+        if (go.gameObject.tag == Tags.PlayerTag) {
 
             Stun?.Invoke();
             m_Body2d = go.GetComponent<Rigidbody2D>();

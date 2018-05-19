@@ -131,8 +131,8 @@ public class InputManager : Singleton<InputManager> {
     // Update is called once per frame
     private void FixedUpdate() {
 
-        if (_player == null && GameObject.FindGameObjectWithTag("Player") != null) {
-            _player = GameObject.FindGameObjectWithTag("Player").GetComponent<ControllableObject>();
+        if (_player == null && GameObject.FindGameObjectWithTag(Tags.PlayerTag) != null) {
+            _player = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<ControllableObject>();
         }
 
         if (!_canTakeInput && _limitedTime) {

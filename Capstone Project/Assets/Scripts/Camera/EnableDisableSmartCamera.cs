@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
-public class EnableDisableSmartCamera : MonoBehaviour {
-
+public class EnableDisableSmartCamera : MonoBehaviour
+{
     #region Private Fields
     [SerializeField]
     private bool _oneTimeUse = false;
@@ -35,16 +35,19 @@ public class EnableDisableSmartCamera : MonoBehaviour {
 
 
     #region Private Initializers
-    private void OnEnable() {
-        _camera = GameObject.FindGameObjectWithTag(StringConstantUtility.SMART_CAMERA_TAG);
+    private void OnEnable()
+    {
+        _camera = GameObject.FindGameObjectWithTag(Tags.SmartCameraTag);
     }
 
     #endregion Private Initializers
 
     #region Private Methods
-    private void OnTriggerEnter2D(Collider2D otherGO) {
+    private void OnTriggerEnter2D(Collider2D otherGO)
+    {
 
-        if (otherGO.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
+        if (otherGO?.gameObject.tag == Tags.PlayerTag)
+        {
             if (_XDisableOnEnter) {
                 _camera.GetComponent<SmartCameraXPosition>().enabled = false;
             }
@@ -61,9 +64,11 @@ public class EnableDisableSmartCamera : MonoBehaviour {
         }
     }
 
-    private void OnTriggerExit2D(Collider2D otherGO) {
+    private void OnTriggerExit2D(Collider2D otherGO)
+    {
 
-        if (otherGO.gameObject.tag == StringConstantUtility.PLAYER_TAG) {
+        if (otherGO?.gameObject.tag == Tags.PlayerTag)
+        {
             if (_XEnableOnExit) {
                 _camera.GetComponent<SmartCameraXPosition>().enabled = true;
             }

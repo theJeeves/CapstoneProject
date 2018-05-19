@@ -1,7 +1,24 @@
 ﻿using UnityEngine;
 
-public class StartWindowEffects : MonoBehaviour {
+public class StartWindowEffects : MonoBehaviour
+{
+    #region Constants
+    private const float MIN_DEPLOY_TIME = 0.5f;
+    private const float MAX_DEPLOY_TIME = 2.0f;
+    private const float MIN_PITCH = 0.75f;
+    private const float MAX_PITCH = 1.5f;
+    private const float GRAVITY_SCALE = 2.0f;
+    private const float MIN_X_FORCE = -10.0f;
+    private const float MAX_X_FORCE = -5.0f;
+    private const float MIN_Y_FORCE = 4.0f;
+    private const float MAX_Y_FORCE = 15.0f;
+    private const float TORQUE = 500.0f;
+    private const int MIN_AUDIO_CLIP = 0;
+    private const int MAX_AUDIO_CLIP = 2;
 
+    #endregion Constants
+
+    #region Fields
     [SerializeField]
     private Transform m_playerSpawnPos;
     [SerializeField]
@@ -10,38 +27,57 @@ public class StartWindowEffects : MonoBehaviour {
     private SOEffects m_SOEffectHandler;
     [SerializeField]
     private SOEnemyBodyParts m_enemyBodyParts;
-
     [SerializeField]
     private AudioClip[] m_audioClips;
 
-    private AudioSource _audio;
+    private AudioSource m_Audio;
+    private GameObject m_BodyPartsContainer;
+    private Vector3 m_NormalScale = Vector3.zero;
+    private Vector3 m_SmallScale = Vector3.zero;
+    private Vector2 m_ForceVector = Vector2.zero;
 
-    private GameObject m_bodyPartsContainer;
+    private float m_DeployTime = 0.0f;
+    private float m_ResetTime = 0.0f;
+    private float m_DefaultResetTime = 60.0f;
+    private bool m_Start = false;
 
-    private float m_deployTime = 0.0f;
+    #endregion Fields
 
-    private float m_resetTime = 0.0f;
-    private float m_defaultResetTime = 60.0f;
-
-    private bool m_start = false;
-
-    private void OnEnable() {
+    #region Initializers
+    private void OnEnable()
+    {
         Reset();
-
-        _audio = GetComponent<AudioSource>();
+        m_Audio = GetComponent<AudioSource>();
     }
 
+    private void Start()
+    {
+        m_NormalScale = new Vector3(0.85f, 0.85f, 1.0f);
+        m_SmallScale = new Vector3(0.2f, 0.2f, 1.0f);
+    }
+
+    #endregion Initializers
+
+    #region Public Methods
+    public void SetStart()
+    {
+        m_Start = true;
+    }
+
+    #endregion Public Methods
+
+    #region Private Methods
     private void Update() {
 
-        if (m_start) {
-            if (TimeTools.TimeExpired(ref m_deployTime)) {
+        if (m_Start) {
+            if (TimeTools.TimeExpired(ref m_DeployTime)) {
                 DeployBodyParts();
-                m_deployTime = Random.Range(0.5f, 2.0f);
+                m_DeployTime = Random.Range(MIN_DEPLOY_TIME, MAX_DEPLOY_TIME);
             }
-            if (TimeTools.TimeExpired(ref m_resetTime)) {
+            if (TimeTools.TimeExpired(ref m_ResetTime)) {
                 Reset();
-                _audio.clip = m_audioClips[2];
-                _audio.Play();
+                m_Audio.clip = m_audioClips[2];
+                m_Audio.Play();
             }
         }
     }
@@ -49,37 +85,39 @@ public class StartWindowEffects : MonoBehaviour {
     private void DeployBodyParts() {
 
         GameObject effectInstance = m_SOEffectHandler.PlayEffect(EffectEnums.SwarmerDeathExplosion, transform.position);
-        effectInstance.transform.parent = m_bodyPartsContainer.transform;
-        _audio.clip = m_audioClips[Random.Range(0, 2)];
-        _audio.pitch = Random.Range(0.75f, 1.5f);
-        _audio.Play();
-        effectInstance.transform.localScale = new Vector3(0.85f, 0.85f, 1.0f);
-        effectInstance.GetComponent<AudioSource>().pitch = Random.Range(0.75f, 1.5f);
+        effectInstance.transform.parent = m_BodyPartsContainer.transform;
+        m_Audio.clip = m_audioClips[Random.Range(MIN_AUDIO_CLIP, MAX_AUDIO_CLIP)];
+        m_Audio.pitch = Random.Range(MIN_PITCH, MAX_PITCH);
+        m_Audio.Play();
+        effectInstance.transform.localScale = m_NormalScale;
+        effectInstance.GetComponent<AudioSource>().pitch = Random.Range(MIN_PITCH, MAX_PITCH);
 
-        for (int i = 0; i < m_enemyBodyParts.bodyParts.Length; ++i) {
+        for (int i = 0; i < m_enemyBodyParts.bodyParts.Length; ++i)
+        {
             GameObject instance = Instantiate(m_enemyBodyParts.bodyParts[i], transform.position, Quaternion.identity) as GameObject;
-            instance.transform.parent = m_bodyPartsContainer.transform;
+            instance.transform.parent = m_BodyPartsContainer.transform;
             instance.GetComponent<EnableCollider>().mainMenu = true;
-            instance.GetComponent<Rigidbody2D>().gravityScale = 2.0f;
-            instance.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f);
-            instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-10.0f, -5.0f), Random.Range(4.0f, 15.0f)), ForceMode2D.Impulse);
-            instance.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-500.0f, 500.0f));
+            instance.GetComponent<Rigidbody2D>().gravityScale = GRAVITY_SCALE;
+            instance.transform.localScale = m_SmallScale;
+
+            m_ForceVector.Set(Random.Range(MIN_X_FORCE, MAX_X_FORCE), Random.Range(MIN_Y_FORCE, MAX_Y_FORCE));
+            instance.GetComponent<Rigidbody2D>().AddForce(m_ForceVector, ForceMode2D.Impulse);
+            instance.GetComponent<Rigidbody2D>().AddTorque(Random.Range(-TORQUE, TORQUE));
         }
     }
 
-    public void SetStart() {
-        m_start = true;
-    }
-
-    private void Reset() {
-        m_start = false;
-        m_deployTime = Random.Range(0.5f, 2.0f);
-        m_resetTime = m_defaultResetTime;
-        if (m_bodyPartsContainer != null) {
-            Destroy(m_bodyPartsContainer);
+    private void Reset()
+    {
+        m_Start = false;
+        m_DeployTime = Random.Range(MIN_DEPLOY_TIME, MAX_DEPLOY_TIME);
+        m_ResetTime = m_DefaultResetTime;
+        if (m_BodyPartsContainer != null) {
+            Destroy(m_BodyPartsContainer);
         }
-        m_bodyPartsContainer = new GameObject();
-        m_bodyPartsContainer.name = "Effects";
+        m_BodyPartsContainer = new GameObject();
+        m_BodyPartsContainer.name = Tags.EffectsTag;
         Instantiate(m_player, m_playerSpawnPos.position, Quaternion.identity);
     }
+
+    #endregion Private Methods
 }

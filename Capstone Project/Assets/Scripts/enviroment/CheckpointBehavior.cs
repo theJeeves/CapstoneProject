@@ -91,7 +91,7 @@ public class CheckpointBehavior : MonoBehaviour {
     private void OnTriggerEnter2D(Collider2D otherGo) {
 
         bool allowAction = _activated == false;
-        allowAction &= otherGo.gameObject.tag == StringConstantUtility.PLAYER_TAG;
+        allowAction &= otherGo.gameObject.tag == Tags.PlayerTag;
 
         if (allowAction) {
             Activate();
