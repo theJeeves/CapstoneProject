@@ -29,7 +29,7 @@ public abstract class AbstractGun : MonoBehaviour {
 
     [SerializeField]
     protected float m_defaultShotDelay;
-    protected float m_shotDelay;
+    protected XFloat m_shotDelay = 0.0f;
     [SerializeField]
     protected float _reloadTime;
 

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 
-public class SniperLockOn : MonoBehaviour {
-
+public class SniperLockOn : MonoBehaviour
+{
     #region Constant Fields
     private const float MIN_PITCH = 0.75f;
     private const float MAX_PITCH = 1.5f;
-    private const float SHOT_DELAY_DURATION = -2.0f;
     private const float X_SCALE = 1.0f;
 
     #endregion Constant Fields
@@ -16,9 +15,10 @@ public class SniperLockOn : MonoBehaviour {
     [SerializeField]
     private GameObject _endOfBarrel = null;
     [SerializeField]
-    private float m_defaultShotDelay = 0.0f;
+    private float m_DefaultShotDelay = 0.0f;
 
-    private float m_ShotDelay = float.NaN;
+    private XFloat m_ShotDelay = 1.5f;
+    private XFloat m_ShotCoolDown = 2.0f;
     private BoxCollider2D m_PlayerPos = null;
     private Vector3 m_Direction = Vector3.zero;
     private Vector3 m_LocalScale = Vector3.zero;
@@ -30,12 +30,17 @@ public class SniperLockOn : MonoBehaviour {
     #endregion Private Fields
 
     #region Initializers
-    private void Awake() {
+    private void Awake()
+    {
         m_AnimationManager = GetComponentInParent<SniperAnimations>();
+        if (m_DefaultShotDelay > 0.0f)
+        {
+            m_ShotDelay = m_DefaultShotDelay;
+        }
     }
 
-    private void OnEnable() {
-
+    private void OnEnable()
+    {
         m_AudioSource = GetComponent<AudioSource>();
         m_CanAttack = true;
         RestartAttack();
@@ -44,16 +49,18 @@ public class SniperLockOn : MonoBehaviour {
     #endregion Initializers
 
     #region Finalizers
-    private void OnDisable() {
+    private void OnDisable()
+    {
         _SOEffectHandler.StopEffect(m_TellEffect);
     }
 
     #endregion Finalizers
 
     #region Private Methods
-    private void Update() {
-
-        if (m_PlayerPos == null) {
+    private void Update()
+    {
+        if (m_PlayerPos == null)
+        {
             m_PlayerPos = GameObject.FindGameObjectWithTag(Tags.PlayerTag).GetComponent<BoxCollider2D>();
         }
 
@@ -62,21 +69,26 @@ public class SniperLockOn : MonoBehaviour {
         transform.localScale = m_Direction.x > 0 ? new Vector3(X_SCALE, m_LocalScale.y, m_LocalScale.z)
             : new Vector3(-X_SCALE, m_LocalScale.y, m_LocalScale.z);
 
-        if (m_TellEffect != null) {
+        if (m_TellEffect != null)
+        {
             m_TellEffect.transform.position = _endOfBarrel.transform.position;
         }
 
-        if (TimeTools.TimeExpired(ref m_ShotDelay)) {
+        if (m_ShotDelay.IsExpired)
+        {
             Fire();
                 
-            if (TimeTools.TimeExpired(ref m_ShotDelay, SHOT_DELAY_DURATION)) {
+            if (m_ShotCoolDown.IsExpired)
+            {
                 RestartAttack();
             }
         }
     }
 
-    private void Fire() {
-        if (m_CanAttack) {
+    private void Fire()
+    {
+        if (m_CanAttack)
+        {
             _SOEffectHandler.PlayEffect(EffectEnums.SniperBullet, _endOfBarrel.transform.position);
             m_AudioSource.pitch = Random.Range(MIN_PITCH, MAX_PITCH);
             m_AudioSource.Play();
@@ -85,8 +97,10 @@ public class SniperLockOn : MonoBehaviour {
         }
     }
 
-    private void RestartAttack() {
-        m_ShotDelay = m_defaultShotDelay;
+    private void RestartAttack()
+    {
+        m_ShotDelay.Reset();
+        m_ShotCoolDown.Reset();
         m_AnimationManager.Play(2);
         m_TellEffect = _SOEffectHandler.PlayEffect(EffectEnums.SniperTellEffect, _endOfBarrel.transform.position);
         m_CanAttack = true;

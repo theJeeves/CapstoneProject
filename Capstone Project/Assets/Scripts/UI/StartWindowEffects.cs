@@ -36,9 +36,8 @@ public class StartWindowEffects : MonoBehaviour
     private Vector3 m_SmallScale = Vector3.zero;
     private Vector2 m_ForceVector = Vector2.zero;
 
-    private float m_DeployTime = 0.0f;
-    private float m_ResetTime = 0.0f;
-    private float m_DefaultResetTime = 60.0f;
+    private XFloat m_DeployTime = 0.0f;
+    private XFloat m_ResetTime = 60.0f;
     private bool m_Start = false;
 
     #endregion Fields
@@ -69,12 +68,15 @@ public class StartWindowEffects : MonoBehaviour
     #region Private Methods
     private void Update() {
 
-        if (m_Start) {
-            if (TimeTools.TimeExpired(ref m_DeployTime)) {
+        if (m_Start)
+        {
+            if (m_DeployTime.IsExpired)
+            {
                 DeployBodyParts();
                 m_DeployTime = Random.Range(MIN_DEPLOY_TIME, MAX_DEPLOY_TIME);
             }
-            if (TimeTools.TimeExpired(ref m_ResetTime)) {
+            if (m_ResetTime.IsExpired)
+            {
                 Reset();
                 m_Audio.clip = m_audioClips[2];
                 m_Audio.Play();
@@ -82,8 +84,8 @@ public class StartWindowEffects : MonoBehaviour
         }
     }
 
-    private void DeployBodyParts() {
-
+    private void DeployBodyParts()
+    {
         GameObject effectInstance = m_SOEffectHandler.PlayEffect(EffectEnums.SwarmerDeathExplosion, transform.position);
         effectInstance.transform.parent = m_BodyPartsContainer.transform;
         m_Audio.clip = m_audioClips[Random.Range(MIN_AUDIO_CLIP, MAX_AUDIO_CLIP)];
@@ -110,12 +112,16 @@ public class StartWindowEffects : MonoBehaviour
     {
         m_Start = false;
         m_DeployTime = Random.Range(MIN_DEPLOY_TIME, MAX_DEPLOY_TIME);
-        m_ResetTime = m_DefaultResetTime;
-        if (m_BodyPartsContainer != null) {
+        m_ResetTime.Reset();
+
+        if (m_BodyPartsContainer != null)
+        {
             Destroy(m_BodyPartsContainer);
         }
-        m_BodyPartsContainer = new GameObject();
-        m_BodyPartsContainer.name = Tags.EffectsTag;
+        m_BodyPartsContainer = new GameObject
+        {
+            name = Tags.EffectsTag
+        };
         Instantiate(m_player, m_playerSpawnPos.position, Quaternion.identity);
     }
 

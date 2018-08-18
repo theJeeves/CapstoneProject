@@ -7,13 +7,15 @@ using UnityEngine.Events;
 /// WILL BE THE ATTACKS.
 /// </summary>
 
-public enum EnemyType {
+public enum EnemyType
+{
     Sniper,
     Swarmer,
     AcidSwarmer,
     ExplodingSwamer,
     Charger,
-    Flying
+    Flying,
+    None
 }
 
 public class EnemyBasicBehaviors : MonoBehaviour {
@@ -55,7 +57,7 @@ public class EnemyBasicBehaviors : MonoBehaviour {
     private SOEnemyBodyParts _SOBodyParts;
 
     private Transform[] _effectPositions;
-    private float m_effectDelay = 0.0f;
+    private XFloat m_EffectDelay = 0.0f;
 
     #endregion Private Fields
 
@@ -64,16 +66,20 @@ public class EnemyBasicBehaviors : MonoBehaviour {
     #region Private Initializers
     private void OnEnable() {
 
-        if (enemyType == EnemyType.AcidSwarmer) {
-            m_effectDelay = UnityEngine.Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
+        if (enemyType == EnemyType.AcidSwarmer)
+        {
+            m_EffectDelay = Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
         }
-        else if (enemyType == EnemyType.ExplodingSwamer) {
+        else if (enemyType == EnemyType.ExplodingSwamer)
+        {
             _effect = _SOEffectHandler.PlayEffect(EffectEnums.SwarmerExplosiveEffect, transform.position);
         }
-        else if (enemyType == EnemyType.Flying) {
+        else if (enemyType == EnemyType.Flying)
+        {
             _effect = _SOEffectHandler.PlayEffect(EffectEnums.Flying_Swarmer_Exhaust, transform.position);
         }
-        else if (enemyType == EnemyType.Charger) {
+        else if (enemyType == EnemyType.Charger)
+        {
             _effect = _SOEffectHandler.PlayEffect(EffectEnums.ChargerExhaust, transform.position);
         }
 
@@ -148,32 +154,36 @@ public class EnemyBasicBehaviors : MonoBehaviour {
     #region Private Methods
     private void LateUpdate() {
 
-        if (enemyType == EnemyType.AcidSwarmer) {
-
-            if (TimeTools.TimeExpired(ref m_effectDelay)) {
+        if (enemyType == EnemyType.AcidSwarmer)
+        {
+            if (m_EffectDelay.IsExpired) 
+            {
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidSquirt, _effectPositions[1].position, transform.eulerAngles.z + Z_ANGLE_OFFSET);
 
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidBall, _effectPositions[1].position);
-                m_effectDelay = UnityEngine.Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
+                m_EffectDelay = Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
             }
         }
 
-        else if (_effect != null && enemyType == EnemyType.ExplodingSwamer) {
+        else if (_effect != null && enemyType == EnemyType.ExplodingSwamer)
+        {
             _effect.transform.position = _effectPositions[1].position;
         }
-        else if (_effectPositions != null && enemyType == EnemyType.Flying) {
+        else if (_effectPositions != null && enemyType == EnemyType.Flying)
+        {
             _effect.transform.position = new Vector3(_effectPositions[1].position.x, _effectPositions[1].position.y, 0.0f);
 
-            if (TimeTools.TimeExpired(ref m_effectDelay)) {
+            if (m_EffectDelay.IsExpired)
+            {
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidSquirt, _effectPositions[2].position, transform.eulerAngles.z + Z_ANGLE_OFFSET);
 
                 _SOEffectHandler.PlayEffect(EffectEnums.AcidBall, _effectPositions[2].position);
-                m_effectDelay = UnityEngine.Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
+                m_EffectDelay = Random.Range(MIN_EFFECT_DELAY, MAX_EFFECT_DELAY);
             }
 
         }
-        else if (_effectPositions != null && enemyType == EnemyType.Charger) {
-
+        else if (_effectPositions != null && enemyType == EnemyType.Charger)
+        {
             _effect.transform.position = new Vector3(_effectPositions[2].position.x, _effectPositions[2].position.y, 1.0f);
             _effect.transform.localEulerAngles = new Vector3(0.0f, 0.0f, CHARGER_Z_ANGLE_OFFSET * _effectPositions[1].localScale.x);
         }
@@ -183,9 +193,10 @@ public class EnemyBasicBehaviors : MonoBehaviour {
     // DAMAGE THE PLAYER.
     private void OnCollisionEnter2D(Collision2D otherGO) {
 
-        if (otherGO.gameObject.tag == Tags.PlayerTag) {
-
-            if (enemyType == EnemyType.Flying) {
+        if (otherGO.gameObject.tag == Tags.PlayerTag)
+        {
+            if (enemyType == EnemyType.Flying)
+            {
                 otherGO.gameObject.GetComponent<PlayerHealth>().DecrementPlayerHealth(FLYING_DAMAGE_AMOUNT);
                 int direction = otherGO.gameObject.transform.position.x > transform.position.x ? 1 : -1;
                 otherGO.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(FLYING_X_FORCE * direction, FLYING_Y_FORCE);
@@ -195,7 +206,8 @@ public class EnemyBasicBehaviors : MonoBehaviour {
 
     private void DeployBodyParts() {
 
-        for (int i = 0; i < _SOBodyParts.bodyParts.Length; ++i) {
+        for (int i = 0; i < _SOBodyParts.bodyParts.Length; ++i)
+        {
             GameObject instance = Instantiate(_SOBodyParts.bodyParts[i], transform.position, Quaternion.identity) as GameObject;
             instance.GetComponent<Rigidbody2D>().AddForce(new Vector2(UnityEngine.Random.Range(MIN_X_BODY_PARTS, MAX_X_BODY_PARTS), UnityEngine.Random.Range(MIN_Y_BODY_PARTS, MAX_Y_BODY_PARTS)), ForceMode2D.Impulse);
             instance.GetComponent<Rigidbody2D>().AddTorque(UnityEngine.Random.Range(MIN_TORQUE, MAX_TORQUE));

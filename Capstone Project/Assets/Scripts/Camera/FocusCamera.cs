@@ -33,8 +33,7 @@ public class FocusCamera : MonoBehaviour
     private BoxCollider2D m_Collider;
 
     private int m_Length = 0;
-    private float m_MovementTime = 0.0f;
-    private float m_DefaultMovementTime = 0.5f;
+    private XFloat m_MovementTime = 0.5f;
 
     #endregion Private Fields
 
@@ -73,7 +72,7 @@ public class FocusCamera : MonoBehaviour
     {
         bool allowAction = m_Collider.enabled;
         allowAction &= otherGO.tag == Tags.PlayerTag;
-        allowAction &= TimeTools.TimeExpired(ref m_MovementTime);
+        allowAction &= m_MovementTime.IsExpired;
 
         if (allowAction)
         {
@@ -139,7 +138,7 @@ public class FocusCamera : MonoBehaviour
     {
         if (health <= 0)
         {
-            m_MovementTime = m_DefaultMovementTime;
+            m_MovementTime.Reset();
         }
     }
 

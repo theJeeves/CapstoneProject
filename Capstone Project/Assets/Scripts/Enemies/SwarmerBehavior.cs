@@ -40,8 +40,7 @@ public class SwarmerBehavior : MonoBehaviour {
     private float m_Offset = float.NaN;
     private EnemyType m_EnemyType;
     private UnityAnimator m_Animator = null;
-    private float m_Timer = 0.0f;
-    private float m_LandingDuration = 0.0f;
+    private XFloat m_LandingDelay = 0.0f;
 
     #endregion Private Fields
 
@@ -66,18 +65,19 @@ public class SwarmerBehavior : MonoBehaviour {
 
     private void Update() {
 
-        if (m_Animator == null) {
+        if (m_Animator == null)
+        {
             m_Animator = GetComponent<SpriterDotNetUnity.SpriterDotNetBehaviour>().Animator;
             m_Animator.Play(GetAnimation(1));
         }
 
         if (_canMove) {
 
-            if (m_Timer != 0.0f && TimeTools.TimeExpired(ref m_Timer))
+            if (m_LandingDelay != null && m_LandingDelay.IsExpired)
             {
                 m_Animator.Play(GetAnimation(2));
                 GetComponent<AudioSource>().Play();
-                m_Timer = 0.0f;
+                m_LandingDelay = null;
             }
 
             m_Offset = m_MovingRight ? m_GOBox.bounds.max.x : m_GOBox.bounds.min.x;
@@ -108,10 +108,11 @@ public class SwarmerBehavior : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D otherGO)
     {
-        if (otherGO?.gameObject.tag == Tags.SolidGroundTag && !_canMove) {
+        if (otherGO?.gameObject.tag == Tags.SolidGroundTag && !_canMove)
+        {
             m_Animator.Play(GetAnimation(0));
             _canMove = true;
-            m_Timer = m_LandingDuration;
+            m_LandingDelay = (m_Animator.GetAnimations().ToList()[0].Length) * MS_CONVERSION;
         }
         else if (m_EnemyType == EnemyType.ExplodingSwamer && otherGO?.gameObject.tag == Tags.PlayerTag)
         {
@@ -122,9 +123,7 @@ public class SwarmerBehavior : MonoBehaviour {
 
     private string GetAnimation(int animationNum)
     {
-        List<string> animations = m_Animator.GetAnimations().ToList();
-        m_LandingDuration = animations[0].Length * MS_CONVERSION;
-        return animations[animationNum];
+        return m_Animator.GetAnimations().ToList()[animationNum];
     }
 
     #endregion Private Methods

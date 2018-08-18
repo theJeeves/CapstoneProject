@@ -16,15 +16,15 @@ public class EnableCollider : MonoBehaviour {
     #endregion Public Fields
 
     #region Private Fields
-    private float m_delayTime = 0.25f;
+    private XFloat m_Delay = 0.25f;
 
     #endregion Private Fields
 
     #endregion Fields
 
     #region Private Initializers
-    private void Start() {
-
+    private void Start()
+    {
         if (!mainMenu) 
         {
             GetComponent<Rigidbody2D>().gravityScale = Random.Range(MIN_GRAVITY_SCALE, MAX_GRAVITY_SCALE);
@@ -35,10 +35,12 @@ public class EnableCollider : MonoBehaviour {
 
     #region Private Methods
     // Update is called once per frame
-    private void Update () {
-	
-        if (TimeTools.TimeExpired(ref m_delayTime)) {
+    private void Update ()
+    {	
+        if (m_Delay != null && m_Delay.IsExpired)
+        {
             GetComponent<PolygonCollider2D>().enabled = true;
+            m_Delay = null;
         }
 	}
 

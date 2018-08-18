@@ -174,8 +174,9 @@ public class Shotgun : AbstractGun {
             yield return new WaitForSeconds(0.1f);
             Reload();
         }
-        else {
-            yield return new WaitForSeconds(m_shotDelay);
+        else
+        {
+            yield return new WaitForSeconds(m_defaultShotDelay);
         }
 
         _canShoot = true;

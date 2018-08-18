@@ -47,11 +47,13 @@ public class MachineGun : AbstractGun {
             DisplayAmmo?.Invoke();
             _weaponManager.reloaded = false;
         }
-        else if (numOfRounds <= 0) {
+        else if (numOfRounds <= 0)
+        {
             Reload();
         }
 
-        if (numOfRounds == _ammoCapacity) {
+        if (numOfRounds == _ammoCapacity)
+        {
             _canShoot = true;
         }
 
@@ -87,37 +89,44 @@ public class MachineGun : AbstractGun {
     #endregion Events
 
     #region Private Methods
-    private void Update() {
-        if (m_MuzzleFlashGO != null) {
+    private void Update()
+    {
+        if (m_MuzzleFlashGO != null)
+        {
             m_MuzzleFlashGO.transform.position = _barrelNorm.transform.position;
         }
-        if (TimeTools.TimeExpired(ref m_shotDelay)) {
+        if (m_shotDelay.IsExpired)
+        {
             _canShoot = true;
         }
 
         _grounded = _collisionState.OnSolidGround;
     }
 
-    private void Lift() {
-
-        if (m_CanLift && _controller.GetButtonPress(Buttons.AimDown) && _direction.y == -1.0f) {
+    private void Lift()
+    {
+        if (m_CanLift && _controller.GetButtonPress(Buttons.AimDown) && _direction.y == -1.0f)
+        {
             _initialMoveRequest.RequestMovement();
             m_CanLift = false;
         }
     }
 
-    private void OnPlayerActionButtonPress(Buttons button) {
-
-        if (button == Buttons.Shoot && numOfRounds > 0) {
-
-            if (!_reloading) {
+    private void OnPlayerActionButtonPress(Buttons button)
+    {
+        if (button == Buttons.Shoot && numOfRounds > 0)
+        {
+            if (!_reloading)
+            {
 
                 _moveRequest.RequestMovement();
 
-                if (_canShoot) {
+                if (_canShoot)
+                {
                     Fire();
                     // If the last round has gone out, send out the event to hide the ammo type display.
-                    if (--numOfRounds <= 0) {
+                    if (--numOfRounds <= 0)
+                    {
                         EmptyClip?.Invoke();
 
                         // Determine if the player was on the ground when they shot the last round in the chamber.
@@ -131,25 +140,30 @@ public class MachineGun : AbstractGun {
 
         // Only call for the ammo to hide if the player has no more bullets in the clip
         // and are in the air. Otherwise, it is handle in the if statement above.
-        else if (numOfRounds <= 0 && !_grounded) {
+        else if (numOfRounds <= 0 && !_grounded)
+        {
             EmptyClip?.Invoke();
         }
     }
 
-    private void Fire() {
+    private void Fire()
+    {
         // Set can shoot to false for a delay between shots, ask for the muzzle flash, ask for the crystal bullet, and request a screen shake.
         // Lastly, start the timer for the shot delay
-        if (_canShoot) {
+        if (_canShoot)
+        {
             _canShoot = false;
 
             int firingAngle = FiringAngle();
 
             m_MuzzleFlashGO = _SOEffectHandler.PlayEffect(EffectEnums.MGMuzzleFlash, _barrelNorm.transform.position, firingAngle);
 
-            if (firingAngle == 270) {
+            if (firingAngle == 270)
+            {
                 _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrelAlt.transform.position, firingAngle, _direction.x, _direction.y);
             }
-            else {
+            else
+            {
                 _SOEffectHandler.PlayEffect(EffectEnums.CrystalBullet, _barrelNorm.transform.position, firingAngle, _direction.x, _direction.y);
             }
             Lift();
@@ -161,18 +175,22 @@ public class MachineGun : AbstractGun {
         }
     }
 
-    private int FiringAngle() {
+    private int FiringAngle()
+    {
+        if (_controller.GetButtonPress(Buttons.AimDown))
+        {
 
-        if (_controller.GetButtonPress(Buttons.AimDown)) {
-
-            if (_controller.GetButtonPress(Buttons.AimRight) || _controller.GetButtonPress(Buttons.AimLeft)) {
+            if (_controller.GetButtonPress(Buttons.AimRight) || _controller.GetButtonPress(Buttons.AimLeft))
+            {
                 _direction = (_endNorm.position - _barrelNorm.position).normalized;
             }
-            else {
+            else
+            {
                 _direction = (_endAlt.position - _barrelAlt.position).normalized;
             }
         }
-        else {
+        else
+        {
             _direction = (_endNorm.position - _barrelNorm.position).normalized;
         }
         _direction = new Vector2(Mathf.Round(_direction.x), Mathf.Round(_direction.y));

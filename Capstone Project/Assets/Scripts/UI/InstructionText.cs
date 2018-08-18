@@ -12,21 +12,9 @@ public class InstructionText : MonoBehaviour {
     [SerializeField]
     private bool _enableInput = false;
 
-    [SerializeField]
-    private float m_displayTime = 3.0f;
-
-    private float m_DefaultDisplayTime = 3.0f;
-    private bool m_InTrigger = false;
-    private bool m_Ds4 = false;
+    private XFloat m_DisplayTime = 3.0f;
 
     #endregion Private Fields
-
-    #region Initializers
-    private void Start() {
-        m_displayTime = m_DefaultDisplayTime;
-    }
-
-    #endregion Initializers
 
     #region Events
     public static event UnityAction<string> DisplayHint;
@@ -35,40 +23,42 @@ public class InstructionText : MonoBehaviour {
     #endregion Events
 
     #region Private Methods
-    private void Update() {
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.IsNotPlayer()) { return; }
 
-        if (m_InTrigger && m_displayTime != float.NegativeInfinity) {
-            TimeTools.TimeExpired(ref m_displayTime);
+        if (m_DisplayTime != null)
+        {
+            bool isDS4 = InputManager.Instance.GetComponent<InputManager>().controllerType == 0 ? true : false;
+
+            DisplayHint?.Invoke(isDS4 ? _ds4Instructions : _xboxInstructions);
+
+            if (_enableInput)
+            {
+                InputManager.Instance.GetComponent<InputManager>().StartInput();
+            }
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D player) {
+    private void OnTriggerStay2D(Collider2D collider)
+    {
+        if (collider.IsNotPlayer()) { return; }
 
-        m_InTrigger = true;
-
-        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == Tags.PlayerTag) {
-
-            m_Ds4 = InputManager.Instance.GetComponent<InputManager>().controllerType == 0 ? true : false;
-            if (m_Ds4) {
-                DisplayHint?.Invoke(_ds4Instructions);
-            }
-            else {
-                DisplayHint?.Invoke(_xboxInstructions);
-            }
-
-            if (_enableInput) { InputManager.Instance.GetComponent<InputManager>().StartInput(); }
+        if (m_DisplayTime != null && m_DisplayTime.IsExpired)
+        {
+            m_DisplayTime = null;
         }
     }
 
-    private void OnTriggerExit2D(Collider2D player) {
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (collider.IsNotPlayer()) { return; }
 
-        m_InTrigger = false;
+        HideHint?.Invoke();
 
-        if (m_displayTime != float.NegativeInfinity && player.gameObject.tag == Tags.PlayerTag) {
-
-            HideHint?.Invoke();
-
-            m_displayTime = m_displayTime <= 0.0f ? float.NegativeInfinity : m_DefaultDisplayTime;
+        if (m_DisplayTime != null)
+        {
+            m_DisplayTime.Reset();
         }
     }
 
